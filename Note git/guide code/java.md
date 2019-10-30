@@ -245,141 +245,153 @@ Ví dụ như request car thì car factory sẽ inject các component của nó 
 2. Create a constructor in your class for injections  
 3. Configure the dependency injection in Spring config file  
 #### FAQ: What is the purpose for the no arg constructor?
-Question:
+**Question**:
 I was wondering why you created a no arg constructor? I thought that they are implied by Java and only required when you also have an overloaded constructor. Or is this a Spring specific thing?
 ---
-Answered by: Oleksandr Palamarchuk
-When you don’t define any constructor in your class, compiler defines default one for you, however when you declare any constructor (in your example you have already defined a parameterized constructor), compiler doesn’t do it for you.
-Since you have defined a constructor in class code, compiler didn’t create default one. While creating object you are invoking default one, which doesn’t exist in class code. Then the code gives an compilation error.
-Development Process - Setter Injection
-1. Create setter method(s) in your class for injections( must create no-arg constructor)
-2. Configure the dependency injection in Spring config file
-Injecting Literal Values
-Development Process
-1. Create setter method(s) in your class for injections
-2. Configure the injection in Spring config file
-Question:
-For the CricketCoach example with Setter Injection, why do we use the CricketCoach class instead of the Coach interface?
-Answer:
-The getTeam() method is only defined in the CricketCoach class. It is not part of the Coach interface.
-As a result, you would need the following code:
+**Answered by: Oleksandr Palamarchuk**
+When you don’t define any constructor in your class, compiler defines default one for you, however when you declare any constructor (in your example you have already defined a parameterized constructor), compiler doesn’t do it for you.  
+Since you have defined a constructor in class code, compiler didn’t create default one. While creating object you are invoking default one, which doesn’t exist in class code. Then the code gives an compilation error.  
+
+#### **Development Process - Setter Injection**
+1. Create setter method(s) in your class for injections( must create no-arg constructor)  
+2. Configure the dependency injection in Spring config file  
+#### **Injecting Literal Values**
+**Development Process**
+1. Create setter method(s) in your class for injections  
+2. Configure the injection in Spring config file  
+**Question**:
+For the CricketCoach example with Setter Injection, why do we use the CricketCoach class instead of the Coach interface?  
+**Answer**:
+The getTeam() method is only defined in the CricketCoach class. It is not part of the Coach interface.  
+As a result, you would need the following code:  
+```java
     CricketCoach theCricketCoach = context.getBean("myCricketCoach", CricketCoach.class); 
+
+```
+The Coach interface has two methods: getDailyWorkout and getDailyFortune  
+The CricketCoach class has four methods: getDailyWorkout, getDailyFortune, getTeam and setTeam  
 ---
-The Coach interface has two methods: getDailyWorkout and getDailyFortune
-The CricketCoach class has four methods: getDailyWorkout, getDailyFortune, getTeam and setTeam
----
-When you retrieve a bean from the Spring container using the Coach interface:
+When you retrieve a bean from the Spring container using the Coach interface:  
+```java
     Coach theCricketCoach = context.getBean("myCricketCoach", Coach.class); 
-You only have access to the methods defined in the Coach interface: getDailyWorkout and getDailyFortune. Even though the actual implementation has additional methods, you only have visibility to methods that are defined at the Coach interface level.
----
-When you retrieve a bean from the Spring container using the CricketCoach class:
+
+```
+You only have access to the methods defined in the Coach interface: getDailyWorkout and getDailyFortune. Even though the actual implementation has additional methods, you only have visibility to methods that are defined at the Coach interface level.  
+#
+When you retrieve a bean from the Spring container using the CricketCoach class:  
+```java
     CricketCoach theCricketCoach = context.getBean("myCricketCoach", CricketCoach.class); 
+
+```
 You have access to the methods defined in the Coach interface: getDailyWorkout and getDailyFortune.
 ALSO, you have access to the additional methods defined in the CricketCoach class: getTeam, setTeam.
 ---
 The bottom line is it depends on how you retrieve the object and assign it ... that determines the visibility you have to the methods.
-Injecting Values from a Properties File
-1. Create Properties File
-2. Load Properties File in Spring config file
-3. Reference values from Properties File
-Practice Activity #2 - Dependency Injection with XML Configuration
+
+#### Injecting Values from a Properties File
+1. Create Properties File  
+2. Load Properties File in Spring config file  
+3. Reference values from Properties File  
+**Practice Activity #2 - Dependency Injection with XML Configuration**
 1. Define a new implementation for the FortuneService.
-    a. When the getFortune() method is called it should return a random fortune from the array.
-    b. Your fortune service should define three fortunes in an array. 
-2. Inject your new dependency into your Coach implementation.
-3. Test your application to verify you are retrieving random fortunes.
+    a. When the getFortune() method is called it should return a random fortune from the array.  
+    b. Your fortune service should define three fortunes in an array.   
+2. Inject your new dependency into your Coach implementation.  
+3. Test your application to verify you are retrieving random fortunes.  
 
 Compare your code to the solution. The solution is available here:
-- http://www.luv2code.com/downloads/udemy-spring-hibernate/solution-practice-activities.zip
-6. Spring Bean Scopes and Lifecycle
+- http://www.luv2code.com/downloads/udemy-spring-hibernate/solution-practice-activities.zip  
+## 6. Spring Bean Scopes and Lifecycle
 Spring Container creates only one instance of the bean, by default
-• It is cached in memory
-• All requests for the bean
-• will return a SHARED reference to the SAME bean
-Explicitly Specify Bean Scope and type  - pdf
-4. Bean Lifecycle
-1. Define your methods for init and destroy
-2. Configure the method names in Spring config file
+* • It is cached in memory
+* • All requests for the bean
+* • will return a SHARED reference to the SAME bean
+Explicitly Specify Bean Scope and type  - pdf  
+### 4. Bean Lifecycle
+1. Define your methods for init and destroy  
+2. Configure the method names in Spring config file  
 
-Bean Lifecycle Methods / Hooks
-• You can add custom code during bean initialization
-• Calling custom business logic methods
-• Setting up handles to resources (db, sockets, file etc)
+**Bean Lifecycle Methods / Hooks**
+* • You can add custom code during bean initialization
+* • Calling custom business logic methods
+* • Setting up handles to resources (db, sockets, file etc)
  
-• You can add custom code during bean destruction
-• Calling custom business logic method
-• Clean up handles to resources (db, sockets, files etc)
+* • You can add custom code during bean destruction
+* • Calling custom business logic method
+* • Clean up handles to resources (db, sockets, files etc)
  
-Special Note about init and destroy Method Signatures
-When using XML configuration, I want to provide additional details regarding the method signatures of the init-method  and destroy-method .
-Access modifier
-The method can have any access modifier (public, protected, private)
-Return type
-The method can have any return type. However, "void' is most commonly used. If you give a return type just note that you will not be able to capture the return value. As a result, "void" is commonly used.
-Method name
-The method can have any method name.
-Arguments
-The method can not accept any arguments. The method should be no-arg.
-There is a subtle point you need to be aware of with "prototype" scoped beans.
+**Special Note about init and destroy Method Signatures**
+When using XML configuration, I want to provide additional details regarding the method signatures of the init-method  and destroy-method .  
+**Access modifier**
+The method can have any access modifier (public, protected, private)  
+**Return type**
+The method can have any return type. However, "void' is most commonly used. If you give a return type just note that you will not be able to capture the return value. As a result, "void" is commonly used.  
+**Method name**
+The method can have any method name.  
+**Arguments**
+The method can not accept any arguments. The method should be no-arg.  
+There is a subtle point you need to be aware of with "prototype" scoped beans.  
 For "prototype" scoped beans, Spring does not call the destroy method.  Gasp!  
 ---
-In contrast to the other scopes, Spring does not manage the complete lifecycle of a prototype bean: the container instantiates, configures, and otherwise assembles a prototype object, and hands it to the client, with no further record of that prototype instance.
-Thus, although initialization lifecycle callback methods are called on all objects regardless of scope, in the case of prototypes, configured destruction lifecycle callbacks are not called. The client code must clean up prototype-scoped objects and release expensive resources that the prototype bean(s) are holding. 
+_In contrast to the other scopes, Spring does not manage the complete lifecycle of a prototype bean: the container instantiates, configures, and otherwise assembles a prototype object, and hands it to the client, with no further record of that prototype instance.  
+Thus, although initialization lifecycle callback methods are called on all objects regardless of scope, in the case of prototypes, configured destruction lifecycle callbacks are not called. The client code must clean up prototype-scoped objects and release expensive resources that the prototype bean(s) are holding._
 
 ---
-This also applies to both XML configuration and Annotation-based configuration.
-7. Spring Configuration with Java Annotations - Inversion of Control
-1. Annotations Overview - Component Scanning
-Development Process
-1. Enable component scanning in Spring config file
-2. Add the @Component Annotation to your Java classes
-3. Retrieve bean from Spring container
+This also applies to both XML configuration and Annotation-based configuration.  
+## 7. Spring Configuration with Java Annotations - Inversion of Control
+### 1. Annotations Overview - Component Scanning
+**Development Process**
+1. Enable component scanning in Spring config file  
+2. Add the @Component Annotation to your Java classes  
+3. Retrieve bean from Spring container  
 
 @Component(“beanID”)
-5. Default Component Names - Overview
-8. Spring Configuration with Java Annotations - Dependency Injection
-1. Constructor Injection - Overview
-For dependency injection, Spring can use auto wiring
-• Spring will look for a class that matches the property
-• matches by type: class or interface
-• Spring will inject it automatically … hence it is autowired
-Autowiring Injection Types
-• Constructor Injection
-• Setter Injection
-• Field Injections
-Development Process - Constructor Injection
-1. Define the dependency interface and class
+### 5. Default Component Names - Overview
+## 8. Spring Configuration with Java Annotations - Dependency Injection
+### 1. Constructor Injection - Overview
+For dependency injection, Spring can use auto wiring  
+* • Spring will look for a class that matches the property
+* • matches by type: class or interface
+* • Spring will inject it automatically … hence it is autowired
+**Autowiring Injection Types**
+* • Constructor Injection
+* • Setter Injection
+* • Field Injections
+**Development Process - Constructor Injection**
+1. Define the dependency interface and class  
 2. Create a constructor in your class for injections
 3. Configure the dependency injection with @Autowired Annotation
-Question
-I have finished the video "Constructor Injection - Writing Code part2".
-I have commented the Autowired annotation. But still it worked. How did it work?
+**Question**
+I have finished the video "Constructor Injection - Writing Code part2".  
+I have commented the Autowired annotation. But still it worked. How did it work?  
+```java
     //@Autowired
     public TennisCoach(FortuneService theFortuneService) {
         System.out.println(" theFortuneService " + theFortuneService);
         fortuneService = theFortuneService;
     }
-===
-Answer
-This is a new feature of Spring 4.3.
-Here is the snippet from the Spring Docs.
-Section 1.9.2: Autowired
-As of Spring Framework 4.3, an @Autowired annotation on such a constructor is no longer necessary if the target bean only defines one constructor to begin with. However, if several constructors are available, at least one must be annotated to teach the container which one to use.
-I personally prefer to use the @Autowired annotation because it makes the code more readable. But as mentioned, the @Autowired is not required for this scenario.
+
+```
+**Answer**
+This is a new feature of Spring 4.3.  
+Here is the snippet from the Spring Docs.  
+Section 1.9.2: Autowired  
+As of Spring Framework 4.3, an @Autowired annotation on such a constructor is no longer necessary if the target bean only defines one constructor to begin with. However, if several constructors are available, at least one must be annotated to teach the container which one to use.  
+I personally prefer to use the @Autowired annotation because it makes the code more readable. But as mentioned, the @Autowired is not required for this scenario.  
 ---
 See link to the docs.
 https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-autowired-annotation
-6. Setter Injection - Overview
-1. Create setter method(s) in your class for injections (có constructor)
-2. Configure the dependency injection with @Autowired Annotation
-8. Method Injection
+### 6. Setter Injection - Overview  
+#### 1. Create setter method(s) in your class for injections (có constructor)
+#### 2. Configure the dependency injection with @Autowired Annotation
+### 8. Method Injection
 Giống như setter injection 
-9. Field Injection - Overview
-Configure the dependency injection with Autowired Annotation
+### 9. Field Injection - Overview
+Configure the dependency injection with Autowired Annotation 
 ✤ Applied directly to the field(hàm tạo)
 ✤ No need for setter methods
-11. Which Injection Type Should You Use
-12. Qualifiers for Dependency Injection - Overview
+### 11. Which Injection Type Should You Use
+### 12. Qualifiers for Dependency Injection - Overview
 Nếu có nhiều interface
 Annotations - Default Bean Names ... and the Special Case
 In general, when using Annotations, for the default bean name, Spring uses the following rule.
@@ -2431,11 +2443,27 @@ Before => after => hàm main
   - [5. Spring Dependency Injection - XML Configuration](#5-spring-dependency-injection---xml-configuration)
       - [FAQ: What is the purpose for the no arg constructor?](#faq-what-is-the-purpose-for-the-no-arg-constructor)
   - [I was wondering why you created a no arg constructor? I thought that they are implied by Java and only required when you also have an overloaded constructor. Or is this a Spring specific thing?](#i-was-wondering-why-you-created-a-no-arg-constructor-i-thought-that-they-are-implied-by-java-and-only-required-when-you-also-have-an-overloaded-constructor-or-is-this-a-spring-specific-thing)
+      - [**Development Process - Setter Injection**](#development-process---setter-injection)
+      - [**Injecting Literal Values**](#injecting-literal-values)
   - [The CricketCoach class has four methods: getDailyWorkout, getDailyFortune, getTeam and setTeam](#the-cricketcoach-class-has-four-methods-getdailyworkout-getdailyfortune-getteam-and-setteam)
-  - [You only have access to the methods defined in the Coach interface: getDailyWorkout and getDailyFortune. Even though the actual implementation has additional methods, you only have visibility to methods that are defined at the Coach interface level.](#you-only-have-access-to-the-methods-defined-in-the-coach-interface-getdailyworkout-and-getdailyfortune-even-though-the-actual-implementation-has-additional-methods-you-only-have-visibility-to-methods-that-are-defined-at-the-coach-interface-level)
   - [ALSO, you have access to the additional methods defined in the CricketCoach class: getTeam, setTeam.](#also-you-have-access-to-the-additional-methods-defined-in-the-cricketcoach-class-getteam-setteam)
+      - [Injecting Values from a Properties File](#injecting-values-from-a-properties-file)
+  - [6. Spring Bean Scopes and Lifecycle](#6-spring-bean-scopes-and-lifecycle)
+    - [4. Bean Lifecycle](#4-bean-lifecycle)
   - [For "prototype" scoped beans, Spring does not call the destroy method. Gasp!](#for-%22prototype%22-scoped-beans-spring-does-not-call-the-destroy-method-gasp)
+  - [7. Spring Configuration with Java Annotations - Inversion of Control](#7-spring-configuration-with-java-annotations---inversion-of-control)
+    - [1. Annotations Overview - Component Scanning](#1-annotations-overview---component-scanning)
+    - [5. Default Component Names - Overview](#5-default-component-names---overview)
+  - [8. Spring Configuration with Java Annotations - Dependency Injection](#8-spring-configuration-with-java-annotations---dependency-injection)
+    - [1. Constructor Injection - Overview](#1-constructor-injection---overview)
   - [I personally prefer to use the @Autowired annotation because it makes the code more readable. But as mentioned, the @Autowired is not required for this scenario.](#i-personally-prefer-to-use-the-autowired-annotation-because-it-makes-the-code-more-readable-but-as-mentioned-the-autowired-is-not-required-for-this-scenario)
+    - [6. Setter Injection - Overview](#6-setter-injection---overview)
+      - [1. Create setter method(s) in your class for injections (có constructor)](#1-create-setter-methods-in-your-class-for-injections-c%c3%b3-constructor)
+      - [2. Configure the dependency injection with @Autowired Annotation](#2-configure-the-dependency-injection-with-autowired-annotation)
+    - [8. Method Injection](#8-method-injection)
+    - [9. Field Injection - Overview](#9-field-injection---overview)
+    - [11. Which Injection Type Should You Use](#11-which-injection-type-should-you-use)
+    - [12. Qualifiers for Dependency Injection - Overview](#12-qualifiers-for-dependency-injection---overview)
   - [HappyFortuneService --> happyFortuneService](#happyfortuneservice----happyfortuneservice)
   - [- https://docs.oracle.com/javase/8/docs/api/java/beans/Introspector.html#decapitalize(java.lang.String)](#httpsdocsoraclecomjavase8docsapijavabeansintrospectorhtmldecapitalizejavalangstring)
   - [Here's an example from our classroom example. I updated it to make use of constructor injection, with @Autowired and @Qualifier. Make note of the code in bold below:](#heres-an-example-from-our-classroom-example-i-updated-it-to-make-use-of-constructor-injection-with-autowired-and-qualifier-make-note-of-the-code-in-bold-below)
