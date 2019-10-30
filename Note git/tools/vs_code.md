@@ -34,5 +34,6 @@
 * CTRL SHIFT P
 * CTRL P: Find file
 
+![images](./images/148705-essential-collection.png)
 
 
