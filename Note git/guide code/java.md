@@ -25,8 +25,9 @@ Thêm vào phía trước giá trị của biến môi trường path:
 Bạn đã cài đặt và cấu hình Java thành công.
 Check: java -version
 Cách expand xem list file:
-  ![images](img/7.png)
-Quick diff
+  ![images](img/7.png)  
+  
+Quick diff  
   ![images](img/8.png)
  ![images](img/9.png) ![images](img/10.png)
 
@@ -34,19 +35,14 @@ Quick diff
 -	Cách import vào project trên eclipse: https://www.youtube.com/watch?v=fiuSckgjdmY&feature=youtu.be
 -	Cài inteliji file new project/ Hello word project
 -	Import eclipse project into inteliji: New/ Project from existing sources…/ chọn import project from external model/ rồi next
-
- 
-
- 
-
  
 -	Sau đó xóa các file desktop.ini
 -	Lợi ích của tính đa hình là có thể tạo 1 List<Animals> mà k cần biết các object ở trong vì nó kế thừa lớp Animals
 -	Types of nested class
 
 
-1. Spring Overview
-2. Downloading the Source Code and PDF Files
+## 1. Spring Overview
+## 2. Downloading the Source Code and PDF Files
 Download Source Code:
 This only includes the source files, no JAR files. You will need to add JAR files separately on your own. 
 http://www.luv2code.com/downloads/udemy-spring-hibernate/spring-hibernate-source-code-v26.zip
