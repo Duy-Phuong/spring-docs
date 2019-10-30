@@ -48,7 +48,7 @@ https://www.youtube.com/watch?v=fiuSckgjdmY&feature=youtu.be
 ## 1. Spring Overview
 ### 1. Downloading the Source Code and PDF Files  
 
-**Download Source Code:  **
+**Download Source Code:**
 This only includes the source files, no JAR files. You will need to add JAR files separately on your own.  
 http://www.luv2code.com/downloads/udemy-spring-hibernate/spring-hibernate-source-code-v26.zip  
 
@@ -64,7 +64,7 @@ http://www.luv2code.com/install-java
 
 ### 2. Spring core framework
 Core container : Factory for creating bean and manage bean dependences
-### 3. Setting Up Your Development Environment
+## 3. Setting Up Your Development Environment
 **Install apache**: https://tomcat.apache.org/  
 
 Chọn version Tomcat9/ Chọn 32-bit/64-bit Windows Service Installer
@@ -82,86 +82,87 @@ Sau đó cài đặt Apache :
 ### 4. Connecting Tomcat to Eclipse
 Connect apache to eclipse
 Vào tab server của eclipse/ chọn click link to add new server/ chọn Apache/ Tomcat 09/ rồi chọn đường link ở trong ổ C
-
  
 
-1. Downloading Spring 5 JAR Files – Overview
-Open perspective:
+### 5. Downloading Spring 5 JAR Files – Overview
+Open perspective:  
 Thêm thủ công vào http://www.luv2code.com/downloadspring =>
 http://repo.spring.io/release/org/springframework/spring/  
-chọn version release ở dưới cùng rồi chọn  spring-framework-5.1.8.RELEASE-dist.zip  để tải
+chọn version release ở dưới cùng rồi chọn  **spring-framework-5.1.8.RELEASE-dist.zip**  để tải
 
 Tạo project java bình thường, sau đó tạo thư mục lib rồi copy tất các các thư viện trong lib đã tải paste vào  
-Right click/ properties/ Java build path/ libraries/ classpath/ ấn add jar rồi chon đến thư mục lib trong project mà ta vừa tạo chọn hết tất cả các file  
+Right click/ **properties/ Java build path/ libraries/ classpath/** ấn add jar rồi chon đến thư mục lib trong project mà ta vừa tạo chọn hết tất cả các file  
 
 Nếu đúng sẽ xuất hiện Referenced libraries:
 
- 
-
-Mở perspective(ta project..): vào windows/ perspective
-4. Spring Inversion of Control - XML Configuration
-1. What is Inversion of Control
-The approach of outsourcing the construction and management of objects
-Kịch bản: pdf
-2. Code Demo - Rough Prototype Part 1
-Tạo interface để implement: 
-Spring Container
+Mở perspective(ta project..): vào **windows/ perspective**
+## 4. Spring Inversion of Control - XML Configuration
+### 1. What is Inversion of Control
+The approach of outsourcing the construction and management of objects  
+Kịch bản: pdf  
+### 2. Code Demo - Rough Prototype Part 1
+Tạo interface để implement:  
+**Spring Container**
 Primary functions
-• Create and manage objects (Inversion of Control)
-• Inject object’s dependencies (Dependency Injection)
-IOC & XML Configuration
-Ioc: tạo và quản lý object(xem pdf)
-Tạo interface Coach(HLV) và các môn thể thao tương ứng => làm sao để dễ dàng chuyển đổi giữa các môn thể thao và không phải code cứng mà chỉ dùng file config
-Xem tiếp file 12-spring-ioc-basics-overview
+* Create and manage objects (Inversion of Control)
+* Inject object’s dependencies (Dependency Injection)
+**IOC & XML Configuration**
+Ioc: tạo và quản lý object(xem pdf)  
+Tạo interface Coach(HLV) và các môn thể thao tương ứng => làm sao để dễ dàng chuyển đổi giữa các môn thể thao và không phải code cứng mà chỉ dùng file config  
+Xem tiếp file 12-spring-ioc-basics-overview  
 
-Spring Development Process
-1. Configure your Spring Beans
-2. Create a Spring Container
-3. Retrieve Beans from Spring Container
+**Spring Development Process**
+* 1. Configure your Spring Beans
+* 2. Create a Spring Container
+* 3. Retrieve Beans from Spring Container
 
-3 ways to config Spring container: 12-spring-ioc-basics-overview.pdf
+**3 ways to config Spring container:** 12-spring-ioc-basics-overview.pdf  
 
-FAQ: What is a Spring Bean?
-A "Spring Bean" is simply a Java object.
-When Java objects are created by the Spring Container, then Spring refers to them as "Spring Beans".
-Spring Beans are created from normal Java classes .... just like Java objects.
-Here's a blurb from the Spring Reference Manual
+#### FAQ: What is a Spring Bean?
+A "Spring Bean" is simply a Java object.  
+When Java objects are created by the Spring Container, then Spring refers to them as "Spring Beans".  
+Spring Beans are created from normal Java classes .... just like Java objects.  
+Here's a blurb from the Spring Reference Manual  
  
-Source: https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-introduction
-Source: spring-hibernate-source-code-v26\01-spring-core-5\spring-demo-one\starter-files copy file applicationContext.xml để bắt đầu project ioc
+Source: https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-introduction  
+Source: spring-hibernate-source-code-v26\01-spring-core-5\spring-demo-one\starter-files copy file applicationContext.xml để bắt đầu project ioc  
 Why do we specify the Coach interface in getBean()?
-For example:
+**For example:**
+```java
 Coach theCoach = context.getBean("myCoach", Coach.class); 
-Answer
-When we pass the interface to the method, behind the scenes Spring will cast the object for you.
+```
+Answer  
+When we pass the interface to the method, behind the scenes Spring will cast the object for you.  
+```java
 context.getBean("myCoach", Coach.class)  
+```
 Practice Activity #1 - Inversion of Control with XML Configuration
 Practice Activity #1 - Inversion of Control with XML Configuration
-1.	Define a new implementation for the Coach interface. You can use whatever sport you would like.
-2.	Reference your new implementation in the Spring config file.
-3.	Test your application to verify you are retrieving information from your new Coach implementation.
+1.	Define a new implementation for the Coach interface. You can use whatever sport you would like.  
+2.	Reference your new implementation in the Spring config file.  
+3.	Test your application to verify you are retrieving   information from your new Coach implementation.  
    
-You can check your code against the solution. The solution is available here:
-http://www.luv2code.com/downloads/udemy-spring-hibernate/solution-practice-activities.zip
-Nếu scope là prototype thì nó trỏ cùng 1 object khi get nhiều lần từ bean
+You can check your code against the solution. The solution is available here:  
+http://www.luv2code.com/downloads/udemy-spring-hibernate/solution-practice-activities.zip  
+Nếu scope là prototype thì nó trỏ cùng 1 object khi get nhiều lần từ bean  
 
- 
-Add logging
-HEADS UP - Add Logging Messages in Spring 5.1
+**Add logging**
+#### HEADS UP - Add Logging Messages in Spring 5.1
 The Problem
-In Spring 5.1, the Spring Development team changed the logging levels internally. As a result, by default you will no longer see the red logging messages at the INFO level. This is different than in the videos.
+In Spring 5.1, the Spring Development team changed the logging levels internally. As a result, by default you will no longer see the red logging messages at the INFO level. This is different than in the videos.  
  
-The Solution
-If you would like to configure your app to show similar logging messages as in the video, you can make the following updates listed below. Note, you will not see the EXACT same messages, since the Spring team periodically changes the text of the internal logging messages. However, this should give you some additional logging data.
+The Solution  
+If you would like to configure your app to show similar logging messages as in the video, you can make the following updates listed below. Note, you will not see the EXACT same messages, since the Spring team periodically changes the text of the internal logging messages. However, this should give you some additional logging data.  
  
-Overview of the steps
-1. Create a bean to configure the parent logger and console handler
+Overview of the steps  
+1. Create a bean to configure the parent logger and console handler  
 2. Configure the bean in the Spring XML config file
-Detailed Steps
-1. Create a bean to configure the parent logger and console handler
-This class will set the parent logger level for the application context. It will also set the logging level for console handler. It sets the logger level to FINE. For more detailed logging info, you can set the logging level to level to FINEST.  You can read more about the logging levels at http://www.vogella.com/tutorials/Logging/article.html
-This class also has an init method to handle the actual configuration. The init method is executed after the bean has been created and dependencies injected.
-File: MyLoggerConfig.java
+Detailed Steps  
+1. Create a bean to configure the parent logger and console handler  
+This class will set the parent logger level for the application context. It will also set the logging level for console handler. It sets the logger level to FINE. For more detailed logging info, you can set the logging level to level to FINEST.  You can read more about the logging levels at http://www.vogella.com/tutorials/Logging/article.html  
+This class also has an init method to handle the actual configuration. The init method is executed after the bean has been created and dependencies injected.  
+File: MyLoggerConfig.java  
+```java
 1.	package com.luv2code.springdemo;
 2.	 
 3.	import java.util.logging.ConsoleHandler;
@@ -209,10 +210,12 @@ File: MyLoggerConfig.java
 45.		}
 46.		
 47.	}
----
-2. Configure the bean in the Spring XML config file
-In your XML config file, add the following bean entry. Make sure to list this as the first bean so that it is initialized first. Since the bean is initialized first, then you will get all of the logging traffic. If you move it later in the config file after the other beans, then you will miss out on some of the initial logging messages.
-File: applicationContext.xml (snippet)
+
+```
+**2. Configure the bean in the Spring XML config file**
+In your XML config file, add the following bean entry. Make sure to list this as the first bean so that it is initialized first. Since the bean is initialized first, then you will get all of the logging traffic. If you move it later in the config file after the other beans, then you will miss out on some of the initial logging messages.  
+File: applicationContext.xml (snippet)  
+```java
 1.	<!-- 
 2.		Add a logger config to see logging messages.		
 3.		- For more detailed logs, set values to "FINEST"
@@ -222,24 +225,26 @@ File: applicationContext.xml (snippet)
 7.	    	<property name="rootLoggerLevel" value="FINE" />
 8.	    	<property name="printedLoggerLevel" value="FINE"/>
 9.	    </bean>
+
+```
 ---
-Source code is available here. : https://gist.github.com/darbyluv2code/cfb16c2fd1825a947d8faca3724b47a9
-Run config: maven clean, install
+Source code is available here. : https://gist.github.com/darbyluv2code/cfb16c2fd1825a947d8faca3724b47a9  
+Run config: maven clean, install  
  
-Sau đó run application
-5. Spring Dependency Injection - XML Configuration
-Các nguyên tắc đảo ngược phụ thuộc.
-Client ủy quyền để gọi cho đối tượng khác có trách nhiệm cung cấp các phụ thuộc của nó
-Ví dụ như request car thì car factory sẽ inject các component của nó vào để tạo thành object
-Spring Injection Types(pdf)
+Sau đó run application  
+## 5. Spring Dependency Injection - XML Configuration
+**Các nguyên tắc đảo ngược phụ thuộc.**
+Client ủy quyền để gọi cho đối tượng khác có trách nhiệm cung cấp các phụ thuộc của nó  
+Ví dụ như request car thì car factory sẽ inject các component của nó vào để tạo thành object  
+**Spring Injection Types(pdf)**
 • Constructor Injection
 • Setter Injection(Phải có hàm khởi tạo không tham số)
-Injecting Literal Values
-Development Process - Constructor Injection
-1. Define the dependency interface and class
-2. Create a constructor in your class for injections
-3. Configure the dependency injection in Spring config file
-FAQ: What is the purpose for the no arg constructor?
+**Injecting Literal Values**
+**Development Process - Constructor Injection**
+1. Define the dependency interface and class  
+2. Create a constructor in your class for injections  
+3. Configure the dependency injection in Spring config file  
+#### FAQ: What is the purpose for the no arg constructor?
 Question:
 I was wondering why you created a no arg constructor? I thought that they are implied by Java and only required when you also have an overloaded constructor. Or is this a Spring specific thing?
 ---
@@ -2415,10 +2420,16 @@ Before => after => hàm main
   - [1. Spring Overview](#1-spring-overview)
     - [1. Downloading the Source Code and PDF Files](#1-downloading-the-source-code-and-pdf-files)
     - [2. Spring core framework](#2-spring-core-framework)
-    - [3. Setting Up Your Development Environment](#3-setting-up-your-development-environment)
+  - [3. Setting Up Your Development Environment](#3-setting-up-your-development-environment)
     - [4. Connecting Tomcat to Eclipse](#4-connecting-tomcat-to-eclipse)
-  - [47.	}](#47)
-  - [9.	 </bean>](#9-bean)
+    - [5. Downloading Spring 5 JAR Files – Overview](#5-downloading-spring-5-jar-files-%e2%80%93-overview)
+  - [4. Spring Inversion of Control - XML Configuration](#4-spring-inversion-of-control---xml-configuration)
+    - [1. What is Inversion of Control](#1-what-is-inversion-of-control)
+    - [2. Code Demo - Rough Prototype Part 1](#2-code-demo---rough-prototype-part-1)
+      - [FAQ: What is a Spring Bean?](#faq-what-is-a-spring-bean)
+      - [HEADS UP - Add Logging Messages in Spring 5.1](#heads-up---add-logging-messages-in-spring-51)
+  - [5. Spring Dependency Injection - XML Configuration](#5-spring-dependency-injection---xml-configuration)
+      - [FAQ: What is the purpose for the no arg constructor?](#faq-what-is-the-purpose-for-the-no-arg-constructor)
   - [I was wondering why you created a no arg constructor? I thought that they are implied by Java and only required when you also have an overloaded constructor. Or is this a Spring specific thing?](#i-was-wondering-why-you-created-a-no-arg-constructor-i-thought-that-they-are-implied-by-java-and-only-required-when-you-also-have-an-overloaded-constructor-or-is-this-a-spring-specific-thing)
   - [The CricketCoach class has four methods: getDailyWorkout, getDailyFortune, getTeam and setTeam](#the-cricketcoach-class-has-four-methods-getdailyworkout-getdailyfortune-getteam-and-setteam)
   - [You only have access to the methods defined in the Coach interface: getDailyWorkout and getDailyFortune. Even though the actual implementation has additional methods, you only have visibility to methods that are defined at the Coach interface level.](#you-only-have-access-to-the-methods-defined-in-the-coach-interface-getdailyworkout-and-getdailyfortune-even-though-the-actual-implementation-has-additional-methods-you-only-have-visibility-to-methods-that-are-defined-at-the-coach-interface-level)
