@@ -3,6 +3,8 @@
 
 # Spring & Hibernate for Beginners (includes Spring Boot)
 
+
+
 ## 1.	Introduction and Setup(pdf)
  
 Nhấn New để tạo mới một biến môi trường có tên **JAVA_HOME**.
@@ -26,83 +28,71 @@ Bạn đã cài đặt và cấu hình Java thành công.
 Check: java -version
 Cách expand xem list file:
   ![images](img/7.png)  
-  
+
 Quick diff  
   ![images](img/8.png)
  ![images](img/9.png) ![images](img/10.png)
 
 -	https://studyeasy.org/java/arithmetic-operators/
--	Cách import vào project trên eclipse: https://www.youtube.com/watch?v=fiuSckgjdmY&feature=youtu.be
+-	Cách import vào project trên eclipse:  
+https://www.youtube.com/watch?v=fiuSckgjdmY&feature=youtu.be
+
 -	Cài inteliji file new project/ Hello word project
 -	Import eclipse project into inteliji: New/ Project from existing sources…/ chọn import project from external model/ rồi next
  
 -	Sau đó xóa các file desktop.ini
--	Lợi ích của tính đa hình là có thể tạo 1 List<Animals> mà k cần biết các object ở trong vì nó kế thừa lớp Animals
--	Types of nested class
+-	Lợi ích của tính đa hình là có thể tạo 1 List<Animals> mà k cần biết các object ở trong vì nó kế thừa lớp Animals  
+-	Types of nested class  
 
 
 ## 1. Spring Overview
-## 2. Downloading the Source Code and PDF Files
-Download Source Code:
-This only includes the source files, no JAR files. You will need to add JAR files separately on your own. 
-http://www.luv2code.com/downloads/udemy-spring-hibernate/spring-hibernate-source-code-v26.zip
----
-Download PDF Files
-All slides which are shown during the course are available also as a reference and can be downloaded here:
-http://www.luv2code.com/download-spring-hibernate-pdfs
-Setting eclipse
-http://www.luv2code.com/eclipse/
-Cài JDK
-http://www.luv2code.com/install-java
-2.	Spring core framework
+### 1. Downloading the Source Code and PDF Files  
+
+**Download Source Code:  **
+This only includes the source files, no JAR files. You will need to add JAR files separately on your own.  
+http://www.luv2code.com/downloads/udemy-spring-hibernate/spring-hibernate-source-code-v26.zip  
+
+**Download PDF Files**
+All slides which are shown during the course are available also as a reference and can be downloaded here:  
+http://www.luv2code.com/download-spring-hibernate-pdfs  
+
+**Setting eclipse**
+http://www.luv2code.com/eclipse/  
+
+**Cài JDK**
+http://www.luv2code.com/install-java  
+
+### 2. Spring core framework
 Core container : Factory for creating bean and manage bean dependences
-3. Setting Up Your Development Environment
-Install apache: https://tomcat.apache.org/
- 
+### 3. Setting Up Your Development Environment
+**Install apache**: https://tomcat.apache.org/  
 
 Chọn version Tomcat9/ Chọn 32-bit/64-bit Windows Service Installer
-Sau đó cài đặt Apache :
- 
+Sau đó cài đặt Apache :  
 
-Lưu ý : phải chọn full, và nhập tên và pass cho admin 
+**Lưu ý** : phải chọn full, và nhập tên và pass cho admin 
 
- 
-
-Bỏ chọn Show Readme và click Finish
-
- 
-
-Verify install bằng cách vào link: http://localhost:8080/
- 
-Như vậy bạn đã cài đặt thành công!
- 
-
-Vào windows gõ service:
- 
-
-Install eclipse: chọn download packages => eclipse for 
- 
-
-Try the Eclipse Installer 2019 06 R
-The easiest way to install and update your Eclipse Development Environment.
-4. Connecting Tomcat to Eclipse
+* Bỏ chọn Show Readme và click Finish  
+* Verify install bằng cách vào link: http://localhost:8080/  
+* Như vậy bạn đã cài đặt thành công!
+* Vào windows gõ service:
+* Install eclipse: chọn download packages => eclipse for 
+* Try the Eclipse Installer 2019 06 R
+* The easiest way to install and update your Eclipse Development Environment.
+### 4. Connecting Tomcat to Eclipse
 Connect apache to eclipse
 Vào tab server của eclipse/ chọn click link to add new server/ chọn Apache/ Tomcat 09/ rồi chọn đường link ở trong ổ C
 
  
 
-5. Downloading Spring 5 JAR Files – Overview
+1. Downloading Spring 5 JAR Files – Overview
 Open perspective:
-
- 
-
 Thêm thủ công vào http://www.luv2code.com/downloadspring =>
-http://repo.spring.io/release/org/springframework/spring/
-chọn version release ở dưới cùng rồi chọn spring-framework-5.1.8.RELEASE-dist.zip  để tải
-Tạo project java bình thường, sau đó tạo thư mục lib rồi copy tất các các thư viện trong lib đã tải paste vào
-Right click/ properties/ Java build path/ libraries/ classpath/ ấn add jar rồi chon đến thư mục lib trong project mà ta vừa tạo chọn hết tất cả các file
+http://repo.spring.io/release/org/springframework/spring/  
+chọn version release ở dưới cùng rồi chọn  spring-framework-5.1.8.RELEASE-dist.zip  để tải
 
- 
+Tạo project java bình thường, sau đó tạo thư mục lib rồi copy tất các các thư viện trong lib đã tải paste vào  
+Right click/ properties/ Java build path/ libraries/ classpath/ ấn add jar rồi chon đến thư mục lib trong project mà ta vừa tạo chọn hết tất cả các file  
 
 Nếu đúng sẽ xuất hiện Referenced libraries:
 
@@ -2419,3 +2409,92 @@ Before => after => hàm main
 
 
 
+- [Java](#java)
+- [Spring & Hibernate for Beginners (includes Spring Boot)](#spring--hibernate-for-beginners-includes-spring-boot)
+  - [1.	Introduction and Setup(pdf)](#1-introduction-and-setuppdf)
+  - [1. Spring Overview](#1-spring-overview)
+    - [1. Downloading the Source Code and PDF Files](#1-downloading-the-source-code-and-pdf-files)
+    - [2. Spring core framework](#2-spring-core-framework)
+    - [3. Setting Up Your Development Environment](#3-setting-up-your-development-environment)
+    - [4. Connecting Tomcat to Eclipse](#4-connecting-tomcat-to-eclipse)
+  - [47.	}](#47)
+  - [9.	 </bean>](#9-bean)
+  - [I was wondering why you created a no arg constructor? I thought that they are implied by Java and only required when you also have an overloaded constructor. Or is this a Spring specific thing?](#i-was-wondering-why-you-created-a-no-arg-constructor-i-thought-that-they-are-implied-by-java-and-only-required-when-you-also-have-an-overloaded-constructor-or-is-this-a-spring-specific-thing)
+  - [The CricketCoach class has four methods: getDailyWorkout, getDailyFortune, getTeam and setTeam](#the-cricketcoach-class-has-four-methods-getdailyworkout-getdailyfortune-getteam-and-setteam)
+  - [You only have access to the methods defined in the Coach interface: getDailyWorkout and getDailyFortune. Even though the actual implementation has additional methods, you only have visibility to methods that are defined at the Coach interface level.](#you-only-have-access-to-the-methods-defined-in-the-coach-interface-getdailyworkout-and-getdailyfortune-even-though-the-actual-implementation-has-additional-methods-you-only-have-visibility-to-methods-that-are-defined-at-the-coach-interface-level)
+  - [ALSO, you have access to the additional methods defined in the CricketCoach class: getTeam, setTeam.](#also-you-have-access-to-the-additional-methods-defined-in-the-cricketcoach-class-getteam-setteam)
+  - [For "prototype" scoped beans, Spring does not call the destroy method. Gasp!](#for-%22prototype%22-scoped-beans-spring-does-not-call-the-destroy-method-gasp)
+  - [I personally prefer to use the @Autowired annotation because it makes the code more readable. But as mentioned, the @Autowired is not required for this scenario.](#i-personally-prefer-to-use-the-autowired-annotation-because-it-makes-the-code-more-readable-but-as-mentioned-the-autowired-is-not-required-for-this-scenario)
+  - [HappyFortuneService --> happyFortuneService](#happyfortuneservice----happyfortuneservice)
+  - [- https://docs.oracle.com/javase/8/docs/api/java/beans/Introspector.html#decapitalize(java.lang.String)](#httpsdocsoraclecomjavase8docsapijavabeansintrospectorhtmldecapitalizejavalangstring)
+  - [Here's an example from our classroom example. I updated it to make use of constructor injection, with @Autowired and @Qualifier. Make note of the code in bold below:](#heres-an-example-from-our-classroom-example-i-updated-it-to-make-use-of-constructor-injection-with-autowired-and-qualifier-make-note-of-the-code-in-bold-below)
+  - [}](#)
+  - [private String team;](#private-string-team)
+  - [https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-scopes-prototype](#httpsdocsspringiospringdocscurrentspring-framework-referencecorehtmlbeans-factory-scopes-prototype)
+  - [To get the Spring container to release resources held by prototype-scoped beans, try using a custom bean post-processor, which holds a reference to beans that need to be cleaned up.](#to-get-the-spring-container-to-release-resources-held-by-prototype-scoped-beans-try-using-a-custom-bean-post-processor-which-holds-a-reference-to-beans-that-need-to-be-cleaned-up)
+  - [When using Java 9 and higher, javax.annotation has been removed from its default classpath. That's why we Eclipse can't find it.](#when-using-java-9-and-higher-javaxannotation-has-been-removed-from-its-default-classpath-thats-why-we-eclipse-cant-find-it)
+  - [2. Copy the JAR file to the lib folder of your project](#2-copy-the-jar-file-to-the-lib-folder-of-your-project)
+  - [This code returns an instance of the swimCoach.](#this-code-returns-an-instance-of-the-swimcoach)
+- [That explains how @Bean annotation works for the swimCoach example.](#that-explains-how-bean-annotation-works-for-the-swimcoach-example)
+  - [This is effectively dependency injection. It is accomplished using all Java configuration (no xml).](#this-is-effectively-dependency-injection-it-is-accomplished-using-all-java-configuration-no-xml)
+  - [If you are using Spring 4.2 and lower, you will need to add the code in bold.](#if-you-are-using-spring-42-and-lower-you-will-need-to-add-the-code-in-bold)
+  - [}](#1)
+  - [}](#2)
+  - [Your app should work as desired.](#your-app-should-work-as-desired)
+  - [https://drive.google.com/open?id=1_5__2SggzgFHt7Rs2YYsv5JHRVX5Orq3](#httpsdrivegooglecomopenid152sggzgfht7rs2yysv5jhrvx5orq3)
+  - [Skip ahead to time marker [02:28]](#skip-ahead-to-time-marker-0228)
+  - [IF YOUR CONTROLLER DOESN'T WORK THEN TRY THE STEPS BELOW](#if-your-controller-doesnt-work-then-try-the-steps-below)
+  - [Note: Do not attempt to run the JSP files directly. This will not work due to MVC.](#note-do-not-attempt-to-run-the-jsp-files-directly-this-will-not-work-due-to-mvc)
+  - [5. Build the project and try again.](#5-build-the-project-and-try-again)
+  - [3. Right-click the server again and select "Clean Tomcat Work Directory..."](#3-right-click-the-server-again-and-select-%22clean-tomcat-work-directory%22)
+  - [Retest your application. If you continue to have problems try Debug Tip #2](#retest-your-application-if-you-continue-to-have-problems-try-debug-tip-2)
+  - [5. Test your app in the new workspace](#5-test-your-app-in-the-new-workspace)
+  - [I chose to put everything in the "resources" directory. But you can use any name for "resources", such as "assets", "foobar" etc. Also, you can give any name that you want for the subdirectories under "resources".](#i-chose-to-put-everything-in-the-%22resources%22-directory-but-you-can-use-any-name-for-%22resources%22-such-as-%22assets%22-%22foobar%22-etc-also-you-can-give-any-name-that-you-want-for-the-subdirectories-under-%22resources%22)
+  - [Apply the same technique for reading CSS and JavaScript.](#apply-the-same-technique-for-reading-css-and-javascript)
+  - [</html>](#html)
+  - [Below, I provide steps on how to create a WAR file in Eclipse. I also show how to deploy the WAR file on Tomcat.](#below-i-provide-steps-on-how-to-create-a-war-file-in-eclipse-i-also-show-how-to-deploy-the-war-file-on-tomcat)
+  - [7. Remove all references to country option from your Student.java.](#7-remove-all-references-to-country-option-from-your-studentjava)
+  - [Here is the relevant section from the Spring Reference Manual](#here-is-the-relevant-section-from-the-spring-reference-manual)
+  - [Also, how do I handle validation if the user enters String input for the integer field?](#also-how-do-i-handle-validation-if-the-user-enters-string-input-for-the-integer-field)
+- [}](#3)
+  - [5. Save file](#5-save-file)
+  - [- http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/validation/DefaultMessageCodesResolver.html](#httpdocsspringiospringdocscurrentjavadoc-apiorgspringframeworkvalidationdefaultmessagecodesresolverhtml)
+  - [3. Update Customer.java to validate using array of strings](#3-update-customerjava-to-validate-using-array-of-strings)
+  - [Note the use of curley braces.](#note-the-use-of-curley-braces)
+  - [https://gist.github.com/darbyluv2code/0275ddb6e70e085a10fd464e36a42739](#httpsgistgithubcomdarbyluv2code0275ddb6e70e085a10fd464e36a42739)
+- [Starting with MySQL 8.0.4, the MySQL team changed the](#starting-with-mysql-804-the-mysql-team-changed-the)
+- [default authentication plugin for MySQL server](#default-authentication-plugin-for-mysql-server)
+- [from mysql_native_password to caching_sha2_password.](#from-mysqlnativepassword-to-cachingsha2password)
+- [The command below will make the appropriate updates for your user account.](#the-command-below-will-make-the-appropriate-updates-for-your-user-account)
+- [See the MySQL Reference Manual for details:](#see-the-mysql-reference-manual-for-details)
+- [https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html](#httpsdevmysqlcomdocrefman80encaching-sha2-pluggable-authenticationhtml)
+  - [These are the steps to resolve it. Come back to the lecture if you hit the error.](#these-are-the-steps-to-resolve-it-come-back-to-the-lecture-if-you-hit-the-error)
+  - [Java 9 and higher has removed java.xml.bind from its default classpath. That's why we get the class not found exception. We have to explicitly add JAR files to the build path.](#java-9-and-higher-has-removed-javaxmlbind-from-its-default-classpath-thats-why-we-get-the-class-not-found-exception-we-have-to-explicitly-add-jar-files-to-the-build-path)
+  - [jaxb-impl-2.3.0.jar](#jaxb-impl-230jar)
+  - [jaxb-impl-2.3.0.jar](#jaxb-impl-230jar-1)
+  - [jaxb-impl-2.3.0.jar](#jaxb-impl-230jar-2)
+- [Eclipse will perform a rebuild of your project and it will resolve the related build/runtime errors.](#eclipse-will-perform-a-rebuild-of-your-project-and-it-will-resolve-the-related-buildruntime-errors)
+  - [</dependency>](#dependency)
+- [C:\Program Files\Java\jre 9.04\lib\jrt-fs.jar\java.base[java.base is not in project's build path]](#cprogram-filesjavajre-904libjrt-fsjarjavabasejavabase-is-not-in-projects-build-path)
+  - [Bug link: https://bugs.eclipse.org/bugs/show_bug.cgi?id=521995](#bug-link-httpsbugseclipseorgbugsshowbugcgiid521995)
+- [Root logger option](#root-logger-option)
+- [Redirect log messages to console](#redirect-log-messages-to-console)
+  - [5. Update CreateStudentDemo](#5-update-createstudentdemo)
+  - [ADD COLUMN `date_of_birth` DATETIME NULL AFTER `last_name`;](#add-column-dateofbirth-datetime-null-after-lastname)
+  - [}](#4)
+  - [Here's the full source code.](#heres-the-full-source-code)
+  - [}](#5)
+  - [Note the use of DateUtils above.](#note-the-use-of-dateutils-above)
+  - [Is there any good solution to load these data somewhere else in the app? Should I open new session?](#is-there-any-good-solution-to-load-these-data-somewhere-else-in-the-app-should-i-open-new-session)
+  - [:-)](#)
+  - [How does @JoinColum know where to find the join column?](#how-does-joincolum-know-where-to-find-the-join-column)
+  - [Source: http://docs.oracle.com/javaee/7/api/javax/persistence/JoinColumn.html#name--](#source-httpdocsoraclecomjavaee7apijavaxpersistencejoincolumnhtmlname)
+  - [- If the join is for an element collection, the foreign key is in a collection table.](#if-the-join-is-for-an-element-collection-the-foreign-key-is-in-a-collection-table)
+  - [The files are attached to each video. However, if you'd like, you can also download the entire bundle.](#the-files-are-attached-to-each-video-however-if-youd-like-you-can-also-download-the-entire-bundle)
+  - [Once you upzip, then you'll have this directory structure.](#once-you-upzip-then-youll-have-this-directory-structure)
+  - [this directory includes commons-logging, jstl and mysql jdbc driver](#this-directory-includes-commons-logging-jstl-and-mysql-jdbc-driver)
+  - [jaxb-impl-2.3.0.jar](#jaxb-impl-230jar-3)
+  - [jaxb-impl-2.3.0.jar](#jaxb-impl-230jar-4)
+  - [c. You may have syntax errors on the customerService, but we'll resolve that in the next section.](#c-you-may-have-syntax-errors-on-the-customerservice-but-well-resolve-that-in-the-next-section)
+  - [e. You may have syntax errors on the customerDAO, but we'll resolve that in the next section.](#e-you-may-have-syntax-errors-on-the-customerdao-but-well-resolve-that-in-the-next-section)
+  - [http://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#hql-like-predicate](#httpdocsjbossorghibernateorm52userguidehtmlsinglehibernateuserguidehtmlhql-like-predicate)
