@@ -1,6 +1,14 @@
 - [Spring & Hibernate for Beginners (includes Spring Boot)](#spring--hibernate-for-beginners-includes-spring-boot)
   - [Tai lieu](#tai-lieu)
-  - [4 Setting up environmet](#4-setting-up-environmet)
+  - [3. Setting Up Your Development Environment](#3-setting-up-your-development-environment)
+    - [2. Installing Tomcat](#2-installing-tomcat)
+    - [4. Connecting Tomcat to Eclipse](#4-connecting-tomcat-to-eclipse)
+    - [5 Add jar files](#5-add-jar-files)
+  - [4. Spring Inversion of Control - XML Configuration](#4-spring-inversion-of-control---xml-configuration)
+    - [1. What is Inversion of Control](#1-what-is-inversion-of-control)
+    - [2. Code Demo - Rough Prototype Part 1](#2-code-demo---rough-prototype-part-1)
+    - [3. Code Demo - Rough Prototype Part 2](#3-code-demo---rough-prototype-part-2)
+    - [4. Spring Inversion of Control - Overview](#4-spring-inversion-of-control---overview)
   - [34. AOP Aspect-Oriented Programming Overview](#34-aop-aspect-oriented-programming-overview)
       - [1. AOP - The Business Problem](#1-aop---the-business-problem)
       - [2. AOP Solution and AOP Use Cases](#2-aop-solution-and-aop-use-cases)
@@ -56,7 +64,64 @@ http://www.luv2code.com/download-spring-hibernate-pdfs
 **free**
 https://freecoursesite.com/1-spring-hibernate-for-beginners/
 
-## 4 Setting up environmet
+## 3. Setting Up Your Development Environment
+
+### 2. Installing Tomcat
+
+Install apache: https://tomcat.apache.org/  
+Chọn version Tomcat9/ Chọn 32-bit/64-bit Windows Service Installer
+Sau đó cài đặt Apache : an next/ Chon type of Install la **FULL** /
+Lưu ý : phải chọn full, và nhập tên và pass cho admin
+admin - admin
+Bỏ chọn Show Readme và click Finish
+Verify install bằng cách vào link: http://localhost:8080/
+**Image**
+Vào windows gõ service: tomcat => stop
+Install eclipse: chọn download packages => eclipse for Java EE
+Try the Eclipse Installer 2019 06 R
+The easiest way to install and update your Eclipse Development Environment.
+
+### 4. Connecting Tomcat to Eclipse
+
+Connect apache to eclipse
+Vào tab server của eclipse/ chọn click link to add new server/ chọn Apache/ Tomcat 09/ rồi chọn đường link ở trong ổ C
+**Program File/ Apache Sofware Foundation/ Tomcat 9**
+
+### 5 Add jar files
+
+Thêm thủ công vào:
+http://www.luv2code.com/downloadspring =>
+http://repo.spring.io/release/org/springframework/spring/
+chọn version release ở dưới cùng rồi chọn **spring-framework-5.1.8.RELEASE-dist.zip** để tải
+Tạo project java bình thường, sau đó tạo thư mục lib rồi copy tất các các thư viện trong lib đã tải paste vào
+Right **click/ properties/ Java build path/ libraries/ classpath/** ấn add jar rồi chon đến thư mục lib trong project mà ta vừa tạo chọn hết tất cả các file
+**Nếu đúng sẽ xuất hiện Referenced libraries:**
+
+## 4. Spring Inversion of Control - XML Configuration
+
+### 1. What is Inversion of Control
+
+App should be configurable
+• Easily change the coach for another sport
+• Hockey, Cricket, Tennis, Gymnastics etc
+
+```java
+    public static void main(String[] args) {
+
+		// create the object
+		// Coach theCoach = new BaseballCoach();
+		Coach theCoach = new TrackCoach();
+
+		// use the object
+		System.out.println(theCoach.getDailyWorkout());
+    }
+```
+
+### 2. Code Demo - Rough Prototype Part 1
+
+### 3. Code Demo - Rough Prototype Part 2
+
+### 4. Spring Inversion of Control - Overview
 
 ## 34. AOP Aspect-Oriented Programming Overview
 
