@@ -6,9 +6,8 @@
     - [5 Add jar files](#5-add-jar-files)
   - [4. Spring Inversion of Control - XML Configuration](#4-spring-inversion-of-control---xml-configuration)
     - [1. What is Inversion of Control](#1-what-is-inversion-of-control)
-    - [2. Code Demo - Rough Prototype Part 1](#2-code-demo---rough-prototype-part-1)
-    - [3. Code Demo - Rough Prototype Part 2](#3-code-demo---rough-prototype-part-2)
     - [4. Spring Inversion of Control - Overview](#4-spring-inversion-of-control---overview)
+      - [FAQ: What is a Spring Bean?](#faq-what-is-a-spring-bean)
   - [34. AOP Aspect-Oriented Programming Overview](#34-aop-aspect-oriented-programming-overview)
       - [1. AOP - The Business Problem](#1-aop---the-business-problem)
       - [2. AOP Solution and AOP Use Cases](#2-aop-solution-and-aop-use-cases)
@@ -117,11 +116,42 @@ App should be configurable
     }
 ```
 
-### 2. Code Demo - Rough Prototype Part 1
-
-### 3. Code Demo - Rough Prototype Part 2
-
 ### 4. Spring Inversion of Control - Overview
+
+**Spring Container**
+Primary functions
+• Create and manage objects (Inversion of Control)
+• Inject object’s dependencies (Dependency Injection)
+**IOC & XML Configuration**
+Ioc: tạo và quản lý object(xem pdf)
+Tạo interface Coach(HLV) và các môn thể thao tương ứng => làm sao để dễ dàng chuyển đổi giữa các môn thể thao và không phải code cứng mà chỉ dùng file config
+**Configuring Spring Container**
+• XML configuration file (legacy, but most legacy apps still use this)
+• Java Annotations (modern)
+• Java Source Code (modern)
+Spring container is generically known as ApplicationContext
+
+#### FAQ: What is a Spring Bean?
+
+A "Spring Bean" is simply a Java object.
+
+When Java objects are created by the Spring Container, then Spring refers to them as "Spring Beans".
+
+Spring Beans are created from normal Java classes .... just like Java objects.
+
+---
+
+Here's a blurb from the Spring Reference Manual
+
+Source: https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-introduction
+
+---
+
+In the early days, there was a term called "Java Beans". Spring Beans have a similar concept but Spring Beans do not follow all of the rigorous requirements of Java Beans.
+
+---
+
+In summary, whenever you see "Spring Bean", just think Java object. :-)
 
 ## 34. AOP Aspect-Oriented Programming Overview
 
