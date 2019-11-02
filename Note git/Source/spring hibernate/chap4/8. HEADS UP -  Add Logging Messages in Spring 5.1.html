@@ -1,0 +1,56 @@
+<p><strong>The Problem</strong></p><p>In Spring 5.1, the Spring Development team changed the logging levels internally. As a result, by default you will no longer see the red logging messages at the INFO level. This is different than in the videos.</p><figure><img src="https://udemy-images.s3.amazonaws.com:443/redactor/raw/2018-10-13_11-26-31-8063312518f7044c667fd6d4d402e4b3.png"></figure><p><strong>The Solution</strong></p><p>If you would like to configure your app to show similar logging messages as in the video, you can make the following updates listed below. Note, you will not see the EXACT same messages, since the Spring team periodically changes the text of the internal logging messages. However, this should give you some additional logging data.</p><figure><img src="https://udemy-images.s3.amazonaws.com:443/redactor/raw/2018-10-13_11-31-13-26d823df83a36963f8cec64e0f027690.png"></figure><p><strong>Overview of the steps</strong></p><p>1. Create a bean to configure the parent logger and console handler</p><p>2. Configure the bean in the Spring XML config file</p><p><strong>Detailed Steps</strong></p><p><em>1. Create a bean to configure the parent logger and console handler</em></p><p>This class will set the parent logger level for the application context. It will also set the logging level for console handler. It sets the logger level to FINE. For more detailed logging info, you can set the logging level to level to FINEST.  You can read more about the logging levels at <a href="http://www.vogella.com/tutorials/Logging/article.html" rel="noopener noreferrer" target="_blank">http://www.vogella.com/tutorials/Logging/article.html</a></p><p>This class also has an init method to handle the actual configuration. The init method is executed after the bean has been created and dependencies injected.</p><p><strong>File: MyLoggerConfig.java</strong></p><pre class="prettyprint linenums">package com.luv2code.springdemo;
+
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class MyLoggerConfig {
+
+	private String rootLoggerLevel;
+	private String printedLoggerLevel;
+	
+	public void setRootLoggerLevel(String rootLoggerLevel) {
+		this.rootLoggerLevel = rootLoggerLevel;
+	}
+
+	public void setPrintedLoggerLevel(String printedLoggerLevel) {
+		this.printedLoggerLevel = printedLoggerLevel;
+	}
+
+	public void initLogger() {
+
+		// parse levels
+		Level rootLevel = Level.parse(rootLoggerLevel);
+		Level printedLevel = Level.parse(printedLoggerLevel);
+		
+		// get logger for app context
+		Logger applicationContextLogger = Logger.getLogger(AnnotationConfigApplicationContext.class.getName());
+
+		// get parent logger
+		Logger loggerParent = applicationContextLogger.getParent();
+
+		// set root logging level
+		loggerParent.setLevel(rootLevel);
+		
+		// set up console handler
+		ConsoleHandler consoleHandler = new ConsoleHandler();
+		consoleHandler.setLevel(printedLevel);
+		consoleHandler.setFormatter(new SimpleFormatter());
+		
+		// add handler to the logger
+		loggerParent.addHandler(consoleHandler);
+	}
+	
+}
+</pre><p>---</p><p><em>2. Configure the bean in the Spring XML config file</em></p><p>In your XML config file, add the following bean entry. Make sure to <strong><em>list this as the first bean</em></strong> so that it is initialized first. Since the bean is initialized first, then you will get all of the logging traffic. If you move it later in the config file after the other beans, then you will miss out on some of the initial logging messages.</p><p><strong>File: applicationContext.xml (snippet)</strong></p><pre class="prettyprint linenums">&lt;!-- 
+	Add a logger config to see logging messages.		
+	- For more detailed logs, set values to "FINEST"
+	- For info on logging levels, see: http://www.vogella.com/tutorials/Logging/article.html
+ --&gt;
+    &lt;bean id="myLoggerConfig" class="com.luv2code.springdemo.MyLoggerConfig" init-method="initLogger"&gt;
+    	&lt;property name="rootLoggerLevel" value="FINE" /&gt;
+    	&lt;property name="printedLoggerLevel" value="FINE"/&gt;
+    &lt;/bean&gt;</pre><p>---</p><p><a href="https://gist.github.com/darbyluv2code/cfb16c2fd1825a947d8faca3724b47a9" rel="noopener noreferrer" target="_blank">Source code is available here</a>.</p><p>---</p><p>Once you make these updates, then you will be able to see additional logging data. :-)</p>
