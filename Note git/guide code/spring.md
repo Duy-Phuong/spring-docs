@@ -22,6 +22,8 @@
       - [Development Process - Setter Injection](#development-process---setter-injection)
       - [Injecting Literal Values Development Process](#injecting-literal-values-development-process)
       - [Question:](#question)
+      - [Injecting Values from a Properties File](#injecting-values-from-a-properties-file)
+      - [Practice Activity #2 - Dependency Injection with XML Configuration](#practice-activity-2---dependency-injection-with-xml-configuration)
   - [34. AOP Aspect-Oriented Programming Overview](#34-aop-aspect-oriented-programming-overview)
       - [1. AOP - The Business Problem](#1-aop---the-business-problem)
       - [2. AOP Solution and AOP Use Cases](#2-aop-solution-and-aop-use-cases)
@@ -364,13 +366,19 @@ Since you have defined a constructor in class code, compiler didn’t create def
 1. Create setter method(s) in your class for injections
 2. Configure the injection in Spring config file
 
+Tao ham setter de khi khai bao trong file config no se tu dong goi
+
 #### Question:
 
 For the CricketCoach example with Setter Injection, why do we use the CricketCoach class instead of the Coach interface?
 **Answer**:
 The getTeam() method is only defined in the CricketCoach class. It is not part of the Coach interface.
 As a result, you would need the following code:
+
+```java
 CricketCoach theCricketCoach = context.getBean("myCricketCoach", CricketCoach.class);
+
+```
 
 ---
 
@@ -403,31 +411,28 @@ ALSO, you have access to the additional methods defined in the CricketCoach clas
 ---
 
 The bottom line is it depends on how you retrieve the object and assign it ... that determines the visibility you have to the methods.
-**Injecting Values from a Properties File**
+
+#### Injecting Values from a Properties File
 
 1. Create Properties File
 2. Load Properties File in Spring config file
 3. Reference values from Properties File
-   Practice Activity #2 - Dependency Injection with XML Configuration
-4. Define a new implementation for the FortuneService.
-   a. When the getFortune() method is called it should return a random fortune from the array.
-   b. Your fortune service should define three fortunes in an array.
-5. Inject your new dependency into your Coach implementation.
-6. Test your application to verify you are retrieving random fortunes.
+
+#### Practice Activity #2 - Dependency Injection with XML Configuration
 
 Compare your code to the solution. The solution is available here:
 
 - http://www.luv2code.com/downloads/udemy-spring-hibernate/solution-practice-activities.zip
 
-6. Spring Bean Scopes and Lifecycle
+1. Spring Bean Scopes and Lifecycle
    Spring Container creates only one instance of the bean, by default
    • It is cached in memory
    • All requests for the bean
    • will return a SHARED reference to the SAME bean
    Explicitly Specify Bean Scope and type - pdf
-7. Bean Lifecycle
-8. Define your methods for init and destroy
-9. Configure the method names in Spring config file
+2. Bean Lifecycle
+3. Define your methods for init and destroy
+4. Configure the method names in Spring config file
 
 ## 34. AOP Aspect-Oriented Programming Overview
 
