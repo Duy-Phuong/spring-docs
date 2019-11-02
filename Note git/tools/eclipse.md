@@ -11,3 +11,5 @@ Goal: clean install
 
 right click/ select to copy full name of Obj
 Co the tao class voi interface nhanh
+
+Close Project va filter

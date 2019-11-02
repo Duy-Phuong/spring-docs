@@ -24,6 +24,19 @@
       - [Question:](#question)
       - [Injecting Values from a Properties File](#injecting-values-from-a-properties-file)
       - [Practice Activity #2 - Dependency Injection with XML Configuration](#practice-activity-2---dependency-injection-with-xml-configuration)
+  - [6. Spring Bean Scopes and Lifecycle](#6-spring-bean-scopes-and-lifecycle)
+    - [1. Bean scope](#1-bean-scope)
+    - [2. Bean Lifecycle](#2-bean-lifecycle)
+      - [Special Note about init and destroy Method Signatures](#special-note-about-init-and-destroy-method-signatures)
+  - [7. Spring Configuration with Java Annotations - Inversion of Control](#7-spring-configuration-with-java-annotations---inversion-of-control)
+    - [1. Annotations Overview - Component Scanning](#1-annotations-overview---component-scanning)
+    - [2. Annotations Project Setup](#2-annotations-project-setup)
+    - [3. Explicit Component Names - Write Some Code](#3-explicit-component-names---write-some-code)
+    - [4. Default Component Names - Overview](#4-default-component-names---overview)
+  - [8. Spring Configuration with Java Annotations - Dependency Injection](#8-spring-configuration-with-java-annotations---dependency-injection)
+    - [1. Constructor Injection - Overview](#1-constructor-injection---overview)
+      - [FAQ: What if there are multiple FortuneService implementations?](#faq-what-if-there-are-multiple-fortuneservice-implementations)
+      - [I have finished the video "Constructor Injection - Writing Code part2".](#i-have-finished-the-video-%22constructor-injection---writing-code-part2%22)
   - [34. AOP Aspect-Oriented Programming Overview](#34-aop-aspect-oriented-programming-overview)
       - [1. AOP - The Business Problem](#1-aop---the-business-problem)
       - [2. AOP Solution and AOP Use Cases](#2-aop-solution-and-aop-use-cases)
@@ -424,15 +437,141 @@ Compare your code to the solution. The solution is available here:
 
 - http://www.luv2code.com/downloads/udemy-spring-hibernate/solution-practice-activities.zip
 
-1. Spring Bean Scopes and Lifecycle
-   Spring Container creates only one instance of the bean, by default
-   • It is cached in memory
-   • All requests for the bean
-   • will return a SHARED reference to the SAME bean
-   Explicitly Specify Bean Scope and type - pdf
-2. Bean Lifecycle
-3. Define your methods for init and destroy
-4. Configure the method names in Spring config file
+## 6. Spring Bean Scopes and Lifecycle
+
+### 1. Bean scope
+
+Spring Container creates only one instance of the bean, by default
+• It is cached in memory
+• All requests for the bean
+• will return a SHARED reference to the SAME bean
+**Explicitly Specify Bean Scope and type - pdf**
+singleton and prototype
+
+### 2. Bean Lifecycle
+
+1. Define your methods for init and destroy
+2. Configure the method names in Spring config file
+
+#### Special Note about init and destroy Method Signatures
+
+When using XML configuration, I want to provide additional details regarding the method signatures of the init-method and destroy-method .
+
+**Access modifier**
+The method can have any access modifier (public, protected, private)
+
+**Return type**
+The method can have any return type. However, "void' is most commonly used. If you give a return type just note that you will not be able to capture the return value. As a result, "void" is commonly used.
+
+**Method name**
+The method can have any method name.
+
+**Arguments**
+The method can not accept any arguments. The method should be no-arg.
+
+**There is a subtle point you need to be aware of with "prototype" scoped beans.**
+
+**For "prototype" scoped beans, Spring does not call the destroy method. Gasp!**
+
+---
+
+\_In contrast to the other scopes, Spring does not manage the complete lifecycle of a prototype bean: the container instantiates, configures, and otherwise assembles a prototype object, and hands it to the client, with no further record of that prototype instance.
+
+Thus, although initialization lifecycle callback methods are called on all objects regardless of scope, in the case of prototypes, configured destruction lifecycle callbacks are not called. The client code must clean up prototype-scoped objects and release expensive resources that the prototype bean(s) are holding.\_
+
+---
+
+This also applies to both XML configuration and Annotation-based configuration.
+
+## 7. Spring Configuration with Java Annotations - Inversion of Control
+
+Spring will scan your Java classes for special annotations
+Automatically register the beans in the Spring container
+
+### 1. Annotations Overview - Component Scanning
+
+**Development Process**
+
+1. Enable component scanning in Spring config file
+2. Add the @Component Annotation to your Java classes
+3. Retrieve bean from Spring container
+
+@Component(“beanID”)
+
+### 2. Annotations Project Setup
+
+### 3. Explicit Component Names - Write Some Code
+
+### 4. Default Component Names - Overview
+
+Default bean id: the class name, make first letter lower-case
+
+## 8. Spring Configuration with Java Annotations - Dependency Injection
+
+### 1. Constructor Injection - Overview
+
+For dependency injection, Spring can use auto wiring
+• Spring will look for a class that matches the property
+• matches by type: class or interface
+• Spring will inject it automatically … hence it is autowired
+
+**Autowiring Injection Types**
+• Constructor Injection
+• Setter Injection
+• Field Injections
+
+**Development Process - Constructor Injection**
+
+1. Define the dependency interface and class
+2. Create a constructor in your class for injections
+3. Configure the dependency injection with @Autowired Annotation
+
+Spring will auto find that inplements FoturneService
+
+AUTOWIRING
+
+#### FAQ: What if there are multiple FortuneService implementations?
+
+When using autowiring, what if there are multiple FortuneService implementations? Like in the image below?
+
+---
+
+ANSWER
+
+Spring has special support to handle this case. Use the **@Qualifier** annotation. We'll cover this later in the course with slides and code examples. But don't worry, we will address all scenarios :-)
+
+**Question**
+
+#### I have finished the video "Constructor Injection - Writing Code part2".
+
+I have commented the Autowired annotation. But still it worked. How did it work?
+
+```java
+    //@Autowired
+    public TennisCoach(FortuneService theFortuneService) {
+        System.out.println(" theFortuneService " + theFortuneService);
+        fortuneService = theFortuneService;
+    }
+
+```
+
+===
+
+Answer
+
+This is a new feature of Spring 4.3.
+
+Here is the snippet from the Spring Docs.
+
+Section 1.9.2: Autowired
+
+As of Spring Framework 4.3, an **@Autowired** annotation on such a constructor is no longer necessary if the target bean only defines one constructor to begin with. However, if several constructors are available, at least one must be annotated to teach the container which one to use.
+
+**I personally prefer to use the @Autowired annotation because it makes the code more readable. But as mentioned, the @Autowired is not required for this scenario.**
+
+See link to the docs.
+
+https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-autowired-annotation
 
 ## 34. AOP Aspect-Oriented Programming Overview
 
