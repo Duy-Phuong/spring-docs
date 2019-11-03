@@ -37,6 +37,23 @@
     - [1. Constructor Injection - Overview](#1-constructor-injection---overview)
       - [FAQ: What if there are multiple FortuneService implementations?](#faq-what-if-there-are-multiple-fortuneservice-implementations)
       - [I have finished the video "Constructor Injection - Writing Code part2".](#i-have-finished-the-video-%22constructor-injection---writing-code-part2%22)
+    - [2. Setter Injection - Overview](#2-setter-injection---overview)
+    - [3. Method Injection](#3-method-injection)
+    - [4. Field Injection - Overview](#4-field-injection---overview)
+    - [5. Which Injection Type Should You Use](#5-which-injection-type-should-you-use)
+    - [12. Qualifiers for Dependency Injection - Overview](#12-qualifiers-for-dependency-injection---overview)
+    - [13. Qualifiers for Dependency Injection - Write Some Code - Part 1](#13-qualifiers-for-dependency-injection---write-some-code---part-1)
+    - [14. Qualifiers for Dependency Injection - Write Some Code - Part 2](#14-qualifiers-for-dependency-injection---write-some-code---part-2)
+      - [Annotations - Default Bean Names ... and the Special Case](#annotations---default-bean-names--and-the-special-case)
+      - [FAQ: How to inject properties file using Java annotations](#faq-how-to-inject-properties-file-using-java-annotations)
+  - [9. Spring Configuration with Java Annotations - Bean Scopes and Lifecycle Methods](#9-spring-configuration-with-java-annotations---bean-scopes-and-lifecycle-methods)
+    - [1. @Scope Annotation - Overview](#1-scope-annotation---overview)
+    - [2. @Scope Annotation - Write Some Code](#2-scope-annotation---write-some-code)
+      - [Special Note about @PostConstruct and @PreDestroy Method Signatures](#special-note-about-postconstruct-and-predestroy-method-signatures)
+    - [3. Bean Lifecycle Method Annotations - Overview](#3-bean-lifecycle-method-annotations---overview)
+      - [HEADS UP - FOR JAVA 9, 10 and 11 USERS - @PostConstruct and @PreDestroy](#heads-up---for-java-9-10-and-11-users---postconstruct-and-predestroy)
+  - [10. Spring Configuration with Java Code (no xml)](#10-spring-configuration-with-java-code-no-xml)
+    - [1. Spring Configuration with Java Code (no xml) – Overview](#1-spring-configuration-with-java-code-no-xml-%e2%80%93-overview)
   - [34. AOP Aspect-Oriented Programming Overview](#34-aop-aspect-oriented-programming-overview)
       - [1. AOP - The Business Problem](#1-aop---the-business-problem)
       - [2. AOP Solution and AOP Use Cases](#2-aop-solution-and-aop-use-cases)
@@ -570,8 +587,284 @@ As of Spring Framework 4.3, an **@Autowired** annotation on such a constructor i
 **I personally prefer to use the @Autowired annotation because it makes the code more readable. But as mentioned, the @Autowired is not required for this scenario.**
 
 See link to the docs.
-
 https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-autowired-annotation
+
+### 2. Setter Injection - Overview
+
+1. Create setter method(s) in your class for injections (có constructor)
+2. Configure the dependency injection with @Autowired Annotation
+
+### 3. Method Injection
+
+Thu tu chay la:
+
+- Default Contructor
+- Inject value auto
+
+### 4. Field Injection - Overview
+
+### 5. Which Injection Type Should You Use
+
+Chon 1 cai va SD thong nhat trong project
+
+### 12. Qualifiers for Dependency Injection - Overview
+
+Nho them annotation @Component
+Bean id phai trung voi Class name
+
+```java
+@Autowired
+@Qualifier("happyFortuneService")
+private FortuneService fortuneService;
+```
+
+### 13. Qualifiers for Dependency Injection - Write Some Code - Part 1
+
+### 14. Qualifiers for Dependency Injection - Write Some Code - Part 2
+
+#### Annotations - Default Bean Names ... and the Special Case
+
+In general, when using Annotations, for the default bean name, Spring uses the following rule.
+
+If the annotation's value doesn't indicate a bean name, an appropriate name will be built based on the short name of the class (with the first letter lower-cased).  
+For example:
+
+HappyFortuneService --> happyFortuneService
+
+---
+
+However, for the special case of **when BOTH the first and second characters of the class name are upper case**, then the name is **NOT converted**.
+
+For the case of RESTFortuneService
+
+RESTFortuneService --> RESTFortuneService
+
+No conversion since the first two characters are upper case.
+
+Behind the scenes, Spring uses the Java Beans Introspector to generate the default bean name. Here's a screenshot of the documentation for the key method.
+
+Also, here's a link to the documentation.
+
+- https://docs.oracle.com/javase/8/docs/api/java/beans/Introspector.html#decapitalize(java.lang.String)
+
+---
+
+As always, you can give explicity names to your beans.
+
+@Component("foo")
+public class RESTFortuneService .... {
+
+}
+
+Then you can access it using the name of "foo". Nothing tricky to worry about :-)
+
+Hope this helps. Happy Coding! :-)
+
+**XEM THEM HTML**
+**@Qualifier** is a nice feature, but it is tricky when used with Constructors.
+
+The syntax is much different from other examples and not exactly intuitive. Consider this the "deep end of the pool" when it comes to Spring configuration LOL :-)
+
+You have to place the @Qualifier annotation inside of the constructor arguments.
+
+Here's an example from our classroom example. I updated it to make use of constructor injection, with @Autowired and @Qualifier. Make note of the code in bold below:
+
+---
+
+```java
+package com.luv2code.springdemo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component
+public class TennisCoach implements Coach {
+
+    private FortuneService fortuneService;
+
+    // define a default constructor
+    public TennisCoach() {
+        System.out.println(">> TennisCoach: inside default constructor");
+    }
+
+    @Autowired
+    public TennisCoach(@Qualifier("randomFortuneService") FortuneService theFortuneService) {
+
+        System.out.println(">> TennisCoach: inside constructor using @autowired and @qualifier");
+
+        fortuneService = theFortuneService;
+    }
+
+
+    /*
+    @Autowired
+    public void doSomeCrazyStuff(FortuneService theFortuneService) {
+        System.out.println(">> TennisCoach: inside doSomeCrazyStuff() method");
+        fortuneService = theFortuneService;
+    }
+    */
+
+    /*
+    @Autowired
+    public TennisCoach(FortuneService theFortuneService) {
+        fortuneService = theFortuneService;
+    }
+    */
+
+    @Override
+    public String getDailyWorkout() {
+        return "Practice your backhand volley";
+    }
+
+    @Override
+    public String getDailyFortune() {
+        return fortuneService.getFortune();
+    }
+
+}
+
+```
+
+---
+
+For detailed documentation on using @Qualified with Constructors, see this link in the Spring Reference Manual
+
+https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-autowired-annotation-qualifiers
+
+#### FAQ: How to inject properties file using Java annotations
+
+**Answer**:
+
+This solution will show you how inject values from a properties file using annotatons. The values will no longer be hard coded in the Java code.
+
+1. Create a properties file to hold your properties. It will be a name value pair.
+
+New text file: src/sport.properties
+
+```properties
+foo.email=myeasycoach@luv2code.com
+foo.team=Silly Java Coders
+
+```
+
+Note the location of the properties file is very important. It must be stored in src/sport.properties
+
+2. Load the properties file in the XML config file.
+
+File: applicationContext.xml
+
+Add the following lines:
+
+```xml
+    <context:property-placeholder location="classpath:sport.properties"/>
+
+This should appear just after the <context:component-scan .../> line
+
+```
+
+3. Inject the properties values into your Swim Coach: SwimCoach.java
+
+@Value("${foo.email}")
+private String email;
+    
+@Value("${foo.team}")
+private String team;
+
+---
+
+DOWNLOAD FULL SOURCE CODE
+
+You can download entire code from here:
+
+- http://www.luv2code.com/downloads/spring-hibernate/spring-props-annotation-demo.zip
+
+## 9. Spring Configuration with Java Annotations - Bean Scopes and Lifecycle Methods
+
+### 1. @Scope Annotation - Overview
+
+Default scope is singleton
+
+### 2. @Scope Annotation - Write Some Code
+
+#### Special Note about @PostConstruct and @PreDestroy Method Signatures
+
+I want to provide additional details regarding the method signatures of @PostContruct and @PreDestroy methods.
+
+**Access modifier**
+
+The method can have any access modifier (public, protected, private)
+
+**Return type**
+The method can have any return type. However, "void' is most commonly used. If you give a return type just note that you will not be able to capture the return value. As a result, "void" is commonly used.
+
+**Method name**
+The method can have any method name.
+
+**Arguments**
+The method can not accept any arguments. The method should be no-arg.
+
+### 3. Bean Lifecycle Method Annotations - Overview
+
+Development Process
+
+1. Define your methods for init and destroy
+2. Add annotations: @PostConstruct and @PreDestroy
+
+#### HEADS UP - FOR JAVA 9, 10 and 11 USERS - @PostConstruct and @PreDestroy
+
+If you are using Java 9, 10 or 11, then you will encounter an error when using @PostConstruct and @PreDestroy in your code.
+
+These are the steps to resolve it. Come back to the lecture if you hit the error.
+
+**Error**
+
+Eclipse is unable to import @PostConstruct or @PreDestroy
+
+This happens because of Java 9 and higher.
+
+When using Java 9 and higher, javax.annotation has been removed from its default classpath. That's why we Eclipse can't find it.
+
+---
+
+**Solution**
+
+1. Download the javax.annotation-api-1.2.jar from
+
+http://central.maven.org/maven2/javax/annotation/javax.annotation-api/1.2/javax.annotation-api-1.2.jar
+
+2. Copy the JAR file to the lib folder of your project
+
+---
+
+Use the following steps to add it to your Java Build Path.
+
+3. Right-click your project, select Properties
+
+4. On left-hand side, click Java Build Path
+
+5. In top-center of dialog, click Libraries
+
+6. Click Classpath and then Click Add JARs ...
+
+7. Navigate to the JAR file <your-project>/lib/javax.annotation-api-1.2.jar
+
+8. Click OK then click Apply and Close
+
+Eclipse will perform a rebuild of your project and it will resolve the related build errors.
+
+## 10. Spring Configuration with Java Code (no xml)
+
+### 1. Spring Configuration with Java Code (no xml) – Overview
+
+Instead of configuring Spring container using XML
+Configure the Spring container with Java code
+**Development Process**
+
+1. Create a Java class and annotate as @Configuration
+2. Add component scanning support: @ComponentScan (optional)
+3. Read Spring Java configuration class
+4. Retrieve bean from Spring container
 
 ## 34. AOP Aspect-Oriented Programming Overview
 
