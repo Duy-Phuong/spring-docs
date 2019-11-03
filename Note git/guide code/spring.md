@@ -54,6 +54,10 @@
       - [HEADS UP - FOR JAVA 9, 10 and 11 USERS - @PostConstruct and @PreDestroy](#heads-up---for-java-9-10-and-11-users---postconstruct-and-predestroy)
   - [10. Spring Configuration with Java Code (no xml)](#10-spring-configuration-with-java-code-no-xml)
     - [1. Spring Configuration with Java Code (no xml) – Overview](#1-spring-configuration-with-java-code-no-xml-%e2%80%93-overview)
+      - [3. Heads Up - Add Logging Messages in Spring 5.1 - All Java Config Version](#3-heads-up---add-logging-messages-in-spring-51---all-java-config-version)
+      - [During All Java Configuration, how does the @Bean annotation work in the background?](#during-all-java-configuration-how-does-the-bean-annotation-work-in-the-background)
+    - [FAQ: Problems with Injecting Values - Value not returning from \${foo.email}](#faq-problems-with-injecting-values---value-not-returning-from-fooemail)
+    - [4. Defining Spring Beans with Java Code (no xml) - Overview](#4-defining-spring-beans-with-java-code-no-xml---overview)
   - [34. AOP Aspect-Oriented Programming Overview](#34-aop-aspect-oriented-programming-overview)
       - [1. AOP - The Business Problem](#1-aop---the-business-problem)
       - [2. AOP Solution and AOP Use Cases](#2-aop-solution-and-aop-use-cases)
@@ -865,6 +869,303 @@ Configure the Spring container with Java code
 2. Add component scanning support: @ComponentScan (optional)
 3. Read Spring Java configuration class
 4. Retrieve bean from Spring container
+
+---
+
+#### 3. Heads Up - Add Logging Messages in Spring 5.1 - All Java Config Version
+
+**The Problem**
+
+In Spring 5.1, the Spring Development team changed the logging levels internally. As a result, by default you will no longer see the red logging messages at the INFO level. This is different than in the videos.
+
+**The Solution**
+
+If you would like to configure your app to show similar logging messages as in the video, you can make the following updates. Note, you will not see the EXACT same messages, since the Spring team periodically changes the text of the internal logging messages. However, this should give you some additional logging data.
+
+Overview of the steps
+
+0. Create a logging properties file
+
+1. Create a configuration class to configure the parent logger and console handler
+
+Detailed Steps
+
+**0. Create a logging properties file**
+
+This properties file will define the logging levels for the application. The props file sets the logger level to FINE. For more detailed logging info, you can set the logging level to level to FINEST. You can read more about the logging levels at http://www.vogella.com/tutorials/Logging/article.html
+
+File: src/mylogger.properties
+
+root.logger.level=FINE
+printed.logger.level=FINE
+
+---
+
+**1. Create a configuration class to configure the parent logger and console handler**
+
+This class will set the parent logger level for the application context. It will also set the logging level for console handler. The logging levels are loaded from the configuration file using the @PropertySource annotation. The fields are injected using the @Value annotation. This class also has a @PostConstruct method to handle the actual configuration.
+
+File: MyLoggerConfig.java
+
+```java
+package com.luv2code.springdemo;
+
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
+@Configuration
+@PropertySource("classpath:mylogger.properties")
+public class MyLoggerConfig {
+
+	@Value("${root.logger.level}")
+	private String rootLoggerLevel;
+
+	@Value("${printed.logger.level}")
+	private String printedLoggerLevel;
+
+	@PostConstruct
+	public void initLogger() {
+
+		// parse levels
+		Level rootLevel = Level.parse(rootLoggerLevel);
+		Level printedLevel = Level.parse(printedLoggerLevel);
+
+		// get logger for app context
+		Logger applicationContextLogger = Logger.getLogger(AnnotationConfigApplicationContext.class.getName());
+
+		// get parent logger
+		Logger loggerParent = applicationContextLogger.getParent();
+
+		// set root logging level
+		loggerParent.setLevel(rootLevel);
+
+		// set up console handler
+		ConsoleHandler consoleHandler = new ConsoleHandler();
+		consoleHandler.setLevel(printedLevel);
+		consoleHandler.setFormatter(new SimpleFormatter());
+
+		// add handler to the logger
+		loggerParent.addHandler(consoleHandler);
+	}
+
+}
+
+```
+
+---
+
+Source code is available at the following link
+
+https://gist.github.com/darbyluv2code/a49009fe1f92f95a30d2d5f7ac987ce5
+
+---
+
+Once you make these updates, then you will be able to see additional logging data. :-)
+
+Question:
+
+#### During All Java Configuration, how does the @Bean annotation work in the background?
+
+**Answer**
+
+This is an advanced concept. But I'll walk through the code line-by-line.
+
+For this code:
+
+```java
+@Bean
+public Coach swimCoach() {
+ SwimCoach mySwimCoach = new SwimCoach();
+ return mySwimCoach;
+}
+
+```
+
+At a high-level, Spring creates a bean component manually. By default the scope is singleton. So any request for a "swimCoach" bean, will get the same instance of the bean since singleton is the default scope.
+
+However, let's break it down line-by-line
+
+**@Bean**
+
+The @Bean annotation tells Spring that we are creating a bean component manually. We didn't specify a scope so the default scope is singleton.
+
+**public Coach swimCoach(){**
+This specifies that the bean will bean id of "swimCoach". The method name determines the bean id. The return type is the Coach interface. This is useful for dependency injection. This can help Spring find any dependencies that implement the Coach interface.
+
+The @Bean annotation will intercept any requests for "swimCoach" bean. Since we didn't specify a scope, the bean scope is singleton. As a result, it will give the same instance of the bean for any requests.
+
+SwimCoach mySwimCoach = new SwimCoach();
+This code will create a new instance of the SwimCoach.
+
+return mySwimCoach;
+This code returns an instance of the swimCoach.
+
+---
+
+Now let's step back and look at the method in it's entirety.
+
+```java
+@Bean
+public Coach swimCoach() {
+ SwimCoach mySwimCoach = new SwimCoach();
+ return mySwimCoach;
+}
+
+```
+
+It is important to note that this method has the @Bean annotation. The annotation will intercept ALL calls to the method "swimCoach()". Since no scope is specified the @Bean annotation uses singleton scope. Behind the scenes, during the @Bean interception, it will check in memory of the Spring container (applicationContext) and see if this given bean has already been created.
+
+If this is the first time the bean has been created then it will execute the method as normal. It will also register the bean in the application context. So that is knows that the bean has already been created before. Effectively setting a flag.
+
+The next time this method is called, the @Bean annotation will check in memory of the Spring container (applicationContext) and see if this given bean has already been created. Since the bean has already been created (previous paragraph) then it will immediately return the instance from memory. It will not execute the code inside of the method. Hence this is a singleton bean.
+
+The code for
+
+SwimCoach mySwimCoach = new SwimCoach();
+return mySwimCoach;
+is not executed for subsequent requests to the method public Coach swimCoach() . This code is only executed once during the initial bean creation since it is singleton scope.
+
+That explains how @Bean annotation works for the swimCoach example.
+
+====
+
+Now let's take it one step further.
+
+Here's your other question
+
+> > Please explain in detail whats happening behind the scene for this statement.
+
+return new SwimCoach(sadFortuneService())
+
+The code for this question is slightly different. It is injecting a dependency.
+
+In this example, we are creating a SwimCoach and injecting the sadFortuneService().
+
+```java
+         // define bean for our sad fortune service
+        @Bean
+        public FortuneService sadFortuneService() {
+            return new SadFortuneService();
+        }
+
+        // define bean for our swim coach AND inject dependency
+        @Bean
+        public Coach swimCoach() {
+            SwimCoach mySwimCoach = new SwimCoach(sadFortuneService());
+
+            return mySwimCoach;
+        }
+
+```
+
+Using the same information presented earlier
+
+The code
+
+        // define bean for our sad fortune service
+        @Bean
+        public FortuneService sadFortuneService() {
+            return new SadFortuneService();
+        }
+
+In the code above, we define a bean for the sad fortune service. Since the bean scope is not specified, it defaults to singleton.
+
+Any calls for sadFortuneService, the @Bean annotation intercepts the call and checks to see if an instance has been created. First time through, no instance is created so the code executes as desired. For subsequent calls, the singleton has been created so @Bean will immediately return with the singleton instance.
+
+Now to the main code based on your question.
+
+return new SwimCoach(sadFortuneService())
+This code creates an instance of SwimCoach. Note the call to the method sadFortuneService(). We are calling the annotated method above. The @Bean will intercept and return a singleton instance of sadFortuneService. The sadFortuneService is then injected into the swim coach instance.
+
+This is effectively dependency injection. It is accomplished using all Java configuration (no xml).
+
+---
+
+This concludes the line-by-line discussion of the source code. All of the behind the scenes work.
+
+I hope this clears your doubt. :-)
+
+### FAQ: Problems with Injecting Values - Value not returning from \${foo.email}
+
+Question
+
+I am running the code for Java Configuration and injecting values from props file. However, I'm getting:
+
+${foo.email}
+${foo.team}
+
+Instead of the actual property values. How can I resolve this?
+
+Answer
+
+This is an issue with Spring versions.
+
+If you are using Spring 4.2 and lower, you will need to add the code in bold.
+
+---
+
+```java
+package com.luv2code.springdemo;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+
+@Configuration
+// @ComponentScan("com.luv2code.springdemo")
+@PropertySource("classpath:sport.properties")
+public class SportConfig {
+
+ // bold
+ // add support to resolve \${...} properties
+@Bean
+public static PropertySourcesPlaceholderConfigurer
+propertySourcesPlaceHolderConfigurer() {
+
+ return new PropertySourcesPlaceholderConfigurer();
+}
+
+ // define bean for our sad fortune service
+@Bean
+public FortuneService sadFortuneService() {
+return new SadFortuneService();
+}
+
+ // define bean for our swim coach AND inject dependency
+@Bean
+public Coach swimCoach() {
+SwimCoach mySwimCoach = new SwimCoach(sadFortuneService());
+
+ return mySwimCoach;
+}
+
+}
+
+```
+
+---
+
+In Spring 4.3 and higher, they removed this requirement. As a result, you don't need this code.
+
+In the video, I show Spring 4.3, that's why this code is not displayed.
+
+Let me know if that clears it up.
+
+:-)
+
+### 4. Defining Spring Beans with Java Code (no xml) - Overview
+
+Trong file SportConfig, ten method trung voi bean ID
 
 ## 34. AOP Aspect-Oriented Programming Overview
 
