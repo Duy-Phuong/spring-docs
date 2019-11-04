@@ -83,8 +83,18 @@
     - [3. Drop-Down Lists - Overview](#3-drop-down-lists---overview)
       - [How to use properties file to load country options](#how-to-use-properties-file-to-load-country-options)
     - [4. Radio Buttons - Overview](#4-radio-buttons---overview)
+      - [FAQ: How to populate radiobuttons with items from Java class like we did with selectlist?](#faq-how-to-populate-radiobuttons-with-items-from-java-class-like-we-did-with-selectlist)
     - [5. Checkboxes - Overview](#5-checkboxes---overview)
   - [15. Spring MVC Form Validation - Applying Built-In Validation Rules](#15-spring-mvc-form-validation---applying-built-in-validation-rules)
+    - [1. Spring MVC Form Validation Overview](#1-spring-mvc-form-validation-overview)
+    - [2. Setting Up Dev Environment for Form Validation](#2-setting-up-dev-environment-for-form-validation)
+    - [3. Installing Validation Files](#3-installing-validation-files)
+    - [4. Checking for Required Fields Overview](#4-checking-for-required-fields-overview)
+    - [6. Add Validation Rule to Customer Class](#6-add-validation-rule-to-customer-class)
+    - [7. Display Validation Error Messages on HTML Form](#7-display-validation-error-messages-on-html-form)
+    - [10. Update Confirmation Page](#10-update-confirmation-page)
+    - [11. Test the Validation Rule for Required Fields](#11-test-the-validation-rule-for-required-fields)
+    - [12. Add Pre-processing Code with @InitBinder - Overview](#12-add-pre-processing-code-with-initbinder---overview)
   - [16. Spring MVC Form Validation - Validating Number Ranges and Regular Expressions](#16-spring-mvc-form-validation---validating-number-ranges-and-regular-expressions)
   - [17. Spring MVC Form Validation - Creating Custom Validation Rules](#17-spring-mvc-form-validation---creating-custom-validation-rules)
   - [18. Introduction to Hibernate](#18-introduction-to-hibernate)
@@ -1957,9 +1967,122 @@ You can download entire code from here:
 
 ### 4. Radio Buttons - Overview
 
+#### FAQ: How to populate radiobuttons with items from Java class like we did with selectlist?
+
+You can follow a similar approach that we used for the drop-down list.
+
+Here are the steps
+
+1. Set up the data in your Student class
+
+Add a new field
+
+    private LinkedHashMap<String, String> favoriteLanguageOptions;
+
+In your constructor, populate the data
+
+```java
+        // populate favorite language options
+        favoriteLanguageOptions = new LinkedHashMap<>();
+
+        // parameter order: value, display label
+        //
+        favoriteLanguageOptions.put("Java", "Java");
+        favoriteLanguageOptions.put("C#", "C#");
+        favoriteLanguageOptions.put("PHP", "PHP");
+        favoriteLanguageOptions.put("Ruby", "Ruby");
+
+```
+
+Add getter method
+
+    public LinkedHashMap<String, String> getFavoriteLanguageOptions() {
+        return favoriteLanguageOptions;
+    }
+
+2.  Reference the data in your form
+
+        Favorite Language:
+
+        <form:radiobuttons path="favoriteLanguage" items="${student.favoriteLanguageOptions}"  />
+
+Source code is available here:
+
+- https://gist.github.com/darbyluv2code/debb69b1bf8010d84d50e0542e809ffb
+
 ### 5. Checkboxes - Overview
 
+TH Chon nhieu checkbox
+
 ## 15. Spring MVC Form Validation - Applying Built-In Validation Rules
+
+### 1. Spring MVC Form Validation Overview
+
+### 2. Setting Up Dev Environment for Form Validation
+
+Bean validation
+Tải file zip từ trang chủ hibernate
+
+### 3. Installing Validation Files
+
+Copy all file jar cua hibernate tu trong folder lib va lib/required/
+
+### 4. Checking for Required Fields Overview
+
+When performing Spring MVC validation, the location of the **BindingResult** parameter is very important. In the method signature, the BindingResult parameter must appear immediately after the model attribute.
+
+If you place it in any other location, Spring MVC validation will not work as desired. In fact, your validation rules will be ignored.
+
+```java
+        @RequestMapping("/processForm")
+        public String processForm(
+                @Valid @ModelAttribute("customer") Customer theCustomer,
+                BindingResult theBindingResult) {
+            ...
+        }
+
+```
+
+Here is the relevant section from the Spring Reference Manual
+
+---
+
+Defining @RequestMapping methods
+
+@RequestMapping handler methods have a flexible signature and can choose from a range of supported controller method arguments and return values.
+...
+
+The Errors or BindingResult parameters have to follow the model object that is being
+bound immediately ...
+
+Source: https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-ann-methods
+
+### 6. Add Validation Rule to Customer Class
+
+### 7. Display Validation Error Messages on HTML Form
+
+### 10. Update Confirmation Page
+
+### 11. Test the Validation Rule for Required Fields
+
+TH space cung cho pass
+
+### 12. Add Pre-processing Code with @InitBinder - Overview
+
+```java
+// add an initbinder ... to convert trim input strings
+	// remove leading and trailing whitespace
+	// resolve issue for our validation
+
+	@InitBinder
+	public void initBinder(WebDataBinder dataBinder) {
+
+		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+
+		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+	}
+// true mean trim to null
+```
 
 ## 16. Spring MVC Form Validation - Validating Number Ranges and Regular Expressions
 
