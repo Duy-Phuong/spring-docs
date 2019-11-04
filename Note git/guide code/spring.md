@@ -65,8 +65,46 @@
     - [5. Spring MVC Configuration - Overview](#5-spring-mvc-configuration---overview)
     - [6. Spring MVC Configuration - JAR Files](#6-spring-mvc-configuration---jar-files)
       - [How to configure the Spring Dispatcher Servlet using all Java Code (no xml)?](#how-to-configure-the-spring-dispatcher-servlet-using-all-java-code-no-xml)
-    - [12. Spring MVC - Creating Controllers and Views](#12-spring-mvc---creating-controllers-and-views)
-      - [1. Creating a Spring Home Controller and View – Overview](#1-creating-a-spring-home-controller-and-view-%e2%80%93-overview)
+  - [12. Spring MVC - Creating Controllers and Views](#12-spring-mvc---creating-controllers-and-views)
+    - [1. Creating a Spring Home Controller and View – Overview](#1-creating-a-spring-home-controller-and-view-%e2%80%93-overview)
+    - [7. Reading HTML Form Data – Overview](#7-reading-html-form-data-%e2%80%93-overview)
+    - [11. Adding Data to the Spring Model - Overview](#11-adding-data-to-the-spring-model---overview)
+    - [Question: HELP! My Spring MVC Controller is not working. What to do?](#question-help-my-spring-mvc-controller-is-not-working-what-to-do)
+    - [Can't Start Tomcat - Ports are in Use](#cant-start-tomcat---ports-are-in-use)
+    - [How Does Component Scan Work - Your Package Names are Different!](#how-does-component-scan-work---your-package-names-are-different)
+    - [How do I use CSS, JavaScript and Images in a Spring MVC Web App?](#how-do-i-use-css-javascript-and-images-in-a-spring-mvc-web-app)
+  - [13. Spring MVC - Request Params and Request Mappings](#13-spring-mvc---request-params-and-request-mappings)
+    - [1. Binding Request Params - Overview](#1-binding-request-params---overview)
+    - [2. Binding Request Params - Write Some Code](#2-binding-request-params---write-some-code)
+    - [3. Controller Level Request Mapping - Overview](#3-controller-level-request-mapping---overview)
+      - [Question: Can you please clarify how /hello is getting appended to the jsp file action for "processForm"?](#question-can-you-please-clarify-how-hello-is-getting-appended-to-the-jsp-file-action-for-%22processform%22)
+  - [14. Spring MVC - Form Tags and Data Binding](#14-spring-mvc---form-tags-and-data-binding)
+    - [2. Text Fields - Overview](#2-text-fields---overview)
+    - [3. Drop-Down Lists - Overview](#3-drop-down-lists---overview)
+      - [How to use properties file to load country options](#how-to-use-properties-file-to-load-country-options)
+    - [4. Radio Buttons - Overview](#4-radio-buttons---overview)
+    - [5. Checkboxes - Overview](#5-checkboxes---overview)
+  - [15. Spring MVC Form Validation - Applying Built-In Validation Rules](#15-spring-mvc-form-validation---applying-built-in-validation-rules)
+  - [16. Spring MVC Form Validation - Validating Number Ranges and Regular Expressions](#16-spring-mvc-form-validation---validating-number-ranges-and-regular-expressions)
+  - [17. Spring MVC Form Validation - Creating Custom Validation Rules](#17-spring-mvc-form-validation---creating-custom-validation-rules)
+  - [18. Introduction to Hibernate](#18-introduction-to-hibernate)
+  - [19. Setting Up Hibernate Development Environment](#19-setting-up-hibernate-development-environment)
+  - [20. Spring Overview](#20-spring-overview)
+  - [21. Hibernate Configuration with Annotations](#21-hibernate-configuration-with-annotations)
+  - [22. Hibernate CRUD Features Create, Read, Update and Delete](#22-hibernate-crud-features-create-read-update-and-delete)
+  - [23. Hibernate Advanced Mappings](#23-hibernate-advanced-mappings)
+  - [24. Hibernate Advanced Mappings - @OneToOne](#24-hibernate-advanced-mappings---onetoone)
+  - [25. Hibernate Advanced Mappings - @OneToMany](#25-hibernate-advanced-mappings---onetomany)
+  - [26. Hibernate Advanced Mappings - Eager vs Lazy Loading](#26-hibernate-advanced-mappings---eager-vs-lazy-loading)
+  - [27. Hibernate Advanced Mappings - @OneToMany - Unidirectional](#27-hibernate-advanced-mappings---onetomany---unidirectional)
+  - [28. Hibernate Advanced Mappings - @ManyToMany](#28-hibernate-advanced-mappings---manytomany)
+  - [29. Build a Database Web App - Spring MVC and Hibernate Project - Part 1](#29-build-a-database-web-app---spring-mvc-and-hibernate-project---part-1)
+  - [30. Build a Database Web App - Spring MVC and Hibernate Project - Part 2](#30-build-a-database-web-app---spring-mvc-and-hibernate-project---part-2)
+  - [31. Setting Up Your Development Environment](#31-setting-up-your-development-environment)
+  - [32. Build a Database Web App - Spring MVC and Hibernate Project - Part ## 3](#32-build-a-database-web-app---spring-mvc-and-hibernate-project---part--3)
+  - [33. Build a Database Web App - Spring MVC and Hibernate Project - Part 4](#33-build-a-database-web-app---spring-mvc-and-hibernate-project---part-4)
+  - [34. Build a Database Web App - Spring MVC and Hibernate Project - Part 5](#34-build-a-database-web-app---spring-mvc-and-hibernate-project---part-5)
+  - [35. Build a Database Web App - Spring MVC and Hibernate Project - Part 6](#35-build-a-database-web-app---spring-mvc-and-hibernate-project---part-6)
   - [34. AOP Aspect-Oriented Programming Overview](#34-aop-aspect-oriented-programming-overview)
       - [1. AOP - The Business Problem](#1-aop---the-business-problem)
       - [2. AOP Solution and AOP Use Cases](#2-aop-solution-and-aop-use-cases)
@@ -1394,9 +1432,9 @@ let me know if you need anything else.
 
 :-)
 
-### 12. Spring MVC - Creating Controllers and Views
+## 12. Spring MVC - Creating Controllers and Views
 
-#### 1. Creating a Spring Home Controller and View – Overview
+### 1. Creating a Spring Home Controller and View – Overview
 
 **Development Process**
 
@@ -1407,6 +1445,561 @@ let me know if you need anything else.
 5. Develop View Page
 
 - Khi chạy vào **run as/ run on server/ chọn server Tomcat/ tick Always use this server….**
+
+---
+
+Display data in jsp files
+Student name: \${param.studentName}
+
+---
+
+### 7. Reading HTML Form Data – Overview
+
+### 11. Adding Data to the Spring Model - Overview
+
+```java
+// need a controller method to show the initial HTML form
+
+	@RequestMapping("/showForm")
+	public String showForm() {
+		return "helloworld-form";
+	}
+
+	// need a controller method to process the HTML form
+
+	@RequestMapping("/processForm")
+	public String processForm() {
+		return "helloworld";
+	}
+
+	// new a controller method to read form data and
+	// add data to the model
+
+	@RequestMapping("/processFormVersionTwo")
+	public String letsShoutDude(HttpServletRequest request, Model model) {
+
+		// read the request parameter from the HTML form
+		String theName = request.getParameter("studentName");
+
+		// convert the data to all caps
+		theName = theName.toUpperCase();
+
+		// create the message
+		String result = "Yo! " + theName;
+
+		// add message to the model
+		model.addAttribute("message", result);
+
+		return "helloworld";
+	}
+```
+
+Result:
+
+```jsp
+Student name: ${param.studentName}
+
+<br><br>
+
+The message: ${message}
+```
+
+---
+
+JUST A HEADS UP ...
+
+IN THE VIDEOS YOUR SPRING MVC CONTROLLER CODE MAY NOT WORK
+
+THIS IS AN ECLIPSE CACHING BUG
+
+IF YOUR CONTROLLER DOESN'T WORK THEN TRY THE STEPS BELOW
+
+---
+
+### Question: HELP! My Spring MVC Controller is not working. What to do?
+
+Answer: **File html have images**!!!!!
+
+Debug Tip #0: Make sure you are accessing the correct URL
+
+You need to access the correct URL, localhost:8080/spring-mvc-demo/
+
+Note: Do not attempt to run the JSP files directly. This will not work due to MVC.
+
+---
+
+Debug Tip #1: Make Sure your Package Names is consistent
+
+The Spring configuration file used in the videos expects for your controller to be in the package:
+
+package com.luv2code.springdemo.mvc;
+
+Make sure your controller is this package.
+
+---
+
+Debug Tip #2: Reimport Project into Eclipse
+
+Sometimes the Eclipse project settings can become corrupted. One possible solution is to remove the Eclipse project and reimport into Eclipse.
+
+Here are the steps.
+
+1. Remove the project from Eclipse.
+
+2) Open the project in file system and remove the files/ folders except src and WebContent.
+
+3. Open the project in Eclipse again using File > Import ... > General > Existing Projects into Workspace
+
+4. Check the project properties(Right click on the project and click on Properties),
+
+5. Check the Java Build Path, Java Compiler and Project Facets and make sure that the Java version is same in all the windows.
+
+5) Build the project and try again.
+
+---
+
+Debug Tip #3: Clear Tomcat Cache
+This is normally a caching issue with the cache.
+
+Here are some steps to clear the Eclipse cache and Tomcat cache.
+
+1. In the Server's tab in Eclipse, Stop the Tomcat server
+
+2. Right-click the server and select "Clean..."
+
+3. Right-click the server again and select "Clean Tomcat Work Directory..."
+
+---
+
+4. In the Eclipse, select the top-level menu option, Project > Clean ...
+
+5. Be sure your project is selected and click Ok
+
+6. Restart Eclipse
+
+Retest your application. If you continue to have problems try Debug Tip #2
+
+---
+
+Debug Tip #4: Import the Project in a new workspace
+
+1. Copy your project to a new directory on your computer like, c:\foobar
+
+2. In Eclipse, open a new workspace: Create a new workspace in Eclipse: File > Switch Workspace > Other ... > give any name
+
+3. In Eclipse, import the project
+
+3a. Use File > Import > General > Existing Projects into Workspace
+
+3b. Browse to directory: c:\foobar
+
+4. In your new workspace, add a reference to the Tomcat server
+
+5. Test your app in the new workspace
+
+---
+
+If you still have problems, then post your code to the classroom discussion forum.
+
+Be sure to include the following files:
+
+- spring-mvc-demo-servlet.xml
+- your controller .java
+- your view page .jsp
+
+### Can't Start Tomcat - Ports are in Use
+
+You may have a problem starting Tomcat. You may see this ugly error message about ports in use.
+
+Solution
+
+You can use the troubleshooting tips below.
+
+Troubleshooting Tip #1
+
+1. Exit Eclipse
+
+2. Open a web web browser and visit, http://localhost:8080
+
+3. If you see a "Tomcat" web page then that means Tomcat is running as a Windows service. To stop Tomcat running as a Windows services, open your Windows Control Panel. Find the service "Apache Tomcat" and stop it.
+
+4. If you don't see a "Tomcat" web page, then stop the appropriate process displayed.
+
+--
+Troubleshooting Tip #2 - GUI Option
+
+Steps to free port which is already used to run Tomcat server in Eclipse
+
+1. On MS Windows, select Start > All Programs > Accessories > System Tools >Resource Monitor
+
+2. Expand the Network Tab
+
+3. Move to the section for Listening Ports
+
+4. Look in the Port column and scroll to find entry for port 8080
+
+5. Select the given process and delete/kill the process
+
+6. Return back to Eclipse and start the Tomcat Server, it should start up now.
+
+---
+
+Troubleshooting Tip #3 - Command-Line Option
+
+Steps to free port which is already used to run Tomcat server in Eclipse
+
+For example , suppose 8080 port is used , we need to make free 8080 to run tomcat
+
+Step 1: (open the CMD command)
+
+C:\Users\username>netstat -o -n -a | findstr 0.0:8080
+
+TCP 0.0.0.0:3000 0.0.0.0:0 LISTENING 3116
+
+Now , we can see that LISTENING port is 3116 for 8080 ,
+
+We need to kill 3116 now
+
+Step 2:
+
+C:\Users\username>taskkill /F /PID 3116
+
+Step 3: Return back to Eclipse and start the Tomcat Server, it should start up now.
+
+====
+
+Mac/Linux SOLUTION
+
+Step 0: Exit Eclipse
+
+Step 1: Open a terminal window
+
+Step 2: Enter the following command to find the process id
+
+lsof -i :8080
+This will give output of the application that is running on port 8080
+
+Step 3: Enter the following command to kill the process
+
+kill \$(lsof -t -i :8080)
+
+Step 4: Return back to Eclipse and start the Tomcat Server, it should start up now.
+
+---
+
+### How Does Component Scan Work - Your Package Names are Different!
+
+Question
+
+How does component scan work in this example? You have different package names.
+
+You listed the component scan package as: com.luv2code.springdemo
+
+But the our MVC controllers are defined in com.luv2code.springdemo.mvc
+
+Answer
+For the Spring attribute: base-package="com.luv2code.springdemo"
+
+Spring will recursively scan for components starting at the base package: "com.luv2code.springdemo"
+
+When I say "recursive", it means that Spring will start at the base package and scan all sub packages.
+
+The package com.luv2code.springdemo.mvc is a sub package because of naming structure, just like folders on a file system.
+
+As a result, it will be included in the scan.
+
+---
+
+Question
+
+### How do I use CSS, JavaScript and Images in a Spring MVC Web App?
+
+Answer
+
+Here are the steps on how to access static resources in a Spring MVC. For example, you can use this to access images, css, JavaScript files etc.
+
+Any static resource is processed as a URL Mapping in Spring MVC. You can configure references to static resources in the spring-mvc-demo-servlet.xml.
+
+In my example, I'm going to have the following directory structure:
+
+I chose to put everything in the "resources" directory. But you can use any name for "resources", such as "assets", "foobar" etc. Also, you can give any name that you want for the subdirectories under "resources".
+
+---
+
+Step 1: Add the following entry to your Spring MVC configuration file: spring-mvc-demo-servlet.xml
+
+You can place this entry anywhere in your Spring MVC config file.
+
+```xml
+<mvc:resources mapping="/resources/\*\*" location="/resources/"></mvc:resources>
+
+```
+
+Step 2: Now in your view pages, you can access the static files using this syntax:
+
+```java
+<img src="${pageContext.request.contextPath}/resources/images/spring-logo.png">
+
+```
+
+You need to use the JSP expression \${pageContext.request.contextPath} to access the correct root directory for your web application.
+
+Apply the same technique for reading CSS and JavaScript.
+
+---
+
+Here's a full example that reads CSS, JavaScript and images.
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="${pageContext.request.contextPath}/resources/css/my-test.css"
+    />
+
+    <script src="${pageContext.request.contextPath}/resources/js/simple-test.js"></script>
+  </head>
+
+  <body>
+    <h2>Spring MVC Demo - Home Page</h2>
+
+    <a href="showForm">Plain Hello World</a>
+
+    <br /><br />
+
+    <img
+      src="${pageContext.request.contextPath}/resources/images/spring-logo.png"
+    />
+
+    <br /><br />
+
+    <input type="button" onclick="doSomeWork()" value="Click Me" />
+  </body>
+</html>
+```
+
+---
+
+Source code for this example are available here:
+
+- https://gist.github.com/darbyluv2code/9a09543a226baeedc04b9a5037ca52ec
+
+## 13. Spring MVC - Request Params and Request Mappings
+
+### 1. Binding Request Params - Overview
+
+```java
+@RequestMapping("/processFormVersionThree")
+	public String processFormVersionThree(
+			@RequestParam("studentName") String theName,
+			Model model) {
+
+		// convert the data to all caps
+		theName = theName.toUpperCase();
+
+		// create the message
+		String result = "Hey My Friend from v3! " + theName;
+
+		// add message to the model
+		model.addAttribute("message", result);
+
+		return "helloworld";
+	}
+```
+
+### 2. Binding Request Params - Write Some Code
+
+### 3. Controller Level Request Mapping - Overview
+
+FAQ:
+
+#### Question: Can you please clarify how /hello is getting appended to the jsp file action for "processForm"?
+
+Answer
+
+You can use "processForm" because it is a relative path to the controller "/hello" request mapping. Here is how it works.
+
+1. When you wish to view the form, the HTML link points to "hello/showForm". This calls the controller and it displays the form.
+
+2. At this point the browser URL/path is: http://localhost:8080/spring-mvc-demo/hello
+
+3. The HTML form uses "processForm" for the form action. Notice that it does not have a forward slash, as a result, this will be relative to the current browser URL. Since the current browser URL is
+
+http://localhost:8080/spring-mvc-demo/hello
+
+Then the actual form URL submission will send it to
+
+http://localhost:8080/spring-mvc-demo/hello/processForm
+
+The part in bold with map to the controller with top-level request mapping "/hello" and then map to request mapping in that class "/processForm"
+
+The key here is relative path of showing the form and then submitting to relative path.
+
+## 14. Spring MVC - Form Tags and Data Binding
+
+http://luv2code.com/spring-mvc-form-tags
+**Specify the Spring namespace at beginning of JSP file**
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+### 2. Text Fields - Overview
+
+Model is used to pass data betweens controllers and views
+
+### 3. Drop-Down Lists - Overview
+
+Co 2 cach:
+
+- Lay data static
+- Lay data tu HashMap
+  Question:
+
+#### How to use properties file to load country options
+
+Answer:
+
+This solution will show you how to place the country options in a properties file. The values will no longer be hard coded in the Java code.
+
+1. Create a properties file to hold the countries. It will be a name value pair. Country code is name. Country name is the value.
+
+New text file: WEB-INF/countries.properties
+
+BR=Brazil
+FR=France
+CO=Colombia
+IN=India
+Note the location of the properties file is very important. It must be stored in WEB-INF/countries.properties
+
+2. Update header section for Spring config file
+
+We are going to use a new set of Spring tags for <util>. As a result, you need to update the header information in the Spring config file.
+
+File: spring-mvc-dmo-servlet.xml
+
+Remove the previous header and add this.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            http://www.springframework.org/schema/util
+            http://www.springframework.org/schema/util/spring-util.xsd">
+
+```
+
+3. Load the country options properties file in the Spring config file. Bean id: countryOptions
+
+File: spring-mvc-dmo-servlet.xml
+
+Add the following lines:
+
+<util:properties id="countryOptions" location="classpath:../countries.properties" />
+
+4. Inject the properties values into your Spring Controller: StudentController.java
+
+```java
+@Value("#{countryOptions}")
+private Map<String, String> countryOptions;
+
+```
+
+5. Add the country options to the Spring MVC model. Attribute name: theCountryOptions
+
+```java
+@RequestMapping("/showForm")
+public String showForm(Model theModel) {
+
+    // create a student object Student
+    Student theStudent = new Student();
+
+    // add student object to the model
+    theModel.addAttribute("student", theStudent);
+
+    // add the country options to the model
+    theModel.addAttribute("theCountryOptions", countryOptions);
+
+    return "student-form";
+}
+
+```
+
+6. Update the JSP page, student-form.jsp, to use the new model attribute for the drop-down list: theCountryOptions
+
+```jsp
+<form:select path="country">
+ <form:options items="${theCountryOptions}" />
+</form:select>
+
+```
+
+7. Remove all references to country option from your Student.java.
+
+---
+
+DOWNLOAD FULL SOURCE CODE
+
+You can download entire code from here:
+
+- http://www.luv2code.com/downloads/spring-hibernate/spring-props-mvc-demo.zip
+
+### 4. Radio Buttons - Overview
+
+### 5. Checkboxes - Overview
+
+## 15. Spring MVC Form Validation - Applying Built-In Validation Rules
+
+## 16. Spring MVC Form Validation - Validating Number Ranges and Regular Expressions
+
+## 17. Spring MVC Form Validation - Creating Custom Validation Rules
+
+## 18. Introduction to Hibernate
+
+## 19. Setting Up Hibernate Development Environment
+
+## 20. Spring Overview
+
+## 21. Hibernate Configuration with Annotations
+
+## 22. Hibernate CRUD Features Create, Read, Update and Delete
+
+## 23. Hibernate Advanced Mappings
+
+## 24. Hibernate Advanced Mappings - @OneToOne
+
+## 25. Hibernate Advanced Mappings - @OneToMany
+
+## 26. Hibernate Advanced Mappings - Eager vs Lazy Loading
+
+## 27. Hibernate Advanced Mappings - @OneToMany - Unidirectional
+
+## 28. Hibernate Advanced Mappings - @ManyToMany
+
+## 29. Build a Database Web App - Spring MVC and Hibernate Project - Part 1
+
+## 30. Build a Database Web App - Spring MVC and Hibernate Project - Part 2
+
+## 31. Setting Up Your Development Environment
+
+## 32. Build a Database Web App - Spring MVC and Hibernate Project - Part ## 3
+
+## 33. Build a Database Web App - Spring MVC and Hibernate Project - Part 4
+
+## 34. Build a Database Web App - Spring MVC and Hibernate Project - Part 5
+
+## 35. Build a Database Web App - Spring MVC and Hibernate Project - Part 6
 
 ## 34. AOP Aspect-Oriented Programming Overview
 
