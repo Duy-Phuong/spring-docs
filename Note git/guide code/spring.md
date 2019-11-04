@@ -58,6 +58,15 @@
       - [During All Java Configuration, how does the @Bean annotation work in the background?](#during-all-java-configuration-how-does-the-bean-annotation-work-in-the-background)
     - [FAQ: Problems with Injecting Values - Value not returning from \${foo.email}](#faq-problems-with-injecting-values---value-not-returning-from-fooemail)
     - [4. Defining Spring Beans with Java Code (no xml) - Overview](#4-defining-spring-beans-with-java-code-no-xml---overview)
+  - [11. Spring MVC - Building Spring Web Apps](#11-spring-mvc---building-spring-web-apps)
+    - [1. Spring MVC Overview](#1-spring-mvc-overview)
+    - [2. Spring MVC - Behind the Scenes](#2-spring-mvc---behind-the-scenes)
+    - [3. Development Environment Checkpoint](#3-development-environment-checkpoint)
+    - [5. Spring MVC Configuration - Overview](#5-spring-mvc-configuration---overview)
+    - [6. Spring MVC Configuration - JAR Files](#6-spring-mvc-configuration---jar-files)
+      - [How to configure the Spring Dispatcher Servlet using all Java Code (no xml)?](#how-to-configure-the-spring-dispatcher-servlet-using-all-java-code-no-xml)
+    - [12. Spring MVC - Creating Controllers and Views](#12-spring-mvc---creating-controllers-and-views)
+      - [1. Creating a Spring Home Controller and View – Overview](#1-creating-a-spring-home-controller-and-view-%e2%80%93-overview)
   - [34. AOP Aspect-Oriented Programming Overview](#34-aop-aspect-oriented-programming-overview)
       - [1. AOP - The Business Problem](#1-aop---the-business-problem)
       - [2. AOP Solution and AOP Use Cases](#2-aop-solution-and-aop-use-cases)
@@ -1166,6 +1175,238 @@ Let me know if that clears it up.
 ### 4. Defining Spring Beans with Java Code (no xml) - Overview
 
 Trong file SportConfig, ten method trung voi bean ID
+
+```java
+@Bean
+	public FortuneService sadFortuneService() {
+		return new SadFortuneService();
+	}
+    //sadFortuneService la bean id
+```
+
+## 11. Spring MVC - Building Spring Web Apps
+
+http://luv2code.com/spring-mvc-docs =>
+https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html
+
+### 1. Spring MVC Overview
+
+### 2. Spring MVC - Behind the Scenes
+
+http://luv2code.com/spring-mvc-views =>
+https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-view
+
+### 3. Development Environment Checkpoint
+
+In the following videos for Spring MVC, I provide a collection of starter files.
+Download these files from the link below.
+http://www.luv2code.com/downloads/udemy-spring-hibernate/solution-code-spring-mvc-config-files.zip
+You will need these in the following videos.
+Cheers :-)
+
+### 5. Spring MVC Configuration - Overview
+
+**Spring MVC Configuration Process - Part 1**
+Add configurations to file: WEB-INF/web.xml
+
+1. Configure Spring MVC Dispatcher Servlet
+2. Set up URL mappings to Spring MVC Dispatcher Servlet
+3. Add support for Spring component scanning
+4. Add support for conversion, formatting and validation
+5. Configure Spring MVC View Resolver
+
+```xml
+web.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+
+	<display-name>spring-mvc-demo</display-name>
+
+	<absolute-ordering />
+
+	<!-- Step 1: Configure Spring MVC Dispatcher Servlet -->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring-mvc-demo-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- Step 2: Set up URL mapping for Spring MVC Dispatcher Servlet -->
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+</web-app>
+
+----------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+    	http://www.springframework.org/schema/beans/spring-beans.xsd
+    	http://www.springframework.org/schema/context
+    	http://www.springframework.org/schema/context/spring-context.xsd
+    	http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- Step 3: Add support for component scanning -->
+	<context:component-scan base-package="com.luv2code.springdemo" />
+
+	<!-- Step 4: Add support for conversion, formatting and validation support -->
+	<mvc:annotation-driven/>
+
+	<!-- Step 5: Define Spring MVC view resolver -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+</beans>
+
+```
+
+### 6. Spring MVC Configuration - JAR Files
+
+**File/ New/ Dynamic web project/Finish**
+Copy jar files vào thư mục WebContent/ WEB-INF/ lib
+Copy thêm 2 file jstl:
+
+- javax.servlet.jsp.jstl-1.2.1.jar
+- javax.servlet.jsp.jstl-api-1.2.1
+
+Copy 2 file xml vao WEB-INF
+Question:
+
+#### How to configure the Spring Dispatcher Servlet using all Java Code (no xml)?
+
+Answer:
+
+Good question!
+
+For Spring MVC, we cover all Java config (no xml) later in the course, complete with videos/explanation and everything.
+
+However, if you just need the code, here are the steps
+
+1. Delete the files: web.xml file and spring-mvc-demo-servlet.xml files
+
+2. Create a new Java package: com.luv2code.springdemo.config
+
+3. Add the following Java files in your package
+
+File: DemoAppConfig.java
+
+```java
+package com.luv2code.springdemo.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages="com.luv2code.springdemo")
+public class DemoAppConfig {
+
+    // define a bean for ViewResolver
+
+    @Bean
+    public ViewResolver viewResolver() {
+
+    	InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+
+    	viewResolver.setPrefix("/WEB-INF/view/");
+    	viewResolver.setSuffix(".jsp");
+
+    	return viewResolver;
+    }
+
+ }
+
+```
+
+**File: MySpringMvcDispatcherServletInitializer.java**
+
+```java
+package com.luv2code.springdemo.config;
+
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+    	// TODO Auto-generated method stub
+    	return null;
+    }
+
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+    	return new Class[] { DemoAppConfig.class };
+    }
+
+    @Override
+    protected String[] getServletMappings() {
+    	return new String[] { "/" };
+    }
+
+}
+
+```
+
+4. Test your app
+
+Your app should work as desired.
+
+---
+
+I also uploaded a full project implementation with code here
+
+https://drive.google.com/open?id=1_5__2SggzgFHt7Rs2YYsv5JHRVX5Orq3
+
+---
+
+For a discussion on how this code works, you can skip ahead to the following video
+
+Video 403 - Spring MVC All Java Config
+
+https://www.udemy.com/spring-hibernate-tutorial/learn/v4/t/lecture/8355870?start=148
+
+Skip ahead to time marker [02:28]
+
+---
+
+let me know if you need anything else.
+
+:-)
+
+### 12. Spring MVC - Creating Controllers and Views
+
+#### 1. Creating a Spring Home Controller and View – Overview
+
+**Development Process**
+
+1. Create Controller class
+2. Define Controller method
+3. Add Request Mapping to Controller method
+4. Return View Name
+5. Develop View Page
+
+- Khi chạy vào **run as/ run on server/ chọn server Tomcat/ tick Always use this server….**
 
 ## 34. AOP Aspect-Oriented Programming Overview
 
