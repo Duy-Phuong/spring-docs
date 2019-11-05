@@ -96,7 +96,22 @@
     - [11. Test the Validation Rule for Required Fields](#11-test-the-validation-rule-for-required-fields)
     - [12. Add Pre-processing Code with @InitBinder - Overview](#12-add-pre-processing-code-with-initbinder---overview)
   - [16. Spring MVC Form Validation - Validating Number Ranges and Regular Expressions](#16-spring-mvc-form-validation---validating-number-ranges-and-regular-expressions)
+    - [1. Validating a Number Range - Overview](#1-validating-a-number-range---overview)
+    - [2. Validating a Number Range - Write Some Code](#2-validating-a-number-range---write-some-code)
+    - [3. Applying Regular Expressions - Overview](#3-applying-regular-expressions---overview)
+    - [4. Applying Regular Expressions - Write Some Code](#4-applying-regular-expressions---write-some-code)
+    - [5. How to make Integer Field Required freePasses](#5-how-to-make-integer-field-required-freepasses)
+    - [6. How to Handle String input for Integer Fields - Custom Message](#6-how-to-handle-string-input-for-integer-fields---custom-message)
+    - [7. How to Handle String input for Integer Fields - Configure Resource Bundle](#7-how-to-handle-string-input-for-integer-fields---configure-resource-bundle)
+    - [8. How to Handle String input for Integer Fields - Deep Dive](#8-how-to-handle-string-input-for-integer-fields---deep-dive)
+    - [FAQ: How to Make Integer field required and handle Strings: freePasses?](#faq-how-to-make-integer-field-required-and-handle-strings-freepasses)
+    - [Handle String Input for Integer Fields](#handle-string-input-for-integer-fields)
   - [17. Spring MVC Form Validation - Creating Custom Validation Rules](#17-spring-mvc-form-validation---creating-custom-validation-rules)
+    - [1. Custom Form Validation - Overview - Part 1](#1-custom-form-validation---overview---part-1)
+    - [2. Custom Form Validation - Overview - Part 2](#2-custom-form-validation---overview---part-2)
+    - [5. Developing the ConstraintValidator](#5-developing-the-constraintvalidator)
+    - [6. Adding Validation Rule to the Entity and Form](#6-adding-validation-rule-to-the-entity-and-form)
+      - [Spring MVC Custom Validation - FAQ: Is it possible to integrate multiple validation string in one annotation?](#spring-mvc-custom-validation---faq-is-it-possible-to-integrate-multiple-validation-string-in-one-annotation)
   - [18. Introduction to Hibernate](#18-introduction-to-hibernate)
   - [19. Setting Up Hibernate Development Environment](#19-setting-up-hibernate-development-environment)
   - [20. Spring Overview](#20-spring-overview)
@@ -171,6 +186,11 @@ http://www.luv2code.com/download-spring-hibernate-pdfs
 https://freecoursesite.com/1-spring-hibernate-for-beginners/
 
 ## 3. Setting Up Your Development Environment
+
+You Must Have the Java Development Kit (JDK) Installed
+
+1. Check out my YouTube video for this:
+   http://www.luv2code.com/install-java
 
 ### 2. Installing Tomcat
 
@@ -2086,11 +2106,422 @@ TH space cung cho pass
 
 ## 16. Spring MVC Form Validation - Validating Number Ranges and Regular Expressions
 
+### 1. Validating a Number Range - Overview
+
+@Min, @Max
+Class Customer
+
+### 2. Validating a Number Range - Write Some Code
+
+### 3. Applying Regular Expressions - Overview
+
+If not, then plenty of free tutorials available
+• https://docs.oracle.com/javase/tutorial/essential/regex/
+
+### 4. Applying Regular Expressions - Write Some Code
+
+### 5. How to make Integer Field Required freePasses
+
+```java
+// Chuyen tu int sang Integer de check NotNull tranh Exception
+@NotNull(message="is required")
+	@Min(value=0, message="must be greater than or equal to zero")
+	@Max(value=10, message="must be less than or equal to 10")
+	private Integer freePasses;
+```
+
+### 6. How to Handle String input for Integer Fields - Custom Message
+
+Tao file .properties
+typeMismatch.customer.freePasses=Invalid number
+errorType.Class.field
+
+### 7. How to Handle String input for Integer Fields - Configure Resource Bundle
+
+Vao file xml
+
+```xml
+Load resource messsage
+    <bean id="messageSource"
+          class="org.springframework.context.support.ResourceBundleMessageSource">
+
+        <property name="basenames" value="resources/messages" />
+
+    </bean>
+```
+
+### 8. How to Handle String input for Integer Fields - Deep Dive
+
+Vao print ra theBindingResult de co the biet error code de override **typeMismatch.customer.freePasses**
+
+```java
+@RequestMapping("/processForm")
+	public String processForm(
+			@Valid @ModelAttribute("customer") Customer theCustomer,
+			BindingResult theBindingResult) {
+
+		System.out.println("Last name: |" + theCustomer.getLastName() + "|");
+		System.out.println(theBindingResult);
+		if (theBindingResult.hasErrors()) {
+			return "customer-form";
+		}
+		else {
+			return "customer-confirmation";
+		}
+	}
+```
+
+Xem them file html
+
+### FAQ: How to Make Integer field required and handle Strings: freePasses?
+
+Question:
+
+I am getting the following error when i submit the form with an empty value for customer "freePasses". I am using @NotNull on the field "freePasses". It is not throwing "is required" after validation after submit.
+
+How to fix this? Please help.
+
+Also, how do I handle validation if the user enters String input for the integer field?
+
+---
+
+Answer:
+
+Great question!
+
+The root cause is the freePasses field is using a primitive type: int. In order to check for null we must use the appropriate wrapper class: Integer.
+
+To resolve this, In Customer.java, replace "int" with "Integer"
+
+```java
+@NotNull(message="is required")
+@Min(value=0, message="must be greater than or equal to zero")
+@Max(value=10, message="must be less than or equal to 10")
+private Integer freePasses;
+
+
+```
+
+Then update your getter/setter methods to use "Integer"
+
+```java
+    public Integer getFreePasses() {
+        return freePasses;
+    }
+
+    public void setFreePasses(Integer freePasses) {
+        this.freePasses = freePasses;
+    }
+
+```
+
+Save everything and retest.
+
+=====
+
+Here is the full source code.
+
+```java
+package com.luv2code.springdemo.mvc;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+public class Customer {
+
+    private String firstName;
+
+    @NotNull(message="is required")
+    @Size(min=1, message="is required")
+    private String lastName;
+
+    @NotNull(message="is required")
+    @Min(value=0, message="must be greater than or equal to zero")
+    @Max(value=10, message="must be less than or equal to 10")
+    private Integer freePasses;
+
+    @Pattern(regexp="^[a-zA-Z0-9]{5}", message="only 5 chars/digits")
+    private String postalCode;
+
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Integer getFreePasses() {
+        return freePasses;
+    }
+
+    public void setFreePasses(Integer freePasses) {
+        this.freePasses = freePasses;
+    }
+
+}
+
+```
+
+### Handle String Input for Integer Fields
+
+If the user enters String input such as "abcde" for the Free Passes integer field, we'd like to give a descriptive error message.
+
+We basically need to override the default Spring MVC validation messages.
+
+Follow these steps.
+
+1. In your Eclipse project, expand the node: Java Resources
+
+2. Right-click the src directory and create a new sub-directory: resources
+
+3. Right-click the resources sub-directory and create a new file named: messages.properties
+
+Your directory structure should look like this:
+
+4. Add the following entry to the messages.properties file
+
+typeMismatch.customer.freePasses=Invalid number
+
+5. Save file
+
+---
+
+This file contains key/value pairs for the error message type
+
+For a basic example:
+
+typeMismatch.customer.freePasses=Invalid number
+
+**The format of the error key is**: code + "." + object name + "." + field
+
+To find out the given error code, in your Spring controller, you can log the details of the binding result
+
+System.out.println("Binding result: " + theBindingResult);
+
+For details, see the docs here
+
+- http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/validation/DefaultMessageCodesResolver.html
+
+---
+
+6. Edit your config file: WEB-INF/spring-mvc-demo-servlet.xml
+
+Add the following:
+
+```xml
+<bean id="messageSource"
+      class="org.springframework.context.support.ResourceBundleMessageSource">
+
+    <property name="basenames" value="resources/messages" />
+
+</bean>
+
+```
+
+7. Save the file. Restart the Tomcat server
+
+8. Run your app and add bad data for the "Free Passes" field. You will see the error message from our properties file.
+
 ## 17. Spring MVC Form Validation - Creating Custom Validation Rules
+
+### 1. Custom Form Validation - Overview - Part 1
+
+Custom validation returns boolean value for pass/fail (true/false)
+
+### 2. Custom Form Validation - Overview - Part 2
+
+Create custom validation rule
+a. Create @CourseCode annotation
+b. Create CourseCodeConstraintValidator
+
+```java
+@Constraint(validatedBy = CourseCodeConstraintValidator.class)
+@Target( { ElementType.METHOD, ElementType.FIELD } )
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CourseCode {
+
+	// define default course code
+	public String value() default "LUV";
+
+	// define default error message
+	public String message() default "must start with LUV";
+
+	// define default groups
+	public Class<?>[] groups() default {};
+
+	// define default payloads
+	public Class<? extends Payload>[] payload() default {};
+}
+
+---
+public class CourseCodeConstraintValidator
+	implements ConstraintValidator<CourseCode, String> {
+
+	private String coursePrefix;
+
+	@Override
+	public void initialize(CourseCode theCourseCode) {
+		coursePrefix = theCourseCode.value();
+	}
+
+	@Override
+	public boolean isValid(String theCode,
+						ConstraintValidatorContext theConstraintValidatorContext) {
+
+		boolean result;
+
+		if (theCode != null) {
+			result = theCode.startsWith(coursePrefix);
+		}
+		else {
+			result = true;
+		}
+
+		return result;
+	}
+}
+// can add additional error msg in theConstraintValidatorContext
+```
+
+### 5. Developing the ConstraintValidator
+
+### 6. Adding Validation Rule to the Entity and Form
+
+#### Spring MVC Custom Validation - FAQ: Is it possible to integrate multiple validation string in one annotation?
+
+**Question**:
+
+Is it possible to integrate multiple validation string in one annotation? For example, validate against both LUV and TOPS.
+
+**Answer**:
+
+Yes, you can do this. In your validation, you will make use of an array of strings.
+
+Here's an overview of the steps.
+
+1. Update CourseCode.java to use an array of strings
+
+2. Update CourseCodeConstraintValidator.java to validate against array of strings
+
+3. Update Customer.java to validate using array of strings
+
+---
+
+**Detailed Steps**
+
+1. Update CourseCode.java to use an array of strings
+
+Change the value entry to an array of Strings:
+
+    // define default course code
+    public String[] value() default {"LUV"};
+
+Note the use of square brackets for the array of Strings. Also, the initialized value uses curley-braces for array data.
+
+2. Update CourseCodeConstraintValidator.java to validate against array of strings
+
+Change the field for coursePrefixes to an array
+
+private String[] coursePrefixes;
+
+Update the isValid(...) method to loop through the course prefixes. In the loop, check to see if the code matches any of the course prefixes.
+
+```java
+    @Override
+    public boolean isValid(String theCode,
+                        ConstraintValidatorContext theConstraintValidatorContext) {
+        boolean result = false;
+
+        if (theCode != null) {
+
+            //
+            // loop thru course prefixes
+            //
+            // check to see if code matches any of the course prefixes
+            //
+            for (String tempPrefix : coursePrefixes) {
+                result = theCode.startsWith(tempPrefix);
+
+                // if we found a match then break out of the loop
+                if (result) {
+                    break;
+                }
+            }
+        }
+        else {
+            result = true;
+        }
+
+        return result;
+  }
+
+```
+
+3.  Update Customer.java to validate using array of strings
+
+        @CourseCode(value={"TOPS", "LUV"}, message="must start with TOPS or LUV")
+        private String courseCode;
+
+    Note the use of curley braces.
+
+---
+
+Complete Source Code:
+
+https://gist.github.com/darbyluv2code/0275ddb6e70e085a10fd464e36a42739
+
+---
+
+That's it. This provides a solution to integrate multiple validation string in one annotation. In this example, the code validates against both LUV and TOPS.
 
 ## 18. Introduction to Hibernate
 
+A framework for persisting / saving Java objects in a database
+• www.hibernate.org
+**Benefits of Hibernate**
+• Hibernate handles all of the low-level SQL  
+• Minimizes the amount of JDBC code you have to develop  
+• Hibernate provides the Object-to-Relational Mapping (ORM)
+
 ## 19. Setting Up Hibernate Development Environment
+
+To Build Hibernate Applications, you need the following:
+
+1. Java Integrated Development Environment (IDE)
+2. Database Server
+3. Hibernate JAR files and JDBC Driver
+
+This course uses Hibernate 5.2.
+
+Hibernate 5.2 requires Java 8.
+
+In order to run the examples in this course, you will need have Java 8 installed.
+
+2. Hibernate Development Environment Overview
+3. Installing MySQL on MS Windows
+4. Setting Up Database Table
+5. Setting up Hibernate in Eclipse
+6. Testing Your JDBC Connection
 
 ## 20. Spring Overview
 
