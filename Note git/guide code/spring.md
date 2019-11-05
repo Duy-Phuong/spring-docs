@@ -114,6 +114,11 @@
       - [Spring MVC Custom Validation - FAQ: Is it possible to integrate multiple validation string in one annotation?](#spring-mvc-custom-validation---faq-is-it-possible-to-integrate-multiple-validation-string-in-one-annotation)
   - [18. Introduction to Hibernate](#18-introduction-to-hibernate)
   - [19. Setting Up Hibernate Development Environment](#19-setting-up-hibernate-development-environment)
+    - [2. Hibernate Development Environment Overview](#2-hibernate-development-environment-overview)
+    - [3. Installing MySQL on MS Windows](#3-installing-mysql-on-ms-windows)
+    - [4. Setting Up Database Table](#4-setting-up-database-table)
+    - [5. Setting up Hibernate in Eclipse](#5-setting-up-hibernate-in-eclipse)
+    - [6. Testing Your JDBC Connection](#6-testing-your-jdbc-connection)
   - [20. Spring Overview](#20-spring-overview)
   - [21. Hibernate Configuration with Annotations](#21-hibernate-configuration-with-annotations)
   - [22. Hibernate CRUD Features Create, Read, Update and Delete](#22-hibernate-crud-features-create-read-update-and-delete)
@@ -2517,11 +2522,76 @@ Hibernate 5.2 requires Java 8.
 
 In order to run the examples in this course, you will need have Java 8 installed.
 
-2. Hibernate Development Environment Overview
-3. Installing MySQL on MS Windows
-4. Setting Up Database Table
-5. Setting up Hibernate in Eclipse
-6. Testing Your JDBC Connection
+### 2. Hibernate Development Environment Overview
+
+### 3. Installing MySQL on MS Windows
+
+Vao trang chu Mysql de tai mysql community server
+mysql-installer-community-8.0.16.0
+chi tiet xem file word
+Installing the MySQL Database on Mac.html
+
+### 4. Setting Up Database Table
+
+user id: hbstudent
+password: hbstudent
+
+Create a connection/ Test Connection ok
+
+```sql
+CREATE USER 'hbstudent'@'localhost' IDENTIFIED BY 'hbstudent';
+
+GRANT ALL PRIVILEGES ON * . * TO 'hbstudent'@'localhost';
+
+
+```
+
+### 5. Setting up Hibernate in Eclipse
+
+To Do List
+
+1. Create Eclipse Project
+2. Download Hibernate Files
+3. Download MySQL JDBC Driver
+4. Add JAR files to Eclipse Project … Build Path
+
+https://hibernate.org/orm/
+Tải version 5.4
+Copy tất cả file trong \hibernate-release-5.4.6.Final\lib\required
+Tải jdbc connector: https://dev.mysql.com/downloads/connector/j/5.1.html
+Rồi copy 1 file jar đó vào eclipse
+
+### 6. Testing Your JDBC Connection
+
+```java
+Tạo file TestJdbc
+useSLL: get rid of Mysql SSL warning
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public static void main(String[] args) {
+
+   String jdbcUrl = "jdbc:mysql://localhost:3306/hb_student_tracker?useSSL=false&serverTimezone=UTC";
+   String user = "hbstudent";
+   String pass = "hbstudent";
+
+   try {
+      System.out.println("Connecting to database: " + jdbcUrl);
+
+      Connection myConn =
+            DriverManager.getConnection(jdbcUrl, user, pass);
+
+      System.out.println("Connection successful!!!");
+
+   }
+   catch (Exception exc) {
+      exc.printStackTrace();
+   }
+
+}
+
+
+```
 
 ## 20. Spring Overview
 
