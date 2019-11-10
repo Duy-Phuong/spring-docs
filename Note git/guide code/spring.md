@@ -208,7 +208,6 @@ Nhấn New để tạo mới một biến môi trường có tên JAVA_HOME.
 ![](../../root/img/2019-11-10-22-57-32.png)  
 ![](../../root/img/2019-11-10-23-17-16.png)
 
-
 Nhập vào đường dẫn tới thư mục JDK.
 • Variable name: JAVA_HOME
 • Variable value: C:\DevPrograms\Java\jdk1.8.0_45
@@ -224,15 +223,22 @@ Check: java -version
 
 ### 2. Installing Tomcat
 
-Install apache: https://tomcat.apache.org/  
+Install apache: https://tomcat.apache.org/
+![](../../root/img/2019-11-11-00-27-24.png)
 Chọn version Tomcat9/ Chọn 32-bit/64-bit Windows Service Installer
 Sau đó cài đặt Apache : an next/ Chon type of Install la **FULL** /
+![](../../root/img/2019-11-11-00-29-57.png)
 Lưu ý : phải chọn full, và nhập tên và pass cho admin
 admin - admin
+![](../../root/img/2019-11-11-00-30-44.png)
 Bỏ chọn Show Readme và click Finish
+![](../../root/img/2019-11-11-00-07-20.png)
 Verify install bằng cách vào link: http://localhost:8080/
+![](../../root/img/2019-11-11-00-26-04.png)
 **Image**
+![](../../root/img/2019-11-11-00-12-17.png)
 Vào windows gõ service: tomcat => stop
+![](../../root/img/2019-11-11-00-25-07.png)
 Install eclipse: chọn download packages => eclipse for Java EE
 Try the Eclipse Installer 2019 06 R
 The easiest way to install and update your Eclipse Development Environment.
@@ -241,10 +247,13 @@ The easiest way to install and update your Eclipse Development Environment.
 
 Connect apache to eclipse
 Vào tab server của eclipse/ chọn click link to add new server/ chọn Apache/ Tomcat 09/ rồi chọn đường link ở trong ổ C
+![](../../root/img/2019-11-11-00-34-36.png)  
+![](../../root/img/2019-11-11-00-35-51.png)  
 **Program File/ Apache Sofware Foundation/ Tomcat 9**
 
 ### 5 Add jar files
 
+Core container : Factory for creating bean and manage bean dependences
 Thêm thủ công vào:
 http://www.luv2code.com/downloadspring =>
 http://repo.spring.io/release/org/springframework/spring/
