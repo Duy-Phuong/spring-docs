@@ -119,19 +119,26 @@
     - [4. Setting Up Database Table](#4-setting-up-database-table)
     - [5. Setting up Hibernate in Eclipse](#5-setting-up-hibernate-in-eclipse)
     - [6. Testing Your JDBC Connection](#6-testing-your-jdbc-connection)
-  - [20. Spring Overview](#20-spring-overview)
-  - [21. Hibernate Configuration with Annotations](#21-hibernate-configuration-with-annotations)
-  - [22. Hibernate CRUD Features Create, Read, Update and Delete](#22-hibernate-crud-features-create-read-update-and-delete)
-  - [23. Hibernate Advanced Mappings](#23-hibernate-advanced-mappings)
-  - [24. Hibernate Advanced Mappings - @OneToOne](#24-hibernate-advanced-mappings---onetoone)
-  - [25. Hibernate Advanced Mappings - @OneToMany](#25-hibernate-advanced-mappings---onetomany)
-  - [26. Hibernate Advanced Mappings - Eager vs Lazy Loading](#26-hibernate-advanced-mappings---eager-vs-lazy-loading)
-  - [27. Hibernate Advanced Mappings - @OneToMany - Unidirectional](#27-hibernate-advanced-mappings---onetomany---unidirectional)
-  - [28. Hibernate Advanced Mappings - @ManyToMany](#28-hibernate-advanced-mappings---manytomany)
-  - [29. Build a Database Web App - Spring MVC and Hibernate Project - Part 1](#29-build-a-database-web-app---spring-mvc-and-hibernate-project---part-1)
+  - [20. Hibernate Configuration with Annotations](#20-hibernate-configuration-with-annotations)
+    - [1. Creating the Hibernate Configuration File](#1-creating-the-hibernate-configuration-file)
+    - [2. Hibernate Annotations - Part 1](#2-hibernate-annotations---part-1)
+    - [JUST A HEADS UP - FOR JAVA 9, 10 and 11 USERS](#just-a-heads-up---for-java-9-10-and-11-users)
+    - [HEADS UP - JAVA 9 USERS - Eclipse Generate toString() fails](#heads-up---java-9-users---eclipse-generate-tostring-fails)
+    - [FAQ: Why we are using JPA Annotation instead of Hibernate ?](#faq-why-we-are-using-jpa-annotation-instead-of-hibernate)
+  - [21. Hibernate CRUD Features Create, Read, Update and Delete](#21-hibernate-crud-features-create-read-update-and-delete)
+    - [1. Creating and Saving Java Objects - Part 1](#1-creating-and-saving-java-objects---part-1)
+    - [3. Primary Keys - Overview](#3-primary-keys---overview)
+    - [4. Primary Keys - Changing the Starting Index](#4-primary-keys---changing-the-starting-index)
+  - [22. Hibernate Advanced Mappings](#22-hibernate-advanced-mappings)
+  - [23. Hibernate Advanced Mappings - @OneToOne](#23-hibernate-advanced-mappings---onetoone)
+  - [24. Hibernate Advanced Mappings - @OneToMany](#24-hibernate-advanced-mappings---onetomany)
+  - [25. Hibernate Advanced Mappings - Eager vs Lazy Loading](#25-hibernate-advanced-mappings---eager-vs-lazy-loading)
+  - [26. Hibernate Advanced Mappings - @OneToMany - Unidirectional](#26-hibernate-advanced-mappings---onetomany---unidirectional)
+  - [27. Hibernate Advanced Mappings - @ManyToMany](#27-hibernate-advanced-mappings---manytomany)
+  - [28. Build a Database Web App - Spring MVC and Hibernate Project - Part 1](#28-build-a-database-web-app---spring-mvc-and-hibernate-project---part-1)
   - [30. Build a Database Web App - Spring MVC and Hibernate Project - Part 2](#30-build-a-database-web-app---spring-mvc-and-hibernate-project---part-2)
   - [31. Setting Up Your Development Environment](#31-setting-up-your-development-environment)
-  - [32. Build a Database Web App - Spring MVC and Hibernate Project - Part ## 3](#32-build-a-database-web-app---spring-mvc-and-hibernate-project---part--3)
+  - [32. Build a Database Web App - Spring MVC and Hibernate Project - Part 3](#32-build-a-database-web-app---spring-mvc-and-hibernate-project---part-3)
   - [33. Build a Database Web App - Spring MVC and Hibernate Project - Part 4](#33-build-a-database-web-app---spring-mvc-and-hibernate-project---part-4)
   - [34. Build a Database Web App - Spring MVC and Hibernate Project - Part 5](#34-build-a-database-web-app---spring-mvc-and-hibernate-project---part-5)
   - [35. Build a Database Web App - Spring MVC and Hibernate Project - Part 6](#35-build-a-database-web-app---spring-mvc-and-hibernate-project---part-6)
@@ -197,6 +204,24 @@ You Must Have the Java Development Kit (JDK) Installed
 1. Check out my YouTube video for this:
    http://www.luv2code.com/install-java
 
+Nhấn New để tạo mới một biến môi trường có tên JAVA_HOME.
+![](../../root/img/2019-11-10-22-57-32.png)  
+![](../../root/img/2019-11-10-23-17-16.png)
+
+
+Nhập vào đường dẫn tới thư mục JDK.
+• Variable name: JAVA_HOME
+• Variable value: C:\DevPrograms\Java\jdk1.8.0_45
+![](../../root/img/2019-11-10-23-47-53.png)  
+![](../../root/img/2019-11-10-23-48-29.png)
+Tiếp theo sửa đổi biến môi trường path
+![](../../root/img/2019-11-10-23-49-01.png)
+Thêm vào phía trước giá trị của biến môi trường path:
+• %JAVA_HOME%\bin;
+
+Bạn đã cài đặt và cấu hình Java thành công.
+Check: java -version
+
 ### 2. Installing Tomcat
 
 Install apache: https://tomcat.apache.org/  
@@ -225,7 +250,7 @@ http://www.luv2code.com/downloadspring =>
 http://repo.spring.io/release/org/springframework/spring/
 chọn version release ở dưới cùng rồi chọn **spring-framework-5.1.8.RELEASE-dist.zip** để tải
 Tạo project java bình thường, sau đó tạo thư mục lib rồi copy tất các các thư viện trong lib đã tải paste vào
-Right **click/ properties/ Java build path/ libraries/ classpath/** ấn add jar rồi chon đến thư mục lib trong project mà ta vừa tạo chọn hết tất cả các file
+**Rightclick/ properties/ Java build path/ libraries/ classpath/** ấn add jar rồi chon đến thư mục lib trong project mà ta vừa tạo chọn hết tất cả các file
 **Nếu đúng sẽ xuất hiện Referenced libraries:**
 
 ## 4. Spring Inversion of Control - XML Configuration
@@ -2593,31 +2618,335 @@ public static void main(String[] args) {
 
 ```
 
-## 20. Spring Overview
+## 20. Hibernate Configuration with Annotations
 
-## 21. Hibernate Configuration with Annotations
+### 1. Creating the Hibernate Configuration File
 
-## 22. Hibernate CRUD Features Create, Read, Update and Delete
+```xml
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
-## 23. Hibernate Advanced Mappings
+<hibernate-configuration>
 
-## 24. Hibernate Advanced Mappings - @OneToOne
+    <session-factory>
 
-## 25. Hibernate Advanced Mappings - @OneToMany
+        <!-- JDBC Database connection settings -->
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/hb_student_tracker?useSSL=false&amp;serverTimezone=UTC</property>
+        <property name="connection.username">hbstudent</property>
+        <property name="connection.password">hbstudent</property>
 
-## 26. Hibernate Advanced Mappings - Eager vs Lazy Loading
+        <!-- JDBC connection pool settings ... using built-in test pool -->
+        <property name="connection.pool_size">1</property>
 
-## 27. Hibernate Advanced Mappings - @OneToMany - Unidirectional
+        <!-- Select our SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 
-## 28. Hibernate Advanced Mappings - @ManyToMany
+        <!-- Echo the SQL to stdout -->
+        <property name="show_sql">true</property>
 
-## 29. Build a Database Web App - Spring MVC and Hibernate Project - Part 1
+		<!-- Set the current session context -->
+		<property name="current_session_context_class">thread</property>
+
+    </session-factory>
+
+</hibernate-configuration>
+```
+
+### 2. Hibernate Annotations - Part 1
+
+Two Options for Mapping
+• Option 1: XML config file (legacy)
+• Option 2: Java Annotations (modern, preferred)
+
+Java Annotations
+• Step 1: Map class to database table
+• Step 2: Map fields to database columns
+
+```java
+package com.luv2code.hibernate.demo.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="student")
+public class Student {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
+	private int id;
+
+	@Column(name="first_name")
+	private String firstName;
+
+	@Column(name="last_name")
+	private String lastName;
+
+	@Column(name="email")
+	private String email;
+
+	public Student() {
+
+	}
+
+	public Student(String firstName, String lastName, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
+
+	// get set
+
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+	}
+
+}
+
+```
+
+### JUST A HEADS UP - FOR JAVA 9, 10 and 11 USERS
+
+If you are using Java 9, 10 or 11, then you will encounter an error when you run your Hibernate program.
+
+These are the steps to resolve it. Come back to the lecture if you hit the error.
+
+---
+
+Error: Exception in thread "main" java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException
+
+This happens because of Java 9 and higher.
+
+Java 9 and higher has removed java.xml.bind from its default classpath. That's why we get the class not found exception. We have to explicitly add JAR files to the build path.
+
+---
+
+Solution
+
+For Java 9 and higher, you need to additional JAR files.
+
+You need to download the following JAR files:
+
+javax.activation-1.2.0.jar
+jaxb-api-2.3.0.jar
+jaxb-core-2.3.0.jar
+jaxb-impl-2.3.0.jar
+
+---
+
+1. Download the files using links below:
+
+javax.activation-1.2.0.jar
+
+jaxb-api-2.3.0.jar
+
+jaxb-core-2.3.0.jar
+
+jaxb-impl-2.3.0.jar
+
+---
+
+2. Copy the JAR files to the lib folder of your project
+
+javax.activation-1.2.0.jar
+jaxb-api-2.3.0.jar
+jaxb-core-2.3.0.jar
+jaxb-impl-2.3.0.jar
+
+---
+
+Use the following steps to add the JAR files to your Java Build Path.
+
+3. Right-click your project, select Properties
+
+4. On left-hand side, click Java Build Path
+
+5. In top-center of dialog, click Libraries
+
+6. Click Classpath and then Click Add JARs ...
+
+7. Navigate to the JAR files <your-project>/lib
+
+Select the files:
+javax.activation-1.2.0.jar
+jaxb-api-2.3.0.jar
+jaxb-core-2.3.0.jar
+jaxb-impl-2.3.0.jar
+
+8. Click OK then click Apply and Close
+
+Eclipse will perform a rebuild of your project and it will resolve the related build/runtime errors.
+
+====
+
+Error: import of the javax.persistance.GenerationType saying its not accessible
+
+You may still encounter problems for "import of the javax.persistance.GenerationType saying its not accessible"
+
+To resolve this, apply the following steps
+
+1. Right Click on the Project -> Properties - > Java Build Path.
+
+2. Follow the steps as showed in the images below.
+
+3. In Module Properties -> Select All in Available modules and move to Explicitly included modules.
+
+4. Project->Clean... and Rebuild the Project and try again.
+
+====
+
+Note, if you are using Maven then you can add this to your POM file
+
+```xml
+<dependency>
+   <groupId>javax.xml.bind</groupId>
+   <artifactId>jaxb-api</artifactId>
+   <version>2.2.8</version>
+</dependency>
+
+<dependency>
+   <groupId>com.sun.xml.bind</groupId>
+   <artifactId>jaxb-core</artifactId>
+   <version>2.2.8</version>
+</dependency>
+
+<dependency>
+   <groupId>com.sun.xml.bind</groupId>
+   <artifactId>jaxb-impl</artifactId>
+   <version>2.2.8</version>
+</dependency>
+
+<dependency>
+   <groupId>com.sun.activation</groupId>
+   <artifactId>javax.activation</artifactId>
+   <version>1.2.0</version>
+</dependency>
+
+```
+
+---
+
+file html
+
+### HEADS UP - JAVA 9 USERS - Eclipse Generate toString() fails
+
+Problem:
+
+The Generate toString() process fails in Eclipse with Java 9.
+
+When clicking on Generate toString() an error message pops up saying:-
+
+Cannot Create method Implementations
+
+Reason:
+
+C:\Program Files\Java\jre 9.04\lib\jrt-fs.jar\java.base[java.base is not in project's build path]
+
+====
+
+Answer
+
+This is a bug in Eclipse when using Java 9.
+
+It is a known issue and logged here by the Eclipse team.
+
+Bug link: https://bugs.eclipse.org/bugs/show_bug.cgi?id=521995
+
+---
+
+As a work around, you will need to manually write the code for toString(). You can move ahead in the video and then pause the video where you see the toString() code.
+
+### FAQ: Why we are using JPA Annotation instead of Hibernate ?
+
+QUESTION:
+Why we are using JPA Annotation instead of Hibernate ?
+
+For example, why we are not using this org.hibernate.annotations.Entity?
+
+ANSWER:
+JPA is a standard specification. Hibernate is an implementation of the JPA specification.
+
+Hibernate implements all of the JPA annotations.
+
+The Hibernate team recommends the use of JPA annotations as a best practice.
+
+## 21. Hibernate CRUD Features Create, Read, Update and Delete
+
+### 1. Creating and Saving Java Objects - Part 1
+
+**SessionFactory**
+Reads the hibernate config file
+Creates Session objects
+Heavy-weight object
+Only create once in your app
+**Session**
+Wraps a JDBC connection
+Main object used to save/retrieve objects
+Short-lived object
+Retrieved from SessionFactory
+
+Deault name: hibernate.cfg.xml
+
+### 3. Primary Keys - Overview
+
+ID Generation Strategies
+**GenerationType.AUTO**:
+Pick an appropriate strategy for the particular database
+**GenerationType.IDENTITY**: Assign primary keys using database identity column
+**GenerationType.SEQUENCE**: Assign primary keys using a database sequence
+**GenerationType.TABLE**: Assign primary keys using an underlying
+database table to ensure uniqueness
+
+### 4. Primary Keys - Changing the Starting Index
+
+Bat dau tu 200:
+ALERT TABLE hb.student AUTO_INCREMENT=200
+Cách reset
+Truncate hn.student
+
+2. Reading Objects with Hibernate
+   Sửa file config thành để chạy được:
+   <property name="connection.driver_class">com.mysql.jdbc.Driver
+   </property>
+   https://o7planning.org/vi/10201/huong-dan-lap-trinh-java-hibernate-cho-nguoi-moi-bat-dau#a77418
+
+3. Querying Objects with Hibernate - Overview
+
+```java
+@Id
+@GeneratedValue(strategy=GenerationType.IDENTITY)
+@Column(name="id")
+private int id;
+
+```
+
+## 22. Hibernate Advanced Mappings
+
+## 23. Hibernate Advanced Mappings - @OneToOne
+
+## 24. Hibernate Advanced Mappings - @OneToMany
+
+## 25. Hibernate Advanced Mappings - Eager vs Lazy Loading
+
+## 26. Hibernate Advanced Mappings - @OneToMany - Unidirectional
+
+## 27. Hibernate Advanced Mappings - @ManyToMany
+
+## 28. Build a Database Web App - Spring MVC and Hibernate Project - Part 1
 
 ## 30. Build a Database Web App - Spring MVC and Hibernate Project - Part 2
 
 ## 31. Setting Up Your Development Environment
 
-## 32. Build a Database Web App - Spring MVC and Hibernate Project - Part ## 3
+## 32. Build a Database Web App - Spring MVC and Hibernate Project - Part 3
 
 ## 33. Build a Database Web App - Spring MVC and Hibernate Project - Part 4
 
