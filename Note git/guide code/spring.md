@@ -260,6 +260,7 @@ http://repo.spring.io/release/org/springframework/spring/
 chọn version release ở dưới cùng rồi chọn **spring-framework-5.1.8.RELEASE-dist.zip** để tải
 Tạo project java bình thường, sau đó tạo thư mục lib rồi copy tất các các thư viện trong lib đã tải paste vào
 **Rightclick/ properties/ Java build path/ libraries/ classpath/** ấn add jar rồi chon đến thư mục lib trong project mà ta vừa tạo chọn hết tất cả các file
+![](../../root/img/2019-11-11-00-43-58.png)  
 **Nếu đúng sẽ xuất hiện Referenced libraries:**
 
 ## 4. Spring Inversion of Control - XML Configuration

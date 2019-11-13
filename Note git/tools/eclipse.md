@@ -4,6 +4,7 @@ Window/ perspective/ open perspective/ Java
 
 ### Run config: maven clean, install
 
+![](../../root/img/2019-11-11-23-01-11.png)
 Tao maven config run
 Goal: clean install
 
