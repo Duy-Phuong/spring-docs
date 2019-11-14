@@ -1036,20 +1036,15 @@ export class AppComponent {
 }
 
 ```
-Ở đây chúng ta khai báo template là một the <input>, với sự kiện keyup xử lý bằng phương thức onKey(). Dữ liệu sẽ được truyền vào tham số $event.
+Ở đây chúng ta khai báo template là một the `<input>`, với sự kiện keyup xử lý bằng phương thức onKey(). Dữ liệu sẽ được truyền vào tham số $event.
 
 Khi người dùng nhấn và thả một phím, sự kiễn keyup sẽ xảy ra, Angular sẽ truyền đối tượng sự kiện DOM là biến $event vào làm tham số của phương thức onKey().
-
-
  
 Tùy vào sự kiện là gì mà đối tượng $event sẽ có những thông tin khác nhau.
 
-Tất cả các đối tượng sự kiện DOM đều có một thuộc tính là target, thuộc tính này tham chiếu đến thẻ đã phát sinh ra sự kiện đó, ở đây là <input>, và chúng ta có thể lấy thuộc tính value của thẻ này để lấy nội dung của thẻ.
+Tất cả các đối tượng sự kiện DOM đều có một thuộc tính là target, thuộc tính này tham chiếu đến thẻ đã phát sinh ra sự kiện đó, ở đây là `<input>`, và chúng ta có thể lấy thuộc tính value của thẻ này để lấy nội dung của thẻ.
 
 Trong phương thức onKey() ở đây chúng ta gán giá trị cho biến values là giá trị trong event.target.value.
-
-
-
 
  
 Trong đoạn code trên chúng ta khai báo kiểu dữ liệu của $event là any, tức là Angular sẽ tự động chuyển đổi sang kiểu dữ liệu DOM thích hợp, việc code như thế sẽ đơn giản và tránh các lỗi ngớ ngẩn.
@@ -1057,34 +1052,25 @@ Trong đoạn code trên chúng ta khai báo kiểu dữ liệu của $event là
 Chúng ta có thể chỉ rõ ra kiểu dữ liệu như sau:
 
 src/app/app.component.ts
-1
-2
-3
-4
-5
-6
+
+```ts
 export class AppComponent { 
     values = "";
     onKey(event: KeyboardEvent) {
         this.values = (<HTMLInputElement>event.target).value;
     }
 }
-Ở đây chúng ta chỉ rõ kiểu dữ liệu của $event là KeyboardEvent, tức là sự kiện từ bàn phím. Bạn có thể xem danh sách các kiểu dữ liệu sự kiện DOM ở đây.
 
-Lấy dữ liệu trong template
+```
+Ở đây chúng ta chỉ rõ kiểu dữ liệu của $event là KeyboardEvent, tức là sự kiện từ bàn phím. Bạn có thể xem danh sách các kiểu dữ liệu sự kiện DOM ở đây.
+https://developer.mozilla.org/en-US/docs/Web/API/Event
+
+#### Lấy dữ liệu trong template
 Thay vì khai báo phương thức cho sự kiện, chúng ta có thể tham chiếu đến dữ liệu của sự kiện đó ngay trong template như sau:
 
 src/app/app.component.ts
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
+
+```ts
 import { Component } from '@angular/core';
  
 @Component({
@@ -1095,28 +1081,16 @@ import { Component } from '@angular/core';
     `
 })
 export class AppComponent { }
+
+```
 Để làm việc này thì chúng ta khai báo tên biến cho template, bằng cách ghi tên kèm với dấu #, ở đây chúng ta khai báo là #box. Ở phần bắt sự kiện chúng ta điền vào là 0, và chúng ta có thể dùng tên biến template đó để lấy giá trị của chính thẻ đó mà không cần phải dùng tới phương thức.
 
-Lọc sự kiện
+#### Lọc sự kiện
 Đôi khi chúng ta chỉ cần muốn bắt một giá trị cụ thể, chẳng hạn như phím Enter, chúng ta có thể bắt giá trị đó thông qua thuộc tính $event.keyCode. Ví dụ:
 
 src/app/app.component.ts
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
+
+```ts
 import { Component } from '@angular/core';
  
 @Component({
@@ -1133,4 +1107,868 @@ export class AppComponent {
         this.value = value;
     }
 }
+
+```
+
 Ở đây sự kiện sẽ xảy ra khi người dùng gõ phím Enter, chúng ta truyền vào giá trị của #box.value rồi gán giá trị đó vào biến value để hiển thị.
+
+----
+### Angular – Liên kết dữ liệu với Form
+Angular cho phép chúng ta kết nối dữ liệu từ form tới các đối tượng trong class.
+
+#### Tạo form
+Để ví dụ thì đầu tiên chúng ta sẽ tạo một form trước đã, ở đây chúng ta sẽ tạo form điền những thông tin thông thường của mô hình khách hàng.
+
+Đầu tiên chúng ta tạo một project mới lấy từ quickstart, đặt tên là gì cũng được, form chẳng hạn.
+
+Sau đó trong thư mục src/app, chúng ta tạo một file có tên customer.ts như sau:
+
+src/app/customer.ts
+
+```ts
+export class Customer{
+    constructor(
+        public id: number,
+        public name: string,
+        public age: number,
+        public job: string
+    ){}
+}
+
+```
+Lớp Customer chỉ có một phương thức khởi tạo là constructor() và vài thuộc tính đơn giản.
+
+Tiếp theo chúng ta tạo file customer-form.component.ts trong thư mục src/app như sau:
+
+src/app/customer-form.component.ts
+
+```ts
+import { Component } from '@angular/core';
+import { Customer } from './customer';
+ 
+@Component({
+    moduleId: module.id,
+    selector: 'customer', 
+    templateUrl: './customer-form.component.html'
+})
+export class CustomerFormComponent { 
+    jobList = ['Software Developer', 'Tester', 'Project Manager', 'Business Analyst'];
+    customer1 = new Customer(1, 'Pho Coder', 24, this.jobList[0]);
+}
+
+```
+Ở đây chúng ta định nghĩa lớp component là CustomerFormComponent, lớp này có selector là customer, template lấy từ file khác là customer-form.component.html (chúng ta sẽ viết sau) chứ không code trực tiếp ở đây nữa, để có thể tham chiếu đến file template theo đường dẫn tương đối thì chúng ta phải khai báo tham số moduleId là module.id.
+
+Ngoài ra ở đây chúng ta còn import lớp Customer đã định nghĩa ở trên, tạo một mảng jobList lưu danh sách nghề nghiệp, rồi tạo một đối tượng Customer là customer1 với các giá trị đơn giản, trong đó thuộc tính job lấy từ mảng jobList.
+
+
+ 
+Bây giờ chúng ta tạo file template customer-form.component.html cùng thư mục src/app như sau:
+
+src/app/customer-form.component.html
+```html
+<div class="container">
+    <h1>Customer</h1> 
+    <form> 
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" required>
+        </div>
+  
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="text" class="form-control" id="name" required>
+        </div>
+  
+        <div class="form-group">
+            <label for="job">Job</label>
+            <select class="form-control" id="job" required>
+                <option *ngFor="let job of jobList" [value]="job">{{job}}</option>
+            </select>
+        </div>
+  
+        <button type="submit" class="btn btn-success">Submit</button>
+     </form>
+ </div>
+
+```
+Chúng ta dùng form để hiển thị các trường text, button, combobox…v.v
+
+Ở trường dành cho jobList, chúng ta dùng chỉ thị *ngFor để lặp mảng jobList trong lớp CustomerFormComponent, rồi lấy từng phần tử mảng đó ra làm các item cho thẻ `<select>`. Cú pháp của *ngFor cũng khá đơn giản, bạn có thể tự suy ra cú pháp là:
+
+```ts
+let <tên_biến_lặp> of <tên_mảng>
+
+```
+Rồi lấy giá trị thông qua <tên_biến_lặp>.
+
+Ngoài ở nếu bạn để ý thì ở đây chúng ta dùng các lớp CSS của thư viện Bootstrap để làm “màu mè” cho form.
+
+Do đó bây giờ chúng ta chèn thêm đoạn code sử dụng Bootstrap vào file index.html ở trong thư mục src như sau:
+
+src/index.html
+```html
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Angular QuickStart</title>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+ 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+     
+    <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+ 
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+ 
+    <script src="systemjs.config.js"></script>
+    <script>
+        System.import('main.js').catch(function(err){ console.error(err); });
+    </script>
+</head>
+ 
+<body>
+    <my-app>Loading AppComponent content here ...</my-app>
+</body>
+</html>
+
+```
+
+Bây giờ chúng ta khai báo form này trong lớp AppComponent, chúng ta sửa file app.component.ts trong thư mục src/app như sau:
+
+src/app/app.component.ts
+
+```ts
+import { Component } from '@angular/core';
+import { CustomerFormComponent } from './customer-form.component';
+ 
+@Component({
+    selector: 'my-app',
+    template: `
+        <customer></customer>
+    `,
+})
+export class AppComponent { }
+
+```
+
+Cuối cùng chúng ta khai báo lớp **CustomerFormComponent** trong lớp AppModule, chúng ta sửa flle app.module.ts trong thư mục src/app như sau:
+
+src/app/app.module.ts
+```ts
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+ 
+import { AppComponent } from './app.component';
+import { CustomerFormComponent } from './customer-form.component';
+ 
+@NgModule({
+    imports: [ BrowserModule, FormsModule ],
+    declarations: [ AppComponent, CustomerFormComponent ],
+    bootstrap: [ AppComponent ]
+})
+export class AppModule { }
+
+```
+Ở đây chúng ta còn import thêm một module nữa là **FormsModule**, module này hỗ trợ một số tính năng để kết nối dữ liệu giữa template và class.
+
+Bây giờ chúng ta có thể chạy project và trang web sẽ có giao diện form như thế này:
+
+#### Liên kết dữ liệu với form
+Chúng ta có thể liên kết các trường trong form với một thuộc tính nào đó trong lớp component tương ứng.
+
+Để làm việc đó thì chúng ta sửa lại file template customer-form.component.html như sau:
+
+src/app/customer-form.component.html
+
+```html
+<div class="container">
+    <h1>Customer</h1> 
+    <form> 
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="customer1.name" name="cus1_name" required> 
+        </div>
+  
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="customer1.age" name="cus1_age" required>
+        </div>
+  
+        <div class="form-group">
+            <label for="job">Job</label>
+            <select class="form-control" id="job" [(ngModel)]="customer1.job" name="cus1_job" required>
+                <option *ngFor="let job of jobList" [value]="job">{{job}}</option>
+            </select>
+        </div>
+  
+        <button type="submit" class="btn btn-success">Submit</button>
+     </form>
+ </div>
+
+```
+Chúng ta dùng cú pháp [(ngModel)]="..." trong các thẻ `<input>` hoặc `<select>` để kết nối dữ liệu của thẻ đó với một biến thuộc tính nào đó, ở đây chúng ta kết nối đến các thuộc tính name, age và job của đối tượng customer1.
+
+Ngoài ra khi dùng ngModel thì thẻ đó phải khai báo thuộc tính name nữa, giá trị cho thuộc tính này đặt là gì cũng được, không nhất thiết phải là cus1_name, cus1_age…
+ 
+Lưu file này lại, Angular sẽ tự reload lại trang web và bạn sẽ thấy form trên trang web đã tự động điền các giá trị tương ứng với đối tượng customer1.
+
+- **ngModel có tính chất 2 chiều**, tức là nếu chúng ta chỉnh sửa gì trên form thì giá trị của đối tượng customer1 cũng sẽ thay đổi theo.Chúng ta có thể kiểm chứng điều này bằng cách in giá trị của đối tượng customer1 lên như sau:
+
+src/app/customer-form.component.html
+```html
+
+...
+<div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" [(ngModel)]="customer1.name" name="cus1_name" required> 
+    {{ customer1.name }}
+</div>
+...
+```
+
+----
+
+### Angular – Theo dõi trạng thái form với ngModel
+
+Trong bài trước chúng ta đã tìm hiểu qua cách liên kết dữ liệu hai chiều với ngModel, ngModel không những thực hiện chức năng đó mà còn có khả năng kiểm tra trạng thái của các phần tử control trong form, chẳng hạn như nội dung textbox thay đổi, người dùng click vào…v.v
+
+Mỗi khi có sự thay đổi trên các phần tử trong form, ngModel sẽ đổi tên class của các phần tử đó, cụ thể:
+
+#### Trạng thái
+| column0                                 | column1          | column2           |
+| --------------------------------------- | ---------------- | ----------------- |
+| TRẠNG THÁI                              | TÊN CLASS (TRUE) | TÊN CLASS (FALSE) |
+| Người dùng click vào control            | ng-touched       | ng-untouched      |
+| Người dùng thay đổi dữ liệu của control | ng-dirty         | ng-pristine       |
+| Dữ liệu của control không hợp lệ        | ng-valid         | ng-invalid        |
+
+Chúng ta có thể lấy tên các lớp này thông qua biến trong template.
+
+Bây giờ chúng ta sẽ dùng form customer đã làm trong bài trước để ví dụ, sửa lại file customer-form.component.html như sau:
+
+src/app/customer-form.component.html
+
+```html
+<div class="container">
+    <h1>Customer</h1>
+    <form>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text"
+                class="form-control" 
+                id="name"
+                [(ngModel)]="customer1.name" 
+                name="cus1_name"
+                required 
+                #cus_class>           
+                <p>Classes: {{cus_class.className}}</p>
+        </div>
+    ....     
+    </form>
+</div>
+
+```
+
+Chúng ta khai báo biến template cho thẻ <input> là #cus_class, sau đó lấy thuộc tính className của biến này ra và hiển thị.
+
+Lưu file lại, Angular sẽ reload lại trình duyệt, chúng ta có thể thấy tên các lớp của control này, ngay cả các control khác cũng thế, nếu muốn rõ hơn bạn có thể dùng chức năng insect của Google Chrome để xem.
+
+
+
+Bạn thử click vào một ô textbox, sau đó click ra ngoài, gõ thêm kí tự vào ô, xóa nội dung trong ô đó… thì sẽ thấy tên các class này thay đổi tùy theo từng trạng thái.
+
+
+ 
+Chúng ta có thể dùng các lớp này để thay đổi màu sắc, hiển thị text để thông báo cho người dùng, ví dụ chúng ta tạo file CSS có tên customer-form.css trong thư mục src như sau:
+
+src/customer-form.css
+
+```css
+.ng-valid:required, .ng-valid.required {
+    border-left: 5px solid #42A948;
+}
+ 
+.ng-invalid:not(form) {
+    border-left: 5px solid #a94442;
+}
+
+```
+Ở đây chúng ta thay đổi màu sắc viền bên trái (border-left) cho 2 lớp ng-invalid và ng-valid. Khi người dùng xóa trống ô textbox có yêu cầu required thì viền trái sẽ chuyển thành màu đỏ.
+
+Tiếp theo chúng ta phải thêm dòng code `<link rel="stylesheet" href="customer-form.css">` tới file này trong file index.html:
+
+src/index.html
+```html
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Angular QuickStart</title>
+        <base href="/">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="customer-form.css">
+  
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"> 
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+        <!-- Polyfill(s) for older browsers -->
+        <script src="node_modules/core-js/client/shim.min.js"></script> 
+ 
+        <script src="node_modules/zone.js/dist/zone.js"></script> 
+        <script src="node_modules/systemjs/dist/system.src.js"></script> 
+ 
+        <script src="systemjs.config.js"></script> 
+        <script>            
+            System.import('main.js').catch(function(err){ console.error(err); })
+        </script> 
+    </head>
+<body>
+    <my-app>Loading AppComponent content here ...</my-app>
+</body>
+</html>
+
+```
+
+Chúng ta có thể hiển thị thêm dòng chữ thông báo lỗi cho người dùng thay vì chỉ thay đổi màu sắc một cách đơn độc, như thế người dùng sẽ không biết rõ sai sót chỗ nào, chúng ta sửa lại file template như sau:
+
+src/app/customer-form.component.html
+
+```html
+<div class="container">
+    <h1>Customer</h1>
+    <form>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text"
+                   class="form-control"
+                   id="name"
+                   [(ngModel)]="customer1.name" 
+                   name="cus1_name"
+                   required 
+                   #cus_class="ngModel">        
+            <div [hidden]="cus_class.valid || cus_class.pristine" 
+                 class="alert alert-danger">
+                Name is required
+            </div>
+        </div>
+    ...
+    </form>
+</div>
+
+```
+Chúng ta gán giá trị cho biến template #cus_class là ngModel, sau đó viết thêm một đoạn `<div></div>` nữa để hiển thị thông báo ‘Name is required’ nếu người dùng bỏ trống ô `<input>`.
+
+Lý do ở đây chúng ta gán #cus_class là ngModel là vì mỗi chỉ thị trong Angular có một thuộc tính là exportAs, thuộc tính này chẳng qua là một đối tượng của chỉ thị đó nhưng chúng ta có thể sử dụng ở bất cứ đâu, và giá trị của thuộc tính này trong chỉ thị ngModel cũng là “ngModel" luôn.
+
+
+ 
+Ở đoạn code trên chúng ta quy định thẻ `<div></div>` mới có được hiển thị hay không thông qua thuộc tính hidden, và chúng ta gắn giá trị của biến template vào thuộc tính hidden này.
+
+
+
+#### Submit form
+Form hiện tại của chúng ta chưa thực hiện chức năng submit, để có thể submit được thì chúng ta sử dụng chỉ thị ngSubmit, chúng ta sửa lại file customer-form.component.html như sau:
+
+src/app/customer-form.component.html
+```html
+<div class="container">
+    <h1>Customer</h1>
+    <form (ngSubmit)="onSubmit()" #customerForm="ngForm"> 
+        ...
+    </form>
+</div>
+
+```
+Chúng ta gán thuộc tính (ngSubmit) là phương thức onSubmit(), trong lớp CustomerFormComponent chúng ta khai báo thêm onSubmit().
+
+src/app/customer-form.component.ts
+
+```ts
+import { Component } from '@angular/core';
+import { Customer } from './customer';
+ 
+@Component({
+    moduleId: module.id,
+    selector: 'customer', 
+    templateUrl: './customer-form.component.html'
+})
+export class CustomerFormComponent {
+  
+    jobList = ['Software Developer', 'Tester', 'Project Manager', 'Business Analyst']; 
+    customer1 = new Customer(1, 'Pho Coder', 24, this.jobList[0]);  
+    onSubmit() { }
+}
+
+```
+Ở đây chúng ta chưa xử lý gì nhiều.
+
+Ngoài ra ở trên form chúng ta còn khai báo biến template là #customerForm với giá trị là ngForm, và đây là giá trị của thuộc tính exportAs trong chỉ thị ngForm, tuy nhiên ở đây khác với ngModel là chúng ta chưa khai báo dòng nào tương tự như [(ngForm)]="..." cả, lý do chúng ta vẫn dùng được exportAs của ngForm là vì mỗi khi chúng ta khai bào một thẻ `<form>` thì Angular sẽ tự động khai báo thuộc tính ngForm cho thẻ `<form>` luôn.
+
+Chúng ta có thể dùng biến template này để điều khiển nhiều thứ trong form, chẳng hạn như vô hiệu hóa nút Submit khi form không hợp lệ, form không hợp lệ khi có một phần tử trong form không hợp lệ. Ví dụ:
+
+customer-form.component.html
+
+```html
+<div class="container">
+    <h1>Customer</h1>
+    <form (ngSubmit)="onSubmit()" #customerForm="ngForm">
+        ....
+        <button type="submit"
+                class="btn btn-success"
+                [disabled]="!customerForm.form.valid">
+            Submit
+        </button>
+     </form>
+</div>
+
+```
+Chúng ta gán thuộc tính disabled là biểu thức !customerForm.form.valid, và nút "Submit" sẽ không thể click được khi có một phần tử trong form không hợp lệ, chẳng hạn như ô input bỏ trống.
+
+----
+### Angular – Template – Phần 1
+
+Trong các bài trước chúng ta đã làm việc qua với cú pháp của template, trong phần này chúng ta sẽ tìm hiểu kỹ hơn.
+
+Hệ thống template chịu trách nhiệm việc hiển thị nội dung lên trang web, trong các web framework phổ biến khác như Django, Ruby on Rails… v.v cũng có hệ thống template tương tự như của Angular.
+
+#### HTML
+Ngôn ngữ chính của template là HTML, nhưng không phải các phần tử (hay các thẻ) đều hợp lệ với Angular, điển hình là thẻ `<script>`, với Angular thì `<script>` sẽ bị bỏ qua, không được biên dịch vì lý do bảo mật.
+
+Chúng ta cũng có thể tự tạo ra các thẻ cho riêng mình thông qua component như trong các bài trước đã làm.
+
+- Cú pháp lấy dữ liệu {{…}}
+  
+Chúng ta đã làm việc với cú pháp sử dụng cặp dấu ngoặc nhọn {{...}} nhiều rồi, đây là cú pháp dùng để lấy giá trị của thuộc tính trong lớp component.
+
+
+```html
+<h3>
+     {{title}}
+     <img src="{{name}}" style="height:30px">
+</h3>
+
+```
+Angular sẽ lấy giá trị của thuộc tính trong lớp component rồi chuyển thành chuỗi và thay vào đoạn dấu ngoặc nhọn {{...}}.
+
+```html
+<p>The sum of 1 + 1 is {{1 + 1}}</p>
+```
+Chúng ta cũng có thể thực hiện tính toán trong này.
+
+#### Biểu thức
+Biểu thức ở đây là các phép tính cộng, trừ, nhân, chia, gán, so sánh…v.v
+
+Hầu hết các biểu thức có thể sử dụng là các biểu thức của Javascript, các biểu thức có thể sử dụng là:
+
+* Phép gán: =, +=, -= ...
+* new
+* Dấu chấm phẩy (;), dấu phẩy (,)
+* Phép tăng (++), giảm (--)
+
+
+Nhưng không phải tất cả đều có thể dùng được:
+
+_Không thể sử dụng toán tử bit OR (ký hiệu |) và toán tử AND (ký hiệu &)_
+#### Ngữ cảnh của biểu thức
+Một “ngữ cảnh” nói một cách đơn giản là các đối tượng thực hiện các biểu thức.
+
+```html
+{{title}}
+<span [hidden]="isUnchanged">changed
+
+```
+Trong đoạn code trên thì title và isUnchanged là các thuộc tính của một lớp component nào đó, chẳng hạn như lớp AppComponent, và AppComponent chính là một “ngữ cảnh”.
+
+Không phải tất cả các biến trong biểu thức luôn luôn thuộc về một đối tượng ngữ cảnh nào đó, ví dụ:
+
+```html
+<div *ngFor="let cus of customers">{{cus.name}}</div>
+
+```
+Ở đây cus lại là một đối tượng trong phép duyệt mảng customers thôi.
+
+Chúng ta không thể dùng các đối tượng toàn cục của Javascript hay Node.js…v.v như console.log, Math.max, window, document… trong biểu thức được.
+
+#### Câu lệnh
+Các câu lệnh là các đoạn code thực hiện một công việc gì đó để phản hồi lại các sự kiện. Ví dụ:
+
+```html
+<button (click)="createCustomer()">Register</button>
+
+```
+Trong đoạn code trên thì createCustomer() chính là một câu lệnh trả lời lại sự kiện (click).
+
+#### Ngữ cảnh của câu lệnh
+Cũng tương tự như ngữ cảnh của biểu thức, ngữ cảnh của câu lệnh cũng là một đối tượng của lớp component đã tạo ra template đó. Chẳng hạn như trong đoạn code trên thì câu lệnh createCustomer() có thể có ngữ cảnh là đối tượng của một lớp AppComponent nào đó.
+
+Câu lệnh gọi hàm có thể nhận vào tham số là các biến biểu thức, ví dụ:
+
+```html
+<button (click)="onSave($event)">Save</button>
+<button *ngFor="let cus of customers" (click)="createCustomer(cus)"></button>
+<form #customerForm (ngSubmit)="onSubmit(customerForm)"> ... </form>
+
+```
+Và cũng tương tự như ngữ cảnh của biểu thức, chúng ta không thể gọi những đối tượng toàn cục như window, document, console.log, Math.max…v.v
+
+#### Cú pháp kết nối dữ liệu
+Đây là các cú pháp dùng để kết nối dữ liệu qua lại giữa lớp component và template, hỗ trợ việc đọc ghi dữ liệu một cách dễ dàng, **chiều kết nối có thể là 1 chiều hoặc 2 chiều**, tức là chỉ có thể đọc dữ liệu từ lớp component ra template hoặc ngược lại hoặc cả hai. Việc chúng ta cần làm là ghi cú pháp ra và Angular sẽ lo nốt phần bên dưới.
+
+Nhìn chung thì có thể chia các cú pháp này ra làm 3 loại dựa theo chiều kết nối:
+
+| CHIỀU KẾT NỐI                         | CÚ PHÁP                                                      | LOẠI (TARGET)   |
+| ------------------------------------- | ------------------------------------------------------------ | --------------- |
+| 1 chiều từ lớp component tới template | {{biểu thức}}  [target]="biểu thức"  bind-target="biểu thức" | Thuộc tính  Lớp |
+| 1 chiều từ template về lớp component  | (target)="câu lệnh"  on-target="câu lệnh"                    | Sự kiện         |
+| 2 chiều                               | [(target)]="biểu thức"  bindon-target="biểu thức"            | 2 chiều         |
+
+
+
+
+
+Loại (hay target) là tên các sự kiện, lớp, thuộc tính… và được bọc trong cặp dấu ngoặc vuông [], ngoặc tròn () hoặc sau các tiền tố bind-, on-, bindon-.
+
+---
+### Angular – Template – Phần 2
+
+Trong phần này chúng ta tiếp tục tìm hiểu về template trong Angular.
+
+#### Bắt thuộc tính […]
+Bắt thuộc tính ở đây là chúng ta gán thuộc tính của một element/thẻ cho một biểu thức của template. Khi bắt thuộc tính thì chúng ta bọc tên thuộc tính trong cặp thẻ ngoặc vuông [].
+
+Thông thường chúng ta gán thuộc tính đó cho một giá trị nào đó trong lớp component.
+
+```html
+<img [src]="customerUrl">
+
+```
+Chẳng hạn như trong đoạn code trên, chúng ta gán thuộc tính src của element `<img>` là giá trị của thuộc tính customerUrl, customerUrl là thuộc tính của một lớp component nào đó.
+
+```html
+<button [disabled]="isUnchanged">Cancel is disabled</button>
+
+```
+Hoặc chúng ta gán thuộc tính disabled là giá trị của thuộc tính isUnchanged.
+
+```html
+<customer [cust]="currentCustomer"></customer>
+
+```
+Thuộc tính đó cũng có thể là một đối tượng chứ không phải là các giá trị đơn lẻ như số, chuỗi…v.v
+
+**Lưu ý:**
+* Việc kết nối giá trị từ template vô lớp component là một chiều, chúng ta không thể thay đổi giá trị của thuộc tính thông qua việc bắt thuộc tính
+* Không thể gán giá trị cho thuộc tính là một phương thức
+
+ 
+Nếu element có phát sinh sự kiện thì chúng ta có thể bắt sự kiện (chúng ta sẽ tìm hiểu sau)
+Ngoài việc bọc tên thuộc tính trong cặp dấu ngoặc vuông [], thì chúng ta có thể nối vào đầu tên thuộc tính tiền tố bind-, ví dụ 2 đoạn code dưới đây là giống nhau:
+
+
+```html
+<img [src]="customerUrl">
+<img bind-src="customerUrl">
+
+```
+Bạn có thể dùng 1 trong 2 cách trên đều được.
+
+Cú pháp bắt thuộc tính này cũng giống như cú pháp {{...}} vậy, 2 đoạn code dưới đây là tương đương nhau:
+
+```html
+<img src="{{customerUrl}}">
+<img [src]="customerUrl">
+
+```
+Việc dùng cú pháp nào là tùy ở bạn, bạn thấy thích dùng cái gì thì dùng.
+
+#### Bắt sự kiện (…)
+Bắt thuộc tính là lấy dữ liệu từ lớp component truyền lên template, bắt sự kiện thì ngược lại là phát sinh dữ liệu từ template và truyền về lớp component.
+
+Sự kiện là những hành động như nhập chữ vào ôn các ô input, click chuột, chọn item từ một danh sách.
+ 
+Cách duy nhất để biết sự kiện gì vừa xảy ra là lắng nghe sự kiện đó – hay bắt sự kiện đó.
+
+Cú pháp bắt sự kiện bao gồm tên sự kiện được bọc trong cặp dấu ngoặc tròn (), dấu bằng =, và cuối cùng là một câu lệnh nằm trong cặp dấu nháy kép "". Ví dụ:
+
+```html
+<button (click)="onSave()">Save</button>
+
+```
+Trong đoạn code trên, chúng ta lắng nghe sự kiện (click), tức là click chuột, khi người dùng click chuột vào button thì sự kiện sẽ xảy ra, và câu lệnh ở bên phải sẽ được thực thi, ở đây là lời gọi hàm onSave().
+
+Ngoài việc bọc tên sự kiện trong cặp dấu ngoặc tròn thì chúng ta có thể chèn trước tên sự kiện tiền tố on-, ví dụ 2 đoạn code dưới đây là giống nhau:
+
+```html
+<button (click)="onSave()">Save</button>
+<button on-click="onSave()">On Save</button>
+
+```
+Khi sự kiện xảy ra, Angular sẽ thực thi câu lệnh trong dấu nháy kép, ngoài ra Angular còn truyền thêm dữ liệu đi kèm nữa, các dữ liệu đó sẽ được nằm trong một đối tượng có tên là $event. 
+
+```html
+<button (click)="onSave($event)">Save</button> 
+
+```
+Đối tượng này chứa những gì tùy thuộc vào loại sự kiện, nếu sự kiện xảy ra là các sự kiện thông thường trong HTML, mà người ta hay gọi là sự kiện DOM, thì $event sẽ chứa những gì mà chuẩn DOM quy định, chẳng hạn như target, target.value...v.v Bạn có thể xem các sự kiện DOM của đây:
+
+https://developer.mozilla.org/en-US/docs/Web/Events 
+
+#### Bắt dữ liệu 2 chiều [(…)]
+Đây là cú pháp cho phép bạn vừa có thể lấy dữ liệu từ component, vừa có thể chỉnh sửa dữ liệu đó từ template.
+
+Để làm việc này thì chúng ta bọc thuộc tính của element trong cặp dấu [()]. Lưu ý là dấu ngoặc tròn () bao giờ cũng nằm trong dấu ngoặc vuông []. Ví dụ:
+
+```ts
+import { Component } from '@angular/core';
+ 
+@Component({
+    selector: 'my-app',
+    template: ` 
+        <input [(ngModel)]="username"> 
+         
+ 
+Hello {{username}}
+ 
+    `,
+})
+export class AppComponent { 
+    username = "";
+}
+
+```
+Lớp AppComponent có một thuộc tính là username. Thuộc tính ngModel có giá trị là giá trị của thuộc tính username, khi người dùng thay đổi nội dung trong element `<input>` thì giá trị của ngModel cũng được thay đổi theo.
+
+---
+### Angular – Template – Phần 3
+
+Trong phần này chúng ta sẽ tìm hiểu về biến template và 2 thuộc tính @Input và @Output.
+
+#### Biến template (#var)
+Đây là các biến mà chúng ta khai báo cho mỗi element trong một trang web, chúng ta có thể dùng biến này để đọc dữ liệu và gọi phương thức của lớp component hoặc chỉ thị.
+
+Để khai báo biến template thì chúng ta dùng kí tự # rồi ghi tên biến ngay bên trong element.
+
+```html
+<input #phone placeholder="phone number">
+
+```
+Trong đoạn code trên chúng ta khai báo biến #phone cho element `<input>`. Sau khi đã khai báo thì chúng ta có thể gọi đến biến này ở bất cứ đâu trong đoạn code template đó.
+
+```html
+<input #phone placeholder="phone number">
+
+<button (click)="callPhone(phone.value)">Call</button>
+
+```
+Khi gọi biến template thì chúng ta ghi tên biến ra nhưng không ghi dấu #.
+
+Trong đoạn code trên, khi chúng ta click button thì biến #phone sẽ lấy dữ liệu trong thuộc tính value của element `<input>`, rồi truyền vào phương thức callPhone().
+
+Nếu chúng ta chỉ khai báo biến template không như thế thì thuộc tính value của biến hầu như sẽ là value của element, tuy nhiên chúng ta có thể chỉ định biến template này tham chiếu tới một đối tượng khác, chẳng hạn như một chỉ thị, ví dụ:
+
+
+```html
+<form (ngSubmit)="onSubmit(customerorm)" #customerForm="ngForm">
+    <div class="form-group">
+        <label for="name">
+            Name
+            <input class="form-control" name="name" required [(ngModel)]="customer.name">
+        </label>
+    </div>
+    <button type="submit" [disabled]="!customerForm.form.valid">Submit</button>
+</form>
+
+```
+Nếu bạn còn nhớ thì mỗi khi chúng ta tạo form thì Angular sẽ gán cho form đó một đối tượng chỉ thị ngForm luôn để chúng ta có thể thực hiện một số thao tác trên form dễ dàng, chúng ta chỉ cần gán đối tượng ngForm đó cho biến template là có thể sử dụng được.
+
+Chúng ta có thể sử dụng tiền tố **ref-** thay cho kí tự #, tùy bạn thích dùng cái nào cũng được.
+
+```html
+<input ref-fax placeholder="fax number">
+<button (click)="callFax(fax.value)">Fax</button>
+
+```
+#### Thuộc tính @Input và @Output
+Hai thuộc tính này có tác dụng khai báo các biến và sự kiện dùng trong việc kết nối dữ liệu.
+
+Trong các bài trước chúng ta đã quen với việc kết nối dữ liệu từ thuộc tính và sự kiện của element sang một thuộc tính hoặc phương thức của lớp component, ví dụ:
+
+```html
+<img [src]="iconUrl"/>
+<button (click)="onSave()">Save</button>
+
+```
+Trong đoạn code trên thì src là thuộc tính của element `<img>` và được kết nối tới thuộc tính iconUrl, click là sự kiện của element `<button>` và được kết nối tới phương thức onSave().
+
+Điều này cũng có nghĩa là chúng ta chỉ được phép sử dụng các thuộc tính và sự kiện có sẵn của element như src và click thôi, trong Angular có 2 thuộc tính @Input và @Output, 2 thuộc tính này sẽ cho phép chúng ta tự tạo ra các thuộc tính và phương thức có thể bắt dữ liệu riêng cho chúng ta.
+
+
+ 
+Ví dụ, chúng ta tạo một project mới và tạo một lớp tên CustomerFormComponent như sau:
+
+src/app/customer-form.component.ts
+
+```ts
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Customer } from './customer';
+ 
+@Component({
+    moduleId: module.id,
+    selector: 'customer', 
+    template: `<button type="button" class="btn btn-primary" (click)="emitEvent()">
+                   Change name
+               </button>
+    ` 
+})
+export class CustomerFormComponent { 
+    @Input() name: string;
+    @Output() changeName = new EventEmitter(); 
+  
+    emitEvent() {
+        this.changeName.emit();
+    }
+}
+
+```
+Chúng ta khai báo các thuộc tính @Input và @Output bằng cách thêm 2 từ khóa này vào trước tên biến, sau đó khai báo kiểu dữ liệu đối với thuộc tính @Input hoặc gán một đối tượng EventEmitter cho thuộc tính @Output. Để có thể sử dụng @Input và @Output thì chúng ta phải import từ @angular/core, ngoài ra ở đây chúng ta còn import thêm cả lớp EventEmitter nữa.
+
+Lớp **EventEmitter** là lớp giúp phát sinh sự kiện, để phát sự kiện thì chúng ta gọi phương thức emit() của lớp này. Trong đoạn code trên lớp **CustomerFormComponent** có một template bao gồm 1 button, khi click button này thì phương thức emitEvent() sẽ được gọi, trong phương thức này chúng ta gọi phương thức emit() của đối tượng changeName để phát sinh sự kiện. Chi tiết về lớp **EventEmitter** sẽ được trình bày trong bài khác.
+
+ 
+Tiếp theo chúng ta sử dụng lớp **CustomerFormComponent** như sau:
+
+src/app/app.component.ts
+
+```ts
+import { Component } from '@angular/core';
+import { CustomerFormComponent } from './customer-form.component';
+ 
+@Component({
+    selector: 'my-app',
+    template: ` 
+        <customer [name]="username" (changeName)="saveNewName()"></customer> 
+        {{username}}
+    `,
+})
+export class AppComponent { 
+    username = "Pho Code";
+  
+    saveNewName() {
+        this.username = "Pho Code Blog";
+    }
+}
+
+```
+Chúng ta import lớp CustomerFormComponent, sau đó khai báo selector, rồi bắt các thuộc tính @Input và @Output như bắt các thuộc tính và sự kiện thông thường.
+
+---
+### Angular – Directive – Phần 1
+
+Trong phần này chúng ta sẽ tìm hiểu về các Directive (chỉ thị) có sẵn trong Angular.
+
+**Directive** (chỉ thị) là một lớp và có phần khai báo metadata là @Directive, ở đây chúng ta chỉ tìm hiểu về các directive có sẵn trong Angular, còn việc định nghĩa directive sẽ được trình bày trong bài khác. Thường thì directive sẽ nằm trong một element – hay thẻ của HTML giống như một thuộc tính bình thường.
+
+**Directive có 2 loại là structural và attribute.** 
+
+#### Attribute directive
+Đây là các chỉ thị có tác dụng lắng nghe và thay đổi cách thức hiển thị của các element, thuộc tính… trong HTML. Thông thường chúng cũng được dùng giống như một thuộc tính của một element.
+
+Trong phần này chúng ta sẽ tìm hiểu về 3 loại chỉ thị thường dùng là:
+
+* NgClass: thêm/bớt các lớp CSS
+* NgStyle: thêm/bớt các style
+* NgModel: kết nối dữ liệu 2 chiều, trong bài trước chúng ta đã có tìm hiểu sơ qua
+
+
+##### NgClass
+Directive này cho phép bạn thêm hoặc bớt các lớp CSS một cách chủ động. Thông thường chúng ta sẽ gán giá trị cho chỉ thị ngClass là một đối tượng lưu dữ liệu theo dạng từ điển, tức là mỗi phần tử là một cặp `<key>:<value>`. Ví dụ:
+
+
+```ts
+export class SetClass {
+    currentClasses: {};
+    setCurrentClasses() {   
+        this.currentClasses = {
+            saveable: this.canSave,
+            modified: !this.isUnchanged,
+            special: this.isSpecial
+        };
+    }
+}
+
+```
+Trong đoạn code trên, chúng ta có lớp SetClass, lớp này có một đối tượng currentClasses, phương thức setCurrentClasses() sẽ thiết lập đối tượng currentClasses() gồm 3 phần tử là saveable, modified và special, đây cũng sẽ được dùng làm tên lớp CSS luôn, giá trị của mỗi phần tử này dựa vào các thuộc tính khác, ở đây chúng ta dùng thuộc tính canSave, isUnchanged và isSpecial.
+
+Khi sử dụng ngClass thì chúng ta chỉ cần làm như sau:
+```html
+<div [ngClass]="currentClasses">
+    This div is initially saveable, unchanged, and special
+</div>
+
+```
+Chúng ta kết nối chỉ thị ngClass tới đối tượng currentClasses là được, tất nhiên trước đó chúng ta phải gọi phương thức setCurrentClasses() để thiết lập các phần tử trong đối tượng currentClasses, và element `<div>` sẽ có class là saveable, unchanged và special.
+
+#### NgStyle
+Chỉ thị ngStyle có chức năng thiết lập style của element bên trong element đó. Tương tự với ngClass, chúng ta cũng thường gán giá trị cho ngStyle là một đối tượng lưu trữ dạng từ điển.
+
+```ts
+export class SetStyle {
+    currentStyles: {};
+    setCurrentStyles() {
+        this.currentStyles = {
+            'font-style': this.canSave ? 'italic' : 'normal',
+            'font-weight': !this.isUnchanged ? 'bold' : 'normal',
+            'font-size': this.isSpecial ? '24px' : '12px'
+        };
+    }
+}
+
+```
+Trong đoạn code trên chúng ta có lớp SetStyle, trong này có một đối tượng currentStyles lưu trữ các style CSS theo dạng từ điển, các key sẽ có giá trị tùy thuộc vào các thuộc tính nào đó, nói chung cũng tùy bạn quy định,
+
+
+```html
+<div [ngStyle]="currentStyles">
+    This div is initially italic, normal weight, and extra large (24px).
+</div>
+
+```
+Và chúng ta cũng thiết lập chỉ thị ngStyle cho thuộc tính currentStyles này, tất nhiên là phải gọi phương thức setCurrentStyles() ở đâu đó trước.
+
+#### NgModel
+Chúng ta đã biết là chỉ thị ngModel dùng để kết nối dữ liệu 2 chiều, tức là vừa có thể đọc dữ liệu từ lớp và hiển thị lên template, vừa có thể chỉnh sửa dữ liệu trên template và cập nhật vào lớp đó. Ví dụ:
+
+```html
+<input [(ngModel)]="currentCustomer.name">
+
+```
+Một yêu cầu cần có của chỉ thị ngModel là bạn phải import lớp FormsModule vào lớp AppModule trước thì mới có thể sử dụng:
+```ts
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+ 
+@NgModule({
+    imports: [
+        BrowserModule,
+        FormsModule 
+    ],
+    ...
+})
+export class AppModule { }
+
+```
