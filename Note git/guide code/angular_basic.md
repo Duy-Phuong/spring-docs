@@ -1893,7 +1893,7 @@ Trong phần này chúng ta sẽ tìm hiểu về 3 loại chỉ thị thường
 * NgModel: kết nối dữ liệu 2 chiều, trong bài trước chúng ta đã có tìm hiểu sơ qua
 
 
-##### NgClass
+#### NgClass
 Directive này cho phép bạn thêm hoặc bớt các lớp CSS một cách chủ động. Thông thường chúng ta sẽ gán giá trị cho chỉ thị ngClass là một đối tượng lưu dữ liệu theo dạng từ điển, tức là mỗi phần tử là một cặp `<key>:<value>`. Ví dụ:
 
 
@@ -1955,7 +1955,7 @@ Chúng ta đã biết là chỉ thị ngModel dùng để kết nối dữ liệ
 <input [(ngModel)]="currentCustomer.name">
 
 ```
-Một yêu cầu cần có của chỉ thị ngModel là bạn phải import lớp FormsModule vào lớp AppModule trước thì mới có thể sử dụng:
+Một yêu cầu cần có của chỉ thị ngModel là **bạn phải import lớp FormsModule vào lớp AppModule** trước thì mới có thể sử dụng:
 ```ts
 
 import { NgModule } from '@angular/core';
@@ -1972,3 +1972,798 @@ import { FormsModule } from '@angular/forms';
 export class AppModule { }
 
 ```
+---
+### Angular – Directive – Phần 2
+
+Trong phần này chúng ta tiếp tục tìm hiểu về directive.
+
+#### Structural directive
+Các chỉ thị thuộc loại structural chịu trách nhiệm điều khiển cách dữ liệu được hiển thị, chẳng hạn như thêm, bớt, chỉnh sửa các element…v.v Ở đây chúng ta chỉ tìm hiểu 3 chỉ thị thường dùng là ngIf, ngFor và ngSwitch.
+
+Nếu bạn để ý thì có thể nhận thấy chức năng của 3 chỉ thị này giống với các câu lệnh if, for, switch trong các ngôn ngữ lập trình.
+
+#### ngIf
+Chỉ thị ngIf cho phép chúng ta thêm hoặc loại bỏ một element ra khỏi trang, chúng ta gán giá trị cho chỉ thị này là một biểu thức nào đó có trả về giá trị true hoặc false, nếu biểu thức trả về true thì element sẽ hiện ra, ngược lại thì không.
+
+```html
+<customer *ngIf="isActive"></customer>
+
+```
+Trong đoan code trên, element `<customer>` sẽ được hiển thị nếu isActive trả về true, isActive có thể là một thuộc tính/biến nào đó hoặc một phương thức…v.v
+
+**Lưu ý luôn phải có dấu sao * trước ngIf.**
+
+Một điều khác là ở đây ngIf thêm hoặc bỏ element trong trang web, chứ không phải là ẩn hay hiện element đó, tức là khác với thuộc tính hidden của các element trong HTML.
+
+Thông thường chúng ta dùng ngIf để kiểm tra xem một đối tượng nào đó có NULL hay không
+
+```html
+<div *ngIf="currentCustomer">Hello, {{currentCustomer.name}}</div>
+<div *ngIf="nullCustomer">Hello, {{customer.name}}</div>
+
+```
+#### ngFor
+Đây là chỉ thị lặp, có tác dụng lặp qua một danh sách các phần tử, khi chúng ta có một danh sách các phần tử, muốn hiển thị chúng lên trang web thì chúng ta lặp qua danh sách đó và hiển thị các phần tử theo một khuôn mẫu giống nhau. Ví dụ:
+
+```html
+<div *ngFor="let cus of customers">
+    {{cus.name}}
+</div>
+
+```
+Giá trị của ngFor là một câu lệnh có cú pháp như sau:
+
+```ts
+let <biến lặp> of <danh sách>
+
+```
+Biến lặp là do chúng ta tự đặt, bạn muốn đặt là gì cũng được, ngFor sẽ lặp qua danh sách và mỗi lần lặp thì chúng ta dùng biến lặp để lấy dữ liệu của phần tử hiện tại trong danh sách.
+
+**Lưu ý luôn phải có dấu sao * trước ngFor.**
+Trong ngFor có một thuộc tính tên là index, thuộc tính này lưu trữ số thứ tự của phần tử đang được lặp, chúng ta có thể lấy số thứ tự giá trị index này như sau:
+
+```html
+<div *ngFor="let cus of customers; let i=index">{{i + 1}} : {{cus.name}}</div>
+
+```
+#### ngSwitch
+Chỉ thị ngSwitch cũng tương tự như câu lệnh switch trong Javascript vậy, chỉ thị này có tác dụng hiển thị một element trong một danh sách các element, dựa vào một điều kiện cho trước.
+
+Trong ngSwitch lại có 2 chỉ thị khác nữa là ngSwitchCase và ngSwitchDefault.
+
+```html
+<div [ngSwitch]="currentCustomer.emotion">
+    <happy-customer   *ngSwitchCase="'happy'"    [cus]="currentCustomer"></happy-customer>
+    <sad-customer     *ngSwitchCase="'sad'"      [cus]="currentCustomer"></sad-customer>
+    <confused-custoer *ngSwitchCase="'confused'" [cus]="currentCustomer"></confused-customer>
+    <unknown-customer *ngSwitchDefault           [cus]="currentCustomer"></unknown-customer>
+</div>
+```
+Trong đoạn code trên, ngSwitch được gán bằng giá trị của thuộc tính emotion trong đối tượng currentCustomer, thuộc tính emotion có thể là bất cứ giá trị gì, trong trường hợp này thì đây là một string “happy”, “sad” hoặc “confused”, sau đó bên trong ngSwitch, chúng ta có các element có chỉ thị ngSwitchCase, mỗi chỉ thị ngSwitchCase này được gán giá trị là một chuỗi trùng với thuộc tính emotion, nếu element nào có chỉ thị ngSwitchCase trùng với giá trị của thuộc tính emotion thì element đó được đưa vào trang web, các element còn lại thì không. Nếu không có ngSwitchCase nào trùng thì element có chỉ thị ngSwitchDefault sẽ được đưa vào.
+
+**Lưu ý** là ngSwitch là một chỉ thị attribute, vì chỉ thị này không trực tiếp chỉnh sửa giao diện, do đó chúng ta không thêm dấu sao * mà bọc trong cặp dấu ngoặc vuông [], còn các chỉ thị ngSwitchCase và ngSwitchDefault thì cần có dấu sao * phía trước.
+
+---
+### Angular – Service và Dependency Injection
+
+**Service** (dịch vụ) chẳng qua cũng là một cách giúp cho chúng ta tái sử dụng code mà thôi, chẳng hạn như bạn có một lớp Customer, thì thay vì mỗi lần cần lấy các đối tượng Customer đang có, chúng ta phải viết code để tạo đối tượng, truyền tham số…v.v ở nhiều nơi khác nhau, thì bây giờ chúng ta chỉ cần viết một lớp service làm điều đó luôn cho chúng ta, như vậy việc quản lý code sẽ dễ dàng hơn, chẳng hạn như mỗi lần thay đổi phương thức khởi tạo, thì chúng ta chỉ cần thay đổi code trong lớp service là được, thay vì phải đi sửa lại toàn bộ những dòng code khởi tạo đó.
+
+**Dependency Injection** là chức năng cho phép chúng ta “nhúng” các lớp vào các lớp khác, giống như dùng một thư viện vậy, và chúng ta có thể dùng các lớp được nhúng vào đó giống như dùng một thuộc tính bình thường mà không cần phải thực hiện các công đoạn khai báo, khởi tạo…v.v
+
+Ví dụ
+Chúng ta sẽ viết một lớp service lấy danh sách các ngôn ngữ lập trình.
+
+Đầu tiên chúng ta tạo một project mới từ quickstart, đặt tên là gì cũng được.
+ 
+Tiếp theo chúng ta viết lớp Language bằng cách tạo một file có tên language.ts trong thư mục src/app như sau:
+
+src/app/language.ts
+
+```ts
+export class Language {
+    id: number;
+    name: string;
+}
+
+```
+Ở đây chúng ta chỉ lưu 2 thông tin đơn giản là id và name.
+
+Kế tiếp chúng ta tạo một file có tên language-list.ts trong thư mục src/app như sau:
+
+src/app/language-list.ts
+
+```ts
+import { Language } from './language';
+ 
+export const LANGUAGES: Language[] = [
+    {id: 1, name: 'C++'},
+    {id: 2, name: 'Java'},
+    {id: 3, name: 'Python'},
+    {id: 4, name: 'Ruby'},
+    {id: 5, name: 'Go'},
+    {id: 6, name: 'Javascript'}
+];
+
+```
+File này chỉ chứa một đối tượng LANGUAGES là một mảng chứa các đối tượng Language.
+
+Bây giờ chúng ta sẽ viết lớp service, chúng ta tạo một file có tên language.service.ts trong thư mục src/app như sau:
+
+src/app/language.service.ts
+
+```ts
+import { Injectable } from '@angular/core';
+ 
+import { Language } from './language';
+import { LANGUAGES } from './languages-list';
+ 
+@Injectable()
+export class LanguageService{
+    getLanguages(): Language[] {
+       return LANGUAGES;
+    }
+}
+
+```
+Lớp service ở đây chúng ta đặt tên là LanguageService, trong lớp này có một phương thức là getLanguages(), phương thức này sẽ trả về mảng các đối tượng Language. Mảng này chúng ta lấy từ đối tượng LANGUAGES đã dược định nghĩa ở trên.
+
+Thông thường chúng ta sẽ đặt tên file cho các lớp Service có phần đuôi là .service.ts cho dễ quản lý.
+
+ 
+Điểm đáng chú ý ở đây chúng ta có import thêm lớp **Injectable** từ @angular/core và khai báo @Injectable trước phần khai báo lớp nữa, từ khóa @Injectable cho Angular biết lớp này có thể được “nhúng” vào các lớp khác.
+
+Bây giờ chúng ta sửa lại lớp AppComponent trong file src/app/app.component.ts như sau:
+
+src/app/app.component.ts
+
+```ts
+import { Component } from '@angular/core';
+import { LanguageService } from './language.service';
+import { Language } from './language';
+ 
+@Component({
+    selector: 'my-app',
+    template: `
+        <div class="container">
+            <h1>Programming languages:</h1> 
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let lang of languages">
+                    {{lang.id}} - {{lang.name}}
+                </li>
+            </ul>
+        </div>  
+    `,
+    providers: [ LanguageService ]
+})
+export class AppComponent { 
+    languages: Language[]; 
+    constructor(private languageService: LanguageService) {
+        this.languages = languageService.getLanguages();
+    }
+}
+
+```
+Trong lớp AppComponent chúng ta khai báo một thuộc tính là languages, thuộc tính này có kiểu là mảng các đối tượng Language.
+
+Sau đó chúng ta khai báo phương thức constructor(), phương thức này có nhận vào một tham số là:
+
+**private languageService: LanguageService**
+
+Khai báo như thế thì Angular sẽ tạo một đối tượng thuộc lớp LanguageService cho lớp AppComponent với tên là languageService, và kể từ bây giờ chúng ta có thể dùng đối tượng languageService giống như một thuộc tính bình thường của một lớp luôn. Do đó ngay trong phương thức khởi tạo chúng ta gọi phương thức getLanguages() để lấy danh sách các đối tượng Language rồi gán vào thuộc tính languages.
+
+Một lớp để được khai báo trong constructor() thì ngoài phần import ra, còn phải được khai báo trong tham số mảng providers nữa.
+
+
+ 
+Trong template chúng ta in danh sách các ngôn ngữ lập trình ra, lưu ý ở đây chúng ta có sử dụng bootstrap (bạn có thể lấy link CDN của bootstrap tại đây rồi chèn vào file src/index.html).
+
+Bây giờ bạn có thể lưu file lại và chạy ra được như hình dưới đây:
+
+
+
+Tuy nhiên bản chất của các service thường là chạy ngầm, song song với ứng dụng chính, nhưng ở đây service của chúng ta không phải chạy như thế mà vẫn chạy theo thứ tự trước sau cùng với ứng dụng chính. Để lớp service chạy đúng nghĩa với tính chất của một dịch vụ thì ở đây chúng ta dùng lớp Promise, lớp Promise sẽ giúp công việc lấy dữ liệu được thực hiện một cách bất đồng bộ (asynchronous).
+
+Ở đây mình chỉ nói về cách sử dụng chứ không đi sâu vào tìm hiểu cơ chế bất đồng bộ làm gì. Đầu tiên chúng ta sửa lại lớp LanguageService như sau:
+
+src/app/language.service.ts
+
+```ts
+import { Injectable } from '@angular/core';
+ 
+import { Language } from './language';
+import { LANGUAGES } from './languages-list';
+ 
+@Injectable()
+export class LanguageService{
+    getLanguages(): Promise<Language[]> { 
+        return Promise.resolve(LANGUAGES);
+    }
+}
+
+```
+Chúng ta cho phương thức getLanguages() có kiểu trả về là một đối tượng Promise. Bên trong chúng ta gọi phương thức Promise.resolve(LANGUAGES) để lấy đối tượng LANGUAGES, việc lấy dữ liệu này sẽ được thực hiện ngầm song song với ứng dụng chính.
+
+Ở bên lớp AppComponent chúng ta sửa như sau:
+
+src/app/app.component.ts
+```ts
+import { Component } from '@angular/core';
+import { LanguageComponent } from './language.component';
+import { LanguageService } from './language.service';
+import { Language } from './language';
+@Component({
+    selector: 'my-app',
+    template: `
+        <div class="container">
+            <h1>Programming languages:</h1> 
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let lang of languages">
+                    {{lang.id}} - {{lang.name}}
+                </li>
+            </ul>
+        </div>  
+    `,
+    providers: [ LanguageService ]
+})
+export class AppComponent {  
+    languages: Language[]; 
+    constructor(private languageService: LanguageService) {
+        languageService.getLanguages().then( (values) {
+            this.languages = values;
+        });
+    }
+}
+
+```
+Phương thức getLanguages() sẽ sau khi thực thi xong việc lấy dữ liệu thì sẽ gọi một phương thức khác và truyền dữ liệu trả về vào phương thức đó, nếu bạn chưa biết thì đây là cơ chế callback (bạn có thể tìm hiểu thêm ở [đây](http://phocode.com/javascript/nodejs/nodejs-ham-callback/)), ở đây phương thức getLanguages() sẽ trả về một đối tượng Promise, để bắt được phương thức callback đó thì chúng ta gọi phương thức then() và truyền vào tham số là một hàm, hàm đó sẽ nhận tham số trả về là mảng LANGUAGES, ở đây chúng ta đặt tên là lang rồi gán giá trị của tham số đó cho thuộc tính this.languages.
+
+---
+### Angular – Routing
+
+Nếu bạn chưa biết Routing là gì thì có thể giải thích ngắn gọn đây là một tính năng cho phép chúng ta điều hướng các URL tới các hàm/phương thức/lớp/controller nào đó trong ứng dụng, đây là tính năng có trong hầu hết các web framework phổ biến ngày nay.
+
+Trong Angular thì một URL sẽ được điều hướng tới một lớp Component, tức là khi người dùng trỏ URL nào vào trong trình duyệt thì Angular sẽ hiển thị template của lớp Component được điều hướng tương ứng.
+
+Ví dụ
+Chúng ta sẽ viết trang hiển thị danh sách các ngôn ngữ lập trình và trang hiển thị thông tin chi tiết của ngôn ngữ đó.
+
+Đầu tiên chúng ta tạo một project từ quickstart.
+
+Trong project này mình có sử dụng các lớp CSS của bootstrap, bạn có thể lấy link CDN của bootstrap tại [đây](https://getbootstrap.com/docs/4.3/getting-started/introduction/) và thêm vào trong file index.html.
+
+Tiếp theo chúng ta tạo một file có tên language.ts có nội dung như sau:
+
+src/app/language.ts
+```ts
+
+export class Language {
+    id: number;
+    name: string;
+}
+ 
+export const LANGUAGES: Language[] = [
+    {id: 1, name: 'C++'},
+    {id: 2, name: 'Java'},
+    {id: 3, name: 'Javascript'},
+    {id: 4, name: 'Ruby'},
+    {id: 5, name: 'Python'},
+    {id: 6, name: 'Golang'} 
+];
+
+```
+
+Chúng ta định nghĩa lớp Language có 2 thuộc tính là id và name. Và một biến LANGUAGES lưu danh sách các đối tượng Language.
+
+Tiếp theo chúng ta tạo file có tên language.component.ts như sau:
+
+src/app/language.component.ts
+```ts
+import { Component } from '@angular/core';
+import { Language, LANGUAGES } from './language';
+ 
+@Component({
+    selector: 'language',
+    template: `
+        <h1>List of programming languages:</h1>
+        <ul *ngFor="let lang of languages" class="list-group"> 
+            <li class="list-group-item">
+                {{lang.id}} - {{lang.name}}
+            </li>
+        </ul>
+    `
+})
+export class LanguageComponent {
+    languages: Language[]; 
+  
+    constructor() {
+        this.languages = LANGUAGES;
+    }
+}
+
+```
+Trong này chúng ta định nghĩa lớp LanguageComponent dùng để hiển thị danh sách các ngôn ngữ lập trình, danh sách này chúng ta lấy từ biến LANGUAGES đã định nghĩa ở trên.
+
+Bây giờ đến phần chính là phần định nghĩa routing. Đầu tiên chúng ta sửa lại file app.module.ts như sau:
+
+src/app/app.module.ts
+```ts
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+ 
+import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router';
+import { LanguageComponent } from './language.component';
+ 
+@NgModule({
+    imports: [ 
+        BrowserModule,
+        RouterModule.forRoot([            
+            {
+                path: 'languages',                
+                component: LanguageComponent
+            },
+        ])
+    ],
+    declarations: [ 
+        AppComponent, 
+        LanguageComponent, 
+    ],
+    bootstrap: [ AppComponent ]
+})
+export class AppModule { }
+
+```
+Điểm cần lưu ý ở đây là chúng ta cần import lớp RouterModule từ @angular/router, sau đó khai báo trong mảng imports. Khi khai báo lớp RouterModule thì chúng ta phải gọi phương thức forRoot() của lớp này, bên trong phương thức này chúng ta truyền vào một mảng, các phần tử của mảng là các đối tượng gồm 2 thuộc tính là path và component, trong đó path là đường dẫn URL do chúng ta định nghĩa, component là tên lớp Component sẽ được dùng để hiển thị trên trang web (lưu ý nhớ import lớp này vô trước và cũng phải khai báo trong mảng declarations).
+
+Và kể từ bây giờ, khi người dùng gõ vào thanh địa chỉ trên trình duyệt là http://localhost:3000/languages thì phần template của lớp LanguageComponent sẽ được hiển thị, nhưng hiển thị ở đâu? Chúng ta phải chỉ định vị trí hiển thị nữa mới đủ.
+
+
+ 
+Angular sẽ hiển thị ở những nơi có element `<router-outlet>`, do đó bây giờ chúng ta sửa lại lớp AppComponent như sau:
+
+src/app/app.component.ts
+```ts
+import { Component } from '@angular/core';
+ 
+@Component({
+    selector: 'my-app',
+    template: `
+        <div class="container"> 
+            <router-outlet></router-outlet> 
+        </div>
+    `,
+})
+export class AppComponent { }
+
+```
+Và bây giờ nếu bạn trỏ tới đường dẫn http://localhost:3000/languages thì sẽ ra được trang có hình như bên dưới:
+
+
+
+Chúng ta có thể thêm một element `<a>` để click vào URL như sau:
+
+src/app/app.component.ts
+
+```ts
+import { Component } from '@angular/core';
+ 
+@Component({
+    selector: 'my-app',
+    template: `
+        <div class="container"> 
+            <a routerLink="/languages">Languages</a>
+            <router-outlet></router-outlet> 
+        </div>
+    `,
+})
+export class AppComponent { }
+
+```
+Ở đây chúng ta dùng thuộc tính routerLink của lớp RouterModule, bạn cũng có thể sử dụng thuộc tính href, tuy nhiên chúng ta nên dùng routerLink là để tận dụng tính năng lấy tham số trong URL của lớp này.
+
+
+
+#### Tham số URL
+Bây giờ chúng ta sẽ định nghĩa URL /detail để hiển thị thông tin chi tiết của các ngôn ngữ lập trình. Đầu tiên chúng ta sửa lại file app.module.ts như sau:
+
+src/app/app.module.ts
+```ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+ 
+import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router';
+import { LanguageComponent } from './language.component';
+import { LanguageDetailComponent } from './language-detail.component';
+ 
+@NgModule({
+    imports: [ 
+        BrowserModule,
+        RouterModule.forRoot([
+            {
+                path: 'languages',
+                component: LanguageComponent
+            },
+            {
+                path: 'detail/:id',
+                component: LanguageDetailComponent
+            }
+        ])
+    ],
+    declarations: [ AppComponent, LanguageComponent, LanguageDetailComponent ],
+    bootstrap: [ AppComponent ]
+})
+export class AppModule { }
+
+```
+Chúng ta định nghĩa URL mới với path là detail/:id, với component là lớp LanguageDetailComponent. 
+
+detail/:id có nghĩa là url có dạng localhost:3000/detail/1, localhost:3000/detail/abc…v.v Tức là có kèm theo tham số, và tham số này chúng ta đặt tên là :id (lưu ý phải có dấu 2 chấm `':'`).
+
+
+ 
+Tiếp theo chúng ta định nghĩa lớp LanguageDetailComponent, chúng ta tạo file language-detail.component.ts như sau:
+
+src/app/language-detail.component.ts
+```ts
+
+import { Component, OnInit } from '@angular/core';
+import { Language, LANGUAGES } from './language';
+import { ActivatedRoute, Params } from '@angular/router';
+ 
+@Component({
+    selector: 'lang-detail',
+    template: `
+        <h1>Detail:</h1>
+        <div *ngIf="language">
+            <h4>
+                id: {{language.id}} 
+            </h4>
+            <h4>
+                Name: {{language.name}}
+            </h4>
+        </div> 
+    `
+})
+export class LanguageDetailComponent {
+    language: Language; 
+  
+    constructor(
+        private route: ActivatedRoute
+    ) { }
+  
+    ngOnInit() {
+        this.route.params.subscribe( (params) => {
+            for(let lang of LANGUAGES) {
+                if(lang.id == +params['id']) {
+                    this.language = {
+                        id: +params['id'],
+                        name: lang.name
+                    }
+                }  
+            } 
+        });
+    }
+}
+
+```
+Để có thể lấy giá trị tham số thì đầu tiên chúng ta phải import 2 lớp cần thiết là ActivatedRoute và Params từ @angular/router, đây là các lớp service của Angular. Sau đó chúng ta khởi tạo thuộc tính route trong phương thức constructor().
+
+Tiếp theo chúng ta định nghĩa phương thức ngOnInit() (nhớ phải import lớp OnInit trước), phương thức này được gọi mỗi khi lớp này được gọi, trong phương thức này chúng ta lấy đối tượng Language theo tham số được gửi đến trong URL.
+
+
+ 
+Để lấy tham số trong URL thì chúng ta gọi phương thức route.params.subscribe(). Phương thức này nhận vào một hàm callback có tham số là một đối tượng lưu giữ các tham số của URL, chúng ta đặt tên là params. Để lấy giá trị của các tham số, ví dụ như lấy tham số :id thì chúng ta chỉ cần ghi  +params['id'] là được, chú ý phải có dấu cộng '+'. Ở đây chúng ta lặp mảng LANGUAGES và tìm xem phần tử nào có thuộc tính id trùng với tham số :id thì gán phần tử đó cho thuộc tính language.
+
+Cuối cùng chúng ta hiển thị nội dung của thuộc tính đó lên template.
+
+Bây giờ bạn có thể gõ vào trình duyệt các URL như localhost:3000/details/1 và sẽ thấy thông tin của ngôn ngữ lập trình tương ứng.
+
+RouterModule cũng cung cấp url có tham số với cú pháp riêng, chúng ta sửa lại lớp LanguageComponent như sau:
+
+language.component.ts
+```ts
+
+import { Component } from '@angular/core';
+import { Language, LANGUAGES } from './language';
+ 
+@Component({
+    selector: 'language',
+    template: `
+        <h1>List of programming languages:</h1>
+        <ul *ngFor="let lang of languages" class="list-group"> 
+            <li class="list-group-item">
+                <a [routerLink]="['/detail', lang.id]">
+                    {{lang.id}} - {{lang.name}}
+                </a>
+            </li>
+        </ul>
+    `
+})
+export class LanguageComponent {
+    languages: Language[]; 
+  
+    constructor() {
+        this.languages = LANGUAGES;
+    }
+}
+
+```
+Chúng ta gán routerLink là một mảng với 2 phần tử, phần tử đầu tiên là path, phần tử thứ 2 là giá trị của tham số sẽ được gửi đi, ở đây là lang.id, tức là id của ngôn ngữ lập trình đó.
+
+---
+### Angular – HTTP
+
+Trong phần này chúng ta sẽ tìm hiểu cách gửi các gói tin đến một web server và nhận dữ liệu trả về từ server đó.
+
+#### Tạo web server API
+Để có thể gửi các truy vấn API thì trước hết chúng ta phải có một web server có các URL mẫu đã, may mắn là trong Angular có sẵn các lớp service có khả năng tạo một web server “mini” chạy cục bộ để chúng ta có thể thử nghiệm tính năng truy vấn API này.
+
+Đầu tiên chúng ta tạo một project từ quickstart.
+
+Trong project này mình có sử dụng bootstrap, bạn có thể lấy link CDN của bootstrap ở đây và chèn vào file index.html.
+
+Trong web server này chúng ta sẽ lưu danh sách các ngôn ngữ lập trình và cho phép truy vấn, chỉnh sửa, xóa các thông tin này.
+
+
+ 
+Đầu tiên chúng ta tạo một file có tên language.ts trong thư mục src/app như sau:
+
+src/app/language.ts
+
+```ts
+export class Language {
+    id: number;
+    name: string;
+}
+
+```
+Trong file này chúng ta định nghĩa lớp Language gồm 2 trường là id và name.
+
+Tiếp theo chúng tạo một file có tên language-db.service.ts trong thư mục src/app như sau:
+
+src/app/language-db.service.ts
+```ts
+import { InMemoryDbService } from 'angular-in-memory-web-api';
+ 
+export class LanguageDBService implements InMemoryDbService {
+    createDb() {
+        let languages = [
+            {id: 1, name: 'C++'},
+            {id: 2, name: 'Java'},
+            {id: 3, name: 'Javascript'},
+            {id: 4, name: 'Ruby'},
+            {id: 5, name: 'Python'},
+            {id: 6, name: 'Golang'} 
+        ];
+        return {languages};
+    }
+}
+
+```
+Lớp này có implement lớp giao diện InMemoryDbService, đây là lớp hỗ trợ tạo webserver cục bộ, khi implement lớp đó chúng ta phải code phương thức createDb(), phương thức này phải trả về một đối tượng mảng (lưu ý trong câu lệnh return thì mảng phải được bọc trong cặp dấu ngoặc nhọn {}), nên chúng ta tạo một đối tượng có tên languages lưu thông tin các ngôn ngữ lập trình. Một lưu ý khác là các phần tử mảng phải có một phần tử tên là id.
+
+Khi biên dịch thì InMemoryDbService sẽ hiểu là tạo một dịch vụ web API cục bộ cho phép thao tác trên mảng đó, và cung cấp một số URL cho các API, ở đây mình chỉ liệt kê một số URL thường dùng:
+
+GET – api/languages: lấy danh sách
+GET – api/languages/{id}: lấy theo id
+POST – api/languages: tạo mới đối tượng
+PUT – api/languages/{id}: cập nhật theo id
+DELETE – api/languages/{id}: xóa theo id
+Bạn có thể tìm hiểu thêm tại đây: https://github.com/angular/in-memory-web-api
+
+#### Truy vấn API
+Để có thể truy vấn các API này thì chúng ta sử dụng lớp Http có trong Angular.
+
+Chúng ta sửa lại lớp AppComponent trong file app.component.ts như sau:
+
+src/app/app.component.ts
+```ts
+
+import { Component, OnInit } from '@angular/core';
+ 
+import { Headers, Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
+ 
+import { LanguageComponent } from './language.component';
+ 
+import { Language } from './language';
+ 
+@Component({
+    selector: 'my-app',
+    template: `
+        <div class="container">
+        <h1>List of programming languages:</h1>
+            <ul class="list-group">
+                <li *ngFor="let lang of languages" class="list-group-item">
+                    {{lang.id}} - {{lang.name}}
+                </li>
+            </ul> 
+        </div>
+    `,
+})
+export class AppComponent { 
+  
+    private languages: Language[];
+    private headers = new Headers({'Content-Type' : 'application/json'});
+  
+    constructor(private http: Http) {} ;
+  
+    ngOnInit() {
+        this.http.get("http://localhost:3000/api/languages")
+                 .toPromise()
+                 .then(response => { 
+                     this.languages = response.json().data as Language[]; 
+                 })
+                 .catch(this.handleError); 
+    }
+  
+    private handleError(error: any): Promise<any> {
+        return Promise.reject(error.message || error);
+    }
+}
+
+```
+Chúng ta sẽ cần đến các lớp Headers, Http từ @angular/http, hàm toPromise() từ rxjs/add/operator. Lớp Language từ file language.ts đã định nghĩa ở trên. OnInit từ @angular/core để định nghĩa phương thức ngOnInit().
+
+Đầu tiên chúng ta khai báo thuộc tính languages có kiểu mảng đối tượng của lớp Language. Sau đó khai báo thuộc tính headers từ lớp Headers, đây là lớp hỗ trợ khai báo các metadata trong gói tin HTTP.
+
+
+ 
+Lớp HTTP là một lớp service, do đó chúng ta tạo biến http trong phương thức constructor() luôn.
+
+Ở trong phương thức ngOnInit(), chúng ta gọi phương thức http.get(). Đây là phương thức dùng để gửi gói tin HTTP lên các webserver dùng phương thức GET, tham số là một đường url, phương thức này sẽ trả về một đối tượng thuộc lớp Observable, nói đơn giản thì Observable cũng có chức năng lấy dữ liệu bất đồng bộ (asynchronous) như Promise nhưng hiện đại hơn, tuy nhiên chúng ta sẽ không đi sâu vào tìm hiểu, do đó chúng ta sử dụng phương thức toPromise() để chuyển về một đối tượng Promise. Rồi gọi phương thức then() để thực hiện hàm callback, tham số của hàm callback này là dữ liệu về các ngôn ngữ lập trình mà lớp InMemoryDbService cung cấp, chúng ta đặt tên tham số là response, chúng ta gọi phương thức json().data, chuyển thành mảng Language[] và gán vào thuộc tính languages. Cuối cùng chúng ta gọi phương thức catch(), phương thức này dùng để bắt lỗi ngoại lệ nếu có, tham số của phương thức này là một phương thức khác, ở đây là handleError() do chúng ta tự đặt.
+
+Trong phương thức handleError() chúng ta trả về một đối tượng Promise từ phương thức Promise.reject() với thông báo lỗi từ error.message.
+
+Cuối cùng để chạy được thì chúng ta phải khai báo các lớp cần thiết trong lớp AppModule (app.module.ts):
+
+src/app/app.module.ts
+
+```ts
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+ 
+import { AppComponent } from './app.component';
+ 
+import { HttpModule } from '@angular/http';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+ 
+import { LanguageDBService } from './language-db.service';
+import { LanguageComponent } from './language.component';
+ 
+@NgModule({
+    imports: [ 
+        BrowserModule,
+        HttpModule,
+        InMemoryWebApiModule.forRoot(LanguageDBService)
+    ],
+    declarations: [ 
+        AppComponent, 
+        LanguageComponent 
+    ],
+    bootstrap: [ AppComponent ]
+})
+export class AppModule { }
+
+```
+Chúng ta import các lớp tự định nghĩa là LanguageComponent, LanguageDBService và khai báo trong mảng declarations. Khai báo 2 module cần dùng để tạo webserver và truy vấn webserver là HttpModule và InMemoryWebApiModule, rồi khai báo trong mảng imports. Khi khai báo module InMemoryWebApiModule thì chúng ta phải gọi phương thức forRoot() và truyền vào một lớp đã implements lớp InMemoryDbService, ở đây là lớp LanguageDBService.
+
+Bây giờ giao diện trang web sẽ như thế này:
+
+
+
+Để gửi truy vấn POST thì chúng ta dùng phương thức post() như sau:
+
+src/app/app.component.ts
+
+```ts
+...
+ngOnInit() {    
+    this.http.post(
+                      "http://localhost:3000/api/languages", 
+                      JSON.stringify({name: 'Pascal'}), 
+                      {headers: this.headers}
+                  )
+             .toPromise()
+             .then(res => res.json().data as Language)
+             .catch(this.handleError);
+    this.http.get("http://localhost:3000/api/languages")
+             .toPromise()
+             .then(response => { 
+                 this.languages = response.json().data as Language[]; 
+             })
+             .catch(this.handleError); 
+}
+...
+
+```
+Tham số đầu tiên là URL, tham số thứ 2 là một chuỗi JSON, tham số thứ 3 là đối tượng Headers. API này sẽ trả về thông tin về đối tượng mới được tạo.
+
+Để gửi gói tin DELETE thì chúng ta dùng phương thức delete(), ví dụ:
+
+src/app/app.component.ts
+```ts
+
+...
+ngOnInit() {
+    this.http.delete(
+                        "http://localhost:3000/api/languages/2", 
+                        {headers: this.headers}
+                    )
+             .toPromise()
+             .then(() => null)
+             .catch(this.handleError);
+  
+    this.http.post(
+                      "http://localhost:3000/api/languages", 
+                      JSON.stringify({name: 'Pascal'}), 
+                      {headers: this.headers}
+                  )
+             .toPromise()
+             .then(res => res.json().data as Language)
+             .catch(this.handleError);
+  
+    this.http.get("http://localhost:3000/api/languages")
+             .toPromise()
+             .then(response => { 
+                 this.languages = response.json().data as Language[]; 
+             })
+             .catch(this.handleError); 
+ }
+...
+
+```
+Phương thức delete() nhận vào url và một đối tượng Headers, không trả về cái gì cả nên chúng ta cho return null.
+
+Để cập nhật một đối tượng thì chúng ta gọi phương thức put(), ví dụ:
+
+src/app/app.component.ts
+
+```ts
+...
+ngOnInit() {
+    let language: Language = {
+        id: 3,
+        name: 'Javascript and TypeScript'
+    };
+    this.http.put(
+                     "http://localhost:3000/api/languages/3", 
+                     JSON.stringify(language),
+                     {headers: this.headers}
+                 )
+            .toPromise()
+            .then(res => res.json().data as Language)
+            .catch(this.handleError);
+  
+    this.http.delete(
+                        "http://localhost:3000/api/languages/2", 
+                        {headers: this.headers}
+                    )
+             .toPromise()
+             .then(() => null)
+             .catch(this.handleError);
+  
+    this.http.post(
+                      "http://localhost:3000/api/languages", 
+                      JSON.stringify({name: 'Pascal'}), 
+                      {headers: this.headers}
+                  )
+             .toPromise()
+             .then(res => res.json().data as Language)
+             .catch(this.handleError);
+  
+    this.http.get("http://localhost:3000/api/languages")
+             .toPromise()
+             .then(response => { 
+                 this.languages = response.json().data as Language[]; 
+             })
+             .catch(this.handleError); 
+}
+...
+
+```
+Phương thức put() nhận vào url, chuỗi JSON của đối tượng cần chỉnh sửa, và một đối tượng Headers, phương thức này trả về đối tượng đã được chỉnh sửa thành công.
+
