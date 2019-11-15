@@ -219,6 +219,8 @@ function setName(name: string): void {
   this.name = name;
 }
 ```
+**Object**
+a : object = {}
 
 ---
 
@@ -425,7 +427,7 @@ Chúng ta khai báo một module bằng cách dùng từ khóa @NgModule. Các t
 * **exports**: danh sách tên các module hoặc component có thể sử dụng module này
 * **imports**: tên các module sẽ được dùng từ module này
 * **providers**: tên các service sẽ được dùng từ module này, chúng ta sẽ tìm hiểu về service sau
-* **bootstrap**: tên lớp view dành cho root module, chỉ có root module mới thiết lập tham số này
+* **bootstrap**: tên lớp view dành cho root module, chỉ có root module mới thiết lập tham số này. Noi component dau tien chay len
 Đây là một đoạn code module trong file có tên app.module.ts đơn giản như sau:
 
 ```ts
@@ -940,7 +942,7 @@ import { MyComponent} from './my.component';
 export class AppComponent { name = 'Angular'; }
 
 ```
-Trong tham số template, chúng ta chỉ cần khai báo thêm selector của lớp MyComponent là <my-component></my-component>, giữa 2 thẻ này có thể để trống.
+Trong tham số template, chúng ta chỉ cần khai báo thêm selector của lớp MyComponent là `<my-component></my-component>`, giữa 2 thẻ này có thể để trống.
 
 Ở đầu file chúng ta phải import lớp MyComponent, nếu không Angular sẽ báo lỗi.
  
@@ -964,6 +966,30 @@ export class AppModule { }
 
 ```
 Chúng ta chỉ cần thêm dòng import và khai báo trong mảng **declarations** là xong.
+
+#### Cấu trúc của component
+
+ 
+new-cmp.component.ts
+```ts
+import { Component, OnInit } from '@angular/core'; // Khai báo import angular/core
+ 
+@Component({
+  // Khai báo selector cho component new-cmp
+   selector: 'app-new-cmp', //
+   templateUrl: './new-cmp.component.html', 
+   // Khai báo file html mà component new-cmp "đại diện"
+   styleUrls: ['./new-cmp.component.css'] // Khai báo file style sử dụng
+})
+ 
+export class NewCmpComponent implements OnInit {
+   constructor() { }
+   ngOnInit() {}
+}
+
+```
+Ở đây khai báo 1 class gọi là NewCmpComponent. Class này implements class OnInit. Class OnInit có constructor là ngOnInit(), nên trong NewCmpComponent cũng sẽ override lại constructor ngOnInit() này. Constructor ngOnInit() sẽ được gọi mặc định khi class được gọi đến.
+https://freetuts.net/tim-hieu-ve-component-trong-angular-4-1301.html
 
 ---
 ### Angular – Xử lý sự kiện
@@ -1379,7 +1405,7 @@ src/app/customer-form.component.html
 
 ```
 
-Chúng ta khai báo biến template cho thẻ <input> là #cus_class, sau đó lấy thuộc tính className của biến này ra và hiển thị.
+Chúng ta khai báo biến template cho thẻ `<input>` là #cus_class, sau đó lấy thuộc tính className của biến này ra và hiển thị.
 
 Lưu file lại, Angular sẽ reload lại trình duyệt, chúng ta có thể thấy tên các lớp của control này, ngay cả các control khác cũng thế, nếu muốn rõ hơn bạn có thể dùng chức năng insect của Google Chrome để xem.
 
@@ -2002,6 +2028,14 @@ Thông thường chúng ta dùng ngIf để kiểm tra xem một đối tượng
 <div *ngIf="nullCustomer">Hello, {{customer.name}}</div>
 
 ```
+
+#### Sử dụng template trong if else
+```html
+<p *ngIf="is_available; then true_condition else false_condition">Điểu kiện đúng trong thẻ ngIf</p>
+<ng-template #true_condition><p>Điều kiện đúng trong template</p></ng-template>
+<ng-template #false_condition><p>Điều kiện sai trong template</p></ng-template>
+```
+Một lưu ý nhỏ là điều kiện trong template được ưu tiên hơn so với thẻ cha chứa cấu trúc điều khiển. Nghĩa là nếu is_available = true thì chỉ nội dung bên trong #true_condition được thực thi
 #### ngFor
 Đây là chỉ thị lặp, có tác dụng lặp qua một danh sách các phần tử, khi chúng ta có một danh sách các phần tử, muốn hiển thị chúng lên trang web thì chúng ta lặp qua danh sách đó và hiển thị các phần tử theo một khuôn mẫu giống nhau. Ví dụ:
 
@@ -2767,3 +2801,121 @@ ngOnInit() {
 ```
 Phương thức put() nhận vào url, chuỗi JSON của đối tượng cần chỉnh sửa, và một đối tượng Headers, phương thức này trả về đối tượng đã được chỉnh sửa thành công.
 
+---
+## Angular 4 nghiep UIT
+https://www.youtube.com/watch?v=Cj_dNjhbM58&list=PLJ5qtRQovuENHYHqlQP5XT7zwbCA5Q5He&index=3
+
+### Các câu lệnh thường sử dụng trong Angular CLI
+Câu lênh | Ghi chú
+------- | -------
+ng new PROJECT-NAME | Tạo project Angular mới tên là PROJECT-NAME
+ng g component new-component  ng g component new-component --spec false| Tạo component mới có tên là new-component(bo file spec)
+ng g directive new-directive | Tạo directive mới có tên là new-directive
+ng g pipe new-pipe | Tạo pipe mới có tên là new-pipe
+ng g service new-service | Tạo service mới có tên là new-service
+ng g module my-module | Tạo module mới có tên là my-module
+ng serve --port 3006 --open | Biên dịch project, chạy ở cổng 3006 và tự động mở lên trình duyệt khi biên dịch xong
+
+### Component
+Tao folder components
+
+```ts
+cd components/
+ng g c hello
+```
+
+Để tạo component mới, ta sử dụng lệnh Angular CLI:
+
+```ts
+ng g component <ten-component> 
+
+```
+Ví dụ, để tạo component có tên là new-cmp, ta chạy lệnh ng g component new-cmp
+
+Ngoài việc tạo ra mới 4 file này, angular CLI cũng giúp chúng ta khai báo new component này cho project trong file app.module.ts
+
+```ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+ 
+import { AppComponent } from './app.component';
+import { NewCmpComponent } from './new-cmp/new-cmp.component';
+ 
+@NgModule({
+  declarations: [
+    AppComponent,
+    NewCmpComponent // Dòng này mới được thêm vào
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+SD bootstrap dat link css len dau file index.html
+Vao link tren url download file js css ve va luu trong assets/css,....
+
+Data binding: Hien thi du lieu
+
+- component => view
+- view => component
+- 2 chieu
+
+#### Component to view
+
+**1. Interpolation: {{}}**
+Bien, toan tu 3 ngoi, method
+```ts
+show() {
+    return `Name: ${this.user['name']}`;
+}
+---
+{{ show() }}
+<img src="{{link}}"/>>
+```
+**2. Property: [prop]="value"**
+src, href, value, disabled, hidden
+Cach 2: bind-prop="value"
+**3. Attribute binding**
+```ts
+[attr.attr_name]="value"
+
+```
+vd: colspan, href, border, width, height
+**4. Class binding**
+```ts
+[class.ClassName] = "true"
+Class css duoc active khi nao
+bien kieu: boolean, number, string
+[class.label_dangered] = "num === 1"
+
+```
+**5. Style binding**
+```ts
+[style.style_name]
+[style.color]="true ? mau 1 : mau 2"
+[style.fonsize.px]="num"
+```
+#### View to Component
+1. Event binding
+
+https://www.w3schools.com/jsref/dom_obj_event.asp
+keyup.enter, dbclick, keyup
+
+```ts
+(click)="onClick()"
+
+event.target.innerText: ten su kien
+```
+
+#### Two way binding
+Import FormsModule
+Cu phap:
+[(ngModule)]="name"
+
+Luu y: Neu dat trong the form thi can co:
+[ngModelOptions]="{standalone: true}"
+
+#### Structural Directive : *ngIf
