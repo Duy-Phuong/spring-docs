@@ -190,7 +190,7 @@ TypeScript is compile to JS
 ### 10. A Basic Project Setup using Bootstrap for Styling
 
 ```ts
-Npm install –save bootstrap@3
+Npm install --save bootstrap@3
 
 ```
 
@@ -206,6 +206,68 @@ Tại file angular.json sửa lại :
 ```
 
 ### 11. Where to find the Course Source Code.html
+
+In the next lecture, we set up the course project. For that, we'll install the Bootstrap CSS Framework.
+In this course, we use version 3 of the framework, install it via npm install --save bootstrap@3 => The @3 is important!
+Additionally, when using a project created with Angular CLI 6+ (check via ng -v ), you'll have an angular.json file instead of an .angular-cli.json file. In that file, you still need to add Bootstrap to the styles[] array as shown in the next video, but the path should be node_modules/bootstrap/dist/css/bootstrap.min.css , NOT ../node_modules/bootstrap/dist/css/bootstrap.min.css . The leading ../ must not be included.
+Also see this lecture - I do show the complete setup process there: https://www.udemy.com/the-complete-guide-to-angular-2/learn/v4/t/lecture/6655614/
+
+app.components.html
+
+```html
+<div class="container">
+  <div class="form-group">
+    <label for="usr">Name:</label>
+    <input type="text" class="form-control" id="usr" [(ngModel)]="name" />
+  </div>
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" class="form-control" id="pwd" [(ngModel)]="pwd" />
+  </div>
+
+  <div class="alert alert-info">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+      &times;
+    </button>
+    <strong>{{ name }}</strong>
+  </div>
+</div>
+```
+
+app.component.ts
+
+```ts
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
+})
+export class AppComponent {
+  name = "first-app-chap1";
+  pwd = "123";
+}
+```
+
+app.module.ts
+
+```ts
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { AppComponent } from "./app.component";
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, FormsModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
+
+**Nho inport FormsModule**
 
 ## 10. Course Project - Services & Dependency Injection
 
