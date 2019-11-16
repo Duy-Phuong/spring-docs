@@ -2911,7 +2911,7 @@ event.target.innerText: ten su kien
 ```
 
 #### Two way binding
-Import FormsModule
+Phai Import FormsModule o file app.modules.ts
 Cu phap:
 [(ngModule)]="name"
 
