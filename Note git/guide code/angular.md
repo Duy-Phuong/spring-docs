@@ -34,7 +34,11 @@ The CLI generates a different welcome screen than you're going to see in my vide
 
 Depending on the CLI version you're using, you might also need to add the FormsModule to the imports[] array in your app.module.ts file (add it if you don't see it there). You might not fully understand what that all means but we're going to cover that in this course, no worries.
 
-If you don't have **FormsModule** in imports[] in AppModule , please do add it and also add an import at the top of that file: import { FormsModule } from '@angular/forms';
+If you don't have **FormsModule** in imports[] in AppModule , please do add it and also add an import at the top of that file:
+
+```ts
+import { FormsModule } from "@angular/forms";
+```
 
 ---
 
@@ -141,7 +145,7 @@ you will be able to see CLI version.
 
 ---
 
-Component bao gom: html, css, file ts
+Component includes: html, css, file ts
 
 ```ts
 import { Component } from "@angular/core";
@@ -180,8 +184,6 @@ export class AppModule {}
 ### 7. The Course Structure
 
 ![img](../root/img/2019-11-16-12-15-30.png)
-
-### 8. How to get the Most out of the Course
 
 ### 9. What is TypeScript
 
@@ -267,7 +269,241 @@ import { AppComponent } from "./app.component";
 export class AppModule {}
 ```
 
-**Nho inport FormsModule**
+**Must inport FormsModule**
+angular.json
+
+```js
+"styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css"
+            ],
+
+```
+
+---
+
+## 2. The Basics
+
+### 1. Module Introduction
+
+Angular is a js framework, change your DOM(‘html’) at runtime
+Component: divide your application into many components => chia thành các phần có thể tái SD
+
+### 4. Creating a New Component
+
+- Create server folder
+- Create server component
+  Add decorater @component in typescript class
+  **Source**: basics-components.zip
+
+### 5. Understanding the Role of AppModule and Component Declaration
+
+Angular doesn't scan all class so yout must tell angular component exist in AppModule
+Go to declarations to add new **ServerComponent**
+
+```ts
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+
+import { AppComponent } from "./app.component";
+import { ServerComponent } from "./server/server.component";
+import { ServersComponent } from "./servers/servers.component";
+
+@NgModule({
+  // add new
+  declarations: [AppComponent, ServerComponent, ServersComponent],
+  imports: [BrowserModule, FormsModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
+
+### 6. Using Custom Components
+
+declare in html file
+
+### 7. Creating Components with the CLI & Nesting Components
+
+```ts
+Ng generate component servers
+Ng g c servers
+Ng g c servers –-spec false
+=> tạo ra k có file test .spec
+Ng g c servers/child –-spec false
+=> tạo ở trong folder servers
+Angular will auto add in app.module.ts
+```
+
+### 8. Working with Component Templates
+
+Nếu định nghĩa template trong 1 file thì sử dụng dấu `` nếu viết trên nhiều dòng:
+
+```ts
+@Component({
+  selector: 'server-root',
+  // selector: '[server-root]', là 1 thuộc tính
+  // selector: '.server-root', là 1 class
+
+  template: `code in here mutiple lines…`,
+  styles: [`code in here…`]
+})
+
+```
+
+Change templateUrl => template to write code
+
+```ts
+@Component({
+  // selector: '[app-servers]',
+  // selector: '.app-servers',
+  selector: "app-servers",
+  template: `
+    <app-server></app-server>
+    <app-server></app-server>
+  `,
+  styleUrls: ["./servers.component.css"]
+})
+export class ServersComponent implements OnInit {
+  constructor() {}
+
+  ngOnInit() {}
+}
+```
+
+### 9. Working with Component Styles
+
+Change styleUrls => styles
+
+```ts
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  // styleUrls: ['./app.component.css']
+  styles: [
+    `
+      h3 {
+        color: dodgerblue;
+      }
+    `
+  ]
+})
+export class AppComponent {}
+```
+
+### 10. Fully Understanding the Component Selector
+
+```ts
+  selector: 'server-root',
+  // selector: '[server-root]', là 1 thuộc tính
+  // selector: '.server-root', là 1 class
+
+app.component.html
+        <!--<div app-servers></div>-->
+      <!--<div class="app-servers"></div>-->
+```
+
+### 11. Practicing Components.html
+
+### 12. [OPTIONAL] Assignment Solution
+
+### 13. What is Databinding
+
+![](../root/img/2019-11-17-02-20-04.png)
+
+### 14. String Interpolation
+
+server
+
+```html
+<p>{{ 'Server' }} with ID {{ serverId }} is {{ getServerStatus() }}</p>
+```
+
+server.component.ts
+
+```ts
+@Component({
+  selector: "app-server",
+  templateUrl: "./server.component.html"
+})
+export class ServerComponent {
+  serverId: number = 10;
+  serverStatus: string = "offline";
+
+  getServerStatus() {
+    return this.serverStatus;
+  }
+}
+```
+
+### 15. Property Binding
+
+use by []
+servers.component.html
+
+```html
+<button
+  class="btn btn-primary"
+  [disabled]="!allowNewServer"">Add Server</button>
+```
+
+servers.component.ts
+
+```ts
+constructor() {
+    setTimeout(() => {
+      this.allowNewServer = true;
+    }, 2000);
+  }
+```
+
+### 16. Property Binding vs String Interpolation
+
+servers.component.html
+Print value of `allowNewServer`
+
+```html
+<p [innerText]="allowNewServer"></p>
+```
+
+### 17. Event Binding
+
+### 18. Bindable Properties and Events.html
+
+### 19. Passing and Using Data with Event Binding
+
+### 2. How an Angular App gets Loaded and Started
+
+### 20. Important FormsModule is Required for Two-Way-Binding!.html
+
+### 21. Two-Way-Databinding
+
+### 22. Combining all Forms of Databinding
+
+### 23. Practicing Databinding.html
+
+### 24. [OPTIONAL] Assignment Solution
+
+### 25. Understanding Directives
+
+### 26. Using ngIf to Output Data Conditionally
+
+### 27. Enhancing ngIf with an Else Condition
+
+### 28. Styling Elements Dynamically with ngStyle
+
+### 29. Applying CSS Classes Dynamically with ngClass
+
+### 30. Outputting Lists with ngFor
+
+### 31. Practicing Directives.html
+
+### 32. [OPTIONAL] Assignment Solution
+
+### 33. Getting the Index when using ngFor
 
 ## 10. Course Project - Services & Dependency Injection
 
@@ -636,74 +872,6 @@ export class AppModule {}
 ### 7. Resolving Data Before Loading
 
 ### 8. Fixing a Bug with the Resolver
-
-## 2. The Basics
-
-### 1. Module Introduction
-
-### 10. Fully Understanding the Component Selector
-
-### 11. Practicing Components.html
-
-### 12. [OPTIONAL] Assignment Solution
-
-### 13. What is Databinding
-
-### 14. String Interpolation
-
-### 15. Property Binding
-
-### 16. Property Binding vs String Interpolation
-
-### 17. Event Binding
-
-### 18. Bindable Properties and Events.html
-
-### 19. Passing and Using Data with Event Binding
-
-### 2. How an Angular App gets Loaded and Started
-
-### 20. Important FormsModule is Required for Two-Way-Binding!.html
-
-### 21. Two-Way-Databinding
-
-### 22. Combining all Forms of Databinding
-
-### 23. Practicing Databinding.html
-
-### 24. [OPTIONAL] Assignment Solution
-
-### 25. Understanding Directives
-
-### 26. Using ngIf to Output Data Conditionally
-
-### 27. Enhancing ngIf with an Else Condition
-
-### 28. Styling Elements Dynamically with ngStyle
-
-### 29. Applying CSS Classes Dynamically with ngClass
-
-### 3. Components are Important!
-
-### 30. Outputting Lists with ngFor
-
-### 31. Practicing Directives.html
-
-### 32. [OPTIONAL] Assignment Solution
-
-### 33. Getting the Index when using ngFor
-
-### 4. Creating a New Component
-
-### 5. Understanding the Role of AppModule and Component Declaration
-
-### 6. Using Custom Components
-
-### 7. Creating Components with the CLI & Nesting Components
-
-### 8. Working with Component Templates
-
-### 9. Working with Component Styles
 
 ## 20. Authentication & Route Protection in Angular
 
