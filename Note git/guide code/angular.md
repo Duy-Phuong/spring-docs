@@ -13,10 +13,6 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
 
 ### 1. Course Introduction
 
-### 10. A Basic Project Setup using Bootstrap for Styling
-
-### 11. Where to find the Course Source Code.html
-
 ### 2. What is Angular
 
 - is a javascript framework to create a reactive SPA
@@ -188,6 +184,28 @@ export class AppModule {}
 ### 8. How to get the Most out of the Course
 
 ### 9. What is TypeScript
+
+TypeScript is compile to JS
+
+### 10. A Basic Project Setup using Bootstrap for Styling
+
+```ts
+Npm install –save bootstrap@3
+
+```
+
+=> install locally
+Tại file angular.json sửa lại :
+
+```js
+"styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css"
+            ],
+
+```
+
+### 11. Where to find the Course Source Code.html
 
 ## 10. Course Project - Services & Dependency Injection
 
