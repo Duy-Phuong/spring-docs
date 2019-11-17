@@ -289,6 +289,8 @@ angular.json
 Angular is a js framework, change your DOM(‘html’) at runtime
 Component: divide your application into many components => chia thành các phần có thể tái SD
 
+### 2. How an Angular App gets Loaded and Started
+
 ### 4. Creating a New Component
 
 - Create server folder
@@ -471,21 +473,111 @@ Print value of `allowNewServer`
 
 ### 17. Event Binding
 
+servers.component.html
+
+```html
+<button
+  class="btn btn-primary"
+  [disabled]="!allowNewServer"
+  (click)="onCreateServer()"
+>
+  Add Server
+</button>
+```
+
 ### 18. Bindable Properties and Events.html
+
+How do you know to which Properties or Events of HTML Elements you may bind? You can basically bind to all Properties and Events - a good idea is to console.log() the element you're interested in to see which properties and events it offers.
+
+Important: For events, you don't bind to onclick but only to click (=> (click)).
+
+The MDN (Mozilla Developer Network) offers nice lists of all properties and events of the element you're interested in. Googling for YOUR_ELEMENT properties or YOUR_ELEMENT events should yield nice results.
 
 ### 19. Passing and Using Data with Event Binding
 
-### 2. How an Angular App gets Loaded and Started
+send data with event
+servers.component.html
+
+```html
+<input /> type="text" class="form-control" (input)="onUpdateServerName($event)">
+```
+
+servers.component.ts
+
+```ts
+  onUpdateServerName(event: any) {
+    console.log(event);
+  }
+  ---
+  onUpdateServerName(event: Event) {
+    this.serverName = (<HTMLInputElement>event.target).value;
+  }
+```
 
 ### 20. Important FormsModule is Required for Two-Way-Binding!.html
 
+Important: For Two-Way-Binding (covered in the next lecture) to work, you need to enable the ngModel directive. This is done by adding the FormsModule to the imports[] array in the AppModule.
+
+You then also need to add the import from @angular/forms in the app.module.ts file:
+
+```ts
+import { FormsModule } from "@angular/forms";
+```
+
 ### 21. Two-Way-Databinding
+
+servers.component.ts
+
+```html
+<input type="text" class="form-control" [(ngModel)]="serverName" />
+<!--<p>{{ serverName }}</p>-->
+```
+
+click button => create sever
 
 ### 22. Combining all Forms of Databinding
 
 ### 23. Practicing Databinding.html
 
 ### 24. [OPTIONAL] Assignment Solution
+
+```html
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <ol>
+        <li>
+          Add a Input field which updates a property ('username') via
+          Two-Way-Binding
+        </li>
+        <li>
+          Output the username property via String Interpolation (in a paragraph
+          below the input)
+        </li>
+        <li>
+          Add a button which may only be clicked if the username is NOT an empty
+          string
+        </li>
+        <li>
+          Upon clicking the button, the username should be reset to an empty
+          string
+        </li>
+      </ol>
+      <hr />
+      <label>Username</label>
+      <input type="text" class="form-control" [(ngModel)]="username" />
+      <p>{{ username }}</p>
+      <button
+        class="btn btn-primary"
+        [disabled]="username === ''"
+        (click)="username = ''"
+      >
+        Reset User
+      </button>
+    </div>
+  </div>
+</div>
+```
 
 ### 25. Understanding Directives
 
