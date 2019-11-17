@@ -581,21 +581,132 @@ click button => create sever
 
 ### 25. Understanding Directives
 
+![](../root/img/2019-11-17-10-03-21.png)
+
 ### 26. Using ngIf to Output Data Conditionally
+
+basics-final.zip
+servers.component.html
+
+```html
+<p *ngIf="serverCreated">Server was created, server name is {{ serverName }}</p>
+```
+
+servers.component.ts
+
+```ts
+onCreateServer() {
+    this.serverCreated = true;
+    this.serverCreationStatus = 'Server was created! Name is ' + this.serverName;
+  }
+```
 
 ### 27. Enhancing ngIf with an Else Condition
 
+Use local references to mark else **#condition**
+
+```html
+<p *ngIf="is_available; else false_condition">Điểu kiện đúng trong thẻ ngIf</p>
+<ng-template #false_condition><p>Điều kiện sai trong template</p></ng-template>
+```
+
 ### 28. Styling Elements Dynamically with ngStyle
+
+Attribute directive
+server.component.html
+
+```html
+<p
+  [ngStyle]="{backgroundColor: getColor()}"
+  [ngClass]="{online: serverStatus === 'online'}"
+>
+  {{ 'Server' }} with ID {{ serverId }} is {{ getServerStatus() }}
+</p>
+
+--- can write [ngStyle]="{'font-style': this.canSave}"
+```
+
+server.component.ts
+
+```ts
+@Component({
+  selector: 'app-server',
+  templateUrl: './server.component.html',
+  // add styles
+  styles: [`
+    .online {
+      color: white;
+    }
+  `]
+})
+.....
+ constructor() {
+    this.serverStatus = Math.random() > 0.5 ? 'online' : 'offline';
+  }
+
+  getServerStatus() {
+    return this.serverStatus;
+  }
+
+  getColor() {
+    return this.serverStatus === 'online' ? 'green' : 'red';
+  }
+```
 
 ### 29. Applying CSS Classes Dynamically with ngClass
 
 ### 30. Outputting Lists with ngFor
 
+```html
+<app-server *ngFor="let server of servers"></app-server>
+```
+
 ### 31. Practicing Directives.html
 
 ### 32. [OPTIONAL] Assignment Solution
 
+```html
+<button class="btn btn-primary" (click)="onToggleDetails()">Display Details</button>
+      <p *ngIf="showSecret">Secret Password = tuna</p>
+      <div
+        *ngFor="let logItem of log"
+        [ngStyle]="{backgroundColor: logItem >= 5 ? 'blue' : 'transparent'}"
+        [ngClass]="{'white-text': logItem >= 5}"
+      >{{ logItem }}</div>
+    </div>
+```
+
+```ts
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
+})
+export class AppComponent {
+  showSecret = false;
+  log = [];
+
+  onToggleDetails() {
+    this.showSecret = !this.showSecret;
+    this.log.push(this.log.length + 1);
+  }
+}
+```
+
 ### 33. Getting the Index when using ngFor
+
+```html
+<button class="btn btn-primary" (click)="onToggleDetails()">Display Details</button>
+      <p *ngIf="showSecret">Secret Password = tuna</p>
+      <div
+        *ngFor="let logItem of log; let i = index"
+        [ngStyle]="{backgroundColor: i >= 5 ? 'blue' : 'transparent'}"
+        [ngClass]="{'white-text': i >= 5}"
+      >{{ logItem }}</div>
+    </div>
+```
 
 ## 10. Course Project - Services & Dependency Injection
 
