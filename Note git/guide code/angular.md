@@ -297,6 +297,7 @@ Component: divide your application into many components => chia thành các ph�
 - Create server component
   Add decorater @component in typescript class
   **Source**: basics-components.zip
+  Add in modules
 
 ### 5. Understanding the Role of AppModule and Component Declaration
 
@@ -720,11 +721,32 @@ export class AppComponent {
 
 ### 3. Installing Bootstrap Correctly.html
 
+In the next lecture, we set up the course project. For that, we'll install the Bootstrap CSS Framework.
+
+In this course, we use version 3 of the framework, install it via npm install --save bootstrap@3 => The @3 is important!
+
+Additionally, when using a project created with Angular CLI 6+ (check via ng -v ), you'll have an angular.json file instead of an .angular-cli.json file. In that file, you still need to add Bootstrap to the styles[] array as shown in the next video, but the path should be node_modules/bootstrap/dist/css/bootstrap.min.css , NOT ../node_modules/bootstrap/dist/css/bootstrap.min.css . The leading ../ must not be included.
+
+Also see this lecture - I do show the complete setup process there: https://www.udemy.com/the-complete-guide-to-angular-2/learn/v4/t/lecture/6655614/
+
 ### 4. Setting up the Application
+
+install bs3
 
 ### 5. Creating the Components
 
+Create header and Add new Component in modules
+
+```ts
+ng g c header --spec false
+ng g c recepies --spec false
+ng g c recepies/recepie-list --spec false
+ng g c shopping-list --spec false
+```
+
 Tại file app.component.html:
+
+```html
 <app-header></app-header>
 
 <div class="container">
@@ -735,9 +757,11 @@ Tại file app.component.html:
     </div>
   </div>
 </div>
+```
 
 Tại file recipes.component.html;
 
+```html
 <div class="row">
   <div class="col-md-5">
     <app-recipe-list></app-recipe-list>
@@ -746,44 +770,183 @@ Tại file recipes.component.html;
     <app-recipe-detail></app-recipe-detail>
   </div>
 </div>
+```
 
 Tại file recipe-list.component.html :
 
+```html
 <div class="row">
   <div class="col-xs-12">
     <button class="btn btn-success">New Recipe</button>
   </div>
 </div>
-<hr>
+<hr />
 <div class="row">
   <div class="col-xs-12">
-    
     <app-recipe-item></app-recipe-item>
   </div>
 </div>
+```
 
 Tại file shopping-list.component.html
 
+```html
 <div class="row">
   <div class="col-xs-10">
     <app-shopping-edit></app-shopping-edit>
-    <hr>
-    <ul class="list-group">
-    </ul>
+    <hr />
+    <ul class="list-group"></ul>
   </div>
 </div>
+```
 
 ### 6. Using the Components
 
 ### 7. Adding a Navigation Bar
 
+```html
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="#" class="navbar-brand">Recipe Book</a>
+    </div>
+
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="#">Recipes</a></li>
+        <li><a href="#">Shopping List</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" role="button"
+            >Manage <span class="caret"></span
+          ></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Save Data</a></li>
+            <li><a href="#">Fetch Data</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+```
+
 ### 8. Alternative Non-Collapsable Navigation Bar.html
 
+The way we added it, the Navbar will collapse on smaller screens. Since we didn't implement a Hamburger menu, that means that there's no way of accessing our links on smaller screens.
+
+You can either add such a menu on your own (see below), or you replace collapse navbar-collapse with just navbar-default.
+
+Adding a Hamburger Menu:
+
+Alternatively, if you want to make the navigation bar responsive, please replace these lines in header.component.html:
+
+```html
+<div class="navbar-header">
+  <a routerLink="/" class="navbar-brand">Recipe Book</a>
+</div>
+<div class="collapse navbar-collapse"></div>
+```
+
+with these lines:
+
+```html
+
+<div class="navbar-header">
+    <button
+      type="button"
+      class="navbar-toggle"
+      (click)="collapsed = !collapsed"
+    >
+      <span class="icon-bar" *ngFor="let iconBar of [1, 2, 3]"></span>
+    </button>
+    <a routerLink="/" class="navbar-brand">Recipe Book</a>
+  </div>
+  <div
+    class="navbar-collapse"
+    [class.collapse]="collapsed"
+    (window:resize)="collapsed = true"
+  ></div>
+</div>
+```
+
+and add this line to header.component.ts:
+
+collapsed = true;
+
 ### 9. Creating a Recipe Model
+
+```ts
+export class Recipe {
+  public name: string;
+  public description: string;
+  public imagePath: string;
+
+  constructor(name: string, desc: string, imagePath: string) {
+    this.name = name;
+    this.description = desc;
+    this.imagePath = imagePath;
+  }
+}
+```
 
 ### 10. Adding Content to the Recipes Components
 
 ### 11. Outputting a List of Recipes with ngFor
+
+recipe-list.component.ts
+
+```ts
+export class RecipeListComponent implements OnInit {
+  recipes: Recipe[] = [
+    new Recipe(
+      "A Test Recipe",
+      "This is simply a test",
+      "https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg"
+    ),
+    new Recipe(
+      "A Test Recipe",
+      "This is simply a test",
+      "https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg"
+    )
+  ];
+
+  constructor() {}
+
+  ngOnInit() {}
+}
+```
+
+Tại file recipe-list.component.html sửa lại để đổ data:
+
+```html
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-success">New Recipe</button>
+  </div>
+</div>
+<hr />
+<div class="row">
+  <div class="col-xs-12">
+    <a href="#" class="list-group-item clearfix" *ngFor="let recipe of recipes">
+      <div class="pull-left">
+        <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
+        <p class="list-group-item-text">{{ recipe.description }}</p>
+      </div>
+      <span class="pull-right">
+        <img
+          [src]="recipe.imagePath"
+          alt="{{ recipe.name }}"
+          class="img-responsive"
+          style="max-height: 50px;"
+        />
+      </span>
+    </a>
+    <app-recipe-item></app-recipe-item>
+  </div>
+</div>
+```
 
 ### 12. Displaying Recipe Details
 
