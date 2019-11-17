@@ -697,6 +697,8 @@ export class AppComponent {
 
 ### 33. Getting the Index when using ngFor
 
+33.1 basics-ngfor-addition.zip
+
 ```html
 <button class="btn btn-primary" (click)="onToggleDetails()">Display Details</button>
       <p *ngIf="showSecret">Secret Password = tuna</p>
@@ -707,6 +709,93 @@ export class AppComponent {
       >{{ logItem }}</div>
     </div>
 ```
+
+## 3. Course Project - The Basics
+
+### 1. Project Introduction
+
+### 2. Planning the App
+
+![](../root/img/2019-11-17-12-27-06.png)
+
+### 3. Installing Bootstrap Correctly.html
+
+### 4. Setting up the Application
+
+### 5. Creating the Components
+
+Tại file app.component.html:
+<app-header></app-header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <app-recipes></app-recipes>
+      <app-shopping-list></app-shopping-list>
+    </div>
+  </div>
+</div>
+
+Tại file recipes.component.html;
+
+<div class="row">
+  <div class="col-md-5">
+    <app-recipe-list></app-recipe-list>
+  </div>
+  <div class="col-md-7">
+    <app-recipe-detail></app-recipe-detail>
+  </div>
+</div>
+
+Tại file recipe-list.component.html :
+
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-success">New Recipe</button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    
+    <app-recipe-item></app-recipe-item>
+  </div>
+</div>
+
+Tại file shopping-list.component.html
+
+<div class="row">
+  <div class="col-xs-10">
+    <app-shopping-edit></app-shopping-edit>
+    <hr>
+    <ul class="list-group">
+    </ul>
+  </div>
+</div>
+
+### 6. Using the Components
+
+### 7. Adding a Navigation Bar
+
+### 8. Alternative Non-Collapsable Navigation Bar.html
+
+### 9. Creating a Recipe Model
+
+### 10. Adding Content to the Recipes Components
+
+### 11. Outputting a List of Recipes with ngFor
+
+### 12. Displaying Recipe Details
+
+### 13. Working on the ShoppingListComponent
+
+### 14. Creating an Ingredient Model
+
+### 15. Creating and Outputting the Shopping List
+
+### 16. Adding a Shopping List Edit Section
+
+### 17. Wrap Up & Next Steps
 
 ## 10. Course Project - Services & Dependency Injection
 
@@ -1479,42 +1568,6 @@ export class AppComponent {
 ### 1. What's New with Angular 8
 
 ### 2. What's New & How to Update.html
-
-## 3. Course Project - The Basics
-
-### 1. Project Introduction
-
-### 10. Adding Content to the Recipes Components
-
-### 11. Outputting a List of Recipes with ngFor
-
-### 12. Displaying Recipe Details
-
-### 13. Working on the ShoppingListComponent
-
-### 14. Creating an Ingredient Model
-
-### 15. Creating and Outputting the Shopping List
-
-### 16. Adding a Shopping List Edit Section
-
-### 17. Wrap Up & Next Steps
-
-### 2. Planning the App
-
-### 3. Installing Bootstrap Correctly.html
-
-### 4. Setting up the Application
-
-### 5. Creating the Components
-
-### 6. Using the Components
-
-### 7. Adding a Navigation Bar
-
-### 8. Alternative Non-Collapsable Navigation Bar.html
-
-### 9. Creating a Recipe Model
 
 ## 30. Course Roundup
 
