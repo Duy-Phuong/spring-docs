@@ -948,11 +948,60 @@ Tại file recipe-list.component.html sửa lại để đổ data:
 </div>
 ```
 
+Can write src="{{recipe.imagePath}}"
+
 ### 12. Displaying Recipe Details
+
+recipe-detail.component.html
+
+```html
+<div class="row">
+  <div class="col-xs-12">
+    <img src="" alt="" class="img-responsive" />
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h1>Recipe Name</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle">
+        Manage Recipe <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="#">To Shopping List</a></li>
+        <li><a href="#">Edit Recipe</a></li>
+        <li><a href="#">Delete Recipe</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    Description
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    Ingredients
+  </div>
+</div>
+```
 
 ### 13. Working on the ShoppingListComponent
 
 ### 14. Creating an Ingredient Model
+
+```ts
+export class Ingredient {
+  constructor(public name: string, public amount: number) {}
+}
+```
+
+Co the viet gon lai ntn thay vi gan value cho prop da khai bao trong typescripts
 
 ### 15. Creating and Outputting the Shopping List
 
