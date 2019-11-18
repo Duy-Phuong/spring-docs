@@ -1007,7 +1007,174 @@ Co the viet gon lai ntn thay vi gan value cho prop da khai bao trong typescripts
 
 ### 16. Adding a Shopping List Edit Section
 
+shopping-edit
+
+```html
+<div class="row">
+  <div class="col-xs-12">
+    <form>
+      <div class="row">
+        <div class="col-sm-5 form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" class="form-control" />
+        </div>
+        <div class="col-sm-2 form-group">
+          <label for="amount">Amount</label>
+          <input type="number" id="amount" class="form-control" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <button class="btn btn-success" type="submit">Add</button>
+          <button class="btn btn-danger" type="button">Delete</button>
+          <button class="btn btn-primary" type="button">Clear</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+```
+
 ### 17. Wrap Up & Next Steps
+
+## 4. Debugging
+
+### 1. Understanding Angular Error Messages
+
+### 2. Debugging Code in the Browser Using Sourcemaps
+
+Delete the last intem is not work
+=> Use chrome
+Vao folder webpack/./src
+
+### 3. Using Augury to Dive into Angular Apps
+
+install Augury extensions
+
+## 5. Components & Databinding Deep Dive
+
+### 1. Module Introduction
+
+### 2. Splitting Apps into Components
+
+```ts
+ng g c cockpit –-spec false
+ng g c server-element –-spec false
+```
+
+App tạo server và blue print server(khi hiển thị sẽ in nghiêng và có màu khác): get server được tạo ra bởi cockpit và thêm vào list server ở app component
+
+### 3. Property & Event Binding Overview
+
+### 4. Binding to Custom Properties
+
+### 5. Assigning an Alias to Custom Properties
+
+### 6. Binding to Custom Events
+
+### 7. Assigning an Alias to Custom Events
+
+### 8. Custom Property and Event Binding Summary
+
+### 9. Understanding View Encapsulation
+
+### 10. More on View Encapsulation
+
+### 11. Using Local References in Templates
+
+### 12. @ViewChild() in Angular 8.html
+
+### 13. Getting Access to the Template & DOM with @ViewChild
+
+### 14. Projecting Content into Components with ng-content
+
+### 15. Understanding the Component Lifecycle
+
+### 16. Seeing Lifecycle Hooks in Action
+
+### 17. Lifecycle Hooks and Template Access
+
+### 18. @ContentChild() in Angular 8.html
+
+### 19. Getting Access to ng-content with @ContentChild
+
+### 20. Wrap Up
+
+### 21. Practicing Property & Event Binding and View Encapsulation.html
+
+### 22. [OPTIONAL] Assignment Solution
+
+## 6. Course Project - Components & Databinding
+
+### 1. Introduction
+
+### 2. Adding Navigation with Event Binding and ngIf
+
+### 3. Passing Recipe Data with Property Binding
+
+### 4. Passing Data with Event and Property Binding (Combined)
+
+### 5. Make sure you have FormsModule added!.html
+
+### 6. Allowing the User to Add Ingredients to the Shopping List
+
+## 7. Directives Deep Dive
+
+### 1. Module Introduction
+
+### 10. What Happens behind the Scenes on Structural Directives
+
+### 11. Building a Structural Directive
+
+### 12. Understanding ngSwitch
+
+### 2. ngFor and ngIf Recap
+
+### 3. ngClass and ngStyle Recap
+
+### 4. Creating a Basic Attribute Directive
+
+### 5. Using the Renderer to build a Better Attribute Directive
+
+### 6. More about the Renderer.html
+
+### 7. Using HostListener to Listen to Host Events
+
+### 8. Using HostBinding to Bind to Host Properties
+
+### 9. Binding to Directive Properties
+
+## 8. Course Project - Directives
+
+### 1. Building and Using a Dropdown Directive
+
+### 2. Closing the Dropdown From Anywhere.html
+
+## 9. Using Services & Dependency Injection
+
+### 1. Module Introduction
+
+### 10. Practicing Services.html
+
+### 11. [OPTIONAL] Assignment Solution
+
+### 12. Services in Angular 6+.html
+
+### 2. Why would you Need Services
+
+### 3. Creating a Logging Service
+
+### 4. Injecting the Logging Service into Components
+
+### 5. Creating a Data Service
+
+### 6. Understanding the Hierarchical Injector
+
+### 7. How many Instances of Service Should It Be
+
+### 8. Injecting Services into Services
+
+### 9. Using Services for Cross-Component Communication
 
 ## 10. Course Project - Services & Dependency Injection
 
@@ -1832,132 +1999,6 @@ Co the viet gon lai ntn thay vi gan value cho prop da khai bao trong typescripts
 ### 6. Wrap up & Modules
 
 ### 7. Deep dive into TypeScript.html
-
-## 4. Debugging
-
-### 1. Understanding Angular Error Messages
-
-### 2. Debugging Code in the Browser Using Sourcemaps
-
-### 3. Using Augury to Dive into Angular Apps
-
-## 5. Components & Databinding Deep Dive
-
-### 1. Module Introduction
-
-### 10. More on View Encapsulation
-
-### 11. Using Local References in Templates
-
-### 12. @ViewChild() in Angular 8.html
-
-### 13. Getting Access to the Template & DOM with @ViewChild
-
-### 14. Projecting Content into Components with ng-content
-
-### 15. Understanding the Component Lifecycle
-
-### 16. Seeing Lifecycle Hooks in Action
-
-### 17. Lifecycle Hooks and Template Access
-
-### 18. @ContentChild() in Angular 8.html
-
-### 19. Getting Access to ng-content with @ContentChild
-
-### 2. Splitting Apps into Components
-
-### 20. Wrap Up
-
-### 21. Practicing Property & Event Binding and View Encapsulation.html
-
-### 22. [OPTIONAL] Assignment Solution
-
-### 3. Property & Event Binding Overview
-
-### 4. Binding to Custom Properties
-
-### 5. Assigning an Alias to Custom Properties
-
-### 6. Binding to Custom Events
-
-### 7. Assigning an Alias to Custom Events
-
-### 8. Custom Property and Event Binding Summary
-
-### 9. Understanding View Encapsulation
-
-## 6. Course Project - Components & Databinding
-
-### 1. Introduction
-
-### 2. Adding Navigation with Event Binding and ngIf
-
-### 3. Passing Recipe Data with Property Binding
-
-### 4. Passing Data with Event and Property Binding (Combined)
-
-### 5. Make sure you have FormsModule added!.html
-
-### 6. Allowing the User to Add Ingredients to the Shopping List
-
-## 7. Directives Deep Dive
-
-### 1. Module Introduction
-
-### 10. What Happens behind the Scenes on Structural Directives
-
-### 11. Building a Structural Directive
-
-### 12. Understanding ngSwitch
-
-### 2. ngFor and ngIf Recap
-
-### 3. ngClass and ngStyle Recap
-
-### 4. Creating a Basic Attribute Directive
-
-### 5. Using the Renderer to build a Better Attribute Directive
-
-### 6. More about the Renderer.html
-
-### 7. Using HostListener to Listen to Host Events
-
-### 8. Using HostBinding to Bind to Host Properties
-
-### 9. Binding to Directive Properties
-
-## 8. Course Project - Directives
-
-### 1. Building and Using a Dropdown Directive
-
-### 2. Closing the Dropdown From Anywhere.html
-
-## 9. Using Services & Dependency Injection
-
-### 1. Module Introduction
-
-### 10. Practicing Services.html
-
-### 11. [OPTIONAL] Assignment Solution
-
-### 12. Services in Angular 6+.html
-
-### 2. Why would you Need Services
-
-### 3. Creating a Logging Service
-
-### 4. Injecting the Logging Service into Components
-
-### 5. Creating a Data Service
-
-### 6. Understanding the Hierarchical Injector
-
-### 7. How many Instances of Service Should It Be
-
-### 8. Injecting Services into Services
-
-### 9. Using Services for Cross-Component Communication
 
 Angular nghiep
 https://www.youtube.com/watch?v=H6IjqFs6Q9o&list=PLJ5qtRQovuENHYHqlQP5XT7zwbCA5Q5He
