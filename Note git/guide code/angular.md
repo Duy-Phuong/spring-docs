@@ -1066,11 +1066,88 @@ App tạo server và blue print server(khi hiển thị sẽ in nghiêng và có
 
 ### 3. Property & Event Binding Overview
 
-### 4. Binding to Custom Properties
+![](../root/img/2019-11-18-23-49-15.png)
+
+### 4. Binding to Custom Properties: @Input
+
+Cách bắt dữ liệu từ Component khác
+server-element.component.ts
+
+```ts
+// alias
+@Input('srvElement') element: {type: string, name: string, content: string};
+@Input() name: string;
+```
+
+app.component.html
+
+```html
+<app-server-element
+  *ngFor="let serverElement of serverElements"
+  [srvElement]="serverElement"
+  [name]="serverElement.name"
+>
+</app-server-element>
+```
 
 ### 5. Assigning an Alias to Custom Properties
 
 ### 6. Binding to Custom Events
+
+How to inform app-component event emitted from cockpit
+File app-component.html listen
+
+```html
+<app-cockpit
+  (serverCreated)="onServerAdded($event)"
+  (bpCreated)="onBlueprintAdded($event)"
+></app-cockpit>
+```
+
+File app-component.ts
+
+```ts
+onServerAdded(serverData: {serverName: string, serverContent: string}) {
+    this.serverElements.push({
+      type: 'server',
+      name: serverData.serverName,
+      content: serverData.serverContent
+    });
+  }
+
+  onBlueprintAdded(blueprintData: {serverName: string, serverContent: string}) {
+    this.serverElements.push({
+      type: 'blueprint',
+      name: blueprintData.serverName,
+      content: blueprintData.serverContent
+    });
+  }
+
+```
+
+Tại file cockpit.ts
+
+```ts
+@Output() serverCreated = new EventEmitter<{serverName: string, serverContent: string}>();
+  @Output('bpCreated') blueprintCreated = new EventEmitter<{serverName: string, serverContent: string}>();
+
+onAddServer() {
+    this.serverCreated.emit({
+      serverName: this. newServerName,
+      serverContent: this.newServerCOntent
+    });
+  }
+
+  onAddBlueprint() {
+    this.blueprintCreated.emit({
+      serverName: this. newServerName,
+      serverContent: this.newServerCOntent
+    });
+  }
+
+```
+
+![](../root/img/2019-11-19-00-45-54.png)
 
 ### 7. Assigning an Alias to Custom Events
 
@@ -1078,14 +1155,112 @@ App tạo server và blue print server(khi hiển thị sẽ in nghiêng và có
 
 ### 9. Understanding View Encapsulation
 
+app.component.css
+
+```css
+.container {
+  margin-top: 30px;
+}
+
+p {
+  color: blue;
+}
+```
+
+**Only apply for elements of that component**
+Shallow DOM is a technology that is not supported by all browsers where each element has own shallow DOM behind it, where you can assign styles to each element and that is the default behavior of view encapsulation in angular
+
 ### 10. More on View Encapsulation
+
+serrer-element.ts
+
+```ts
+@Component({
+  selector: 'app-server-element',
+  templateUrl: './server-element.component.html',
+  styleUrls: ['./server-element.component.css'],
+  // add new
+  encapsulation: ViewEncapsulation.Emulated // None, Native
+})
+export class ServerElementComponent
+```
+
+- Emulated là default nên bạn không cần add
+- None có nghĩ là không sử dụng View encapsulation => effect all similar tag
+- Native cũng như emaulated…
 
 ### 11. Using Local References in Templates
 
+có thể sử dụng reference chỉ trong template
+cockpit.component.html
+
+```html
+<div class="row">
+  <div class="col-xs-12">
+    <p>Add new Servers or blueprints!</p>
+    <label>Server Name</label>
+    <!--<input type="text" class="form-control" [(ngModel)]="newServerName">-->
+    <input type="text" class="form-control" #serverNameInput />
+    <label>Server Content</label>
+    <!--<input type="text" class="form-control" [(ngModel)]="newServerContent">-->
+    <input type="text" class="form-control" #serverContentInput />
+    <br />
+    <button class="btn btn-primary" (click)="onAddServer(serverNameInput)">
+      Add Server
+    </button>
+    <button class="btn btn-primary" (click)="onAddBlueprint(serverNameInput)">
+      Add Server Blueprint
+    </button>
+  </div>
+</div>
+```
+
+cockpit.component.ts
+
+```ts
+  onAddServer(nameInput: HTMLInputElement) {
+    this.serverCreated.emit({
+      serverName: nameInput.value,
+      serverContent: this.serverContentInput.nativeElement.value
+    });
+  }
+
+  onAddBlueprint(nameInput: HTMLInputElement) {
+    this.blueprintCreated.emit({
+      serverName: nameInput.value,
+      serverContent: this.serverContentInput.nativeElement.value
+    });
+  }
+```
+
 ### 12. @ViewChild() in Angular 8.html
 
-### 13. Getting Access to the Template & DOM with @ViewChild
+In Angular 8, the @ViewChild() syntax which you'll see in the next lecture needs to be changed slightly:
 
+Instead of:
+
+```ts
+@ViewChild('serverContentInput') serverContentInput: ElementRef;
+
+```
+
+use
+
+```ts
+@ViewChild('serverContentInput', {static: true}) serverContentInput: ElementRef;
+
+```
+
+The same change (add { static: true } as a second argument) needs to be applied to ALL usages of @ViewChild() (and also @ContentChild() which you'll learn about later) IF you plan on accessing the selected element inside of ngOnInit().
+
+If you DON'T access the selected element in ngOnInit (but anywhere else in your component), set static: false instead!
+
+This is a temporary adjustment which will NOT be required anymore once Angular 9 is released!
+
+### 13. Getting Access to the Template & DOM with @ViewChild
+```ts
+@ViewChild('serverContentInput', { static: false }) serverContentInput: ElementRef;
+```
 ### 14. Projecting Content into Components with ng-content
 
 ### 15. Understanding the Component Lifecycle
