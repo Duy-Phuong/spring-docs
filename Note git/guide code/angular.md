@@ -1258,12 +1258,34 @@ If you DON'T access the selected element in ngOnInit (but anywhere else in your 
 This is a temporary adjustment which will NOT be required anymore once Angular 9 is released!
 
 ### 13. Getting Access to the Template & DOM with @ViewChild
+
 ```ts
 @ViewChild('serverContentInput', { static: false }) serverContentInput: ElementRef;
 ```
+
+True neu chúng ta sẽ sử dụng trong ngOnInit
+Nên sử dụng string interpolation hay pro binding thay vì this.serverContentInput.nativeElement.value để gán giá trị output
+
 ### 14. Projecting Content into Components with ng-content
 
+Khi muốn chuyển đoạn html bên dưới từ server-element ra ngoài
+
+```html
+<strong *ngIf="serverElement.type === 'server'" style="color: red"
+  >{{ serverElement.content }}</strong
+>
+<em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
+```
+
+Thay bằng
+
+```html
+<ng-content></ng-content>
+```
+
 ### 15. Understanding the Component Lifecycle
+
+![img](../root/img/2019-11-19-01-54-30.png)
 
 ### 16. Seeing Lifecycle Hooks in Action
 
