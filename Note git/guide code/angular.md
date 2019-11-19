@@ -1418,6 +1418,67 @@ Sau AfterContentInit
 
 ### 2. Adding Navigation with Event Binding and ngIf
 
+App shopping list and recipe hiển thị tùy loại khi bấm vào nav bar header
+header.component.html bắt event click
+
+```html
+<ul class="nav navbar-nav">
+  <li><a href="#" (click)="onSelect('recipe')">Recipes</a></li>
+  <li><a href="#" (click)="onSelect('shopping-list')">Shopping List</a></li>
+</ul>
+```
+
+header.component.ts
+
+```ts
+import { Component, EventEmitter, Output } from "@angular/core";
+
+@Component({
+  selector: "app-header",
+  templateUrl: "./header.component.html"
+})
+export class HeaderComponent {
+  @Output() featureSelected = new EventEmitter<string>();
+
+  onSelect(feature: string) {
+    this.featureSelected.emit(feature);
+  }
+}
+```
+
+app.component.html
+
+```html
+<app-header (featureSelected)="onNavigate($event)"></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <app-recipes *ngIf="loadedFeature === 'recipe'"></app-recipes>
+      <app-shopping-list *ngIf="loadedFeature !== 'recipe'"></app-shopping-list>
+    </div>
+  </div>
+</div>
+```
+
+app.component.ts
+
+```ts
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
+})
+export class AppComponent {
+  loadedFeature = "recipe";
+
+  onNavigate(feature: string) {
+    this.loadedFeature = feature;
+  }
+}
+```
+
 ### 3. Passing Recipe Data with Property Binding
 
 ### 4. Passing Data with Event and Property Binding (Combined)

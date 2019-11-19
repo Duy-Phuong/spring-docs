@@ -95,3 +95,11 @@ Example of using a middleware with [httprouter](https://github.com/julienschmidt
 EBOOK
 https://www.foxebook.net/?fbclid=IwAR0PU-RqpdSe016aLkuAEBlOuU0_H458LHwVIyqF4hlqhkeoPhWj7Z-vTCM
 
+https://medium.com/@rahulguptalive/create-crud-apis-in-nodejs-express-and-mysql-abda4dfc2d6
+
+https://www.youtube.com/channel/UC_JI84U1f2EKIG6HQK35H5Q/playlists
+
+https://pythonbestcourses.com/deep-learning-with-python-course/?fbclid=IwAR1cEjJrdFT9264XczbnVKCOZRs5Np_fWXqU0VAxwMblP4tiakseEvLTV14
+https://morioh.com/p/6a8f9b352524?fbclid=IwAR1yAqZZvNhfp-lBCPqBpOYNoO0F6enkJ01EudB7SLrwFzd42-JzOC54vPM
+https://phocode.com/javascript/lap-trinh-web-voi-angularjs-2/angular-template-phan-3/
+https://xuanthulab.net/docker/
