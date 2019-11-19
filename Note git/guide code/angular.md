@@ -1289,11 +1289,122 @@ Thay bằng
 
 ### 16. Seeing Lifecycle Hooks in Action
 
+app.component.ts
+
+```ts
+onChangeFirst() {
+    this.serverElements[0].name = 'Changed!';
+  }
+// O file server
+console.log(changes);
+In change have previous value
+```
+
+app.component.html
+
+```html
+<!--Add button-->
+<button class="btn btn-primary" (click)="onChangeFirst()">
+  Change first Element
+</button>
+<!--Add name-->
+<button class="btn btn-danger" (click)="onDestroyFirst()">
+  Destroy first Component
+</button>
+<app-server-element
+  *ngFor="let serverElement of serverElements"
+  [srvElement]="serverElement"
+  [name]="serverElement.name"
+></app-server-element>
+```
+
+Constructor được gọi đầu tiên => change => onInit => do Check => @AfterContentInit
+
 ### 17. Lifecycle Hooks and Template Access
+
+server
+Add #heading
+
+```html
+<div class="panel-heading" #heading>{{ name }}</div>
+```
+
+server
+
+```ts
+@ViewChild('heading', {static: true}) header: ElementRef;
+
+  constructor() {
+    console.log('constructor called!');
+  }
+
+
+  ngOnInit() {
+    console.log('ngOnInit called!');
+    // Add
+    console.log('Text Content: ' + this.header.nativeElement.textContent);
+  }
+
+
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit called!');
+    console.log('Text Content: ' + this.header.nativeElement.textContent);
+  }
+```
+
+print value of Heading name
 
 ### 18. @ContentChild() in Angular 8.html
 
+In Angular 8, the @ContentChild() syntax which you'll see in the next lecture needs to be changed slightly:
+
+Instead of:
+
+```ts
+@ContentChild('contentParagraph') paragraph: ElementRef;
+```
+
+use
+
+```ts
+@ContentChild('contentParagraph', {static: true}) paragraph: ElementRef;
+
+```
+
+The same change (add { static: true } as a second argument) needs to be applied to ALL usages of @ContentChild() if you use the selected element inside of ngOnInit (as we do it in the lectures).
+
+If you DON'T use the selected element in ngOnInit, set static: false instead.
+
 ### 19. Getting Access to ng-content with @ContentChild
+
+Add contentParagraph
+app.component.html
+
+```html
+<p #contentParagraph>
+  <strong *ngIf="serverElement.type === 'server'" style="color: red"
+    >{{ serverElement.content }}</strong
+  >
+  <em *ngIf="serverElement.type === 'blueprint'"
+    >{{ serverElement.content }}</em
+  >
+</p>
+```
+
+server
+
+```ts
+  @ContentChild('contentParagraph', {static: true}) paragraph: ElementRef;
+
+  ngOnInit() {
+    console.log('ngOnInit called!');
+    // Add
+    console.log('Text Content: ' + this.header.nativeElement.textContent);
+    console.log('Text Content of paragraph: ' + this.paragraph.nativeElement.textContent);
+  }
+```
+
+Sau AfterContentInit
 
 ### 20. Wrap Up
 
