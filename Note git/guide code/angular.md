@@ -1621,6 +1621,8 @@ recipe-detail.component.html
 </div>
 ```
 
+### 5. Make sure you have FormsModule added!.html
+
 In case you're hitting an error in the next lecture, make sure you have FormsModule added to your imports[] in the AppModule.
 
 ```ts
@@ -1642,9 +1644,60 @@ In case you're hitting an error in the next lecture, make sure you have FormsMod
 export class AppModule {}
 ```
 
-### 5. Make sure you have FormsModule added!.html
-
 ### 6. Allowing the User to Add Ingredients to the Shopping List
+
+shopping-edit.component.html thêm local ref
+
+```html
+<div class="col-sm-5 form-group">
+  <label for="name">Name</label>
+  <input type="text" id="name" class="form-control" // add #nameInput>
+</div>
+<div class="col-sm-2 form-group">
+  <label for="amount">Amount</label>
+  <input type="number" id="amount" class="form-control" #amountInput />
+</div>
+
+<button class="btn btn-success" type="submit" (click)="onAddItem()">Add</button>
+```
+
+shopping-edit.component.ts
+
+```ts
+export class ShoppingEditComponent implements OnInit {
+  @ViewChild("nameInput", { static: false }) nameInputRef: ElementRef;
+  @ViewChild("amountInput", { static: false }) amountInputRef: ElementRef;
+  @Output() ingredientAdded = new EventEmitter<Ingredient>();
+
+  constructor() {}
+
+  ngOnInit() {}
+
+  onAddItem() {
+    const ingName = this.nameInputRef.nativeElement.value;
+    const ingAmount = this.amountInputRef.nativeElement.value;
+    const newIngredient = new Ingredient(ingName, ingAmount);
+    this.ingredientAdded.emit(newIngredient);
+  }
+}
+```
+
+shopping-list.component.html
+
+```html
+<app-shopping-edit
+  (ingredientAdded)="onIngredientAdded($event)"
+></app-shopping-edit>
+<hr />
+```
+
+shopping-list.component.ts
+
+```ts
+onIngredientAdded(ingredient: Ingredient) {
+    this.ingredients.push(ingredient);
+  }
+```
 
 ## 7. Directives Deep Dive
 
