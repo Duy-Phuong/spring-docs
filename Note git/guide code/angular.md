@@ -1481,7 +1481,166 @@ export class AppComponent {
 
 ### 3. Passing Recipe Data with Property Binding
 
+Copy từ recipe-list sang recipe-item
+
+```html
+<a href="#" class="list-group-item clearfix" (click)="onSelected()">
+  <div class="pull-left">
+    <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
+    <p class="list-group-item-text">{{ recipe.description }}</p>
+  </div>
+  <span class="pull-right">
+    <img
+      [src]="recipe.imagePath"
+      alt="{{ recipe.name }}"
+      class="img-responsive"
+      style="max-height: 50px;"
+    />
+  </span>
+</a>
+```
+
+recipe-list.component.html
+
+```html
+<div class="col-xs-12">
+  <app-recipe-item
+    *ngFor="let recipeEl of recipes"
+    [recipe]="recipeEl"
+  ></app-recipe-item>
+</div>
+```
+
+recipe-item.component.ts
+
+```ts
+ @Input() recipe: Recipe;
+
+```
+
 ### 4. Passing Data with Event and Property Binding (Combined)
+
+Khi click vào list thì recipe detail tương ứng sẽ được load
+recipe-item.component.ts
+
+```ts
+  @Output() recipeSelected = new EventEmitter<void>();
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+  onSelected() {
+    this.recipeSelected.emit();
+  }
+
+```
+
+recipe-list.component.html
+
+```ts
+<div class="col-xs-12">
+    <app-recipe-item
+      *ngFor="let recipeEl of recipes"
+      [recipe]="recipeEl"
+      (recipeSelected)="onRecipeSelected(recipeEl)"></app-recipe-item>
+  </div>
+
+```
+
+recipe-list.component.ts
+
+```ts
+@Output() recipeWasSelected = new EventEmitter<Recipe>();
+
+
+  onRecipeSelected(recipe: Recipe) {
+   this.recipeWasSelected.emit(recipe);
+  }
+
+
+```
+
+recipes.component.html
+
+```html
+<app-recipe-list
+  (recipeWasSelected)="selectedRecipe = $event"
+></app-recipe-list>
+```
+
+recipes.component.ts
+
+```ts
+export class RecipesComponent implements OnInit {
+  selectedRecipe: Recipe;
+
+  constructor() {}
+
+  ngOnInit() {}
+}
+```
+
+recipes.component.html
+
+```html
+<div class="col-md-7">
+  <app-recipe-detail
+    *ngIf="selectedRecipe; else infoText"
+    [recipe]="selectedRecipe"
+  ></app-recipe-detail>
+  <ng-template #infoText>
+    <p>Please select a Recipe!</p>
+  </ng-template>
+</div>
+```
+
+recipe-detail.component.ts
+
+```ts
+export class RecipeDetailComponent implements OnInit {
+  @Input() recipe: Recipe;
+
+  constructor() {}
+
+  ngOnInit() {}
+}
+```
+
+recipe-detail.component.html
+
+```html
+<div class="col-xs-12">
+  <img
+    [src]="recipe.imagePath"
+    alt="{{ recipe.name }}"
+    class="img-responsive"
+    style="max-height: 300px;"
+  />
+</div>
+```
+
+In case you're hitting an error in the next lecture, make sure you have FormsModule added to your imports[] in the AppModule.
+
+```ts
+@NgModule({
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    RecipesComponent,
+    RecipeListComponent,
+    RecipeDetailComponent,
+    RecipeItemComponent,
+    ShoppingListComponent,
+    ShoppingEditComponent
+  ],
+  imports: [BrowserModule, FormsModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
 
 ### 5. Make sure you have FormsModule added!.html
 
