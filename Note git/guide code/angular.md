@@ -1703,27 +1703,227 @@ onIngredientAdded(ingredient: Ingredient) {
 
 ### 1. Module Introduction
 
-### 10. What Happens behind the Scenes on Structural Directives
-
-### 11. Building a Structural Directive
-
-### 12. Understanding ngSwitch
+![](../root/img/2019-11-19-23-54-31.png)
 
 ### 2. ngFor and ngIf Recap
+
+Chia làm 2 mảng số chẵn và số lẻ nếu true thì hiển thị mảng chẵn và ngược lại, dùng ngIf để kiểm tra điều kiện
+
+```ts
+export class AppComponent {
+  // numbers = [1, 2, 3, 4, 5];
+  oddNumbers = [1, 3, 5];
+  evenNumbers = [2, 4];
+  onlyOdd = false;
+  value = 5;
+}
+```
+
+```html
+<!--<div *ngIf="!onlyOdd">-->
+<!--<li-->
+<!--class="list-group-item"-->
+<!--[ngClass]="{odd: even % 2 !== 0}"-->
+<!--[ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}"-->
+<!--*ngFor="let even of evenNumbers">-->
+<!--{{ even }}-->
+<!--</li>-->
+<!--</div>-->
+```
 
 ### 3. ngClass and ngStyle Recap
 
 ### 4. Creating a Basic Attribute Directive
 
+basic-highlight.directive.ts
+
+```ts
+import { Directive, ElementRef, OnInit } from "@angular/core";
+
+@Directive({
+  selector: "[appBasicHighlight]"
+})
+export class BasicHighlightDirective implements OnInit {
+  // Auto inject value
+  constructor(private elementRef: ElementRef) {}
+
+  ngOnInit() {
+    this.elementRef.nativeElement.style.backgroundColor = "green";
+  }
+}
+```
+
+**Add to Module**
+
+```ts
+@NgModule({
+  declarations: [
+    AppComponent,
+    // Add
+    BasicHighlightDirective,
+    BetterHighlightDirective,
+    UnlessDirective
+  ],
+  imports: [BrowserModule, FormsModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
+
+file html
+
+```html
+<p appBasicHighlight>Style me with basic directive!</p>
+```
+
+Nhưng cách trên k tốt - access direct element is not good
+
 ### 5. Using the Renderer to build a Better Attribute Directive
+
+```ts
+ng g d better-highlight
+
+```
+
+Vào module khai báo BetterHighlightDirective
+
+```ts
+constructor(private elRef: ElementRef, private renderer: Renderer2){ }
+
+ngOnInit() {
+    this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'blue');
+  }
+
+```
+
+Sau đó sửa lại html như phần 4
 
 ### 6. More about the Renderer.html
 
+In the last lecture, we used the Angular Renderer class to change the style of a HTML element. As explained in that lecture, you should use the Renderer for any DOM manipulations.
+
+Of course, you can do more than simply change the styling of an element via setStyle(). Learn more about the available Renderer methods here.
+https://angular.io/api/core/Renderer2
+
 ### 7. Using HostListener to Listen to Host Events
+
+```ts
+  @HostListener('mouseenter') mouseover(eventData: Event) {
+    // this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'blue');
+    this.backgroundColor = this.highlightColor;
+  }
+
+  @HostListener('mouseleave') mouseleave(eventData: Event) {
+    // this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'transparent');
+    this.backgroundColor = this.defaultColor;
+  }
+
+```
 
 ### 8. Using HostBinding to Bind to Host Properties
 
+```ts
+  @HostBinding('style.backgroundColor') backgroundColor: string;
+
+```
+
 ### 9. Binding to Directive Properties
+
+```ts
+@Input() defaultColor: string = 'transparent';
+  @Input('appBetterHighlight') highlightColor: string = 'blue';
+
+```
+
+File html
+
+```html
+<p [appBetterHighlight]="'red'" defaultColor="yellow">
+  ---
+</p>
+
+<p [appBetterHighlight]="'red'" [defaultColor]="'yellow'"></p>
+```
+
+Luu y: dau [], ''
+
+### 10. What Happens behind the Scenes on Structural Directives
+
+`*` => strutural directive
+Dấu \* đại diện cho structural directive
+Behind the scene
+
+```html
+<!--<ng-template [ngIf]="!onlyOdd">-->
+<!--<div>-->
+<!--<li-->
+<!--class="list-group-item"-->
+<!--[ngClass]="{odd: even % 2 !== 0}"-->
+<!--[ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}"-->
+<!--*ngFor="let even of evenNumbers">-->
+<!--{{ even }}-->
+<!--</li>-->
+<!--</div>-->
+<!--</ng-template>-->
+```
+
+### 11. Building a Structural Directive
+
+```ts
+ng g d unless
+----
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+
+@Directive({
+  selector: '[appUnless]'
+})
+export class UnlessDirective {
+  @Input() set appUnless(condition: boolean) {
+    if (!condition) {
+      this.vcRef.createEmbeddedView(this.templateRef);
+    } else {
+      this.vcRef.clear();
+    }
+  }
+
+  constructor(private templateRef: TemplateRef<any>, private vcRef: ViewContainerRef) { }
+
+}
+
+```
+
+Phương thức setter của prop sẽ execute khi prop co bất kì thay đổi: `set appUnless`
+
+Vào module khai báo **UnlessDirective**
+
+File html
+
+```html
+<div *appUnless="onlyOdd">
+  <li
+    class="list-group-item"
+    [ngClass]="{ odd: even % 2 !== 0 }"
+    [ngStyle]="{
+              backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'
+            }"
+    *ngFor="let even of evenNumbers"
+  >
+    {{ even }}
+  </li>
+</div>
+```
+
+### 12. Understanding ngSwitch
+
+```html
+<div [ngSwitch]="value">
+  <p *ngSwitchCase="5">Value is 5</p>
+  <p *ngSwitchCase="10">Value is 10</p>
+  <p *ngSwitchCase="100">Value is 100</p>
+  <p *ngSwitchDefault>Value is Default</p>
+</div>
+```
 
 ## 8. Course Project - Directives
 
