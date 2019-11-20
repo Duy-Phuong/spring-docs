@@ -1929,8 +1929,73 @@ File html
 
 ### 1. Building and Using a Dropdown Directive
 
-### 2. Closing the Dropdown From Anywhere.html
+Recipe book app
+Vào folder share tạo file dropdown.directive.ts
 
+```ts
+import { Directive, HostListener, HostBinding } from "@angular/core";
+
+@Directive({
+  selector: "[appDropdown]"
+})
+export class DropdownDirective {
+  @HostBinding("class.open") isOpen = false;
+
+  @HostListener("click") toggleOpen() {
+    this.isOpen = !this.isOpen;
+  }
+}
+```
+
+recipe-detail.component.html
+
+```html
+<div class="btn-group" appDropdown>
+  <button type="button" class="btn btn-primary dropdown-toggle">
+    Manage Recipe <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">To Shopping List</a></li>
+    <li><a href="#">Edit Recipe</a></li>
+    <li><a href="#">Delete Recipe</a></li>
+  </ul>
+</div>
+```
+
+Nếu k dùng directive class="btn-group open" nó sẽ có khung bao và hiện lên
+
+```ts
+declarations: [
+    DropdownDirective
+  ],
+
+```
+
+Vào header thêm để show như recipe-detail
+
+```html
+<li class="dropdown" appDropdown></li>
+```
+
+thay open = appDropdown
+### 2. Closing the Dropdown From Anywhere.html
+If you want that a dropdown can also be closed by a click anywhere outside (which also means that a click on one dropdown closes any other one, btw.), replace the code of dropdown.directive.ts by this one (placing the listener not on the dropdown, but on the document):
+
+import {Directive, ElementRef, HostBinding, HostListener} from '@angular/core';
+
+```ts
+@Directive({
+  selector: '[appDropdown]'
+})
+export class DropdownDirective {
+  @HostBinding('class.open') isOpen = false;
+  @HostListener('document:click', ['$event']) toggleOpen(event: Event) {
+    this.isOpen = this.elRef.nativeElement.contains(event.target) ? !this.isOpen : false;
+  }
+  constructor(private elRef: ElementRef) {}
+}
+
+```
 ## 9. Using Services & Dependency Injection
 
 ### 1. Module Introduction
