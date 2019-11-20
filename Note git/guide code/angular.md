@@ -1978,51 +1978,314 @@ Vào header thêm để show như recipe-detail
 ```
 
 thay open = appDropdown
+
 ### 2. Closing the Dropdown From Anywhere.html
+
 If you want that a dropdown can also be closed by a click anywhere outside (which also means that a click on one dropdown closes any other one, btw.), replace the code of dropdown.directive.ts by this one (placing the listener not on the dropdown, but on the document):
 
 import {Directive, ElementRef, HostBinding, HostListener} from '@angular/core';
 
 ```ts
 @Directive({
-  selector: '[appDropdown]'
+  selector: "[appDropdown]"
 })
 export class DropdownDirective {
-  @HostBinding('class.open') isOpen = false;
-  @HostListener('document:click', ['$event']) toggleOpen(event: Event) {
-    this.isOpen = this.elRef.nativeElement.contains(event.target) ? !this.isOpen : false;
+  @HostBinding("class.open") isOpen = false;
+  @HostListener("document:click", ["$event"]) toggleOpen(event: Event) {
+    this.isOpen = this.elRef.nativeElement.contains(event.target)
+      ? !this.isOpen
+      : false;
   }
   constructor(private elRef: ElementRef) {}
 }
-
 ```
+
 ## 9. Using Services & Dependency Injection
 
 ### 1. Module Introduction
+
 ![](../root/img/2019-11-20-22-57-59.png)
 
-
 ### 2. Why would you Need Services
-App create account and log
+
+App create account and log => not duplicate
+Tạo file logging.service.ts
+
+```ts
+export class LoggingService {
+  logStatusChange(status: string) {
+    console.log("A server status changed, new status: " + status);
+  }
+}
+```
+
+// sau đó import vào tạo instance bằng new sử dụng bt => cách sai
+
 ### 3. Creating a Logging Service
+
+Inform angular to require an instance => inject an instance to component
+
+```ts
+// Inject service
+  constructor(private loggingService: LoggingService) {}
+
+```
+
+Khai báo để inform angular how to create
+
+```ts
+@Component({
+  selector: 'app-account',
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.css'],
+  providers: [LoggingService]
+})
+
+```
+
+Và gọi bằng cách
+
+```ts
+onCreateAccount(accountName: string, accountStatus: string) {
+    this.loggingService.logStatusChange(accountStatus);
+  }
+```
 
 ### 4. Injecting the Logging Service into Components
 
 ### 5. Creating a Data Service
 
+accounts.service.ts
+
+```ts
+export class AccountsService {
+  accounts = [
+    {
+      name: "Master Account",
+      status: "active"
+    },
+    {
+      name: "Testaccount",
+      status: "inactive"
+    },
+    {
+      name: "Hidden Account",
+      status: "unknown"
+    }
+  ];
+  constructor(private loggingService: LoggingService) {}
+
+  addAccount(name: string, status: string) {
+    this.accounts.push({ name: name, status: status });
+    this.loggingService.logStatusChange(status);
+  }
+
+  updateStatus(id: number, status: string) {
+    this.accounts[id].status = status;
+    this.loggingService.logStatusChange(status);
+  }
+}
+```
+
+App.component.ts
+
+```ts
+import { Component, OnInit } from "@angular/core";
+
+import { AccountsService } from "./accounts.service";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
+  providers: [AccountsService]
+})
+export class AppComponent implements OnInit {
+  accounts: { name: string; status: string }[] = [];
+
+  constructor(private accountsService: AccountsService) {}
+
+  ngOnInit() {
+    this.accounts = this.accountsService.accounts;
+  }
+}
+```
+
+app.component.html
+
+```html
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+      <app-new-account></app-new-account>
+      <hr />
+      <app-account
+        *ngFor="let acc of accounts; let i = index"
+        [account]="acc"
+        [id]="i"
+      ></app-account>
+    </div>
+  </div>
+</div>
+```
+
+new-account.component.ts
+
+```ts
+@Component({
+  selector: "app-new-account",
+  templateUrl: "./new-account.component.html",
+  styleUrls: ["./new-account.component.css"],
+  providers: [LoggingService]
+})
+export class NewAccountComponent {
+  constructor(
+    private loggingService: LoggingService,
+    private accountsService: AccountsService
+  ) {}
+
+  onCreateAccount(accountName: string, accountStatus: string) {
+    this.accountsService.addAccount(accountName, accountStatus);
+    // this.loggingService.logStatusChange(accountStatus);
+  }
+}
+```
+
+File account.component.ts
+
+```ts
+export class AccountComponent {
+  @Input() account: { name: string; status: string };
+  @Input() id: number;
+
+  constructor(
+    private loggingService: LoggingService,
+    private accountsService: AccountsService
+  ) {}
+
+  onSetTo(status: string) {
+    this.accountsService.updateStatus(this.id, status);
+    this.loggingService.logStatusChange(status);
+  }
+}
+```
+
 ### 6. Understanding the Hierarchical Injector
+
+Service được cung cấp cho 1 component và tất cả các con của nó => the same instance
+![](../root/img/2019-11-21-00-06-50.png)
 
 ### 7. How many Instances of Service Should It Be
 
+Khi sử dụng providers thì nó sẽ k hoạt động như mong muốn => many instance
+Nếu new-account component khai báo instance mới nó sẽ override instance được khai báo trong app-component => muốn có 1 instance thì chỉ cần khai báo trong app-component
+
 ### 8. Injecting Services into Services
 
+app.module.ts
+
+```ts
+@NgModule({
+  declarations: [
+    AppComponent,
+    AccountComponent,
+    NewAccountComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+  ],
+  // Add
+  providers: [AccountsService, LoggingService],
+  bootstrap: [AppComponent]
+})
+
+```
+
+accounts.service.ts thêm:
+
+```ts
+  constructor(private loggingService: LoggingService) {}
+
+// ADD
+@Injectable()
+export class AccountsService
+
+```
+
+Thông báo service is injectable or something is can be injected in there => inject service into another service
+
 ### 9. Using Services for Cross-Component Communication
+
+app.component.html
+
+```html
+<app-new-account></app-new-account>
+<hr />
+<app-account
+  *ngFor="let acc of accounts; let i = index"
+  [account]="acc"
+  [id]="i"
+></app-account>
+```
+
+account.service.ts
+
+```ts
+statusUpdated = new EventEmitter<string>();
+```
+
+account.component.ts
+
+```ts
+onSetTo(status: string) {
+    this.accountsService.updateStatus(this.id, status);
+    // this.loggingService.logStatusChange(status);
+    this.accountsService.statusUpdated.emit(status);
+  }
+
+```
+
+new-account.component.ts
+
+```ts
+constructor(private loggingService: LoggingService,
+              private accountsService: AccountsService) {
+    this.accountsService.statusUpdated.subscribe(
+      (status: string) => alert('New Status: ' + status)
+    );
+  }
+
+```
+
 ### 10. Practicing Services.html
 
 ### 11. [OPTIONAL] Assignment Solution
 
 ### 12. Services in Angular 6+.html
+If you're using Angular 6+ (check your package.json  to find out), you can provide application-wide services in a different way.
 
+Instead of adding a service class to the providers[]  array in AppModule , you can set the following config in @Injectable() :
+
+```ts
+@Injectable({providedIn: 'root'})
+export class MyService { ... }
+
+// This is exactly the same as:
+
+export class MyService { ... }
+and
+
+import { MyService } from './path/to/my.service';
+
+@NgModule({
+    ...
+    providers: [MyService]
+})
+export class AppModule { ... }
+
+```
+Using this new syntax is completely optional, the traditional syntax (using providers[] ) will still work. The "new syntax" does offer one advantage though: Services can be loaded lazily by Angular (behind the scenes) and redundant code can be removed automatically. This can lead to a better performance and loading speed - though this really only kicks in for bigger services and apps in general.
 ## 10. Course Project - Services & Dependency Injection
 
 ### 1. Introduction
