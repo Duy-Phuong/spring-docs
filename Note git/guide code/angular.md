@@ -2291,7 +2291,7 @@ Using this new syntax is completely optional, the traditional syntax (using prov
 ### 1. Introduction
 
 ### 2. Setting up the Services
-
+Tạo file recipe.service.ts và shopping-list.service.ts trong folder tương ứng
 ### 3. Managing Recipes in a Recipe Service
 
 ### 4. Using a Service for Cross-Component Communication
