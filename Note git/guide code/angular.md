@@ -1999,15 +1999,11 @@ export class DropdownDirective {
 ## 9. Using Services & Dependency Injection
 
 ### 1. Module Introduction
+![](../root/img/2019-11-20-22-57-59.png)
 
-### 10. Practicing Services.html
-
-### 11. [OPTIONAL] Assignment Solution
-
-### 12. Services in Angular 6+.html
 
 ### 2. Why would you Need Services
-
+App create account and log
 ### 3. Creating a Logging Service
 
 ### 4. Injecting the Logging Service into Components
@@ -2021,6 +2017,11 @@ export class DropdownDirective {
 ### 8. Injecting Services into Services
 
 ### 9. Using Services for Cross-Component Communication
+### 10. Practicing Services.html
+
+### 11. [OPTIONAL] Assignment Solution
+
+### 12. Services in Angular 6+.html
 
 ## 10. Course Project - Services & Dependency Injection
 
