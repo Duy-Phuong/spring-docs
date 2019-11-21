@@ -2263,9 +2263,10 @@ constructor(private loggingService: LoggingService,
 ### 11. [OPTIONAL] Assignment Solution
 
 ### 12. Services in Angular 6+.html
-If you're using Angular 6+ (check your package.json  to find out), you can provide application-wide services in a different way.
 
-Instead of adding a service class to the providers[]  array in AppModule , you can set the following config in @Injectable() :
+If you're using Angular 6+ (check your package.json to find out), you can provide application-wide services in a different way.
+
+Instead of adding a service class to the providers[] array in AppModule , you can set the following config in @Injectable() :
 
 ```ts
 @Injectable({providedIn: 'root'})
@@ -2285,29 +2286,382 @@ import { MyService } from './path/to/my.service';
 export class AppModule { ... }
 
 ```
+
 Using this new syntax is completely optional, the traditional syntax (using providers[] ) will still work. The "new syntax" does offer one advantage though: Services can be loaded lazily by Angular (behind the scenes) and redundant code can be removed automatically. This can lead to a better performance and loading speed - though this really only kicks in for bigger services and apps in general.
+
 ## 10. Course Project - Services & Dependency Injection
 
 ### 1. Introduction
 
 ### 2. Setting up the Services
+
 Tạo file recipe.service.ts và shopping-list.service.ts trong folder tương ứng
+
 ### 3. Managing Recipes in a Recipe Service
+
+recipe.service.ts
+
+```ts
+import { EventEmitter, Injectable } from "@angular/core";
+
+import { Recipe } from "./recipe.model";
+import { Ingredient } from "../shared/ingredient.model";
+import { ShoppingListService } from "../shopping-list/shopping-list.service";
+
+@Injectable()
+export class RecipeService {
+  private recipes: Recipe[] = [
+    new Recipe(
+      "A Test Recipe",
+      "This is simply a test",
+      "https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg"
+    ),
+    new Recipe(
+      "Another Test Recipe",
+      "This is simply a test",
+      "https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg"
+    )
+  ];
+
+  getRecipes() {
+    return this.recipes.slice(); // trả về mảng mới copy lại
+  }
+}
+```
+
+recipes.component.ts vì truy cập service chỉ trong phần này
+
+```ts
+@Component({
+  selector: "app-recipes",
+  templateUrl: "./recipes.component.html",
+  styleUrls: ["./recipes.component.css"],
+  providers: [RecipeService]
+})
+```
+
+---
+
+recipe-list.component.ts
+
+```ts
+// thêm constructor và vào hàm init thêm
+export class RecipeListComponent implements OnInit {
+  recipes: Recipe[];
+
+  constructor(private recipeService: RecipeService) {}
+
+  ngOnInit() {
+    this.recipes = this.recipeService.getRecipes();
+  }
+}
+```
 
 ### 4. Using a Service for Cross-Component Communication
 
+Khi nhấn vào item ở trong list thì detail được update
+recipe.service.ts
+
+```ts
+recipeSelected = new EventEmitter<Recipe>();
+```
+
+recipe-item.component.ts
+
+```ts
+export class RecipeItemComponent implements OnInit {
+  @Input() recipe: Recipe;
+
+  constructor(private recipeService: RecipeService) {} // add
+
+  ngOnInit() {}
+
+  onSelected() {
+    this.recipeService.recipeSelected.emit(this.recipe); // add
+  }
+}
+```
+
+Xóa hàm onRecipeSelected ở file recipe-list.component.html
+
+```html
+<app-recipe-item
+  *ngFor="let recipeEl of recipes"
+  [recipe]="recipeEl"
+  (recipeSelected)="onRecipeSelected(recipeEl)"
+></app-recipe-item>
+```
+
+recipe-list.component.ts xóa những thứ k cần thiết
+
+```ts
+export class RecipeListComponent implements OnInit {
+  recipes: Recipe[];
+
+  constructor(private recipeService: RecipeService) {}
+
+  ngOnInit() {
+    this.recipes = this.recipeService.getRecipes();
+  }
+}
+```
+
+Xóa event tròn file recipeWasSelected ở recipes.component.html
+
+```html
+<app-recipe-list
+  (recipeWasSelected)="selectedRecipe = $event"
+></app-recipe-list>
+```
+
+recipes.component.ts
+
+```ts
+export class RecipesComponent implements OnInit {
+  selectedRecipe: Recipe;
+
+  constructor(private recipeService: RecipeService) {} // add
+
+  ngOnInit() {
+    this.recipeService.recipeSelected.subscribe((recipe: Recipe) => {
+      this.selectedRecipe = recipe;
+    });
+  }
+}
+```
+
 ### 5. Adding the Shopping List Service
+shopping-list.service.ts
+```ts
+import { Ingredient } from '../shared/ingredient.model';
+import { EventEmitter } from '@angular/core';
 
+export class ShoppingListService {
+  ingredientsChanged = new EventEmitter<Ingredient[]>();
+  private ingredients: Ingredient[] = [
+    new Ingredient('Apples', 5),
+    new Ingredient('Tomatoes', 10),
+  ];
+
+  getIngredients() {
+    return this.ingredients.slice();
+  }
+}
+
+```
+
+Vào app-modules khai báo service
+```ts
+providers: [ShoppingListService],
+
+```
+shopping-list.component.ts
+```ts
+export class ShoppingListComponent implements OnInit {
+  ingredients: Ingredient[];
+
+  constructor(private slService: ShoppingListService) { } // inject
+
+  ngOnInit() {
+    this.ingredients = this.slService.getIngredients();
+  }
+}
+
+
+```
+Vào service thêm
+```ts
+addIngredient(ingredient: Ingredient) {
+    this.ingredients.push(ingredient);
+    this.ingredientsChanged.emit(this.ingredients.slice());
+  }
+
+```
+Vào xóa sự kiện emit trong file shopping-edit.component.ts
+```ts
+// Xóa
+ // @Output() ingredientAdded = new EventEmitter<Ingredient>();  
+  
+ // chuyển thành 
+  constructor(private slService: ShoppingListService) { }
+
+  onAddItem() {
+    const ingName = this.nameInputRef.nativeElement.value;
+    const ingAmount = this.amountInputRef.nativeElement.value;
+    const newIngredient = new Ingredient(ingName, ingAmount);
+    this.slService.addIngredient(newIngredient);
+   // this.ingredientAdded.emit(newIngredient); // xóa
+  }
+
+```
+
+Vào file shopping-list xóa hàm onIngredientAdded
+```html
+// Xóa (ingredientAdded)="onIngredientAdded($event)"
+<app-shopping-edit
+      (ingredientAdded)="onIngredientAdded($event)"></app-shopping-edit>
+
+```
 ### 6. Using Services for Pushing Data from A to B
+Khi ấn vào k add được vì lúc trả về là array copy
+Vào service tạo 
+```ts
+  ingredientsChanged = new EventEmitter<Ingredient[]>();
 
+addIngredient(ingredients: Ingredient[]) {
+    this.ingredients.push(...ingredients);
+    this.ingredientsChanged.emit(this.ingredients.slice());
+  }
+
+``` 
+Sửa lại hàm trong file shopping-list.component.ts
+```ts
+ngOnInit() {
+    this.ingredients = this.slService.getIngredients();
+    this.slService.ingredientsChanged
+      .subscribe(
+        (ingredients: Ingredient[]) => {
+          this.ingredients = ingredients;
+        }
+      );
+  }
+
+```
 ### 7. Adding Ingredients to Recipes
+Make To shopping list work
+Cập nhật model Recipe
+```ts
+export class Recipe {
+  public name: string;
+  public description: string;
+  public imagePath: string;
+  // add
+  public ingredients: Ingredient[];
+}
 
+```
+Cập nhật lại service
+```ts
+private recipes: Recipe[] = [
+    new Recipe(
+      'Tasty Schnitzel',
+      'A super-tasty Schnitzel - just awesome!',
+      'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
+      [
+        new Ingredient('Meat', 1),
+        new Ingredient('French Fries', 20)
+      ]),
+    new Recipe('Big Fat Burger',
+      'What else you need to say?',
+      'https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',
+      [
+        new Ingredient('Buns', 2),
+        new Ingredient('Meat', 1)
+      ])
+  ];
+
+```
+recipe-detail.component.html thêm đoạn output ingredients
+```html
+<div class="row">
+  <div class="col-xs-12">
+  // Add
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let ingredient of recipe.ingredients">
+        {{ ingredient.name }} - {{ ingredient.amount }}
+      </li>
+    </ul>
+  </div>
+</div>
+
+```
 ### 8. Passing Ingredients from Recipes to the Shopping List (via a Service)
+modify button To shopping list
+```html
+        <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">To Shopping List</a></li>
 
+```
+recipe-detail.component.ts
+```ts
+constructor(private recipeService: RecipeService) { }
+
+onAddToShoppingList() {
+    this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients);
+  }
+
+```
+recipe.service.ts
+```ts
+constructor(private slService: ShoppingListService) {}
+
+  addIngredientsToShoppingList(ingredients: Ingredient[]) {
+    this.slService.addIngredients(ingredients);
+  }
+
+```
+Nhớ thêm @Injectable()
+shopping-list.service.ts
+```ts
+addIngredients(ingredients: Ingredient[]) {
+    // for (let ingredient of ingredients) {
+    //   this.addIngredient(ingredient);
+    // }
+    // es6
+    this.ingredients.push(...ingredients);
+    this.ingredientsChanged.emit(this.ingredients.slice());
+  }
+
+```
 ## 11. Changing Pages with Routing
 
 ### 1. Module Introduction
+![](../root/img/2019-11-22-00-33-37.png)
 
+### 3. Understanding the Example Project.html
+In our app, we got three sections:
+
+* Home
+* Servers
+  * View and Edit Servers
+  * A Service is used to load and update Servers
+* Users
+* View Users
+This app will be improved by adding routing but definitely feel free to play around with it - besides routing, everything should be working fine.
+
+### 4. Setting up and Loading Routes
+App.module.ts
+```ts
+const appRoutes: Routes = [
+  { path: "", component: HomeComponent },
+  { path: "users", component: UsersComponent },
+  { path: "servers", component: ServersComponent }
+];
+
+// và phải khai báo
+imports: [BrowserModule, FormsModule, RouterModule.forRoot(appRoutes)]
+
+```
+
+app.component.html
+```html
+<div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+```
+### 5. Navigating with Router Links
+
+### 6. Understanding Navigation Paths
+
+### 7. Styling Active Router Links
+
+### 8. Navigating Programmatically
+
+### 9. Using Relative Paths in Programmatic Navigation
 ### 10. Passing Parameters to Routes
 
 ### 11. Fetching Route Parameters
@@ -2327,8 +2681,6 @@ Tạo file recipe.service.ts và shopping-list.service.ts trong folder tương �
 ### 18. Using Query Parameters - Practice
 
 ### 19. Configuring the Handling of Query Parameters
-
-### 2. Why do we need a Router
 
 ### 20. Redirecting and Wildcard Routes
 
@@ -2350,23 +2702,10 @@ Tạo file recipe.service.ts và shopping-list.service.ts trong folder tương �
 
 ### 29. Resolving Dynamic Data with the resolve Guard
 
-### 3. Understanding the Example Project.html
-
 ### 30. Understanding Location Strategies
 
 ### 31. Wrap Up
 
-### 4. Setting up and Loading Routes
-
-### 5. Navigating with Router Links
-
-### 6. Understanding Navigation Paths
-
-### 7. Styling Active Router Links
-
-### 8. Navigating Programmatically
-
-### 9. Using Relative Paths in Programmatic Navigation
 
 ## 12. Course Project - Routing
 
