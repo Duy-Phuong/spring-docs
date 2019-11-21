@@ -2640,7 +2640,9 @@ const appRoutes: Routes = [
 ];
 
 // và phải khai báo
-imports: [BrowserModule, FormsModule, RouterModule.forRoot(appRoutes)]
+imports: [BrowserModule, FormsModule, 
+// add
+RouterModule.forRoot(appRoutes)]
 
 ```
 
@@ -2654,9 +2656,33 @@ app.component.html
 
 ```
 ### 5. Navigating with Router Links
+Khi thay /servers sẽ load lại => issue
+```html
+        <li role="presentation"><a href="/servers">Servers</a></li>
 
+```
+App.component.html sử dụng routerLink
+```html
+<li role="presentation"
+          <a routerLink="/">Home</a>
+        </li>
+        <li role="presentation">
+          <a routerLink="servers">Servers</a>
+        </li>
+        <li role="presentation"\>
+          <a [routerLink]="['users']">Users</a>
+        </li>
+
+```
 ### 6. Understanding Navigation Paths
+Tại file servers.component.html 
+```ts
+routerLink="/servers" // phải có dấu / mới load được vì nó là absolute path
+./servers currently path
+../servers go up a level
 
+```
+Khi muon o page servers load lai trang bang cach nam button Reload => error /servers/servers path
 ### 7. Styling Active Router Links
 
 ### 8. Navigating Programmatically
