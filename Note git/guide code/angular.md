@@ -2431,45 +2431,49 @@ export class RecipesComponent implements OnInit {
 ```
 
 ### 5. Adding the Shopping List Service
+
 shopping-list.service.ts
+
 ```ts
-import { Ingredient } from '../shared/ingredient.model';
-import { EventEmitter } from '@angular/core';
+import { Ingredient } from "../shared/ingredient.model";
+import { EventEmitter } from "@angular/core";
 
 export class ShoppingListService {
   ingredientsChanged = new EventEmitter<Ingredient[]>();
   private ingredients: Ingredient[] = [
-    new Ingredient('Apples', 5),
-    new Ingredient('Tomatoes', 10),
+    new Ingredient("Apples", 5),
+    new Ingredient("Tomatoes", 10)
   ];
 
   getIngredients() {
     return this.ingredients.slice();
   }
 }
-
 ```
 
 Vào app-modules khai báo service
+
 ```ts
 providers: [ShoppingListService],
 
 ```
+
 shopping-list.component.ts
+
 ```ts
 export class ShoppingListComponent implements OnInit {
   ingredients: Ingredient[];
 
-  constructor(private slService: ShoppingListService) { } // inject
+  constructor(private slService: ShoppingListService) {} // inject
 
   ngOnInit() {
     this.ingredients = this.slService.getIngredients();
   }
 }
-
-
 ```
+
 Vào service thêm
+
 ```ts
 addIngredient(ingredient: Ingredient) {
     this.ingredients.push(ingredient);
@@ -2477,12 +2481,14 @@ addIngredient(ingredient: Ingredient) {
   }
 
 ```
+
 Vào xóa sự kiện emit trong file shopping-edit.component.ts
+
 ```ts
 // Xóa
- // @Output() ingredientAdded = new EventEmitter<Ingredient>();  
-  
- // chuyển thành 
+ // @Output() ingredientAdded = new EventEmitter<Ingredient>();
+
+ // chuyển thành
   constructor(private slService: ShoppingListService) { }
 
   onAddItem() {
@@ -2496,15 +2502,19 @@ Vào xóa sự kiện emit trong file shopping-edit.component.ts
 ```
 
 Vào file shopping-list xóa hàm onIngredientAdded
+
 ```html
 // Xóa (ingredientAdded)="onIngredientAdded($event)"
 <app-shopping-edit
-      (ingredientAdded)="onIngredientAdded($event)"></app-shopping-edit>
-
+  (ingredientAdded)="onIngredientAdded($event)"
+></app-shopping-edit>
 ```
+
 ### 6. Using Services for Pushing Data from A to B
+
 Khi ấn vào k add được vì lúc trả về là array copy
-Vào service tạo 
+Vào service tạo
+
 ```ts
   ingredientsChanged = new EventEmitter<Ingredient[]>();
 
@@ -2513,8 +2523,10 @@ addIngredient(ingredients: Ingredient[]) {
     this.ingredientsChanged.emit(this.ingredients.slice());
   }
 
-``` 
+```
+
 Sửa lại hàm trong file shopping-list.component.ts
+
 ```ts
 ngOnInit() {
     this.ingredients = this.slService.getIngredients();
@@ -2527,9 +2539,12 @@ ngOnInit() {
   }
 
 ```
+
 ### 7. Adding Ingredients to Recipes
+
 Make To shopping list work
 Cập nhật model Recipe
+
 ```ts
 export class Recipe {
   public name: string;
@@ -2538,9 +2553,10 @@ export class Recipe {
   // add
   public ingredients: Ingredient[];
 }
-
 ```
+
 Cập nhật lại service
+
 ```ts
 private recipes: Recipe[] = [
     new Recipe(
@@ -2561,29 +2577,36 @@ private recipes: Recipe[] = [
   ];
 
 ```
+
 recipe-detail.component.html thêm đoạn output ingredients
+
 ```html
 <div class="row">
   <div class="col-xs-12">
-  // Add
+    // Add
     <ul class="list-group">
-      <li
-        class="list-group-item"
-        *ngFor="let ingredient of recipe.ingredients">
+      <li class="list-group-item" *ngFor="let ingredient of recipe.ingredients">
         {{ ingredient.name }} - {{ ingredient.amount }}
       </li>
     </ul>
   </div>
 </div>
-
 ```
+
 ### 8. Passing Ingredients from Recipes to the Shopping List (via a Service)
-modify button To shopping list
-```html
-        <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">To Shopping List</a></li>
 
+modify button To shopping list
+
+```html
+<li>
+  <a (click)="onAddToShoppingList()" style="cursor: pointer;"
+    >To Shopping List</a
+  >
+</li>
 ```
+
 recipe-detail.component.ts
+
 ```ts
 constructor(private recipeService: RecipeService) { }
 
@@ -2592,7 +2615,9 @@ onAddToShoppingList() {
   }
 
 ```
+
 recipe.service.ts
+
 ```ts
 constructor(private slService: ShoppingListService) {}
 
@@ -2601,8 +2626,10 @@ constructor(private slService: ShoppingListService) {}
   }
 
 ```
+
 Nhớ thêm @Injectable()
 shopping-list.service.ts
+
 ```ts
 addIngredients(ingredients: Ingredient[]) {
     // for (let ingredient of ingredients) {
@@ -2614,24 +2641,29 @@ addIngredients(ingredients: Ingredient[]) {
   }
 
 ```
+
 ## 11. Changing Pages with Routing
 
 ### 1. Module Introduction
+
 ![](../root/img/2019-11-22-00-33-37.png)
 
 ### 3. Understanding the Example Project.html
+
 In our app, we got three sections:
 
-* Home
-* Servers
-  * View and Edit Servers
-  * A Service is used to load and update Servers
-* Users
-* View Users
-This app will be improved by adding routing but definitely feel free to play around with it - besides routing, everything should be working fine.
+- Home
+- Servers
+  - View and Edit Servers
+  - A Service is used to load and update Servers
+- Users
+- View Users
+  This app will be improved by adding routing but definitely feel free to play around with it - besides routing, everything should be working fine.
 
 ### 4. Setting up and Loading Routes
+
 App.module.ts
+
 ```ts
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -2640,28 +2672,34 @@ const appRoutes: Routes = [
 ];
 
 // và phải khai báo
-imports: [BrowserModule, FormsModule, 
-// add
-RouterModule.forRoot(appRoutes)]
-
+imports: [
+  BrowserModule,
+  FormsModule,
+  // add
+  RouterModule.forRoot(appRoutes)
+];
 ```
 
 app.component.html
+
 ```html
 <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <router-outlet></router-outlet>
-    </div>
+  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+    <router-outlet></router-outlet>
   </div>
-
+</div>
 ```
+
 ### 5. Navigating with Router Links
-Khi thay /servers sẽ load lại => issue
-```html
-        <li role="presentation"><a href="/servers">Servers</a></li>
 
+Khi thay /servers sẽ load lại => issue
+
+```html
+<li role="presentation"><a href="/servers">Servers</a></li>
 ```
+
 App.component.html sử dụng routerLink
+
 ```html
 <li role="presentation"
           <a routerLink="/">Home</a>
@@ -2674,34 +2712,297 @@ App.component.html sử dụng routerLink
         </li>
 
 ```
+
 ### 6. Understanding Navigation Paths
-Tại file servers.component.html 
+
+Tại file servers.component.html
+
 ```ts
 routerLink="/servers" // phải có dấu / mới load được vì nó là absolute path
 ./servers currently path
 ../servers go up a level
 
 ```
+
 Khi muon o page servers load lai trang bang cach nam button Reload => error /servers/servers path
+
 ### 7. Styling Active Router Links
+
+active is a class
+app.component.html
+
+```html
+<ul class="nav nav-tabs">
+  <li
+    role="presentation"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}"
+  >
+    <a routerLink="/">Home</a>
+  </li>
+  <li role="presentation" routerLinkActive="active">
+    <a routerLink="servers">Servers</a>
+  </li>
+  <li role="presentation" routerLinkActive="active">
+    <a [routerLink]="['users']">Users</a>
+  </li>
+</ul>
+
+[routerLinkActiveOptions]="{exact: true} tránh lúc nào cũng được active ở tab
+HOME vì nó kiểm tra nếu url có chứa thì sẽ active nên cần them cái này
+```
 
 ### 8. Navigating Programmatically
 
+home.component.html
+
+```html
+<button class="btn btn-primary" (click)="onLoadServer(1)">Load Server 1</button>
+```
+
+File home.component.ts
+
+```ts
+export class HomeComponent implements OnInit {
+  constructor(private router: Router) {} // inject
+
+  onLoadServer(id: number) {
+    // complex calculation
+    this.router.navigate(["/servers"]);
+  }
+}
+```
+
 ### 9. Using Relative Paths in Programmatic Navigation
+
+servers.component.html
+
+```html
+<!--<button class="btn btn-primary" (click)="onReload()">Reload Page</button>-->
+```
+
+Servers.component.ts
+
+```ts
+constructor(private serversService: ServersService,
+              private router: Router
+) { }
+
+  onReload() {
+    this.router.navigate(['servers']);
+  }
+
+```
+
+Navigate method doesn’t know route you are currently on is different routerLink
+Nếu muốn biết route mà bạn đang ở đó thì SD:
+
+```ts
+constructor(private serversService: ServersService,
+              private router: Router,
+              private route: ActivatedRoute) {
+  }
+
+// this.router.navigate(['servers'], {relativeTo: this.route}); // /servers/servers => error
+this.router.navigate(['servers']);
+```
+
 ### 10. Passing Parameters to Routes
+
+app.modules.ts
+
+```ts
+{ path: "users/:id", component: UsersComponent },
+```
 
 ### 11. Fetching Route Parameters
 
+user.component.ts
+
+```ts
+constructor(private route: ActivatedRoute) { } // inject
+
+  ngOnInit() {
+    this.user = {
+      id: this.route.snapshot.params['id']
+    };
+  }
+
+```
+
 ### 12. Fetching Route Parameters Reactively
 
+user.component.html
+
+```html
+<p>User with ID {{ user.id }} loaded.</p>
+<p>User name is {{ user.name }}</p>
+<hr />
+<a [routerLink]="['/users', 10, 'Anna']">Load Anna (10)</a>
+```
+
+Khi ở trang này bấm vào sẽ không cập nhật được data, Bởi vì ta đang ở trên component mà mình định load nên angular sẽ k tạo ra instance mới
+
+user.component.ts
+
+```ts
+ngOnInit() {
+    this.user = {
+      id: this.route.snapshot.params['id'],
+      name: this.route.snapshot.params['name']
+    };
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.user.id = params['id'];
+          this.user.name = params['name'];
+        }
+      );
+  }
+
+```
+
+Observable is an easy way to subscribe to some event may happen in the future, async => should wait
+Param is an observable
+
 ### 13. An Important Note about Route Observables
+Must unsubscribe when destroy Component
+```ts
+// Add
+paramsSubscription: Subscription;
+
+ngOnInit() {
+    this.user = {
+      id: this.route.snapshot.params['id'],
+      name: this.route.snapshot.params['name']
+    };
+    this.paramsSubscription = this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.user.id = params['id'];
+          this.user.name = params['name'];
+        }
+      );
+  }
+// Add
+ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+  }
+
+```
 
 ### 14. Passing Query Parameters and Fragments
+```ts
+  { path: "servers/:id/edit", component: EditServersComponent }
+
+```
+servers.component.html
+```html
+<a
+        [routerLink]="['/servers', 5, 'edit']"
+        [queryParams]="{allowEdit: server.id === 3 ? '1' : '0'}"
+        fragment="loading"
+        href="#"
+        class="list-group-item"
+        *ngFor="let server of servers">
+        {{ server.name }}
+      </a>
+
+```
+
+Modify button Load server
+```html
+<button (click)="onLoadServer(1)">Load server 1<button>
+```
+home.component.ts
+```ts
+onLoadServer(id: number) {
+    // complex calculation
+    this.router.navigate(['/servers', id, 'edit'], {queryParams: {allowEdit: '1'}, fragment: 'loading'});
+  }
+
+```
+Localhost:4200/servers/5/edit?allowEdit=3#loading
 
 ### 15. Retrieving Query Parameters and Fragments
+edit-server.component.ts
+```ts
+constructor(private serversService: ServersService,
+              private route: ActivatedRoute,
+              private router: Router) {
+  }
 
+  ngOnInit() {
+    // 2 cách để access query params, only access when component create
+    console.log(this.route.snapshot.queryParams);
+    console.log(this.route.snapshot.fragment);
+    this.route.queryParams
+      .subscribe(
+        (queryParams: Params) => {
+          this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
+        }
+      );
+    this.route.fragment.subscribe();
+    const id = +this.route.snapshot.params['id'];
+    this.server = this.serversService.getServer(id);
+    // Subscribe route params to update the id if params change
+    this.serverName = this.server.name;
+    this.serverStatus = this.server.status;
+  }
+
+```
 ### 16. Practicing and some Common Gotchas
+users.component.html thêm
+```html
+<a
+        [routerLink]="['/users', user.id, user.name]"
+        href="#"
+        class="list-group-item"
+        *ngFor="let user of users">
+        {{ user.name }}
+      </a>
 
+```
+fix to only load ServerComponent
+servers.component.html
+```html
+<a
+        [routerLink]="['/servers', server.id]"
+        [queryParams]="{allowEdit: server.id === 3 ? '1' : '0'}"
+        fragment="loading"
+        href="#"
+        class="list-group-item"
+        *ngFor="let server of servers">
+        {{ server.name }}
+      </a>
+
+```
+Server.component.ts
+```ts
+  constructor(private serversService: ServersService,
+              private route: ActivatedRoute,
+              private router: Router) {
+  }
+
+  ngOnInit() {
+    // lấy tham số từ /user/:id khi click
+    const id = +this.route.snapshot.params['id'];
+     this.server = this.serversService.getServer(id);
+     this.route.params
+       .subscribe(
+         (params: Params) => {
+           this.server = this.serversService.getServer(+params['id']);
+         }
+       );
+  }
+
+```
+
+Comment servers.component.html    
+```html
+<!-- <app-server></app-server> -->
+
+```
 ### 17. Setting up Child (Nested) Routes
 
 ### 18. Using Query Parameters - Practice
@@ -2731,7 +3032,6 @@ Khi muon o page servers load lai trang bang cach nam button Reload => error /ser
 ### 30. Understanding Location Strategies
 
 ### 31. Wrap Up
-
 
 ## 12. Course Project - Routing
 
