@@ -3236,24 +3236,192 @@ Nhớ khai báo
   providers: [ServersService, AuthService, AuthGuard],
 
 ```
-- Khai bao o routing
+
+Chi co tab server k load, back to home after 800s
+Declare new service in module 
+### 25. Protecting Child (Nested) Routes with canActivateChild
+Khi bạn đang edit muốn leave page => ask for confirmation
+Implement thêm CanActivateChild 
 ```ts
-  canActivateChild: [AuthGuard],
+@Injectable()
+export class AuthGuard implements CanActivate, CanActivateChild {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  // add for child routes
+  canActivateChild(route: ActivatedRouteSnapshot,
+                   state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    return this.canActivate(route, state);
+  }
+}
 
 ```
-Chi co tab server k load, back to home after 800s
-### 25. Protecting Child (Nested) Routes with canActivateChild
+Thêm canActivateChild: [AuthGuard],
+khi click vào link child routes ở tab server thì redirect to home page
 
 ### 26. Using a Fake Auth Service
-
+Vào home tạo btn login và log out
 ### 27. Controlling Navigation with canDeactivate
+edit-server.component.ts
+Thêm thuộc tính changesSaved = false;
+```ts
+onUpdateServer() {
+    this.serversService.updateServer(this.server.id, {name: this.serverName, status: this.serverStatus});
+    this.changesSaved = true;
+    this.router.navigate(['../'], {relativeTo: this.route});
+  }
 
+```
+Tạo file edit-server/ can-deactivate-guard.service.ts
+```ts
+import { Observable } from 'rxjs/Observable';
+import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+
+export interface CanComponentDeactivate {
+  canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean;
+}
+
+export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate> {
+
+  canDeactivate(component: CanComponentDeactivate,
+                currentRoute: ActivatedRouteSnapshot,
+                currentState: RouterStateSnapshot,
+                // ?: is optional
+                nextState?: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    return component.canDeactivate();
+  }
+}
+
+```
+
+app-routing.module.ts
+```ts
+    { path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuard] }
+
+```
+app.module.ts
+```ts
+providers:[ServersService, AuthService, AuthGuard, CanDeactivateGuard]
+
+```
+
+edit-server.component.ts
+```ts
+implements CanComponentDeactivate
+canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if (!this.allowEdit) {
+      return true;
+    }
+    if ((this.serverName !== this.server.name || this.serverStatus !== this.server.status) && !this.changesSaved) {
+      return confirm('Do you want to discard the changes?');
+    } else {
+      return true;
+    }
+  }
+
+// thêm in onInit
+const id = +this.route.snapshot.params['id'];
+    this.server = this.serversService.getServer(id); // thay vì update id = 1
+    // Subscribe route params to update the id if params change
+
+```
 ### 28. Passing Static Data to a Route
+Tạo component error page and declare
+```ts
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Data } from '@angular/router';
+
+@Component({
+  selector: 'app-error-page',
+  templateUrl: './error-page.component.html',
+  styleUrls: ['./error-page.component.css']
+})
+export class ErrorPageComponent implements OnInit {
+  errorMessage: string;
+
+  constructor(private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    // this.errorMessage = this.route.snapshot.data['message'];
+    this.route.data.subscribe(
+      (data: Data) => {
+        this.errorMessage = data['message'];
+      }
+    );
+  }
+
+}
+
+```
+
+app-routing.module.ts
+```ts
+// { path: 'not-found', component: PageNotFoundComponent },
+  { path: 'not-found', component: ErrorPageComponent, data: {message: 'Page not found!'} },
+
+```
+Khai báo ErrorPageComponent
 
 ### 29. Resolving Dynamic Data with the resolve Guard
+Tạo file server-resolver.service.ts
+```ts
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+
+import { ServersService } from '../servers.service';
+
+interface Server {
+  id: number;
+  name: string;
+  status: string;
+}
+
+@Injectable()
+export class ServerResolver implements Resolve<Server> {
+  constructor(private serversService: ServersService) {}
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Server> | Promise<Server> | Server {
+    return this.serversService.getServer(+route.params['id']);
+  }
+}
+
+```
+
+Khai báo module
+```ts
+providers: [ServersService, AuthService, AuthGuard, CanDeactivateGuard, ServerResolver],
+
+```
+file routing
+```ts
+    { path: ':id', component: ServerComponent, resolve: {server: ServerResolver} },
+
+```
+server.component.ts
+```ts
+ngOnInit() {
+    this.route.data
+      .subscribe(
+        (data: Data) => {
+          this.server = data['server'];
+        }
+      );
+    // const id = +this.route.snapshot.params['id'];
+    // this.server = this.serversService.getServer(id);
+    // this.route.params
+    //   .subscribe(
+    //     (params: Params) => {
+    //       this.server = this.serversService.getServer(+params['id']);
+    //     }
+    //   );
+  }
+
+```
+Sử dụng cho asyn data before component render
 
 ### 30. Understanding Location Strategies
-
+URL will be parses by the server first not angular =>care about localhost:4200/# and ignore the rest don't return 404 error
+RouterModule.forRoot(appRoutes, {useHash: true})
 ### 31. Wrap Up
 
 ## 12. Course Project - Routing
