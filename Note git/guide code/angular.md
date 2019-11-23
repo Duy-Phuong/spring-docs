@@ -1,5 +1,5 @@
 MUC LUC
-
+https://www.academind.com/learn/javascript/understanding-rxjs/
       acdemind.com
 
 C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Source_All/python/Test/readfile.py
@@ -3756,21 +3756,188 @@ The (featureSelected)="..."  event listener is a relict of our "old" navigation 
 ### 1. Module Introduction
 ![](../root/img/2019-11-23-15-33-46.png)
 ### 10. Useful Resources & Links.html
+Useful Resources:
+•	Official Docs: https://rxjs-dev.firebaseapp.com/
+•	RxJS Series: https://academind.com/learn/javascript/understanding-rxjs/
+•	Updating to RxJS 6: https://academind.com/learn/javascript/rxjs-6-what-changed/
 
 ### 2. Analyzing Angular Observables
+user.component.ts
+```ts
+export class UserComponent implements OnInit {
+  id: number;
 
+  constructor(private route: ActivatedRoute) {
+  }
+
+  ngOnInit() {
+    this.route.params.subscribe((params: Params) => {
+      this.id = +params.id;
+    });
+  }
+}
+
+```
 ### 3. Getting Closer to the Core of Observables
+Observables nằm trong rxjs
+2.1 obs-01-start.zip.zip
+home.component.ts
+```ts
+import { Component, OnDestroy, OnInit } from '@angular/core';
+
+import { interval, Subscription } from 'rxjs';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
+})
+export class HomeComponent implements OnInit, OnDestroy {
+
+  private firstObsSubscription: Subscription;
+
+  constructor() {
+  }
+
+  ngOnInit() {
+    this.firstObsSubscription = interval(1000).subscribe(count => {
+      console.log(count);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.firstObsSubscription.unsubscribe();
+  }
+
+}
+
+
+```
+memory leak
+Hàm interval sau 1s sẽ emit event, khi vào trang chủ sẽ tự động tăng biến count nếu quay lại thì sẽ có thêm 1 biến đếm bắt đầu từ 0 và tang song song => destroy
+
+Param k cần unsubscribe bởi vì nó được cung cấp bởi angular nên không cần làm thủ công
 
 ### 4. Building a Custom Observable
+home.component.ts
+```ts
+ngOnInit() {
+    // this.firstObsSubscription = interval(1000).subscribe(count => {
+    //   console.log(count);
+    // });
+    const customIntervalObservable = Observable.create(observer => {
+      let count = 0;
+      setInterval(() => {
+        observer.next(count); // emit
+        if (count === 5) {
+          observer.complete();
+        }
+        if (count > 3) {
+          observer.error(new Error('Count is greater 3!'));
+        }
+        count++;
+      }, 1000);
+    });
 
+    this.firstObsSubscription = customIntervalObservable.subscribe(data => {
+      console.log(data);
+    }, error => {
+      console.log(error);
+      alert(error.message);
+    }, () => {
+      console.log('Completed!');
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.firstObsSubscription.unsubscribe();
+  }
+
+```
 ### 5. Errors & Completion
 
 ### 6. Observables & You!
 
 ### 7. Understanding Operators
+![](../root/img/2019-11-23-16-02-35.png)
+```ts
+this.firstObsSubscription = customIntervalObservable.pipe(filter(data
+ => {
+      return data > 0;
+    }), map((data: number) => {
+      return 'Round: ' + (data + 1);
+    })).subscribe(data => {
+      console.log(data);
+    }, error => {
+      console.log(error);
+      alert(error.message);
+    }, () => {
+      console.log('Completed!');
+    });
 
+```
+https://www.academind.com/learn/javascript/understanding-rxjs/
+
+https://www.learnrxjs.io/
 ### 8. Subjects
+user.component.html
+```html
+<p>User with <strong>ID {{ id }}</strong> was loaded</p>
+<button class="btn btn-primary" (click)="onActivate()">Activate</button>
 
+```
+user.component.ts
+```ts
+constructor(private route: ActivatedRoute, private userService: UserSe
+rvice) {
+  }
+
+  ngOnInit() {
+    this.route.params.subscribe((params: Params) => {
+      this.id = +params.id;
+    });
+  }
+
+  onActivate() {
+    // emit(true)
+    this.userService.activatedEmitter.next(true);
+  }
+```
+user.service.ts
+```ts
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+
+@Injectable({providedIn: 'root'})
+export class UserService {
+  // new EvenEmitter<boolean>();
+  activatedEmitter = new Subject<boolean>();
+}
+
+
+```
+app.component.ts
+```ts
+export class AppComponent implements OnInit, OnDestroy {
+  userActivated = false;
+  private activatedSub: Subscription;
+
+  constructor(private userService: UserService) {
+  }
+
+  ngOnInit() {
+    this.activatedSub = this.userService.activatedEmitter.subscribe(didActivate => {
+      this.userActivated = didActivate;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.activatedSub.unsubscribe();
+  }
+}
+
+```
+![](../root/img/2019-11-23-16-22-39.png)
 ### 9. Wrap Up
 
 ## 14. Course Project - Observables
