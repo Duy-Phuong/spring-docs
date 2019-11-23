@@ -3938,14 +3938,57 @@ export class AppComponent implements OnInit, OnDestroy {
 
 ```
 ![](../root/img/2019-11-23-16-22-39.png)
+=> 
+Recommend
+If use @Output not use Subject
 ### 9. Wrap Up
 
 ## 14. Course Project - Observables
+EventEmitter push new info from A to B
+Vào app.component.ts vaf .html xóa hàm onNavigate
 
+shopping-list
+```ts
+export class ShoppingListService {
+  // add
+  ingredientsChanged = new Subject<Ingredient[]>();
+  ```
+ thay hết emit => next
+
+shopping-list.component.ts
+```ts
+export class ShoppingListComponent implements OnInit, OnDestroy {
+  ingredients: Ingredient[];
+  private igChangeSub: Subscription;
+
+  constructor(private slService: ShoppingListService) {
+  }
+
+  ngOnInit() {
+    this.ingredients = this.slService.getIngredients();
+    this.igChangeSub = this.slService.ingredientsChanged
+      .subscribe(
+        (ingredients: Ingredient[]) => {
+          this.ingredients = ingredients;
+        }
+      );
+  }
+
+// Add
+  ngOnDestroy(): void {
+    this.igChangeSub.unsubscribe();
+  }
+}
+
+ xóa recipeSelected = new EventEmitter<Recipe>(); trong service và 
+recipes component
+
+```
+Xem lai recipes.component.ts xoa 
 ### 1. Improving the Reactive Service with Observables (Subjects)
 
 ### 2. Changed the Subscription Name.html
-
+Don't wonder - I changed the igChangeSub property to just subscription. So if you see that name change in code in future videos, that's why. Other than that, nothing changed!
 ## 15. Handling Forms in Angular Apps
 
 ### 1. Module Introduction
