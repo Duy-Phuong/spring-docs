@@ -3427,39 +3427,334 @@ RouterModule.forRoot(appRoutes, {useHash: true})
 ## 12. Course Project - Routing
 
 ### 1. Planning the General Structure
-
-### 10. Styling Active Recipe Items
-
-### 11. Adding Editing Routes
-
-### 12. Retrieving Route Parameters
-
-### 13. Programmatic Navigation to the Edit Page
-
-### 14. One Note about Route Observables
-
-### 15. Project Cleanup.html
+![](../root/img/2019-11-23-10-29-39.png)
 
 ### 2. Setting Up Routes
 
+Tạo file app-routing.module.ts
+```ts
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { RecipesComponent } from './recipes/recipes.component';
+import { ShoppingListComponent } from './shopping-list/shopping-list.component';
+import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
+import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
+import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+
+const appRoutes: Routes = [
+  { path: '', redirectTo: '/recipes', pathMatch: 'full' },
+  { path: 'recipes', component: RecipesComponent},
+  { path: 'shopping-list', component: ShoppingListComponent },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(appRoutes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {
+
+}
+
+```
+
+pathMatch: 'full' nếu không bất kì path nào cũng redirect nên báo lỗi
+Khai báo module
+```ts
+imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule
+  ],
+
+```
+app.component.html
+```html
+<app-header (featureSelected)="onNavigate($event)"></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+    <!-- thay cho if-->
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+
+<router-outlet></router-outlet> component được render
+
+```
+
 ### 3. Adding Navigation to the App
+header.component.html
+```html
+<li routerLinkActive ="active"><a routerLink="/recipes">Recipes</a>
+</li>
+        <li routerLinkActive="active"><a routerLink="/shopping-list">Shopping List</a></li>
+
+```
+header.component.ts sửa thành
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html'
+})
+export class HeaderComponent {
+}
+
+```
 
 ### 4. Marking Active Routes
-
+Thêm routerLinkActive
 ### 5. Fixing Page Reload Issues
+Khi bấm vào list recipe thì page sẽ bị load lại
+Vào file recipe-item.component.html, recipe-detail.component.html, header.component.html xóa `href=#`
+```html
+<a
+  style="cursor: pointer;"
+  [routerLink]="[index]"
+  routerLinkActive="active"
+  class="list-group-item clearfix">
+  <div class="pull-left">
+    <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
+    <p class="list-group-item-text">{{ recipe.description }}</p>
+  </div>
+  <span class="pull-right">
+        <img
+          [src]="recipe.imagePath"
+          alt="{{ recipe.name }}"
+          class="img-responsive"
+          style="max-height: 50px;">
+      </span>
+</a>
+
+```
+
+Thêm style="cursor: pointer;"
 
 ### 6. Child Routes Challenge
+```ts
+const appRoutes: Routes = [
+  { path: '', redirectTo: '/recipes', pathMatch: 'full' },
+  { path: 'recipes', component: RecipesComponent, children: [
+    { path: '', component: RecipeStartComponent },
+    { path: 'new', component: RecipeEditComponent },
+    { path: ':id', component: RecipeDetailComponent },
+    { path: ':id/edit', component: RecipeEditComponent },
+  ] },
+  { path: 'shopping-list', component: ShoppingListComponent },
+];
 
+```
 ### 7. Adding Child Routing Together
+```ts
+ng g c recipes/recipe-start
+```
 
+Nội dung file html
+<h3>Please select a Recipe!</h3>
+
+Khai báo RecipeStartComponent trong module
+recipes.component.html
+```html
+<div class="row">
+  <div class="col-md-5">
+    <app-recipe-list></app-recipe-list>
+  </div>
+  <div class="col-md-7">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+```
+now canot run app load detail recepie
 ### 8. Configuring Route Parameters
+Remove event select item in recpie-item.component.html
+recipe-detail.component.ts
+```ts
+export class RecipeDetailComponent implements OnInit {
+  recipe: Recipe;
+  id: number;
 
+  constructor(private recipeService: RecipeService,
+              private route: ActivatedRoute,
+              private router: Router) {
+  }
+
+  ngOnInit() {
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.id = +params['id'];
+          this.recipe = this.recipeService.getRecipe(this.id);
+        }
+      );
+  }
+
+}
+
+```
+Vào recipe xóa các event không cần thiết
+Service
+```ts
+getRecipe(index: number) {
+    return this.recipes[index];
+  }
+
+```
 ### 9. Passing Dynamic Parameters to Links
+recipe-item.component.html
+```html
+<a
+  style="cursor: pointer;"
+  // Add
+  [routerLink]="[index]"
+  routerLinkActive="active"
+  class="list-group-item clearfix">
+  <div class="pull-left">
+    <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
+    <p class="list-group-item-text">{{ recipe.description }}</p>
+  </div>
+  <span class="pull-right">
+        <img
+          [src]="recipe.imagePath"
+          alt="{{ recipe.name }}"
+          class="img-responsive"
+          style="max-height: 50px;">
+      </span>
+</a>
 
+```
+
+Thêm ở file .ts:  @Input() index: number;
+
+recipe-list.component.html
+```html
+<div class="col-xs-12">
+    <app-recipe-item
+      *ngFor="let recipeEl of recipes; let i = index"
+      // ADD
+      [recipe]="recipeEl"
+      [index]="i"></app-recipe-item>
+  </div>
+
+```
+### 10. Styling Active Recipe Items
+### 11. Adding Editing Routes
+Tạo component recipe-edit
+```ts
+ng g c recepies/recipe-edit --spec false
+
+```
+Vào recipe-list thêm
+```html
+ <div class="col-xs-12">
+    <button class="btn btn-success" (click)="onNewRecipe()">New Recipe</button>
+  </div>
+
+```
+```ts
+export class RecipeListComponent implements OnInit {
+  recipes: Recipe[];
+
+  constructor(private recipeService: RecipeService,
+              private router: Router,
+              private route: ActivatedRoute) {
+  }
+
+  ngOnInit() {
+    this.recipes = this.recipeService.getRecipes();
+  }
+
+  onNewRecipe() {
+    this.router.navigate(['new'], {relativeTo: this.route}); // current route
+  }
+}
+
+```
+Để new lên trước nếu không nó sẽ nhận new là id mà parse => err
+```ts
+{ path: 'new', component: RecipeEditComponent },
+    { path: ':id', component: RecipeDetailComponent },
+    { path: ':id/edit', component: RecipeEditComponent },
+
+```
+### 12. Retrieving Route Parameters
+recipe-edit.component.ts
+```ts
+export class RecipeEditComponent implements OnInit {
+  id: number;
+  editMode = false;
+
+  constructor(private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.id = +params['id'];
+          this.editMode = params['id'] != null; // pb với new
+        }
+      );
+  }
+}
+
+```
+### 13. Programmatic Navigation to the Edit Page
+recipe-detail.component.html
+```html
+<li><a style="cursor: pointer;" (click)="onEditRecipe()">Edit
+ Recipe</a></li>
+
+```
+recipe-detail.component.ts
+```ts
+constructor(private recipeService: RecipeService,
+              private route: ActivatedRoute,
+              private router: Router) {
+  }
+
+onEditRecipe() {
+    this.router.navigate(['edit'], {relativeTo: this.route});
+    // this.router.navigate(['../', this.id, 'edit'], {relativeTo: this.route}); cách 2
+  }
+
+
+```
+### 14. One Note about Route Observables
+
+### 15. Project Cleanup.html
+There's one thing I forgot to clean up here (will be cleaned up later in the course). Feel free to do the cleanup right now though.
+
+Our app.component.html file looks like that:
+
+```html
+<app-header (featureSelected)="onNavigate($event)"></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+The (featureSelected)="..."  event listener is a relict of our "old" navigation approach using ngIf. We no longer need it, so feel free to change this template to:
+
+<app-header></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+```
 ## 13. Understanding Observables
 
 ### 1. Module Introduction
-
+![](../root/img/2019-11-23-15-33-46.png)
 ### 10. Useful Resources & Links.html
 
 ### 2. Analyzing Angular Observables
