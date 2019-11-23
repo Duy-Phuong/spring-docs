@@ -3,7 +3,7 @@ https://www.academind.com/learn/javascript/understanding-rxjs/
 http://phocode.com/javascript/
 https://freetuts.net/template-trong-angular-4-1330.html
 xuanthulap.com
-
+https://www.youtube.com/channel/UCSJbGtTlrDami-tDGPUV9-w/playlists
       acdemind.com
 
 C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Source_All/python/Test/readfile.py
@@ -4534,9 +4534,43 @@ Don't wonder - I changed the igChangeSub property to just subscription. So if yo
 ## 15. Handling Forms in Angular Apps
 
 ### 1. Module Introduction
+
 ### 2. Why do we Need Angular's Help
 
 ### 3. Template-Driven (TD) vs Reactive Approach
+![](../root/img/2019-11-23-21-58-25.png)
+Import FormsModule
+```ts
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    // Add
+    FormsModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+```
+Sau đó vào thẻ input thêm ngModel(two-way data binding) và name attr in HTML
+```html
+<input
+              type="email"
+              id="email"
+              class="form-control"
+              ngModel
+              name="email"
+              required
+              email
+              #email="ngModel">
+
+```
 ### 4. An Example Form
 
 ### 5. TD Creating the Form and Registering the Controls
