@@ -8,7 +8,7 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
 ---
 
 # Angular 8 (formerly Angular 2) - The Complete Guide
-
+https://www.udemy.com/course/the-complete-guide-to-angular-2/
 ## 1. Getting Started
 
 ### 1. Course Introduction
@@ -2963,7 +2963,7 @@ users.component.html thêm
       </a>
 
 ```
-fix to only load ServerComponent
+fix to only load **ServerComponent**
 servers.component.html
 ```html
 <a
@@ -2998,27 +2998,250 @@ Server.component.ts
 
 ```
 
-Comment servers.component.html    
+Comment servers.component.html because of error
 ```html
 <!-- <app-server></app-server> -->
 
 ```
 ### 17. Setting up Child (Nested) Routes
+servers.component.html
+```html
+<div class="col-xs-12 col-sm-4">
+    <router-outlet></router-outlet>
+    <!--<button class="btn btn-primary" (click)="onReload()">Reload Page</button>-->
+    <!--<app-edit-server></app-edit-server>-->
+    <!--<hr>-->
+    <!--&lt;!&ndash;<app-server></app-server>&ndash;&gt;-->
+  </div>
 
+```
+```ts
+const appRoutes: Routes = [
+  { path: "", component: HomeComponent },
+  { path: "users", component: UsersComponent },
+  { path: "users/:id/:name", component: UserComponent },
+  { path: "servers", component: ServersComponent, children: [
+    { path: ":id", component: ServerComponent },
+    { path: ":id/edit", component: EditServerComponent }
+  ] }
+];
+
+```
+users.component.html
+```html
+<div class="col-xs-12 col-sm-4">
+    <!--<app-user></app-user>-->
+    <router-outlet></router-outlet>
+  </div>
+
+```
 ### 18. Using Query Parameters - Practice
+server.component.html
+```html
+<h5>{{ server.name }}</h5>
+<p>Server status is {{ server.status }}</p>
+<button class="btn btn-primary" (click)="onEdit()">Edit Server</button>
 
+```
+
+server.component.ts
+```ts
+onEdit() {
+    this.router.navigate(['edit'], {relativeTo: this.route, queryParamsHandling: 'preserve'});
+  }
+
+```
+relativeTo: this.route load đường dẫn hiện tại thêm /edit vào
+edit-server.component.ts
+```ts
+this.route.queryParams
+      .subscribe(
+        (queryParams: Params) => {
+          this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
+        }
+      );
+
+```
+edit-server.component.html
+```html
+<h4 *ngIf="!allowEdit">You're not allowed to edit!</h4>
+<div *ngIf="allowEdit">
+
+```
 ### 19. Configuring the Handling of Query Parameters
-
+server.component.ts
+Fix params bị mất khi ấn vào Link ở list server rồi ấn vào button Edit server thêm queryParamsHandling: 'preserve'
+queryParamsHandling : 'merge'
 ### 20. Redirecting and Wildcard Routes
+Tạo component page not found để url sai sẽ vào đây
+{ path: ":not-found", component: PageNotFoundComponent },
+{ path: "**", relativeTo: 'not-found'  } // phải để cuối cùng
 
 ### 21. Important Redirection Path Matching.html
+In our example, we didn't encounter any issues when we tried to redirect the user. But that's not always the case when adding redirections.
 
+By default, Angular matches paths by prefix. That means, that the following route will match both /recipes  and just / 
+
+```ts
+{ path: '', redirectTo: '/somewhere-else' } 
+
+```
+Actually, Angular will give you an error here, because that's a common gotcha: This route will now ALWAYS redirect you! Why?
+
+Since the default matching strategy is "prefix" , Angular checks if the path you entered in the URL does start with the path specified in the route. Of course every path starts with ''  (Important: That's no whitespace, it's simply "nothing").
+
+To fix this behavior, you need to change the matching strategy to "full" :
+
+```ts
+{ path: '', redirectTo: '/somewhere-else', pathMatch: 'full' } 
+
+```
+Now, you only get redirected, if the full path is ''  (so only if you got NO other content in your path in this example).
 ### 22. Outsourcing the Route Configuration
+Tạo file app-routing.module.ts
+```ts
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { EditServerComponent } from './servers/edit-server/edit-server.component';
+import { ServerComponent } from './servers/server/server.component';
+import { ServersComponent } from './servers/servers.component';
+import { UserComponent } from './users/user/user.component';
+import { UsersComponent } from './users/users.component';
+import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './auth-guard.service';
+import { CanDeactivateGuard } from './servers/edit-server/can-deactivate-guard.service';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { ServerResolver } from './servers/server/server-resolver.service';
+
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'users', component: UsersComponent, children: [
+    { path: ':id/:name', component: UserComponent }
+  ] },
+  {
+    path: 'servers',
+    // canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: ServersComponent,
+    children: [
+    { path: ':id', component: ServerComponent, resolve: {server: ServerResolver} },
+    { path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuard] }
+  ] },
+  // { path: 'not-found', component: PageNotFoundComponent },
+  { path: 'not-found', component: ErrorPageComponent, data: {message: 'Page not found!'} },
+  { path: '**', redirectTo: '/not-found' }
+];
+
+@NgModule({
+  imports: [
+    // RouterModule.forRoot(appRoutes, {useHash: true})
+    RouterModule.forRoot(appRoutes)
+  ],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {
+
+}
+
+```
+
+Module
+```ts
+imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule
+  ],
+
+
+```
 ### 23. An Introduction to Guards
 
 ### 24. Protecting Routes with canActivate
+Tạo file auth-guard.service.ts
+we will define that angular will execute this code before a route is loaded
+```ts
+canActivate(route: ActivatedRouteSnapshot,
+              state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean 
 
+```
+return về Observable, run asynchronously
+auth.service.ts
+```ts
+export class AuthService {
+  loggedIn = false;
+
+  isAuthenticated() {
+    const promise = new Promise(
+      (resolve, reject) => {
+        setTimeout(() => {
+          resolve(this.loggedIn);
+        }, 800);
+      }
+    );
+    return promise;
+  }
+
+  login() {
+    this.loggedIn = true;
+  }
+
+  logout() {
+    this.loggedIn = false;
+  }
+}
+
+```
+
+Thêm Injectable và constructor
+```ts
+@Injectable()
+export class AuthGuard implements CanActivate, CanActivateChild {
+  constructor(private authService: AuthService, private router: Router) {}
+
+canActivate(route: ActivatedRouteSnapshot,
+              state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    return this.authService.isAuthenticated()
+      .then(
+        (authenticated: boolean) => {
+          if (authenticated) {
+            return true;
+          } else {
+
+            // return false
+            this.router.navigate(['/']);
+          }
+        }
+      );
+  }
+
+
+```
+Vào app-routing.module  thêm canActivate
+```ts
+{
+    path: 'servers',
+    // Add
+    canActivate: [AuthGuard],
+    // canActivateChild: [AuthGuard],
+    component: ServersComponent,
+    children: [
+    { path: ':id', component: ServerComponent, resolve: {server: ServerResolver} },
+    { path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuard] }
+  ] },
+
+Nhớ khai báo
+  providers: [ServersService, AuthService, AuthGuard],
+
+```
+- Khai bao o routing
+```ts
+  canActivateChild: [AuthGuard],
+
+```
+Chi co tab server k load, back to home after 800s
 ### 25. Protecting Child (Nested) Routes with canActivateChild
 
 ### 26. Using a Fake Auth Service
