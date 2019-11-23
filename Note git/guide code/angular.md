@@ -4539,6 +4539,10 @@ Don't wonder - I changed the igChangeSub property to just subscription. So if yo
 
 ### 3. Template-Driven (TD) vs Reactive Approach
 ![](../root/img/2019-11-23-21-58-25.png)
+
+### 4. An Example Form
+
+### 5. TD Creating the Form and Registering the Controls
 Import FormsModule
 ```ts
 import { AppComponent } from './app.component';
@@ -4558,7 +4562,90 @@ import { AppComponent } from './app.component';
 export class AppModule { }
 
 ```
-Sau đó vào thẻ input thêm ngModel(two-way data binding) và name attr in HTML
+Sau đó vào thẻ input thêm ngModel(is not two-way data binding) và name attr in HTML
+```html
+<input
+              type="email"
+              id="email"
+              class="form-control"
+              ngModel
+              name="email">
+
+```
+ngModel tell angular this is a control, not two-way data binding
+### 6. TD Submitting and Using the Form
+File html
+ngSubmit is directive
+ngForm tell angular please help me can access the form
+```html
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+
+```
+`#f="ngForm">` : cho phép truy cập vào form
+Nếu để #f thì phải truyền như tham số vào hàm onSubmit, ghi log ra để xem
+
+app.component.ts
+```ts
+  // step 1
+  // <form (ngSubmit)="onSubmit(f)" #f>
+  // onSubmit(f: HTMLFormElement) {   Nếu để #f
+  //   console.log(f);
+  // }
+  
+  onSubmit(form: NgForm) {
+    // form.value
+    console.log(form);
+  }
+
+```
+### 7. TD Understanding Form State
+dirty, value, valid, controls
+### 8. TD Accessing the Form with @ViewChild
+Nếu không truyền tham số vào hàm thì sử dụng @ViewChild => access local ref
+```ts
+
+  @ViewChild('f', { static: false }) signupForm: NgForm;
+
+  onSubmit() {
+    this.submitted = true;
+    this.user.username = this.signupForm.value.userData.username;
+    this.user.email = this.signupForm.value.userData.email;
+    this.user.secretQuestion = this.signupForm.value.secret;
+    this.user.answer = this.signupForm.value.questionAnswer;
+    this.user.gender = this.signupForm.value.gender;
+
+    this.signupForm.reset();
+  }
+
+```
+### 9. TD Adding Validation to check User Input
+Thêm require, email => nhập giá trị hợp lên ghi log ra console giá trị valid = true và F12 để kiểm tra angular sẽ thêm các class
+email la 1 directive
+### 10. Built-in Validators & Using HTML5 Validation.html
+Which Validators do ship with Angular? 
+
+Check out the Validators class: https://angular.io/api/forms/Validators - these are all built-in validators, though that are the methods which actually get executed (and which you later can add when using the reactive approach).
+
+For the template-driven approach, you need the directives. You can find out their names, by searching for "validator" in the official docs: https://angular.io/api?type=directive - everything marked with "D" is a directive and can be added to your template.
+
+Additionally, you might also want to enable HTML5 validation (by default, Angular disables it). You can do so by adding the ngNativeValidate  to a control in your template.
+### 11. TD Using the Form State
+```html
+<button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!f.valid">Submit</button>
+
+```
+File css
+```cs
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+```
+.ng-touched assure user had clicked in it
+### 12. TD Outputting Validation Error Messages
 ```html
 <input
               type="email"
@@ -4569,40 +4656,151 @@ Sau đó vào thẻ input thêm ngModel(two-way data binding) và name attr in H
               required
               email
               #email="ngModel">
+<span class="help-
+block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
 
 ```
-### 4. An Example Form
-
-### 5. TD Creating the Form and Registering the Controls
-
-### 6. TD Submitting and Using the Form
-
-### 7. TD Understanding Form State
-
-### 8. TD Accessing the Form with @ViewChild
-
-### 9. TD Adding Validation to check User Input
-### 10. Built-in Validators & Using HTML5 Validation.html
-
-### 11. TD Using the Form State
-
-### 12. TD Outputting Validation Error Messages
-
+Thêm local reference #email=”ngModel”
+ngModel is a directive
 ### 13. TD Set Default Values with ngModel Property Binding
+Thêm biến defaultQuestion ở file ts và để ngModel trong dấu [] là prop binding
+```html
+<div class="form-group">
+          <label for="secret">Secret Questions</label>
+          <select
+            id="secret"
+            class="form-control"
+            [ngModel]="defaultQuestion"
+            name="secret">
+            <option value="pet">Your first Pet?</option>
+            <option value="teacher">Your first teacher?</option>
+          </select>
+        </div>
 
+```
 ### 14. TD Using ngModel with Two-Way-Binding
+add html
+```html
+<div class="form-group">
+          <textarea
+            name="questionAnswer"
+            rows="3"
+            class="form-control"
+            [(ngModel)]="answer"></textarea>
+        </div>
+        <p>Your reply: {{ answer }}</p>
+```
 
+```ts
+defaultQuestion = 'teacher';
+  answer = '';
+
+```
+3 type:
+- No binding: is a control
+- One way binding
+- Two way binding
 ### 15. TD Grouping Form Controls
+Sử dụng ngModelGroup để group sau này truy cập ra phải .userData
+userData is local reference
+```html
+ <div
+          id="user-data"
+          // Add
+          ngModelGroup="userData"
+          #userData="ngModelGroup"> // like  email
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              class="form-control"
+              ngModel
+              name="username"
+              required>
+          </div>
+          <button
+            class="btn btn-default"
+            type="button"
+            (click)="suggestUserName()">Suggest an Username</button>
+          <div class="form-group">
+            <label for="email">Mail</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              ngModel
+              name="email"
+              required
+              email
+              #email="ngModel">
+            <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
+          </div>
+        </div>
+<!--add-->
+<p *ngIf="!userData.valid && userData.touched">User Data is invalid!</p>
+
+```
 
 ### 16. TD Handling Radio Buttons
+  genders = ['male', 'female'];
 
+```html
+<div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input
+              type="radio"
+              name="gender"
+              ngModel
+              [value]="gender"
+              required>
+            {{ gender }}
+          </label>
+        </div>
+
+```
 ### 17. TD Setting and Patching Form Values
+```ts
+suggestUserName() {
+    const suggestedName = 'Superuser';
+    // this.signupForm.setValue({
+    //   userData: {
+    //     username: suggestedName,
+    //     email: ''
+    //   },
+    //   secret: 'pet',
+    //   questionAnswer: '',
+    //   gender: 'male'
+    // });
 
+// cách này k ghi đè giá trị da chon
+    this.signupForm.form.patchValue({
+      userData: {
+        username: suggestedName
+      }
+    });
+  }
+
+```
 ### 18. TD Using Form Data
+```html
+<div class="row" *ngIf="submitted">
+    <div class="col-xs-12">
+      <h3>Your Data</h3>
+      <p>Username: {{ user.username }}</p>
+      <p>Mail: {{ user.email }}</p>
+      <p>Secret Question: Your first {{ user.secretQuestion }}</p>
+      <p>Answer: {{ user.answer }}</p>
+      <p>Gender: {{ user.gender }}</p>
+    </div>
+  </div>
+```
 
 ### 19. TD Resetting Forms
-
-
+```ts
+this.signupForm.reset();
+// can use set value with obj you want
+```
 ### 20. Practicing Template-Driven Forms.html
 
 ### 21. Introduction to the Reactive Approach
