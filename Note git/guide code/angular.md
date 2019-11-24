@@ -208,6 +208,14 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [2. Changed the Subscription Name.html](#2-changed-the-subscription-namehtml)
   - [15. Handling Forms in Angular Apps](#15-handling-forms-in-angular-apps)
     - [1. Module Introduction](#1-module-introduction-6)
+    - [2. Why do we Need Angular's Help](#2-why-do-we-need-angulars-help)
+    - [3. Template-Driven (TD) vs Reactive Approach](#3-template-driven-td-vs-reactive-approach)
+    - [4. An Example Form](#4-an-example-form)
+    - [5. TD Creating the Form and Registering the Controls](#5-td-creating-the-form-and-registering-the-controls)
+    - [6. TD Submitting and Using the Form](#6-td-submitting-and-using-the-form)
+    - [7. TD Understanding Form State](#7-td-understanding-form-state)
+    - [8. TD Accessing the Form with @ViewChild](#8-td-accessing-the-form-with-viewchild)
+    - [9. TD Adding Validation to check User Input](#9-td-adding-validation-to-check-user-input)
     - [10. Built-in Validators & Using HTML5 Validation.html](#10-built-in-validators--using-html5-validationhtml)
     - [11. TD Using the Form State](#11-td-using-the-form-state)
     - [12. TD Outputting Validation Error Messages](#12-td-outputting-validation-error-messages)
@@ -218,7 +226,6 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [17. TD Setting and Patching Form Values](#17-td-setting-and-patching-form-values)
     - [18. TD Using Form Data](#18-td-using-form-data)
     - [19. TD Resetting Forms](#19-td-resetting-forms)
-    - [2. Why do we Need Angular's Help](#2-why-do-we-need-angulars-help)
     - [20. Practicing Template-Driven Forms.html](#20-practicing-template-driven-formshtml)
     - [21. Introduction to the Reactive Approach](#21-introduction-to-the-reactive-approach)
     - [22. Reactive Setup](#22-reactive-setup)
@@ -228,8 +235,8 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [26. Reactive Adding Validation](#26-reactive-adding-validation)
     - [27. Reactive Getting Access to Controls](#27-reactive-getting-access-to-controls)
     - [28. Reactive Grouping Controls](#28-reactive-grouping-controls)
+    - [Fixing a Bug](#fixing-a-bug)
     - [29. Reactive Arrays of Form Controls (FormArray)](#29-reactive-arrays-of-form-controls-formarray)
-    - [3. Template-Driven (TD) vs Reactive Approach](#3-template-driven-td-vs-reactive-approach)
     - [30. Reactive Creating Custom Validators](#30-reactive-creating-custom-validators)
     - [31. Reactive Using Error Codes](#31-reactive-using-error-codes)
     - [32. Reactive Creating a Custom Async Validator](#32-reactive-creating-a-custom-async-validator)
@@ -237,12 +244,6 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [34. Reactive Setting and Patching Values](#34-reactive-setting-and-patching-values)
     - [35. Practicing Reactive Forms.html](#35-practicing-reactive-formshtml)
     - [36. [OPTIONAL] Assignment Solution](#36-optional-assignment-solution)
-    - [4. An Example Form](#4-an-example-form)
-    - [5. TD Creating the Form and Registering the Controls](#5-td-creating-the-form-and-registering-the-controls)
-    - [6. TD Submitting and Using the Form](#6-td-submitting-and-using-the-form)
-    - [7. TD Understanding Form State](#7-td-understanding-form-state)
-    - [8. TD Accessing the Form with @ViewChild](#8-td-accessing-the-form-with-viewchild)
-    - [9. TD Adding Validation to check User Input](#9-td-adding-validation-to-check-user-input)
   - [16. Course Project - Forms](#16-course-project---forms)
     - [1. Introduction](#1-introduction-2)
     - [10. Creating the Template for the (Reactive) Recipe Edit Form](#10-creating-the-template-for-the-reactive-recipe-edit-form)
@@ -5104,12 +5105,189 @@ có thẻ chỉ rõ field cần reset in oject in reset({}) to don't clear radio
 ### 35. Practicing Reactive Forms.html
 
 ### 36. [OPTIONAL] Assignment Solution
-
-
+```html
+ <form [formGroup]="projectForm" (ngSubmit)="onSaveProject()">
+        <div class="form-group">
+          <label for="name">Project Name</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="projectName"
+            class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="email">Mail</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="status">Projectstatus</label>
+          <select
+            id="status"
+            formControlName="projectStatus"
+            class="form-control">
+            <option value="stable">Stable</option>
+            <option value="critical">Critical</option>
+            <option value="finished">Finished</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Create Project</button>
+      </form>
+```
+ts
+```ts
+ngOnInit() {
+    this.projectForm = new FormGroup({
+      'projectName': new FormControl(
+        null,
+        [Validators.required, CustomValidators.invalidProjectName],
+        CustomValidators.asyncInvalidProjectName
+      ),
+      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'projectStatus': new FormControl('critical')
+    });
+  }
+```
 ## 16. Course Project - Forms
 
 ### 1. Introduction
+### 2. TD Adding the Shopping List Form
+shopping-edit.component.html
+Nhớ khai báo FormModule trước
+Không cần sử dụng local ref như cũ thêm ngForm và name
+```html
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="row">
+        <div class="col-sm-5 form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            name="name"
+            ngModel
+          >
+        </div>
+        <div class="col-sm-2 form-group">
+          <label for="amount">Amount</label>
+          <input
+            type="number"
+            id="amount"
+            class="form-control"
+            name="amount"
+            ngModel
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <button
+            class="btn btn-success"
+            type="submit"
+            [disabled]="!f.valid">{{ editMode ? 'Update' : 'Add' }}</button>
+          
+        </div>
+      </div>
+    </form>
 
+```
+shopping-edit.component.ts
+```ts
+onSubmit(form: NgForm) {
+    const value = form.value;
+    const newIngredient = new Ingredient(value.name, value.amount);
+
+```
+### 3. Adding Validation to the Form
+```html
+<div class="col-sm-2 form-group">
+          <label for="amount">Amount</label>
+          <input
+            type="number"
+            id="amount"
+            class="form-control"
+            name="amount"
+            ngModel
+            <!-- add -->
+            required
+            pattern="^[1-9]+[0-9]*$"
+          >
+        </div>
+
+```
+Check số dương bằng pattern
+### 4. Allowing the Selection of Items in the List
+shopping-list.component.html thêm event onEditItem
+```html
+<a
+        class="list-group-item"
+        style="cursor: pointer"
+        *ngFor="let ingredient of ingredients; let i = index"
+        (click)="onEditItem(i)"
+      >
+        {{ ingredient.name }} ({{ ingredient.amount }})
+      </a>
+
+```
+shopping-list.component.ts
+```ts
+onEditItem(index: number) {
+    this.slService.startedEditing.next(index); // emit event
+  }
+
+```
+shopping-list.service.ts 
+Thêm   `startedEditing = new Subject<number>();`
+
+shopping-edit.component.ts lắng nghe lấy ra item mà click đổ data vào form
+```ts
+  @ViewChild('f', { static: false }) slForm: NgForm; // local ref
+  subscription: Subscription;
+  editMode = false;
+  editedItemIndex: number;
+  editedItem: Ingredient;
+
+  constructor(private slService: ShoppingListService) { }
+
+  ngOnInit() {
+    this.subscription = this.slService.startedEditing
+      .subscribe(
+        (index: number) => {
+          this.editedItemIndex = index;
+          this.editMode = true;
+          this.editedItem = this.slService.getIngredient(index);
+          // set value to form
+          this.slForm.setValue({
+            name: this.editedItem.name,
+            amount: this.editedItem.amount
+          })
+        }
+      );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+```
+### 5. Loading the Shopping List Items into the Form
+shopping-list.service.ts 
+```ts
+getIngredient(index: number) {
+    return this.ingredients[index];
+  }
+
+```
+### 6. Updating existing Items
+
+### 7. Resetting the Form
+
+### 8. Allowing the the User to Clear (Cancel) the Form
+
+### 9. Allowing the Deletion of Shopping List Items
 ### 10. Creating the Template for the (Reactive) Recipe Edit Form
 
 ### 11. Creating the Form For Editing Recipes
@@ -5130,7 +5308,6 @@ có thẻ chỉ rõ field cần reset in oject in reset({}) to don't clear radio
 
 ### 19. Redirecting the User (after Deleting a Recipe)
 
-### 2. TD Adding the Shopping List Form
 
 ### 20. Adding an Image Preview
 
@@ -5140,19 +5317,6 @@ có thẻ chỉ rõ field cần reset in oject in reset({}) to don't clear radio
 
 ### 23. Deleting all Items in a FormArray.html
 
-### 3. Adding Validation to the Form
-
-### 4. Allowing the Selection of Items in the List
-
-### 5. Loading the Shopping List Items into the Form
-
-### 6. Updating existing Items
-
-### 7. Resetting the Form
-
-### 8. Allowing the the User to Clear (Cancel) the Form
-
-### 9. Allowing the Deletion of Shopping List Items
 
 ## 17. Using Pipes to Transform Output
 
