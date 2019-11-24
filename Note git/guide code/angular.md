@@ -4806,32 +4806,301 @@ this.signupForm.reset();
 ### 21. Introduction to the Reactive Approach
 
 ### 22. Reactive Setup
+```ts
+export class AppComponent implements OnInit {
+  genders = ['male', 'female'];
+  signupForm: FormGroup;
 
+```
+khai báo ReactiveFormsModule 
+```ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    // Add
+    ReactiveFormsModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+```
 ### 23. Reactive Creating a Form in Code
+Sử dụng hàm onInit before render
+```ts
+ngOnInit() {
+    // create control
+    this.signupForm = new FormGroup({
+      'userData': new FormGroup({
+        'username': new FormControl(null, Validators.required),
+        'email': new FormControl(null, [Validators.required, Validators.email])
+      }),
+      'gender': new FormControl('male')
+    });
+  }
+
+```
+New FormControl nhận 2 tham số, thứ nhất là giá trị khởi tạo, in form, tham số thứ 2 là single validator, tham số thứ 3 là potential async validator
 
 ### 24. Reactive Syncing HTML and Form
+Thông báo sử dụng directive formGroup tham chiếu đến signupForm bằng cách thêm vào thẻ form
+Sử dụng directive formControlName thay cho name
+Có thể sử dụng [formControlName]="'username'" thay cho formControlName="username"
+
+```html
+ <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div formGroupName="userData">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              formControlName="username"
+              class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input
+              type="text"
+              id="email"
+              formControlName="email"
+              class="form-control">
+          </div>
+        </div>
+ <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input
+              type="radio"
+              formControlName="gender"
+              [value]="gender">{{ gender }}
+          </label>
+        </div>
+
+```
 
 ### 25. Reactive Submitting the Form
+Để submit thì thêm hàm (ngSubmit)="onSubmit()
+```ts
+onSubmit() {
+    console.log(this.signupForm);
+    this.signupForm.reset();
+  }
 
+```
 ### 26. Reactive Adding Validation
+Nếu muốn config tham số thì truyền tham số ở file ts
+```ts
+ngOnInit() {
+    // create control
+    this.signupForm = new FormGroup({
+      'userData': new FormGroup({
+        'username': new FormControl(null, Validators.required),
+        'email': new FormControl(null, [Validators.required, Validators.email])
+      }),
+      'gender': new FormControl('male')
+    });
+  }
 
+```
 ### 27. Reactive Getting Access to Controls
+```html
+          <span
+              *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
+              class="help-block">
+              <!-- <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">This name is invalid!</span>
+              <span *ngIf="signupForm.get('userData.username').errors['required']">This field is required!</span> -->
+              Invalid name
+            </span>
 
+        <span
+          *ngIf="!signupForm.valid && signupForm.touched"
+          class="help-block">Please enter valid data!</span>
+        <button class="btn btn-primary" type="submit">Submit</button>
+```
+
+Add css class
+```css
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+
+```
 ### 28. Reactive Grouping Controls
+Tạo form Group để chứa form control 
+```html
+        <div formGroupName="userData"> </div>
 
+```
+### Fixing a Bug
+In the next lecture, we'll add some code to access the controls of our form array:
+
+```ts
+*ngFor="let hobbyControl of signupForm.get('hobbies').controls; let i = index"
+
+```
+This code will fail as of the latest Angular version.
+
+You can fix it easily though. Outsource the "get the controls" logic into a method of your component code (the .ts file):
+
+```ts
+getControls() {
+  return (<FormArray>this.signupForm.get('hobbies')).controls;
+}
+
+```
+In the template, you can then use:
+
+```ts
+*ngFor="let hobbyControl of getControls(); let i = index"
+
+```
+Alternatively, you can set up a getter and use an alternative type casting syntax:
+
+```ts
+get controls() {
+  return (this.signupForm.get('hobbies') as FormArray).controls;
+}
+
+```
+and then in the template:
+
+```ts
+*ngFor="let hobbyControl of controls; let i = index"
+
+```
+This adjustment is required due to the way TS works and Angular parses your templates (it doesn't understand TS there).
 ### 29. Reactive Arrays of Form Controls (FormArray)
+```ts
+      'hobbies': new FormArray([])
+---
 
+onAddHobby() {
+    const control = new FormControl(null, Validators.required);
+    (<FormArray>this.signupForm.get('hobbies')).push(control);
+  }
+
+```
+File html: formArrayName="hobbies" connect
+```html
+<div formArrayName="hobbies">
+          <h4>Your Hobbies</h4>
+          <button
+            class="btn btn-default"
+            type="button"
+            (click)="onAddHobby()">Add Hobby</button>
+          <div
+            class="form-group"
+            *ngFor="let hobbyControl of signupForm.get('hobbies').controls; let i = index">
+            <input type="text" class="form-control" [formControlName]="i">
+          </div>
+        </div>
+
+```
 
 ### 30. Reactive Creating Custom Validators
+```ts
+  forbiddenUsernames = ['Chris', 'Anna'];
 
+forbiddenNames(control: FormControl): {[s: string]: boolean} {
+    if (this.forbiddenUsernames.indexOf(control.value) !== -1) {
+      return {'nameIsForbidden': true};
+    }
+    return null;
+  }
+
+
+this.signupForm = new FormGroup({
+      'userData': new FormGroup({
+        'username': new FormControl(null, [Validators.required, 
+        // this.forbiddenEmails.bind(this) refers this classthis.forbiddenNames.bind(this)]),
+        'email': new FormControl(null, [Validators.required, Validators.email], 
+        
+        this.forbiddenEmails)
+      }),
+      'gender': new FormControl('male'),
+      'hobbies': new FormArray([])
+    });
+
+```
+Phải có bind this nó mới hiểu this trong hàm kia
+[s: string]: boolean => mean: key: value; key is a string
 ### 31. Reactive Using Error Codes
+```html
+<span
+              *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
+              class="help-block">
+              <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">This name is invalid!</span>
+              <span *ngIf="signupForm.get('userData.username').errors['required']">This field is required!</span>
 
+            </span>
+
+```
+F12/ FormGroup/ controls/ userData/ controls/ username/ error
 ### 32. Reactive Creating a Custom Async Validator
+```ts
+forbiddenEmails(control: FormControl): Promise<any> | Observable<any> 
+{
+    const promise = new Promise<any>((resolve, reject) => {
+      setTimeout(() => {
+        if (control.value === 'test@test.com') {
+          resolve({'emailIsForbidden': true});
+        } else {
+          resolve(null);
+        }
+      }, 1500);
+    });
+    return promise;
+  }
 
+```
 ### 33. Reactive Reacting to Status or Value Changes
-
+Try it
+```ts
+ngOnInit() {
+    // add
+    // this.signupForm.valueChanges.subscribe(
+    //   (value) => console.log(value)
+    // );
+    this.signupForm.statusChanges.subscribe(
+      (status) => console.log(status)
+    );
+}
+```
 ### 34. Reactive Setting and Patching Values
+```ts
+// intitial
+this.signupForm.setValue({
+      'userData': {
+        'username': 'Max',
+        'email': 'max@test.com'
+      },
+      'gender': 'male',
+      'hobbies': []
+    });
+    // only set this field
+    this.signupForm.patchValue({
+      'userData': {
+        'username': 'Anna',
+      }
+    });
 
+// cách 2
+    this.signupForm.reset();
+có thẻ chỉ rõ field cần reset in oject in reset({}) to don't clear radio button
+
+```
 ### 35. Practicing Reactive Forms.html
 
 ### 36. [OPTIONAL] Assignment Solution
