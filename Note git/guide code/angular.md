@@ -5282,41 +5282,340 @@ getIngredient(index: number) {
 
 ```
 ### 6. Updating existing Items
+Hiển thị đúng tên btn khi edit
+```html
+<button
+            class="btn btn-success"
+            type="submit"
+            [disabled]="!f.valid">{{ editMode ? 'Update' : 'Add' }}</button>
 
+```
+Service
+```ts
+updateIngredient(index: number, newIngredient: Ingredient) {
+    this.ingredients[index] = newIngredient;
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
+
+```
+shopping-edit.component.ts
+```ts
+onSubmit(form: NgForm) {
+    const value = form.value;
+    const newIngredient = new Ingredient(value.name, value.amount);
+    if (this.editMode) {
+      // add
+      this.slService.updateIngredient(this.editedItemIndex, newIngredient);
+    } else {
+      this.slService.addIngredient(newIngredient);
+    }
+    this.editMode = false;
+    form.reset();
+  }
+
+```
 ### 7. Resetting the Form
+Hàm add
+```ts
+    this.editMode = false;    
+    form.reset(); // clear
 
+```
 ### 8. Allowing the the User to Clear (Cancel) the Form
+```ts
+onClear() {
+    this.slForm.reset();
+    this.editMode = false;
+  }
 
+```
 ### 9. Allowing the Deletion of Shopping List Items
+```html
+<button
+            class="btn btn-danger"
+            type="button"
+            (click)="onDelete()"
+            <!-- add -->
+            *ngIf="editMode">Delete</button>
+
+```
+```ts
+onDelete() {
+    this.slService.deleteIngredient(this.editedItemIndex);
+    this.onClear();
+  }
+
+ // Service
+deleteIngredient(index: number) {
+    this.ingredients.splice(index, 1);
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
+
+```
 ### 10. Creating the Template for the (Reactive) Recipe Edit Form
+Cách 2
+recipe-edit.component.html tạo template bình thường
+Nhớ khai báo ReactiveFormModule
 
 ### 11. Creating the Form For Editing Recipes
+Tạo hàm init
+```ts
+private initForm() {
+    let recipeName = '';
+    let recipeImagePath = '';
+    let recipeDescription = '';
+    let recipeIngredients = new FormArray([]);
 
+    if (this.editMode) {
+      const recipe = this.recipeService.getRecipe(this.id);
+      recipeName = recipe.name;
+      recipeImagePath = recipe.imagePath;
+      recipeDescription = recipe.description;
+	// thêm sau
+      if (recipe['ingredients']) {
+        for (let ingredient of recipe.ingredients) {
+          recipeIngredients.push(
+            new FormGroup({
+              'name': new FormControl(ingredient.name, Validators.required),
+              'amount': new FormControl(ingredient.amount, [
+                Validators.required,
+                Validators.pattern(/^[1-9]+[0-9]*$/)
+              ])
+            })
+          );
+        }
+      }
+    }
+
+    this.recipeForm = new FormGroup({
+      'name': new FormControl(recipeName, Validators.required),
+      'imagePath': new FormControl(recipeImagePath, Validators.required),
+      'description': new FormControl(recipeDescription, Validators.required),
+      'ingredients': recipeIngredients
+    });
+  }
+
+```
 ### 12. Syncing HTML with the Form
-
+import ReactiveFormsModule
+Thêm FormControlName, FormGroup vào file html
 ### 13. Adding Ingredient Controls to a Form Array
-
+```html
+<div class="row">
+        <div class="col-xs-12" formArrayName="ingredients">
+          <div
+            class="row"
+            *ngFor="let ingredientCtrl of recipeForm.get('ingredients').controls; let i = index"
+            [formGroupName]="i"
+            style="margin-top: 10px;">
+            <div class="col-xs-8">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="name">
+            </div>
+            <div class="col-xs-2">
+              <input
+                type="number"
+                class="form-control"
+                formControlName="amount">
+            </div>
+            <div class="col-xs-2">
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="onDeleteIngredient(i)">X</button>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-xs-12">
+              <button
+                type="button"
+                class="btn btn-success"
+                (click)="onAddIngredient()">Add Ingredient</button>
+            </div>
+          </div>
+        </div>
+      </div>
+```
 ### 14. Fixing a Bug.html
+Fixing a Bug
+In the next lecture, we'll add some code to access the controls of our form array:
 
+```ts
+*ngFor="let ingredientCtrl of recipeForm.get('ingredients').controls; let i = index"
+
+```
+This code will fail with the latest Angular version.
+
+You can fix it easily though. Outsource the "get the controls" logic into a getter of your component code (the .ts file):
+
+```ts
+get controls() { // a getter!
+  return (<FormArray>this.recipeForm.get('ingredients')).controls;
+}
+
+```
+In the template, you can then use:
+
+```ts
+*ngFor="let ingredientCtrl of controls; let i = index"
+
+```
+This adjustment is required due to the way TS works and Angular parses your templates (it doesn't understand TS there).
 ### 15. Adding new Ingredient Controls
+```ts
+onAddIngredient() {
+    (<FormArray>this.recipeForm.get('ingredients')).push(
+      new FormGroup({
+        'name': new FormControl(null, Validators.required),
+        'amount': new FormControl(null, [
+          Validators.required,
+          Validators.pattern(/^[1-9]+[0-9]*$/)
+        ])
+      })
+    );
+  }
 
+```
 ### 16. Validating User Input
+File css
+```css
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
 
+```
 ### 17. Submitting the Recipe Edit Form
+recipe-edit.component.ts
+```ts
+onSubmit() {
+    // const newRecipe = new Recipe(
+    //   this.recipeForm.value['name'],
+    //   this.recipeForm.value['description'],
+    //   this.recipeForm.value['imagePath'],
+    //   this.recipeForm.value['ingredients']);
+    if (this.editMode) {
+      this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+    } else {
+      this.recipeService.addRecipe(this.recipeForm.value);
+    }
+    this.onCancel();
+  }
 
+```
+Service
+```ts
+  recipesChanged = new Subject<Recipe[]>();
+
+addRecipe(recipe: Recipe) {
+    this.recipes.push(recipe);
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+  updateRecipe(index: number, newRecipe: Recipe) {
+    this.recipes[index] = newRecipe;
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+  deleteRecipe(index: number) {
+    this.recipes.splice(index, 1);
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+```
+recipe-list.component.ts
+```ts
+ngOnInit() {
+    this.subscription = this.recipeService.recipesChanged
+      .subscribe(
+        (recipes: Recipe[]) => {
+          this.recipes = recipes;
+        }
+      );
+    this.recipes = this.recipeService.getRecipes();
+  }
+
+```
 ### 18. Adding a Delete and Clear (Cancel) Functionality
+recipe-detail
+```ts
+onDeleteRecipe() {
+    this.recipeService.deleteRecipe(this.id);
+    this.router.navigate(['/recipes']);
+  }
 
+```
+recipe-edit
+```ts
+// after submit call this.onCancel();
+onCancel() {
+    this.router.navigate(['../'], {relativeTo: this.route});
+  }
+
+```
 ### 19. Redirecting the User (after Deleting a Recipe)
 
 
 ### 20. Adding an Image Preview
+Thêm local ref imagePath; truy cập imagePath.value
+```html
+<div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="imagePath">Image URL</label>
+            <input
+              type="text"
+              id="imagePath"
+              formControlName="imagePath"
+              class="form-control"
+              <!-- add -->
+              #imagePath>
+          </div>
+        </div>
+      </div>
+      <!-- add -->
+      <div class="row">
+        <div class="col-xs-12">
+          <img [src]="imagePath.value" class="img-responsive">
+        </div>
+      </div>
 
+```
 ### 21. Providing the Recipe Service Correctly
+Khai báo service trong module để đảm bảo có 1 instance được tạo k khia bao trong recipes vi di chuyen qua shopping list se mat
+```ts
+  providers: [ShoppingListService, RecipeService],
 
+```
 ### 22. Deleting Ingredients and Some Finishing Touches
+recipe-edit.component
+```ts
+onDeleteIngredient(index: number) {
+    (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
+  }
 
+```
+Thêm recipe-list.component
+```ts
+ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+```
 ### 23. Deleting all Items in a FormArray.html
+Deleting all Items in a FormArray
+As of Angular 8, there's a new way of clearing all items in a FormArray.
 
+```ts
+(<FormArray>this.recipeForm.get('ingredients')).clear();
+
+```
+The clear() method automatically loops through all registered FormControls (or FormGroups) in the FormArray and removes them.
+
+It's like manually creating a loop and calling removeAt() for every item.
 
 ## 17. Using Pipes to Transform Output
 
