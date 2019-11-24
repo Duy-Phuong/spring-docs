@@ -142,3 +142,6 @@ https://drive.google.com/drive/folders/1ZV9JwJOQTDAIRQQYES8JpFZ1R4hyF6Ud?fbclid=
 
 https://www.udemy.com/course/complete-beginners-java-tutorial-java-javafx-maven/?LSNPUBID=JVFxdTr9V80&ranEAID=JVFxdTr9V80&ranMID=39197&ranSiteID=JVFxdTr9V80-GQ1WXvrXbALxJqqBU_oEqQ
 https://shareprogramming.net/connect-mongodb-trong-mongoose/?fbclid=IwAR3MRN2Dn8if8aF6TCiGZpEFy9HrgMZd3AiNqYa2Xk3VnNPF8mdKZ5f5cxI
+
+react django
+https://www.youtube.com/watch?v=Uyei2iDA4Hs&list=PLillGF-RfqbbRA-CIUxlxkUpbq0IFkX60&fbclid=IwAR1efTFV73cJbgNodR2XEiTjYlPVM9E9rLm_rvs_HpDpb8ZIC0n7lke9Vro

@@ -5621,25 +5621,126 @@ It's like manually creating a loop and calling removeAt() for every item.
 
 ### 1. Introduction & Why Pipes are Useful
 
-### 10. Understanding the async Pipe
-
-### 11. Practicing Pipes.html
-
+Pipe: Transform output value to out template
 ### 2. Using Pipes
+Thay đổi
+```html
+<strong>{{ server.name | shorten:15 }}</strong> |
+          {{ server.instanceType | uppercase }} |
+          {{ server.started | date:'fullDate' | uppercase }}
 
+```
 ### 3. Parametrizing Pipes
+**date:'fullDate'**
+
+https://angular.io/guide/pipes
+https://angular.io/api?query=pipe
 
 ### 4. Where to learn more about Pipes
 
 ### 5. Chaining Multiple Pipes
-
+Lưu ý thứ tự từ trái qua phải
 ### 6. Creating a Custom Pipe
+Tạo file shorten.pipe.ts
+```ts
+import { Pipe, PipeTransform } from '@angular/core';
 
+@Pipe({
+  name: 'shorten'
+})
+export class ShortenPipe implements PipeTransform {
+  transform(value: any, limit: number) {
+    if (value.length > limit) {
+      return value.substr(0, limit) + ' ...';
+    }
+    return value;
+  }
+}
+
+```
+
+Khai báo
+```ts
+declarations: [
+    AppComponent,
+    ShortenPipe,
+    FilterPipe
+  ],
+
+```
 ### 7. Parametrizing a Custom Pipe
-
+Neu nhieu tham so: shorten:15:12
 ### 8. Example Creating a Filter Pipe
+```html
+      <input type="text" [(ngModel)]="filteredStatus">
 
+```
+Gõ
+```ts
+ng generate pipe filter
+ng g p filter
+
+```
+filter.pipe.ts
+```ts
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'filter',
+  pure: false
+})
+export class FilterPipe implements PipeTransform {
+
+  transform(value: any, filterString: string, propName: string): any {
+    if (value.length === 0 || filterString === '') {
+      return value;
+    }
+    const resultArray = [];
+    for (const item of value) {
+      if (item[propName] === filterString) {
+        resultArray.push(item);
+      }
+    }
+    return resultArray;
+  }
+
+}
+
+```
+Must import
+```html
+<li
+          class="list-group-item"
+          *ngFor="let server of servers | filter:filteredStatus:'status'"
+          [ngClass]="getStatusClasses(server)">
+
+```
 ### 9. Pure and Impure Pipes (or How to fix the Filter Pipe)
+Khi thêm mới server khi bam nut ADD, filter sẽ không update nên cần thêm  pure: false nó sẽ tính toán lại khi bất cứ thay đổi nào happen => affect performance NG
+
+```ts
+@Pipe({
+  name: 'filter',
+  pure: false
+})
+// Update array or object doesn't trigger it
+```
+### 10. Understanding the async Pipe
+app.component.ts
+```ts
+appStatus = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('stable');
+    }, 2000);
+  });
+
+```
+```html
+<!-- Print data after 2s -->
+      <h2>App Status: {{ appStatus | async}}</h2>
+
+```
+### 11. Practicing Pipes.html
 
 ## 18. Making Http Requests
 
