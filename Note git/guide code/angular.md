@@ -6173,9 +6173,36 @@ export class AuthInterceptorService implements HttpInterceptor {
 }
 ```
 ### 25. Response Interceptors
-
+Có thể thay đổi response
+![](../root/img/2019-11-26-01-43-47.png)
 ### 26. Multiple Interceptors
+Tạo file logging-intercepter.service.ts
+```ts
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpEventType
+} from '@angular/common/http';
+import { tap } from 'rxjs/operators';
 
+export class LoggingInterceptorService implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    console.log('Outgoing request');
+    console.log(req.url);
+    console.log(req.headers);
+    return next.handle(req).pipe(
+      tap(event => {
+        if (event.type === HttpEventType.Response) {
+          console.log('Incoming response');
+          console.log(event.body);
+        }
+      })
+    );
+  }
+}
+
+```
 ### 27. Wrap Up
 
 ### 28. Useful Resources & Links.html
