@@ -6202,6 +6202,19 @@ export class LoggingInterceptorService implements HttpInterceptor {
   }
 }
 
+// Add - Luu y thu tu
+providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoggingInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
 ```
 ### 27. Wrap Up
 
