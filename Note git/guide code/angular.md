@@ -5746,38 +5746,432 @@ appStatus = new Promise((resolve, reject) => {
 
 ### 1. A New IDE
 
+### 3. How Does Angular Interact With Backends
+
+![](../root/img/2019-11-25-21-29-49.png)
+https://academind.com/learn/javascript/hide-javascript-code/
+https://academind.com/learn/node-js/building-a-restful-api-with/
+
+### 3.1 Securing JS Code.html
+
+### 3.2 Building a REST API.html
+
+### 4. The Anatomy of a Http Request
+![](../root/img/2019-11-25-21-27-24.png)
+
+### 5. Backend (Firebase) Setup
+https://console.firebase.google.com/?pli=1
+
+Create project/ input name ng-complete-guide
+![](../root/img/2019-11-25-21-55-17.png)  
+![](../root/img/2019-11-25-21-56-23.png)
+
+Vao tab database(It's a complete back-end service)
+![](../root/img/2019-11-25-21-58-49.png)
+
+Vào mục database/ real time db/ Chọn start in test mode
+![](../root/img/2019-11-25-21-59-14.png)
+https://ng-complete-guide-35524.firebaseio.com/
+
+https://console.firebase.google.com/project/ng-complete-guide-35524/database/ng-complete-guide-35524/data
+
+### 6. Sending a POST Request
+6.1 http-02-post-requests.zip
+```ts
+  constructor(private http: HttpClient) {}
+
+onCreatePost(postData: { title: string; content: string }) {
+    // Send Http request
+    this.http
+      .post(
+        'https://ng-complete-guide-c56d3.firebaseio.com/posts.json',
+        postData
+      )
+      .subscribe(responseData => {
+        console.log(responseData);
+      });
+  }
+// neu k subscribe, no se k gui request
+// F12 OPTIONS check post req allow
+```
+Import HttpClientModule
+```ts
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, FormsModule, HttpClientModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+
+```
+F12 vào tab network để check, hàm post return a Observable 
+
+### 7. GETting Data
+Fetch data làm như post
+```ts
+private fetchPosts() {
+    this.http
+      .get('https://ng-complete-guide-c56d3.firebaseio.com/posts.json')
+      .subscribe(posts => {
+        // ...
+        console.log(posts);
+      });
+  }
+}
+```
+### 8. Using RxJS Operators to Transform Response Data
+```ts
+private fetchPosts() {
+    this.http
+      .get('https://ng-complete-guide-c56d3.firebaseio.com/posts.json')
+      .pipe(  // add
+        map(responseData => {
+          const postsArray = [];
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key)) {
+              postsArray.push({ ...responseData[key], id: key });
+            }
+          }
+          return postsArray;
+        })
+      )
+      .subscribe(posts => {
+        // ...
+        console.log(posts);
+      });
+  }
+
+```
+### 9. Using Types with the HttpClient
+model
+```ts
+export interface Post {
+  title: string;
+  content: string;
+  id?: string;
+}
+```
+
+```ts
+.get<{ [key: string]: Post }> 
+// nghĩa là 1 key có kiểu string sẽ có gtri là Post
+
+this.http
+      .post<{ name: string }>
+```
 ### 10. Outputting Posts
-
+```ts
+ <div class="col-xs-12 col-md-6 col-md-offset-3">
+      <p *ngIf="loadedPosts.length < 1 && !isFetching">No posts available!</p>
+      <ul class="list-group" *ngIf="loadedPosts.length >= 1 && !isFetching">
+        <li class="list-group-item" *ngFor="let post of loadedPosts">
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.content }}</p>
+        </li>
+      </ul>
+      <p *ngIf="isFetching">Loading...</p>
+    </div>
+```
 ### 11. Showing a Loading Indicator
+```ts
+<p *ngIf="loadedPosts.length < 1 && !isFetching">No posts available!
+</p>
 
+```
 ### 12. Using a Service for Http Requests
+posts.service.ts
+```ts
+@Injectable({ providedIn: 'root' })
+export class PostsService {
+  error = new Subject<string>();
 
+  constructor(private http: HttpClient) {}
+
+  createAndStorePost(title: string, content: string) {
+    const postData: Post = { title: title, content: content };
+    this.http
+      .post<{ name: string }>(
+        'https://ng-complete-guide-c56d3.firebaseio.com/posts.json',
+        postData
+      )
+      .subscribe(
+        responseData => {
+          console.log(responseData);
+        }
+      );
+  }
+
+  fetchPosts() {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('print', 'pretty');
+    searchParams = searchParams.append('custom', 'key');
+    return this.http
+      .get<{ [key: string]: Post }>(
+        'https://ng-complete-guide-c56d3.firebaseio.com/posts.json'
+      )
+      .pipe(
+        map(responseData => {
+          const postsArray: Post[] = [];
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key)) {
+              postsArray.push({ ...responseData[key], id: key });
+            }
+          }
+          return postsArray;
+        })
+      );
+  }
+
+----
+
+```
+//
+ lost connection between data from service and template
 ### 13. Services & Components Working Together
+```ts
+constructor(private http: HttpClient, private postsService: 
+PostsService) {}
 
+  onFetchPosts() {
+    // Send Http request
+    this.isFetching = true;
+    this.postsService.fetchPosts().subscribe(
+      posts => {
+        this.isFetching = false;
+        this.loadedPosts = posts;
+      },
+      error => {
+        this.error = error.message;
+        console.log(error);
+      }
+    );
+  }
+```
 ### 14. Sending a DELETE Request
+```ts
+onClearPosts() {
+    // Send Http request
+    this.postsService.deletePosts().subscribe(() => {
+      this.loadedPosts = [];
+    });
+  }
 
+----
+// Service
+deletePosts() {
+    return this.http
+      .delete('https://ng-complete-guide-c56d3.firebaseio.com/posts.json');
+}
+
+```
 ### 15. Handling Errors
-
+![](../root/img/2019-11-26-00-30-02.png)
+read : false
+```ts
+ngOnInit() {
+    this.isFetching = true;
+    this.postsService.fetchPosts().subscribe(
+      posts => {
+        this.isFetching = false;
+        this.loadedPosts = posts;
+      },
+      // Add
+      error => {
+        this.isFetching = false;
+        this.error = error.message;
+        console.log(error);
+      }
+    );
+  }
+```
 ### 16. Using Subjects for Error Handling
+service
+```ts
+error = new Subject<string>();
+  createAndStorePost(title: string, content: string) {
+    const postData: Post = { title: title, content: content };
+    this.http
+      .post<{ name: string }>(
+        'https://ng-complete-guide-c56d3.firebaseio.com/posts.json',
+        postData,
+        {
+          observe: 'response'
+        }
+      )
+      .subscribe(
+        responseData => {
+          console.log(responseData);
+        },
+        // Add
+        error => {
+          this.error.next(error.message);
+        }
+      );
+  }
+```
 
+app.component.ts
+```ts
+// Add trong ham onInit
+this.errorSub = this.postsService.error.subscribe(errorMessage => {
+      this.error = errorMessage;
+    });
+// Destroy
+```
 ### 17. Using the catchError Operator
+service
+```ts
+fetchPosts() {
+    // let searchParams = new HttpParams();
+    // searchParams = searchParams.append('print', 'pretty');
+    // searchParams = searchParams.append('custom', 'key');
+    return this.http
+      .get<{ [key: string]: Post }>(
+        'https://ng-complete-guide-c56d3.firebaseio.com/posts.json',
+        // {
+        //   headers: new HttpHeaders({ 'Custom-Header': 'Hello' }),
+        //   params: searchParams,
+        //   responseType: 'json'
+        // }
+      )
+      .pipe(
+        map(responseData => {
+          const postsArray: Post[] = [];
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key)) {
+              postsArray.push({ ...responseData[key], id: key });
+            }
+          }
+          return postsArray;
+        }),
+        // add
+        catchError(errorRes => {
+          // Send to analytics server
+          return throwError(errorRes);
+        })
+      );
+  }
+
+```
 
 ### 18. Error Handling & UX
+app
+```ts
+onFetchPosts() {
+    // Send Http request
+    this.isFetching = true;
+    this.postsService.fetchPosts().subscribe(
+      posts => {
+        this.isFetching = false;
+        this.loadedPosts = posts;
+      },
+      
+      // Add
+      error => {
+        this.isFetching = false;
+        this.error = error.message;
+        console.log(error);
+      }
+    );
+  }
 
+onHandleError() {
+    this.error = null;
+  }
+```
 ### 19. Setting Headers
-
-### 2. Module Introduction
-
+```ts
+ let searchParams = new HttpParams();
+    searchParams = searchParams.append('print', 'pretty');
+    searchParams = searchParams.append('custom', 'key');
+return this.http
+      .get<{ [key: string]: Post }>(
+        'https://ng-complete-guide-c56d3.firebaseio.com/posts.json',
+        {
+          headers: new HttpHeaders({ 'Custom-Header': 'Hello' }),
+          params: searchParams,
+          responseType: 'json'
+        }
+      )
+```
 ### 20. Adding Query Params
 
 ### 21. Observing Different Types of Responses
+Có thể observe là body để chỉ nhận body, response để xem nhiều thứ khác như stt code
+```ts
+this.http
+      .post<{ name: string }>(
+        'https://ng-complete-guide-c56d3.firebaseio.com/posts.json',
+        postData,
+        {
+          observe: 'response'  // 'body'
+        }
+      )
+      // convert to js object
 
+deletePosts() {
+    return this.http
+      .delete('https://ng-complete-guide-c56d3.firebaseio.com/posts.json', {
+        observe: 'events',
+        responseType: 'text'
+      })
+      .pipe(
+        // execute without altering the response
+        tap(event => {
+          console.log(event);
+          if (event.type === HttpEventType.Sent) {
+            // ...
+          }
+          if (event.type === HttpEventType.Response) {
+            console.log(event.body);
+          }
+        })
+      );
+  }
+```
 ### 22. Changing the Response Body Type
 
 ### 23. Introducing Interceptors
+auth-interceptor.service
+```ts
+import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/co
+mmon/http';
 
+export class AuthInterceptorService implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    console.log('Request is on its way');
+    // let req continue run
+    return next.handle(req);
+  }
+}
+
+
+```
+Chay truoc khi req leave app => send
+Khai báo:
+```ts
+providers: [
+    {
+      provide: HTTP_INTERCEPTORS, // this is a token
+      useClass: AuthInterceptorService,
+      multi: true // not replace exist intercepters
+    }
+  ],
+
+```
 ### 24. Manipulating Request Objects
-
+Khi muốn thay đổi request obj 
+```ts
+export class AuthInterceptorService implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    const modifiedRequest = req.clone({
+      headers: req.headers.append('Auth', 'xyz')
+    });
+    console.log(req.url);
+    return next.handle(modifiedRequest);
+  }
+}
+```
 ### 25. Response Interceptors
 
 ### 26. Multiple Interceptors
@@ -5786,23 +6180,6 @@ appStatus = new Promise((resolve, reject) => {
 
 ### 28. Useful Resources & Links.html
 
-### 3. How Does Angular Interact With Backends
-
-### 3.1 Securing JS Code.html
-
-### 3.2 Building a REST API.html
-
-### 4. The Anatomy of a Http Request
-
-### 5. Backend (Firebase) Setup
-
-### 6. Sending a POST Request
-
-### 7. GETting Data
-
-### 8. Using RxJS Operators to Transform Response Data
-
-### 9. Using Types with the HttpClient
 
 ## 19. Course Project - Http
 
