@@ -6430,7 +6430,9 @@ export class AuthComponent {}
 ```
 
 Nhớ khai báo component
+Routing
 ```ts
+  { path: 'shopping-list', component: ShoppingListComponent },
   { path: 'auth', component: AuthComponent }
 
 ```
@@ -6442,16 +6444,138 @@ Vào header thêm
 
 ```
 ### 4. Switching Between Auth Modes
+```ts
+export class AuthComponent {
+  isLoginMode = true;
 
+  onSwitchMode() {
+    this.isLoginMode = !this.isLoginMode;
+  }
+
+  onSubmit(form: NgForm) {
+    console.log(form.value);
+    form.reset();
+  }
+}
+
+```
+File auth.component.html
+```html
+<form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+      <div class="form-group">
+        <label for="email">E-Mail</label>
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          ngModel
+          name="email"
+          required
+          email
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          ngModel
+          name="password"
+          required
+          minlength="6"
+        />
+      </div>
+      <div>
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!authForm.valid"
+        >
+          {{ isLoginMode ? 'Login' : 'Sign Up' }}
+        </button>
+        |
+        <button class="btn btn-primary" (click)="onSwitchMode()" type="button">
+          Switch to {{ isLoginMode ? 'Sign Up' : 'Login' }}
+        </button>
+      </div>
+    </form>
+
+```
 ### 5. Handling Form Input
 
 ### 6. Preparing the Backend
+Vao database/ rule/ 
+```js
+{
+  "read": "auth != null",
+  "write": "auth != null"
+}
+
+```
+![](../root/img/2019-11-27-00-25-19.png)
+
+Authen... / set up the sign in method
+![](../root/img/2019-11-27-00-37-11.png)
+SAVE sau do vao tab USER
 
 ### 7. Make sure you got Recipes in your backend!.html
+Make sure you got Recipes in your backend!
+In order to continue with this module and send successful authenticated requests, you need to ensure that you got recipes stored in your backend database.
 
+So in case you deleted those (or never added any), make sure you do add some recipes before you turn on protection as shown in the last lecture!
 ### 8. Preparing the Signup Request
+GG: firebase auth rest api
+https://firebase.google.com/docs/reference/rest/auth/
+
+Xem Endpoint
 
 ### 9. Sending the Signup Request
+Sign up with email / password
+![](../root/img/2019-11-27-00-45-22.png)
+get key from Project setting copy web api key paste vào url
+auth.service.ts
+```ts
+interface AuthResponseData {
+  kind: string;
+  idToken: string;
+  email: string;
+  refreshToken: string;
+  expiresIn: string;
+  localId: string;
+}
+
+@Injectable({ providedIn: 'root' })
+export class AuthService {
+  constructor(private http: HttpClient) {}
+
+  signup(email: string, password: string) {
+    return this.http
+      .post<AuthResponseData>(
+        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=[API_KEY]',
+        {
+          email: email,
+          password: password,
+          returnSecureToken: true
+        }
+      )
+      .pipe(
+        catchError(errorRes => {
+          let errorMessage = 'An unknown error occurred!';
+          if (!errorRes.error || !errorRes.error.error) {
+            return throwError(errorMessage);
+          }
+          switch (errorRes.error.error.message) {
+            case 'EMAIL_EXISTS':
+              errorMessage = 'This email exists already';
+          }
+          return throwError(errorMessage);
+        })
+      );
+  }
+}
+
+```
 
 ### 10. Adding a Loading Spinner & Error Handling Logic
 
