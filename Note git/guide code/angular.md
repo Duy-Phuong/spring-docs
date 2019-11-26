@@ -6220,28 +6220,192 @@ providers: [
 
 ### 28. Useful Resources & Links.html
 
-
 ## 19. Course Project - Http
 
 ### 1. Module Introduction
-
+SAVE AND FETCH in header
 ### 2. Backend (Firebase) Setup
-
+Project name: ng-course-recipe-book / real time db
 ### 3. Setting Up the DataStorage Service
 
 ### 4. Storing Recipes
+data-storage.service.ts ở header active 2 button
+```ts
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
+import { Recipe } from '../recipes/recipe.model';
+import { RecipeService } from '../recipes/recipe.service';
+
+@Injectable({ providedIn: 'root' })
+export class DataStorageService {
+  constructor(private http: HttpClient, private recipeService: RecipeService) {}
+
+  storeRecipes() {
+    const recipes = this.recipeService.getRecipes();
+    this.http
+      .put(
+        'https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json',
+        recipes
+      )
+      .subscribe(response => {
+        console.log(response);
+      });
+  }
+
+  fetchRecipes() {
+    this.http
+      .get<Recipe[]>(
+        'https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json'
+      )
+      // add => always have ingredients
+      .pipe(
+        map(recipes => {
+          // map step2 is an arraya func
+          return recipes.map(recipe => {
+            return {
+              ...recipe,
+              ingredients: recipe.ingredients ? recipe.ingredients : []
+            };
+          });
+        })
+      )
+      // end add
+      .subscribe(recipes => {
+        this.recipeService.setRecipes(recipes);
+      });
+  }
+}
+
+```
+
+Nhớ import HttpClientModule
+
+recipe.service.ts
+```ts
+private recipes: Recipe[] = [];
+
+setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
+```
 ### 5. Fetching Recipes
 
 ### 6. Transforming Response Data
 
 ### 7. Resolving Data Before Loading
+O page detail an reload => fail
+boi vi khi k an nut FETCH DATA thi khi data empty o page detail => reload detail => fail
+recipes-resolver.service
+```ts
+import { Injectable } from '@angular/core';
+import {
+  Resolve,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot
+} from '@angular/router';
 
+import { Recipe } from './recipe.model';
+import { DataStorageService } from '../shared/data-storage.service';
+import { RecipeService } from './recipe.service';
+
+@Injectable({ providedIn: 'root' })
+export class RecipesResolverService implements Resolve<Recipe[]> {
+  constructor(
+    private dataStorageService: DataStorageService,
+    private recipesService: RecipeService
+  ) {}
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const recipes = this.recipesService.getRecipes();
+
+    if (recipes.length === 0) {
+      // Always get new one step 8
+      return this.dataStorageService.fetchRecipes();
+    } else {
+      return recipes;
+    }
+  }
+}
+
+
+```
+data-storage.service.ts
+```ts
+fetchRecipes() {
+    return this.http
+      .get<Recipe[]>(
+        'https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json'
+      )
+      .pipe(
+        map(recipes => {
+          return recipes.map(recipe => {
+            return {
+              ...recipe,
+              ingredients: recipe.ingredients ? recipe.ingredients : []
+            };
+          });
+        }),
+        // add
+        tap(recipes => {
+          this.recipeService.setRecipes(recipes);
+        })
+      )
+  }
+
+  // header.component.ts
+  onFetchData() {
+    this.dataStorageService.fetchRecipes().subscribe();
+  }
+```
+routing
+```ts
+children: [
+      { path: '', component: RecipeStartComponent },
+      { path: 'new', component: RecipeEditComponent },
+      {
+        path: ':id',
+        component: RecipeDetailComponent,
+        resolve: [RecipesResolverService]
+      },
+      {
+        path: ':id/edit',
+        component: RecipeEditComponent,
+        resolve: [RecipesResolverService]
+      }
+    ]
+
+```
 ### 8. Fixing a Bug with the Resolver
-
+edit not save
 ## 20. Authentication & Route Protection in Angular
 
 ### 1. Module Introduction
+
+### 2. How Authentication Works
+Happen in the server not client 
+Traditional web using session but in angular we will handle with angular and its router, Server is Rest API  
+Server and client is decouple
+
+RestAPI là stateless vì vậy server không quan tâm đến client nên session không được sử dụng => token: string được mã hóa và giải mã bởi client, token được tạo ra ở server và mã hóa bằng thuật toán chỉ có server biết
+Chỉ có server có thể validate incoming token 
+![](../root/img/2019-11-26-23-19-19.png)
+
+### 3. Adding the Auth Page
+
+### 4. Switching Between Auth Modes
+
+### 5. Handling Form Input
+
+### 6. Preparing the Backend
+
+### 7. Make sure you got Recipes in your backend!.html
+
+### 8. Preparing the Signup Request
+
+### 9. Sending the Signup Request
 
 ### 10. Adding a Loading Spinner & Error Handling Logic
 
@@ -6263,7 +6427,6 @@ providers: [
 
 ### 19. Adding Auto-Login
 
-### 2. How Authentication Works
 
 ### 20. Adding Auto-Logout
 
@@ -6272,20 +6435,6 @@ providers: [
 ### 22. Wrap Up
 
 ### 23. Useful Resources & Links.html
-
-### 3. Adding the Auth Page
-
-### 4. Switching Between Auth Modes
-
-### 5. Handling Form Input
-
-### 6. Preparing the Backend
-
-### 7. Make sure you got Recipes in your backend!.html
-
-### 8. Preparing the Signup Request
-
-### 9. Sending the Signup Request
 
 ## 21. Dynamic Components
 
