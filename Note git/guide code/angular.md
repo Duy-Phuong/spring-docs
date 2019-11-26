@@ -6531,6 +6531,7 @@ https://firebase.google.com/docs/reference/rest/auth/
 Xem Endpoint
 
 ### 9. Sending the Signup Request
+auth-03-signup-request
 Sign up with email / password
 ![](../root/img/2019-11-27-00-45-22.png)
 get key from Project setting copy web api key paste vào url
@@ -6558,9 +6559,74 @@ export class AuthService {
           password: password,
           returnSecureToken: true
         }
+      );
+  }
+}
+
+```
+auth.component.ts
+```ts
+onSubmit(form: NgForm) {
+    if (!form.valid) {
+      return;
+    }
+    const email = form.value.email;
+    const password = form.value.password;
+
+    this.isLoading = true;
+    if (this.isLoginMode) {
+      // ...
+    } else {
+      this.authService.signup(email, password).subscribe(
+        resData => {
+          console.log(resData);
+          this.isLoading = false;
+        },
+        errorMessage => {
+          console.log(errorMessage);
+          this.error = errorMessage;
+          this.isLoading = false;
+        }
+      );
+    }
+
+    form.reset();
+  }
+```
+
+
+### 10. Adding a Loading Spinner & Error Handling Logic
+GG: css loading spinner
+https://loading.io/css/
+Vào share tạo folder loading tạo component loading va Khai bao
+auth.component.html
+```html
+  <div class="alert alert-danger" *ngIf="error">
+      <p>{{ error }}</p>
+    </div>
+    <div *ngIf="isLoading" style="text-align: center;">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
+
+```
+### 11. Improving Error Handling
+Xem lại thêm auth-03-signup-request
+Hàm sign up auth.service.ts
+```ts
+signup(email: string, password: string) {
+    return this.http
+      .post<AuthResponseData>(
+        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDb0xTaRAoxyCgvaDF3kk5VYOsTwB_3o7Y',
+        {
+          email: email,
+          password: password,
+          returnSecureToken: true
+        }
       )
       .pipe(
         catchError(errorRes => {
+          // Ban dau dat trong auth.component.ts ham subscribe
           let errorMessage = 'An unknown error occurred!';
           if (!errorRes.error || !errorRes.error.error) {
             return throwError(errorMessage);
@@ -6573,16 +6639,79 @@ export class AuthService {
         })
       );
   }
-}
 
 ```
+auth.component.ts
+```ts
+if (this.isLoginMode) {
+      // ...
+    } else {
+      this.authService.signup(email, password).subscribe(
+        resData => {
+          console.log(resData);
+          this.isLoading = false;
+        },
+        errorMessage => {
+          console.log(errorMessage);
+          this.error = errorMessage;
+          this.isLoading = false;
+        }
+      );
+    }
 
-### 10. Adding a Loading Spinner & Error Handling Logic
-
-### 11. Improving Error Handling
-
+```
 ### 12. Sending Login Requests
+service
+```ts
+  login(email: string, password: string) {
+    return this.http
+      .post<AuthResponseData>(
+        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDb0xTaRAoxyCgvaDF3kk5VYOsTwB_3o7Y',
+        {
+          email: email,
+          password: password,
+          returnSecureToken: true
+        }
+      )
+      .pipe(
+        catchError(this.handleError),
+        tap(resData => {
+          this.handleAuthentication(
+            resData.email,
+            resData.localId,
+            resData.idToken,
+            +resData.expiresIn
+          );
+        })
+      );
+  }
+```
+auth.component.ts
+```ts
+// Add
+    let authObs: Observable<AuthResponseData>;
 
+    this.isLoading = true;
+
+    if (this.isLoginMode) {
+      authObs = this.authService.login(email, password);
+    } else {
+      authObs = this.authService.signup(email, password);
+    }
+
+    authObs.subscribe(
+      resData => {
+        console.log(resData);
+        this.isLoading = false;
+      },
+      errorMessage => {
+        console.log(errorMessage);
+        this.error = errorMessage;
+        this.isLoading = false;
+      }
+    );
+    // run meet error
+```
 ### 13. Login Error Handling
 
 ### 14. Creating & Storing the User Data
