@@ -6394,7 +6394,53 @@ Chỉ có server có thể validate incoming token
 ![](../root/img/2019-11-26-23-19-19.png)
 
 ### 3. Adding the Auth Page
+auth.component.html
+```html
+<div class="row">
+  <div class="col-xs-12 col-md-6 col-md-offset-3">
+    <form>
+      <div class="form-group">
+        <label for="email">E-Mail</label>
+        <input type="email" id="email" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="form-control" />
+      </div>
+      <div>
+        <button class="btn btn-primary">Sign Up</button> |
+        <button class="btn btn-primary">Switch to Login</button>
+      </div>
+    </form>
+  </div>
+</div>
 
+```
+
+auth.component.ts
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-auth',
+  templateUrl: './auth.component.html'
+})
+export class AuthComponent {}
+
+```
+
+Nhớ khai báo component
+```ts
+  { path: 'auth', component: AuthComponent }
+
+```
+Vào header thêm
+```html
+<li routerLinkActive="active">
+          <a routerLink="/auth">Authenticate</a>
+        </li>
+
+```
 ### 4. Switching Between Auth Modes
 
 ### 5. Handling Form Input
