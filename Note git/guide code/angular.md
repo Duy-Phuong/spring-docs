@@ -7087,6 +7087,12 @@ routing
 ### 22. Wrap Up
 
 ### 23. Useful Resources & Links.html
+Useful Resources & Links
+Useful Docs:
+
+Firebase Auth REST API Docs: https://firebase.google.com/docs/reference/rest/auth
+
+More on JWT: https://jwt.io
 
 ## 21. Dynamic Components
 
