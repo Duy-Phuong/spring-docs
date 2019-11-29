@@ -7043,7 +7043,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | Observable<boolean | UrlTree> {
     return this.authService.user.pipe(
-      take(1),
+      take(1), // take the lastest user them unsubcribed => don't need listen
       map(user => {
         const isAuth = !!user;
         if (isAuth) {
@@ -7060,6 +7060,29 @@ export class AuthGuard implements CanActivate {
   }
 }
 
+```
+routing
+```ts
+{
+    path: 'recipes',
+    component: RecipesComponent,
+    // add
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: RecipeStartComponent },
+      { path: 'new', component: RecipeEditComponent },
+      {
+        path: ':id',
+        component: RecipeDetailComponent,
+        resolve: [RecipesResolverService]
+      },
+      {
+        path: ':id/edit',
+        component: RecipeEditComponent,
+        resolve: [RecipesResolverService]
+      }
+    ]
+  }
 ```
 ### 22. Wrap Up
 
