@@ -6713,24 +6713,354 @@ auth.component.ts
     // run meet error
 ```
 ### 13. Login Error Handling
+sevice
+```ts
+private handleError(errorRes: HttpErrorResponse) {
+    let errorMessage = 'An unknown error occurred!';
+    if (!errorRes.error || !errorRes.error.error) {
+      return throwError(errorMessage);
+    }
+    switch (errorRes.error.error.message) {
+      case 'EMAIL_EXISTS':
+        errorMessage = 'This email exists already';
+        break;
+      case 'EMAIL_NOT_FOUND':
+        errorMessage = 'This email does not exist.';
+        break;
+      case 'INVALID_PASSWORD':
+        errorMessage = 'This password is not correct.';
+        break;
+    }
+    return throwError(errorMessage);
+  }
 
+  // add
+  .pipe(
+        catchError(this.handleError)
+      );
+```
 ### 14. Creating & Storing the User Data
+Tạo file user.model
+```ts
+export class User {
+  constructor(
+    public email: string,
+    public id: string,
+    private _token: string,
+    private _tokenExpirationDate: Date
+  ) {}
+
+  get token() { // getter
+  // !this._tokenExpirationDate : not exist
+    if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
+      return null;
+    }
+    return this._token;
+  }
+}
+```
+
+auth.service.ts
+```ts
+  user = new BehaviorSubject<User>(null);
+
+
+Thêm hàm tap: thực hiện action mà k change response
+
+private handleAuthentication(
+    email: string,
+    userId: string,
+    token: string,
+    expiresIn: number
+  ) {
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000); // milisecond
+    const user = new User(email, userId, token, expirationDate);
+    this.user.next(user);
+  }
+
+----
+// Add ham signup and login
+      .pipe(
+        catchError(this.handleError),
+        tap(resData => {
+          this.handleAuthentication(
+            resData.email,
+            resData.localId,
+            resData.idToken,
+            +resData.expiresIn
+          );
+        })
+      );
+```
 
 ### 15. Reflecting the Auth State in the UI
+auth-05-added-token-to-requests
+auth.component.ts
+```ts
+authObs.subscribe(
+      resData => {
+        console.log(resData);
+        this.isLoading = false;
+        // Add
+        this.router.navigate(['/recipes']);
+      },
+      errorMessage => {
+        console.log(errorMessage);
+        this.error = errorMessage;
+        this.isLoading = false;
+      }
+    );
+```
+Thêm button log out
+header.component.ts
+```ts
+ngOnInit() {
+    this.userSub = this.authService.user.subscribe(user => {
+      this.isAuthenticated = !!user; // ? false: true
+      console.log(!user);
+      console.log(!!user);
+    });
+  }
 
+```
+Hien an button fetch...
 ### 16. Adding the Token to Outgoing Requests
+Khi an FETCH DATA gap loi vi firebase cannot know we have a valid token
+auth.service.ts
+```ts
+  user = new BehaviorSubject<User>(null);
+  // The difference is that behavior subjects gives subscribers immediate access to the previously emitted value even if they haven't subscribed at the point of time the value was emitted => get lastest user token even if user logged
 
+
+```
+
+data-storage.service.ts
+```ts
+fetchRecipes() {
+    return this.authService.user.pipe(
+      take(1), //take once value from observable and auto unsubcribes
+      // exhaustMap is return observable
+      exhaustMap(user => {
+        return this.http.get<Recipe[]>(
+          'https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json',
+          {
+            params: new HttpParams().set('auth', user.token)
+          }
+        );
+      }),
+      map(recipes => {
+        return recipes.map(recipe => {
+          return {
+            ...recipe,
+            ingredients: recipe.ingredients ? recipe.ingredients : []
+          };
+        });
+      }),
+      tap(recipes => {
+        this.recipeService.setRecipes(recipes);
+      })
+    );
+  }
+```
 ### 17. Attaching the Token with an Interceptor
+auth-06-logout
+
+Add auth-interceptor.service.ts
+```ts
+import { Injectable } from '@angular/core';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpParams
+} from '@angular/common/http';
+import { take, exhaustMap } from 'rxjs/operators';
+
+import { AuthService } from './auth.service';
+
+@Injectable()
+export class AuthInterceptorService implements HttpInterceptor {
+  constructor(private authService: AuthService) {}
+
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    // this.authService.user is an observable
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap(user => {
+        // if user null cannot access token
+        if (!user) {
+          return next.handle(req);
+        }
+        const modifiedReq = req.clone({
+          params: new HttpParams().set('auth', user.token)
+        });
+        // this is an observable
+        return next.handle(modifiedReq);
+      })
+    );
+  }
+}
+
+```
+Khai bao
+```ts
+providers: [
+    ShoppingListService,
+    RecipeService,
+    // Add
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
+```
+
+Sau do sua ham fetch data
 
 ### 18. Adding Logout
-
+auth.service.ts
+```ts
+logout() {
+    this.user.next(null);
+    this.router.navigate(['/auth']);
+  }
+  // Vao header sua them ham logout
+```
 ### 19. Adding Auto-Login
+When we re load a page the app will be reload => use local storage or cookie
+
+auth.service.ts
+```ts
+// handleAuthentication
+// convert to string
+localStorage.setItem('userData', JSON.stringify(user));
+
+//
+autoLogin() {
+    const userData: {
+      email: string;
+      id: string;
+      _token: string;
+      _tokenExpirationDate: string;
+    } = JSON.parse(localStorage.getItem('userData'));
+    if (!userData) {
+      return;
+    }
+
+    const loadedUser = new User(
+      userData.email,
+      userData.id,
+      userData._token,
+      new Date(userData._tokenExpirationDate)
+    );
+
+    if (loadedUser.token) {
+      this.user.next(loadedUser);
+      // end
+      const expirationDuration =
+        new Date(userData._tokenExpirationDate).getTime() -
+        new Date().getTime();
+      this.autoLogout(expirationDuration);
+    }
+  }
 
 
+```
+app.component.ts
+```ts
+ngOnInit() {
+    this.authService.autoLogin();
+  }
+```
+app.component.html
+```html
+<app-header></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+```
 ### 20. Adding Auto-Logout
+auth.service.ts
+```ts
+ private tokenExpirationTimer: any;
+logout() {
+    this.user.next(null);
+    this.router.navigate(['/auth']);
 
+    // Clear
+    localStorage.removeItem('userData');
+    // when click button logout
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
+  }
+
+autoLogout(expirationDuration: number) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logout();
+    }, expirationDuration); // thya expirationDuration  = 2000 de xem khi log in co log out after 2s
+  }
+  
+// handleAuthentication
+// add
+this.autoLogout(expiresIn * 1000);
+    localStorage.setItem('userData', JSON.stringify(user));
+// add autoLogin
+```
 ### 21. Adding an Auth Guard
+auth-08-finished
+auth.guard.ts
+```ts
+import {
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  Router,
+  UrlTree
+} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map, tap, take } from 'rxjs/operators';
 
+import { AuthService } from './auth.service';
+
+@Injectable({ providedIn: 'root' })
+export class AuthGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    router: RouterStateSnapshot
+  ):
+    | boolean
+    | UrlTree
+    | Promise<boolean | UrlTree>
+    | Observable<boolean | UrlTree> {
+    return this.authService.user.pipe(
+      take(1),
+      map(user => {
+        const isAuth = !!user;
+        if (isAuth) {
+          return true;
+        }
+        return this.router.createUrlTree(['/auth']);
+      })
+      // tap(isAuth => {
+      //   if (!isAuth) {
+      //     this.router.navigate(['/auth']);
+      //   }
+      // })
+    );
+  }
+}
+
+```
 ### 22. Wrap Up
 
 ### 23. Useful Resources & Links.html
