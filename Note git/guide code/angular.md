@@ -7283,6 +7283,7 @@ Tạo file recipes.module
     RecipeStartComponent,
     RecipeEditComponent
   ],
+  // fix next
   imports: [RouterModule, CommonModule, ReactiveFormsModule],
   exports: [
     RecipesComponent,
@@ -7304,20 +7305,98 @@ imports: [
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
+    // Add import
     RecipesModule
   ],
 
 ```
-CommonModule fix lỗi cho ngIf, for
+CommonModule fix lỗi cho ngIf, ngfor
 
 ### 5. Splitting Modules Correctly
 
 ### 6. Adding Routes to Feature Modules
+create new file, cut from routing to here
+recipes-routing.module.ts
 
+```ts
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { RecipesComponent } from './recipes.component';
+import { AuthGuard } from '../auth/auth.guard';
+import { RecipeStartComponent } from './recipe-start/recipe-start.component';
+import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
+import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
+import { RecipesResolverService } from './recipes-resolver.service';
+
+const routes: Routes = [
+  {
+    path: 'recipes',
+    component: RecipesComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: RecipeStartComponent },
+      { path: 'new', component: RecipeEditComponent },
+      {
+        path: ':id',
+        component: RecipeDetailComponent,
+        resolve: [RecipesResolverService]
+      },
+      {
+        path: ':id/edit',
+        component: RecipeEditComponent,
+        resolve: [RecipesResolverService]
+      }
+    ]
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class RecipesRoutingModule {}
+
+```
+
+Khai bao trong Module moi
+```ts
+imports: [
+    RouterModule,
+    CommonModule,
+    ReactiveFormsModule,
+    RecipesRoutingModule // add
+  ],
+
+
+```
 ### 7. Component Declarations
-
+Because using routing recipe internal so you can remove it
+```ts
+exports: [
+    RecipesComponent,
+    RecipeListComponent,
+    RecipeDetailComponent,
+    RecipeItemComponent,
+    RecipeStartComponent,
+    RecipeEditComponent
+  ]
+```
 ### 8. The ShoppingList Feature Module
-
+```ts
+@NgModule({
+  declarations: [ShoppingListComponent, ShoppingEditComponent],
+  imports: [
+    FormsModule,
+    RouterModule.forChild([
+      { path: 'shopping-list', component: ShoppingListComponent },
+    ]),
+    SharedModule
+  ]
+})
+export class ShoppingListModule {}
+// Sau do vao AppModule khai bao
+```
 ### 9. Understanding Shared Modules
 
 ### 10. Understanding the Core Module
