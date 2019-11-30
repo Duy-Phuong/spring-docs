@@ -7099,19 +7099,165 @@ More on JWT: https://jwt.io
 ### 1. Module Introduction
 
 ### 10. Useful Resources & Links.html
+Useful Resources:
 
+Official Docs: https://angular.io/guide/dynamic-component-loader
 ### 2. Adding an Alert Modal Component
+Vào folder share tại component alert
+alert.component.html
+```html
+<div class="backdrop" (click)="onClose()"></div>
+<div class="alert-box">
+  <p>{{ message }}</p>
+  <div class="alert-box-actions">
+    <button class="btn btn-primary" (click)="onClose()">Close</button>
+  </div>
+</div>
 
+```
+nho khai bao modules
+alert.component.ts
+```ts
+@Component({
+  selector: 'app-alert',
+  templateUrl: './alert.component.html', // xem css
+  styleUrls: ['./alert.component.css']
+})
+export class AlertComponent {
+  @Input() message: string;
+  @Output() close = new EventEmitter<void>();
+
+  onClose() {
+    this.close.emit();
+  }
+}
+
+```
+css
+```css
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 50;
+}
+
+.alert-box {
+  position: fixed;
+  top: 30vh;
+  left: 20vw;
+  width: 60vw;
+  padding: 16px;
+  z-index: 100;
+  background: white;
+  box-shadow: 0 2px 8px rbga(0, 0, 0, 0.26);
+}
+
+.alert-box-actions {
+  text-align: right;
+}
+
+```
+auth.component.html
+```html
+<app-alert
+      [message]="error"
+      *ngIf="error"
+      (close)="onHandleError()"
+    ></app-alert>
+
+```
 ### 3. Understanding the Different Approaches
-
+![](../root/img/2019-11-30-01-49-08.png)
 ### 4. Using ngIf
-
+auth.component.ts
+```ts
+onHandleError() {
+    this.error = null;
+  }
+```
 ### 5. Preparing Programmatic Creation
+auth.component.ts
+```ts
+error: string = null;
+// give angular a ref, a pointer to the place in the DOM
+  @ViewChild(PlaceholderDirective, { static: false }) alertHost: PlaceholderDirective;
+
+  private closeSub: Subscription;
+constructor(
+    private authService: AuthService,
+    private router: Router,
+    private componentFactoryResolver: ComponentFactoryResolver
+  ) {}
+
+private showErrorAlert(message: string) {
+    // const alertCmp = new AlertComponent(); =>ts will fail
+    // create component for you
+    const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
+      AlertComponent
+    );
+    const hostViewContainerRef = this.alertHost.viewContainerRef;
+    hostViewContainerRef.clear();
+
+    const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
+
+    componentRef.instance.message = message;
+    this.closeSub = componentRef.instance.close.subscribe(() => {
+      this.closeSub.unsubscribe();
+      hostViewContainerRef.clear();
+    });
+  }
+
+// ham onsubmit
+errorMessage => {
+        console.log(errorMessage);
+        this.error = errorMessage;
+        // Add
+        this.showErrorAlert(errorMessage);
+        this.isLoading = false;
+      }
+```
+Tạo placeholder.directive.ts
+```ts
+import { Directive, ViewContainerRef } from '@angular/core';
+
+@Directive({
+  selector: '[appPlaceholder]'
+})
+export class PlaceholderDirective {
+  //inject
+  constructor(public viewContainerRef: ViewContainerRef) {}
+}
+
+```
 
 ### 6. Creating a Component Programmatically
-
+auth.component.html
+```html
+<ng-template appPlaceholder></ng-template>
+```
 ### 7. Understanding entryComponents
-
+Meet strange error
+module
+```ts
+ bootstrap: [AppComponent],
+ // declare without routing and selector
+  entryComponents: [
+    AlertComponent
+  ]
+```
+auth.component.ts
+```ts
+// Add closeSub
+ngOnDestroy() {
+    if (this.closeSub) {
+      this.closeSub.unsubscribe();
+    }
+  }
+```
 ### 8. Data Binding & Event Binding
 
 ### 9. Wrap Up
@@ -7119,6 +7265,60 @@ More on JWT: https://jwt.io
 ## 22. Angular Modules & Optimizing Angular Apps
 
 ### 1. Module Introduction
+
+### 2. What are Modules
+![](../root/img/2019-11-30-15-57-21.png)
+### 3. Analyzing the AppModule
+![](../root/img/2019-11-30-16-08-07.png)
+
+### 4. Getting Started with Feature Modules
+Tạo file recipes.module
+```ts
+@NgModule({
+  declarations: [
+    RecipesComponent,
+    RecipeListComponent,
+    RecipeDetailComponent,
+    RecipeItemComponent,
+    RecipeStartComponent,
+    RecipeEditComponent
+  ],
+  imports: [RouterModule, CommonModule, ReactiveFormsModule],
+  exports: [
+    RecipesComponent,
+    RecipeListComponent,
+    RecipeDetailComponent,
+    RecipeItemComponent,
+    RecipeStartComponent,
+    RecipeEditComponent
+  ]
+})
+export class RecipesModule {}
+
+```
+vào app
+```ts
+imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    RecipesModule
+  ],
+
+```
+CommonModule fix lỗi cho ngIf, for
+
+### 5. Splitting Modules Correctly
+
+### 6. Adding Routes to Feature Modules
+
+### 7. Component Declarations
+
+### 8. The ShoppingList Feature Module
+
+### 9. Understanding Shared Modules
 
 ### 10. Understanding the Core Module
 
@@ -7140,25 +7340,8 @@ More on JWT: https://jwt.io
 
 ### 19. Ahead-of-Time Compilation
 
-### 2. What are Modules
-
-### 20. Wrap Up
-
 ### 21. Useful Resources & Links.html
 
-### 3. Analyzing the AppModule
-
-### 4. Getting Started with Feature Modules
-
-### 5. Splitting Modules Correctly
-
-### 6. Adding Routes to Feature Modules
-
-### 7. Component Declarations
-
-### 8. The ShoppingList Feature Module
-
-### 9. Understanding Shared Modules
 
 ## 23. Deploying an Angular App
 
