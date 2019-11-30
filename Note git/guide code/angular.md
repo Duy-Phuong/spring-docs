@@ -7697,7 +7697,10 @@ firebase deloy
 ```
 
 ### 5. Server Routing vs Browser Routing.html
+Server Routing vs Browser Routing
+When deploying your Angular app, it's really important to make sure that your server (like S3) is configured to always serve the index.html file.
 
+Here's why: https://academind.com/learn/angular/angular-q-a/#how-to-fix-broken-routes-after-deployment
 ## 24. Bonus Working with NgRx in our Project
 
 ### 1. Module Introduction
