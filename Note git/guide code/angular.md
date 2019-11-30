@@ -7593,7 +7593,7 @@ app-routing
     RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules })
   ],
   exports: [RouterModule]
-  // add preloadingStrategy prepare to load
+  // add preloadingStrategy prepare to load => optimize
 })
 
 ```
@@ -7617,23 +7617,81 @@ export class LoggingService {
 }
 
 ```
-Thêm   // providers: [LoggingService] ở module để test
-File shopping list module thì khác instance
+app.component.ts
+```ts
+ngOnInit() {
+    this.authService.autoLogin();
+    // Add
+    this.loggingService.printLog('Hello from AppComponent ngOnInit');
+  }
+
+  // add in shopping-list.component.ts
+
+```
+Khi chay in lastlog dau la undefined va cai sau o shopping list co value => same instance when use Injectable
+---
+Thêm   ` providers: [LoggingService]` ở app.module and core.module để test => same instance when use Injectable
+File shopping list module thì khác instance with lazy khi khai bao o app.module va shopping-list.module => undefined all
+shared.module : eager loading  => undefined all
 
 ### 19. Ahead-of-Time Compilation
+![](../root/img/2019-12-01-00-23-02.png)
 
+recipe-edit
+```ts
+// modify because build fail
+get ingredientsControls() {
+    return (this.recipeForm.get('ingredients') as FormArray).controls;
+  }
+
+```
+Vào folder dist sau khi build
+```ts
+Ng build --prod 
+// build to few file to deloy
+```
 ### 21. Useful Resources & Links.html
+Useful Resources & Links
+Useful Resources:
 
+Official Docs: https://angular.io/guide/ngmodules
+
+NgModules FAQ: https://angular.io/guide/ngmodule-faq
 
 ## 23. Deploying an Angular App
 
 ### 1. Module Introduction
 
 ### 2. Deployment Preparation & Steps
+![](../root/img/2019-12-01-00-36-36.png)
 
 ### 3. Using Environment Variables
+environment.ts, 
+environment.prod.ts // build for production
+```ts
+export const environment = {
+  production: false,
+  firebaseAPIKey: 'AIzaSyDb0xTaRAoxyCgvaDF3kk5VYOsTwB_3o7Y'
+};
 
+...
+// auth.service.ts
+import { environment } from '../../environments/environment';
+
+```
 ### 4. Deployment Example Firebase Hosting
+GG: static website host
+aws s3
+firebase hosting
+vao doc firebase.gooole.com => install CLI
+```
+npm install -g firevbse-tools  
+firebase login
+firebase init // connect to app
+Chon hosting
+nhap dist/ten-project
+yes
+```
 
 ### 5. Server Routing vs Browser Routing.html
 
