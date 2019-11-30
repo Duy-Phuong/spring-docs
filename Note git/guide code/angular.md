@@ -7689,8 +7689,11 @@ npm install -g firevbse-tools
 firebase login
 firebase init // connect to app
 Chon hosting
-nhap dist/ten-project
-yes
+nhap dist/ten-project  // use for public dir
+yes // rewrite all url
+no // ovewrite
+
+firebase deloy
 ```
 
 ### 5. Server Routing vs Browser Routing.html
