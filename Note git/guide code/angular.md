@@ -7566,12 +7566,59 @@ instead of
 Why would you use this syntax? In the future, it'll replace the "string-only" approach (i.e. the first alternative mentioned here). It also will give you better IDE support.
 
 ### 15. More Lazy Loading
-
+shopping list
+Add and delete path in file module.ts
+```ts
+@NgModule({
+  declarations: [ShoppingListComponent, ShoppingEditComponent],
+  imports: [
+    FormsModule,
+    RouterModule.forChild([
+      // modify
+      { path: '', component: ShoppingListComponent },
+    ]),
+    SharedModule
+  ]
+})
+export class ShoppingListModule {}
+```
+app.module.ts
+Xoa ShoppingListModule 
 ### 16. Preloading Lazy-Loaded Code
+Avoid delay because internet...
+app-routing
+```ts
+@NgModule({
+  imports: [
+    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules })
+  ],
+  exports: [RouterModule]
+  // add preloadingStrategy prepare to load
+})
+
+```
 
 ### 17. Modules & Services
-
+![](../root/img/2019-11-30-23-56-50.png)
 ### 18. Loading Services Differently
+Tạo file logging.service.ts
+```ts
+import { Injectable } from '@angular/core';
+
+// @Injectable({ providedIn: 'root' })
+export class LoggingService {
+  lastlog: string;
+
+  printLog(message: string) {
+    console.log(message);
+    console.log(this.lastlog);
+    this.lastlog = message;
+  }
+}
+
+```
+Thêm   // providers: [LoggingService] ở module để test
+File shopping list module thì khác instance
 
 ### 19. Ahead-of-Time Compilation
 
