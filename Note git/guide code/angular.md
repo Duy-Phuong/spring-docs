@@ -246,6 +246,14 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [36. [OPTIONAL] Assignment Solution](#36-optional-assignment-solution)
   - [16. Course Project - Forms](#16-course-project---forms)
     - [1. Introduction](#1-introduction-2)
+    - [2. TD Adding the Shopping List Form](#2-td-adding-the-shopping-list-form)
+    - [3. Adding Validation to the Form](#3-adding-validation-to-the-form)
+    - [4. Allowing the Selection of Items in the List](#4-allowing-the-selection-of-items-in-the-list)
+    - [5. Loading the Shopping List Items into the Form](#5-loading-the-shopping-list-items-into-the-form)
+    - [6. Updating existing Items](#6-updating-existing-items)
+    - [7. Resetting the Form](#7-resetting-the-form)
+    - [8. Allowing the the User to Clear (Cancel) the Form](#8-allowing-the-the-user-to-clear-cancel-the-form)
+    - [9. Allowing the Deletion of Shopping List Items](#9-allowing-the-deletion-of-shopping-list-items)
     - [10. Creating the Template for the (Reactive) Recipe Edit Form](#10-creating-the-template-for-the-reactive-recipe-edit-form)
     - [11. Creating the Form For Editing Recipes](#11-creating-the-form-for-editing-recipes)
     - [12. Syncing HTML with the Form](#12-syncing-html-with-the-form)
@@ -256,22 +264,12 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [17. Submitting the Recipe Edit Form](#17-submitting-the-recipe-edit-form)
     - [18. Adding a Delete and Clear (Cancel) Functionality](#18-adding-a-delete-and-clear-cancel-functionality)
     - [19. Redirecting the User (after Deleting a Recipe)](#19-redirecting-the-user-after-deleting-a-recipe)
-    - [2. TD Adding the Shopping List Form](#2-td-adding-the-shopping-list-form)
     - [20. Adding an Image Preview](#20-adding-an-image-preview)
     - [21. Providing the Recipe Service Correctly](#21-providing-the-recipe-service-correctly)
     - [22. Deleting Ingredients and Some Finishing Touches](#22-deleting-ingredients-and-some-finishing-touches)
     - [23. Deleting all Items in a FormArray.html](#23-deleting-all-items-in-a-formarrayhtml)
-    - [3. Adding Validation to the Form](#3-adding-validation-to-the-form)
-    - [4. Allowing the Selection of Items in the List](#4-allowing-the-selection-of-items-in-the-list)
-    - [5. Loading the Shopping List Items into the Form](#5-loading-the-shopping-list-items-into-the-form)
-    - [6. Updating existing Items](#6-updating-existing-items)
-    - [7. Resetting the Form](#7-resetting-the-form)
-    - [8. Allowing the the User to Clear (Cancel) the Form](#8-allowing-the-the-user-to-clear-cancel-the-form)
-    - [9. Allowing the Deletion of Shopping List Items](#9-allowing-the-deletion-of-shopping-list-items)
   - [17. Using Pipes to Transform Output](#17-using-pipes-to-transform-output)
     - [1. Introduction & Why Pipes are Useful](#1-introduction--why-pipes-are-useful)
-    - [10. Understanding the async Pipe](#10-understanding-the-async-pipe)
-    - [11. Practicing Pipes.html](#11-practicing-pipeshtml)
     - [2. Using Pipes](#2-using-pipes)
     - [3. Parametrizing Pipes](#3-parametrizing-pipes)
     - [4. Where to learn more about Pipes](#4-where-to-learn-more-about-pipes)
@@ -280,8 +278,19 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [7. Parametrizing a Custom Pipe](#7-parametrizing-a-custom-pipe)
     - [8. Example Creating a Filter Pipe](#8-example-creating-a-filter-pipe)
     - [9. Pure and Impure Pipes (or How to fix the Filter Pipe)](#9-pure-and-impure-pipes-or-how-to-fix-the-filter-pipe)
+    - [10. Understanding the async Pipe](#10-understanding-the-async-pipe)
+    - [11. Practicing Pipes.html](#11-practicing-pipeshtml)
   - [18. Making Http Requests](#18-making-http-requests)
     - [1. A New IDE](#1-a-new-ide)
+    - [3. How Does Angular Interact With Backends](#3-how-does-angular-interact-with-backends)
+    - [3.1 Securing JS Code.html](#31-securing-js-codehtml)
+    - [3.2 Building a REST API.html](#32-building-a-rest-apihtml)
+    - [4. The Anatomy of a Http Request](#4-the-anatomy-of-a-http-request)
+    - [5. Backend (Firebase) Setup](#5-backend-firebase-setup)
+    - [6. Sending a POST Request](#6-sending-a-post-request)
+    - [7. GETting Data](#7-getting-data)
+    - [8. Using RxJS Operators to Transform Response Data](#8-using-rxjs-operators-to-transform-response-data)
+    - [9. Using Types with the HttpClient](#9-using-types-with-the-httpclient)
     - [10. Outputting Posts](#10-outputting-posts)
     - [11. Showing a Loading Indicator](#11-showing-a-loading-indicator)
     - [12. Using a Service for Http Requests](#12-using-a-service-for-http-requests)
@@ -292,7 +301,6 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [17. Using the catchError Operator](#17-using-the-catcherror-operator)
     - [18. Error Handling & UX](#18-error-handling--ux)
     - [19. Setting Headers](#19-setting-headers)
-    - [2. Module Introduction](#2-module-introduction)
     - [20. Adding Query Params](#20-adding-query-params)
     - [21. Observing Different Types of Responses](#21-observing-different-types-of-responses)
     - [22. Changing the Response Body Type](#22-changing-the-response-body-type)
@@ -302,15 +310,6 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [26. Multiple Interceptors](#26-multiple-interceptors)
     - [27. Wrap Up](#27-wrap-up)
     - [28. Useful Resources & Links.html](#28-useful-resources--linkshtml)
-    - [3. How Does Angular Interact With Backends](#3-how-does-angular-interact-with-backends)
-    - [3.1 Securing JS Code.html](#31-securing-js-codehtml)
-    - [3.2 Building a REST API.html](#32-building-a-rest-apihtml)
-    - [4. The Anatomy of a Http Request](#4-the-anatomy-of-a-http-request)
-    - [5. Backend (Firebase) Setup](#5-backend-firebase-setup)
-    - [6. Sending a POST Request](#6-sending-a-post-request)
-    - [7. GETting Data](#7-getting-data)
-    - [8. Using RxJS Operators to Transform Response Data](#8-using-rxjs-operators-to-transform-response-data)
-    - [9. Using Types with the HttpClient](#9-using-types-with-the-httpclient)
   - [19. Course Project - Http](#19-course-project---http)
     - [1. Module Introduction](#1-module-introduction-7)
     - [2. Backend (Firebase) Setup](#2-backend-firebase-setup)
@@ -322,6 +321,14 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [8. Fixing a Bug with the Resolver](#8-fixing-a-bug-with-the-resolver)
   - [20. Authentication & Route Protection in Angular](#20-authentication--route-protection-in-angular)
     - [1. Module Introduction](#1-module-introduction-8)
+    - [2. How Authentication Works](#2-how-authentication-works)
+    - [3. Adding the Auth Page](#3-adding-the-auth-page)
+    - [4. Switching Between Auth Modes](#4-switching-between-auth-modes)
+    - [5. Handling Form Input](#5-handling-form-input)
+    - [6. Preparing the Backend](#6-preparing-the-backend)
+    - [7. Make sure you got Recipes in your backend!.html](#7-make-sure-you-got-recipes-in-your-backendhtml)
+    - [8. Preparing the Signup Request](#8-preparing-the-signup-request)
+    - [9. Sending the Signup Request](#9-sending-the-signup-request)
     - [10. Adding a Loading Spinner & Error Handling Logic](#10-adding-a-loading-spinner--error-handling-logic)
     - [11. Improving Error Handling](#11-improving-error-handling)
     - [12. Sending Login Requests](#12-sending-login-requests)
@@ -332,18 +339,10 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [17. Attaching the Token with an Interceptor](#17-attaching-the-token-with-an-interceptor)
     - [18. Adding Logout](#18-adding-logout)
     - [19. Adding Auto-Login](#19-adding-auto-login)
-    - [2. How Authentication Works](#2-how-authentication-works)
     - [20. Adding Auto-Logout](#20-adding-auto-logout)
     - [21. Adding an Auth Guard](#21-adding-an-auth-guard)
     - [22. Wrap Up](#22-wrap-up)
     - [23. Useful Resources & Links.html](#23-useful-resources--linkshtml)
-    - [3. Adding the Auth Page](#3-adding-the-auth-page)
-    - [4. Switching Between Auth Modes](#4-switching-between-auth-modes)
-    - [5. Handling Form Input](#5-handling-form-input)
-    - [6. Preparing the Backend](#6-preparing-the-backend)
-    - [7. Make sure you got Recipes in your backend!.html](#7-make-sure-you-got-recipes-in-your-backendhtml)
-    - [8. Preparing the Signup Request](#8-preparing-the-signup-request)
-    - [9. Sending the Signup Request](#9-sending-the-signup-request)
   - [21. Dynamic Components](#21-dynamic-components)
     - [1. Module Introduction](#1-module-introduction-9)
     - [10. Useful Resources & Links.html](#10-useful-resources--linkshtml-1)
@@ -357,6 +356,14 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [9. Wrap Up](#9-wrap-up-1)
   - [22. Angular Modules & Optimizing Angular Apps](#22-angular-modules--optimizing-angular-apps)
     - [1. Module Introduction](#1-module-introduction-10)
+    - [2. What are Modules](#2-what-are-modules)
+    - [3. Analyzing the AppModule](#3-analyzing-the-appmodule)
+    - [4. Getting Started with Feature Modules](#4-getting-started-with-feature-modules)
+    - [5. Splitting Modules Correctly](#5-splitting-modules-correctly)
+    - [6. Adding Routes to Feature Modules](#6-adding-routes-to-feature-modules)
+    - [7. Component Declarations](#7-component-declarations)
+    - [8. The ShoppingList Feature Module](#8-the-shoppinglist-feature-module)
+    - [9. Understanding Shared Modules](#9-understanding-shared-modules)
     - [10. Understanding the Core Module](#10-understanding-the-core-module)
     - [11. Adding an Auth Feature Module](#11-adding-an-auth-feature-module)
     - [12. Understanding Lazy Loading](#12-understanding-lazy-loading)
@@ -367,16 +374,7 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [17. Modules & Services](#17-modules--services)
     - [18. Loading Services Differently](#18-loading-services-differently)
     - [19. Ahead-of-Time Compilation](#19-ahead-of-time-compilation)
-    - [2. What are Modules](#2-what-are-modules)
-    - [20. Wrap Up](#20-wrap-up-1)
     - [21. Useful Resources & Links.html](#21-useful-resources--linkshtml)
-    - [3. Analyzing the AppModule](#3-analyzing-the-appmodule)
-    - [4. Getting Started with Feature Modules](#4-getting-started-with-feature-modules)
-    - [5. Splitting Modules Correctly](#5-splitting-modules-correctly)
-    - [6. Adding Routes to Feature Modules](#6-adding-routes-to-feature-modules)
-    - [7. Component Declarations](#7-component-declarations)
-    - [8. The ShoppingList Feature Module](#8-the-shoppinglist-feature-module)
-    - [9. Understanding Shared Modules](#9-understanding-shared-modules)
   - [23. Deploying an Angular App](#23-deploying-an-angular-app)
     - [1. Module Introduction](#1-module-introduction-11)
     - [2. Deployment Preparation & Steps](#2-deployment-preparation--steps)
@@ -7391,7 +7389,7 @@ exports: [
     RouterModule.forChild([
       { path: 'shopping-list', component: ShoppingListComponent },
     ]),
-    SharedModule
+    SharedModule // add next
   ]
 })
 export class ShoppingListModule {}
@@ -7428,15 +7426,144 @@ import { DropdownDirective } from './dropdown.directive';
 export class SharedModule {}
 
 ```
+use in app.modules.ts
 ### 10. Understanding the Core Module
+![](../root/img/2019-11-30-22-56-11.png)
+Nen sử dụng @Injectable({ providedIn: 'root' }) thay vì khai báo trong 
+app.modules
 
+core.module.ts
+```ts
+@NgModule({
+  providers: [
+    ShoppingListService,
+    RecipeService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ]
+})
+export class CoreModule {}
+
+```
+app.module.ts
+```ts
+@NgModule({
+  declarations: [AppComponent, HeaderComponent, AuthComponent],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    RecipesModule,
+    ShoppingListModule,
+    SharedModule,
+    // Add new
+    CoreModule
+  ],
+```
 ### 11. Adding an Auth Feature Module
+auth.module.ts
 
+```ts
+@NgModule({
+  declarations: [AuthComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule.forChild([{ path: '', component: AuthComponent }]),
+    SharedModule // error loading spiner
+  ]
+})
+export class AuthModule {}
+
+```
 ### 12. Understanding Lazy Loading
+![](../root/img/2019-11-30-23-10-48.png)
+Chỉ load những gì mình cần root route content, xóa url ở file con
+Khi reload F12 o tab network a bunch of files were downloaded
 
+---
+recipes-routing.module.ts
+```ts
+ path: '', // replace recipes with ''
+    component: RecipesComponent,
+    canActivate: [AuthGuard]
+```
+
+app-routing.module.ts
+```ts
+const appRoutes: Routes = [
+  { path: '', redirectTo: '/recipes', pathMatch: 'full' },
+  // Add
+  { path: 'recipes', loadChildren: './recipes/recipes.module#RecipesModule' },
+  {
+    path: 'shopping-list',
+    loadChildren: './shopping-list/shopping-list.module#ShoppingListModule'
+  },
+  {
+    path: 'auth',
+    loadChildren: './auth/auth.module#AuthModule'
+  }
+];
+ // => only download bunch of code that you need it
+```
+
+app.modules
+```ts
+@NgModule({
+  declarations: [AppComponent, HeaderComponent],
+  // Delete RecipeModule
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    SharedModule,
+    CoreModule
+  ],
+  bootstrap: [AppComponent]
+})
+
+```
 ### 13. Implementing Lazy Loading
 
 ### 14. Alternative Lazy Loading Syntax.html
+If you're using Angular 8+, you can use an alternative syntax for specifying lazy-loaded routes:
+
+Instead of
+
+```ts
+const routes: Routes = [{
+  path: 'your-path',
+  loadChildren: './your-module-path/module-name.module#ModuleName'
+}];
+
+```
+you can use
+
+```ts
+const routes: Routes = [{
+  path: 'your-path',
+  loadChildren: () => import('./your-module-path/module-name.module').then(m => m.ModuleName)
+}];
+
+```
+Please note, that you need to ensure that in your tsconfig.json file, you use
+
+```ts
+"module": "esnext",
+
+```
+instead of
+
+```ts
+"module": "es2015",
+
+```
+Why would you use this syntax? In the future, it'll replace the "string-only" approach (i.e. the first alternative mentioned here). It also will give you better IDE support.
 
 ### 15. More Lazy Loading
 
