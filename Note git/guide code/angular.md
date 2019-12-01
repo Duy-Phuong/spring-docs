@@ -7704,7 +7704,19 @@ Here's why: https://academind.com/learn/angular/angular-q-a/#how-to-fix-broken-r
 ## 24. Bonus Working with NgRx in our Project
 
 ### 1. Module Introduction
+### 2. What is Application State
+Nếu app lớn hơn các state phụ thuộc vào component, component phụ thuộc vào service 
+State is app is loading state => wait fetch data
+application state => affect all app
 
+![](../root/img/2019-12-01-08-31-14.png)
+### 3. What is NgRx
+### 4. Getting Started with Reducers
+### 5. Adding Logic to the Reducer
+### 6. Understanding & Adding Actions
+### 7. Setting Up the NgRx Store
+### 8. Selecting State
+### 9. Dispatching Actions
 ### 10. Multiple Actions
 
 ### 11. Preparing Update & Delete Actions
@@ -7725,7 +7737,6 @@ Here's why: https://academind.com/learn/angular/angular-q-a/#how-to-fix-broken-r
 
 ### 19. Dispatching Auth Actions
 
-### 2. What is Application State
 
 ### 20. Auth Finished (For Now...)
 
@@ -7747,7 +7758,6 @@ Here's why: https://academind.com/learn/angular/angular-q-a/#how-to-fix-broken-r
 
 ### 29. Adding Signup
 
-### 3. What is NgRx
 
 ### 30. Further Auth Effects
 
@@ -7769,7 +7779,6 @@ Here's why: https://academind.com/learn/angular/angular-q-a/#how-to-fix-broken-r
 
 ### 39. Fixing the Auth Redirect
 
-### 4. Getting Started with Reducers
 
 ### 40. Update, Delete and Add Recipes
 
@@ -7791,7 +7800,6 @@ Here's why: https://academind.com/learn/angular/angular-q-a/#how-to-fix-broken-r
 
 ### 49. [LEGACY] Getting Started with Reducers
 
-### 5. Adding Logic to the Reducer
 
 ### 50. [LEGACY] Adding Actions
 
@@ -7813,7 +7821,6 @@ Here's why: https://academind.com/learn/angular/angular-q-a/#how-to-fix-broken-r
 
 ### 59. [LEGACY] Managing all Relevant State
 
-### 6. Understanding & Adding Actions
 
 ### 60. [LEGACY] Authentication and Side Effects - Introduction
 
@@ -7835,7 +7842,6 @@ Here's why: https://academind.com/learn/angular/angular-q-a/#how-to-fix-broken-r
 
 ### 69. [LEGACY] Only React to Actions Once via take(1)
 
-### 7. Setting Up the NgRx Store
 
 ### 70. [LEGACY] A Closer Look at Effects
 
@@ -7857,7 +7863,7 @@ Here's why: https://academind.com/learn/angular/angular-q-a/#how-to-fix-broken-r
 
 ### 79. [LEGACY] Redirecting Upon Logout
 
-### 8. Selecting State
+
 
 ### 80. [LEGACY] What's Next
 
@@ -7879,7 +7885,6 @@ Here's why: https://academind.com/learn/angular/angular-q-a/#how-to-fix-broken-r
 
 ### 89. [LEGACY] Recipes Side Effects - Fetching from Server
 
-### 9. Dispatching Actions
 
 ### 90. [LEGACY] Recipes Side Effects - Storing Recipes on Server
 
