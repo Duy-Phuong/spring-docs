@@ -7726,6 +7726,10 @@ Npm install –-save @ngrx/store
 Tạo file shopping-list.reducer.ts
 
 ```ts
+import { Action } from '@ngrx/store';
+
+import { Ingredient } from '../shared/ingredient.model';
+
 const initialState = {
   ingredients: [
     new Ingredient('Apples', 5),
@@ -7738,25 +7742,298 @@ export function shoppingListReducer(state = initialState, action: Action) {
     case 'ADD_INGREDIENT':
       return {
         ...state,
-        ingredients: [...state.ingredients, action]
+        ingredients: [...state.ingredients, action] // action duoc them tam
       };
   }
 }
+
 
 ```
 State is immutable
 
 ### 5. Adding Logic to the Reducer
+
 ### 6. Understanding & Adding Actions
+
+Tạo file shopping-list.actions
+
+```ts
+import { Action } from '@ngrx/store';
+
+import { Ingredient } from '../../shared/ingredient.model';
+
+export const ADD_INGREDIENT = 'ADD_INGREDIENT';
+
+export class AddIngredient implements Action {
+  readonly type = ADD_INGREDIENT;
+  payload: Ingredient; // riêng tên này có thể thay đổi trừ type
+}
+
+```
+
+Khi export nhiều thứ từ 1 class
+shopping-list.reducer
+```ts
+import { Ingredient } from '../../shared/ingredient.model';
+import * as ShoppingListActions from './shopping-list.actions';
+
+const initialState = {
+  ingredients: [new Ingredient('Apples', 5), new Ingredient('Tomatoes', 10)]
+};
+
+export function shoppingListReducer(
+  state = initialState,
+  action: ShoppingListActions.AddIngredient
+) {
+  switch (action.type) {
+    case ShoppingListActions.ADD_INGREDIENT:
+      return {
+        ...state,
+        ingredients: [...state.ingredients, action.payload]
+      };
+    default:
+      return state;
+  }
+}
+
+```
 ### 7. Setting Up the NgRx Store
+app.module.ts
+```ts
+import { StoreModule } from '@ngrx/store';
+import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
+
+imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    // Add
+    StoreModule.forRoot({shoppingList: shoppingListReducer}),
+    SharedModule,
+    CoreModule
+  ],
+
+```
+So now all action will dispatch to reducer
+
 ### 8. Selecting State
+shopping-list.component.ts
+
+```ts
+ingredients: Observable<{ ingredients: Ingredient[] }>;
+constructor(
+    private slService: ShoppingListService,
+    private loggingService: LoggingService,
+    private store: Store<{ shoppingList: { ingredients: Ingredient[] } }> // thêm
+  ) {}
+
+ngOnInit() {
+    this.ingredients = this.store.select('shoppingList'); // select a slice of your state
+    // this.ingredients = this.slService.getIngredients();
+    // this.subscription = this.slService.ingredientsChanged.subscribe(
+    //   (ingredients: Ingredient[]) => {
+    //     this.ingredients = ingredients;
+    //   }
+    // );
+
+    this.loggingService.printLog('Hello from ShoppingListComponent ngOnInit!');
+  }
+```
+shopping-list.component.html
+```html
+ <a
+        class="list-group-item"
+        style="cursor: pointer"
+        *ngFor="let ingredient of (ingredients | async).ingredients; let i = index"
+        (click)="onEditItem(i)"
+      >
+
+```
+(ingredients | async).ingredients bằng cách này nó sẽ subcribe ingredients observable
+Reducer
+```ts
+export function shoppingListReducer(
+  state = initialState,
+  action: ShoppingListActions.ShoppingListActions
+) {
+  switch (action.type) {
+    case ShoppingListActions.ADD_INGREDIENT:
+      return {
+        ...state,
+        ingredients: [...state.ingredients, action.payload]
+      };
+    case ShoppingListActions.ADD_INGREDIENTS:
+      return {
+        ...state,
+        ingredients: [...state.ingredients, ...action.payload]
+      };
+      // add
+    default:
+      return state;
+  }
+}
+
+```
 ### 9. Dispatching Actions
+shopping-edit.component.ts
+```ts
+constructor(
+    private slService: ShoppingListService,
+    // Add
+    private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>
+  ) {}
+
+onSubmit(form: NgForm) {
+    const value = form.value;
+    const newIngredient = new Ingredient(value.name, value.amount);
+    if (this.editMode) {
+      this.slService.updateIngredient(this.editedItemIndex, newIngredient);
+    } else {
+      // this.slService.addIngredient(newIngredient);
+      this.store.dispatch(new ShoppingListActions.AddIngredient(newIngredient));
+    }
+    this.editMode = false;
+    form.reset();
+  }
+
+```
+shopping-list.action.ts
+```ts
+import { Action } from '@ngrx/store';
+
+import { Ingredient } from '../../shared/ingredient.model';
+
+export const ADD_INGREDIENT = 'ADD_INGREDIENT';
+export const ADD_INGREDIENTS = 'ADD_INGREDIENTS';
+
+export class AddIngredient implements Action {
+  readonly type = ADD_INGREDIENT;
+
+  constructor(public payload: Ingredient) {} // change payload properties
+}
+
+```
 ### 10. Multiple Actions
+shopping-list.action.ts
+```ts
+export class AddIngredients implements Action {
+  readonly type = ADD_INGREDIENTS;
 
+  constructor(public payload: Ingredient[]) {}
+}
+
+export type ShoppingListActions = AddIngredient | AddIngredients;
+```
+
+Recipe.service
+```ts
+ constructor(
+    private slService: ShoppingListService,
+    // Add
+    private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>
+  ) {}
+
+addIngredientsToShoppingList(ingredients: Ingredient[]) {
+    // this.slService.addIngredients(ingredients);
+    this.store.dispatch(new ShoppingListActions.AddIngredients(ingredients));
+  }
+
+```
+shopping-list.reducer.ts
+```ts
+import { Ingredient } from '../../shared/ingredient.model';
+import * as ShoppingListActions from './shopping-list.actions';
+
+const initialState = {
+  ingredients: [new Ingredient('Apples', 5), new Ingredient('Tomatoes', 10)]
+};
+
+export function shoppingListReducer(
+  state = initialState,
+  action: ShoppingListActions.ShoppingListActions // declare
+) {
+  switch (action.type) {
+    case ShoppingListActions.ADD_INGREDIENT:
+      return {
+        ...state,
+        ingredients: [...state.ingredients, action.payload]
+      };
+    case ShoppingListActions.ADD_INGREDIENTS:
+      return {
+        ...state,
+        ingredients: [...state.ingredients, ...action.payload]
+      };
+    default:
+      return state;
+  }
+}
+
+```
+recipe-detail.component.ts
+```ts
+// Nut add all
+onAddToShoppingList() {
+    this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients);
+  }
+```
 ### 11. Preparing Update & Delete Actions
+action
+```ts
+export class UpdateIngredient implements Action {
+  readonly type = UPDATE_INGREDIENT;
 
+  constructor(public payload: Ingredient ) {}
+}
+
+export class DeleteIngredient implements Action {
+  readonly type = DELETE_INGREDIENT;
+}
+
+export type ShoppingListActions =
+  | AddIngredient
+  | AddIngredients
+  | UpdateIngredient
+  | DeleteIngredient;
+
+```
 ### 12. Updating & Deleting Ingredients
+reducer
+```ts
+case ShoppingListActions.UPDATE_INGREDIENT:
+      const ingredient = state.ingredients[state.editedIngredientIndex];
+      const updatedIngredient = {
+        ...ingredient,
+        ...action.payload
+      };
+      const updatedIngredients = [...state.ingredients];
+      updatedIngredients[state.editedIngredientIndex] = updatedIngredient;
 
+      return {
+        ...state,
+        ingredients: updatedIngredients,
+        editedIngredientIndex: -1,
+        editedIngredient: null
+      };
+    case ShoppingListActions.DELETE_INGREDIENT:
+      return {
+        ...state,
+        ingredients: state.ingredients.filter((ig, igIndex) => {
+          return igIndex !== state.editedIngredientIndex;
+        }),
+        editedIngredientIndex: -1,
+        editedIngredient: null
+      };
+
+Hàm filter trả về arr copy
+
+```
+shopping-edit.component.ts
+```ts
+// this.slService.updateIngredient(this.editedItemIndex, newIngredient);
+      this.store.dispatch(
+        new ShoppingListActions.UpdateIngredient(newIngredient)
+      );
+```
 ### 13. Expanding the State
 
 ### 14. Managing More State via NgRx
