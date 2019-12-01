@@ -7709,9 +7709,43 @@ Nếu app lớn hơn các state phụ thuộc vào component, component phụ th
 State is app is loading state => wait fetch data
 application state => affect all app
 
-![](../root/img/2019-12-01-08-31-14.png)
+![](../root/img/2019-12-01-08-31-14.png)  
+![](../root/img/2019-12-01-08-41-12.png)  
+![](../root/img/2019-12-01-08-42-43.png)
 ### 3. What is NgRx
+![](../root/img/2019-12-01-08-47-22.png)  
+Redux là 1 js obj lớn gồm all data, central store  
+Reducer là js func that get current state which stored in a store, copy in and change the copy return a copy of old state 
+
+![](../root/img/2019-12-01-08-57-27.png)
 ### 4. Getting Started with Reducers
+```ts
+Npm install –-save @ngrx/store 
+
+```
+Tạo file shopping-list.reducer.ts
+
+```ts
+const initialState = {
+  ingredients: [
+    new Ingredient('Apples', 5),
+    new Ingredient('Tomatoes', 10),
+  ]
+};
+
+export function shoppingListReducer(state = initialState, action: Action) {
+  switch (action.type) {
+    case 'ADD_INGREDIENT':
+      return {
+        ...state,
+        ingredients: [...state.ingredients, action]
+      };
+  }
+}
+
+```
+State is immutable
+
 ### 5. Adding Logic to the Reducer
 ### 6. Understanding & Adding Actions
 ### 7. Setting Up the NgRx Store
