@@ -145,3 +145,57 @@ https://shareprogramming.net/connect-mongodb-trong-mongoose/?fbclid=IwAR3MRN2Dn8
 
 react django
 https://www.youtube.com/watch?v=Uyei2iDA4Hs&list=PLillGF-RfqbbRA-CIUxlxkUpbq0IFkX60&fbclid=IwAR1efTFV73cJbgNodR2XEiTjYlPVM9E9rLm_rvs_HpDpb8ZIC0n7lke9Vro
+
+React, NodeJS, Express & MongoDB - The MERN Stack Guide for Beginners
+https://morioh.com/p/5e3ff2386d57?f=5c21fb01c16e2556b555ab32&fbclid=IwAR0rILcz-rH_Xk19uCRdUrhtdXdfMQ84rLLfGbrIfWHFgU_qoMgjEc1-TwU
+https://www.udemy.com/course/docker-mastery/?fbclid=IwAR1CVynHzbnwFaJhS7MNybT0ndhRM7EEYJPPxlUPUqYzENczOAJzdwcH3SE&moon=tethys&utm_campaign=NEW-FB-DRT-Visitor-Retargeting-CBO-Smartly-EN-ALL_._ci__._sl_ALL_._vi__._sd_All_._la_EN_._&utm_content=_._pd_1035000_._&utm_medium=udemyads&utm_source=facebook&utm_term=_._ag_3_day_visitors_._ad_6158802543488_._
+https://www.udemy.com/course/hibernate-jpa-tutorial-for-beginners-in-100-steps/?LSNPUBID=JVFxdTr9V80&ranEAID=JVFxdTr9V80&ranMID=39197&ranSiteID=JVFxdTr9V80-OYGJ6yd981m58PGiNCxrTA
+https://topdev.vn/blog/code-nhanh-va-hieu-qua-hon-voi-vscode-tips-tricks/?fbclid=IwAR2eGeM23XngbcTWs8FWdbcY9DALcGB-MMBptI9O9LWq_G9JhighbTzEn-Y
+
+
+
+https://console.firebase.google.com/project/ng-complete-guide-35524/settings/general/
+typescript 
+https://link.springer.com/book/10.1007/978-1-4842-4979-6
+https://goalkicker.com/TypeScriptBook2/
+
+nhasachtinhoc.blogspot.com
+[UPDATE LINK DOWNLOAD]
+Chia Sẻ Khóa Học Vue JS 2: From Beginner to Professional (includes Vuex) - VIETSUB
+===========================================
+LINK TẠI: https://nhasachtinhoc.blogspot.com/2018/10/khoa-hoc-vuejs-from-beginner-to-professional.html
+
+Chia Sẻ Khóa Học Kết Hợp Giữa Nuxt.js Và Vue.js
+===========================================
+LINK TẠI: https://nhasachtinhoc.blogspot.com/2019/03/chia-se-khoa-hoc-ket-hop-giua-nuxtjs-va-vuejs.html
+===========================================
+LINK TẢI: http://nhasachtinhoc.blogspot.com/2019/11/chia-se-khoa-hoc-createandmanagesqlitedatabasesfromscratch.html
+=======================
+
+*Lập trình Web tốc độ cao, thời gian thực với NodeJS**
+
+Link
+
+[https://drive.google.com/drive/folders/0B142Ud8LF9Trc05ZX0lFbU9faU0?fbclid=IwAR2q27MIaGe7M4E2ofOBSy5Vkm6pRYJOCD3jPw9asklbTQ15Nwp7LcuRk-M](https://drive.google.com/drive/folders/0B142Ud8LF9Trc05ZX0lFbU9faU0?fbclid=IwAR2q27MIaGe7M4E2ofOBSy5Vkm6pRYJOCD3jPw9asklbTQ15Nwp7LcuRk-M)
+
+Link lấy khoá học: https://coursedeals.org/complete-android-app-and-java-development-a-to-paid-expert-100-off/
+
+Chia Sẻ Khóa Học The Complete React Native + Hooks Course [2019 Edition] [Google Drive]
+===========================================
+LINK TẠI: http://nhasachtinhoc.blogspot.com/2019/11/chia-se-khoa-hoc-the-complete-react-native-and-redux-course.html
+
+Web Developer Bootcamp 1.0](http://nhasachtinhoc.blogspot.com/2019/11/chia-se-khoa-hoc-the-complete-php-full-stack-web-developer-bootcamp.html) [LINK XEM ONLINE]
+
+
+# **[UPDATE LINK DOWNLOAD]**
+# Chia Sẻ Khóa Học Xây Dựng Ứng Dụng Quản Lý Kho Với Java Spring MVC, Hibernate Và MySQL
+
+===========================================
+> **LINK TẠI: http://bit.ly/2QXggno**
+# [**CHIA SẺ KHÓA HỌC JAVA SPRING BOOT TIẾNG VIỆT RẤT HAY](http://nhasachtinhoc.blogspot.com/2019/11/chia-se-khoa-hoc-jV-spring-boot-tieng-viet-rat-hay.html) **
+
+========================================
+> LINK TẢI: [http://nhasachtinhoc.blogspot.com/2019/11/chia-se-khoa-hoc-jV-spring-boot-tieng-viet-rat-hay.html](http://nhasachtinhoc.blogspot.com/2019/11/chia-se-khoa-hoc-jV-spring-boot-tieng-viet-rat-hay.html)
+
+========================================
+

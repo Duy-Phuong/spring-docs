@@ -8035,13 +8035,202 @@ shopping-edit.component.ts
       );
 ```
 ### 13. Expanding the State
+shopping-lit.reducer.ts
+```ts
+// Add
+export interface State {
+  ingredients: Ingredient[];
+  editedIngredient: Ingredient;
+  editedIngredientIndex: number;
+}
 
+// them nhung sau nay se xoa
+export interface AppState {
+  shoppingList: fromShoppingList.State;
+}
+//end
+
+const initialState: State = {
+  ingredients: [new Ingredient('Apples', 5), new Ingredient('Tomatoes', 10)],
+  // Add
+  editedIngredient: null,
+  editedIngredientIndex: -1
+};
+```
+
+shopping-list.component.ts
+```ts
+constructor(
+    private loggingService: LoggingService,
+    private store: Store<fromShoppingList.AppState>
+  ) {}
+
+```
+shopping-edit.component.ts
+Lam tuong tu
 ### 14. Managing More State via NgRx
+shopping-list.actions.ts
+```ts
+export const START_EDIT = 'START_EDIT';
+export const STOP_EDIT = 'STOP_EDIT';
 
+export class StartEdit implements Action {
+  readonly type = START_EDIT;
+
+  constructor(public payload: number) {}
+}
+
+export class StopEdit implements Action {
+  readonly type = STOP_EDIT;
+}
+export type ShoppingListActions =
+  | AddIngredient
+  | AddIngredients
+  | UpdateIngredient
+  | DeleteIngredient
+  | StartEdit
+  | StopEdit; // add
+
+```
+
+shopping-list.reducer.ts
+```ts
+    case ShoppingListActions.START_EDIT:
+      return {
+        ...state,
+        editedIngredientIndex: action.payload,
+        editedIngredient: { ...state.ingredients[action.payload] }
+      };
+    case ShoppingListActions.STOP_EDIT:
+      return {
+        ...state,
+        editedIngredient: null,
+        editedIngredientIndex: -1
+      };
+```
+shopping-list.component.ts
+```ts
+onEditItem(index: number) {
+    // this.slService.startedEditing.next(index);
+    this.store.dispatch(new ShoppingListActions.StartEdit(index));
+  }
+
+```
+
+shopping-edit.component.ts
+```ts
+ngOnInit() {
+  // add
+    this.subscription = this.store
+      .select('shoppingList')
+      .subscribe(stateData => {
+        if (stateData.editedIngredientIndex > -1) {
+          this.editMode = true;
+          this.editedItem = stateData.editedIngredient;
+	        // update form
+          this.slForm.setValue({
+            name: this.editedItem.name,
+            amount: this.editedItem.amount
+          });
+        } else {
+          this.editMode = false;
+        }
+      });
+  }
+
+onClear() {
+    this.slForm.reset();
+    this.editMode = false;
+    // Add
+    this.store.dispatch(new ShoppingListActions.StopEdit());
+  }
+
+  onDelete() {
+    // this.slService.deleteIngredient(this.editedItemIndex);
+    this.store.dispatch(new ShoppingListActions.DeleteIngredient());
+    this.onClear();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    // add
+    this.store.dispatch(new ShoppingListActions.StopEdit());
+  }
+
+```
+
+now can have error
+
+---
+app.reducer.ts
+```ts
+import { ActionReducerMap } from '@ngrx/store';
+
+import * as fromShoppingList from '../shopping-list/store/shopping-list.reducer';
+import * as fromAuth from '../auth/store/auth.reducer';
+
+export interface AppState {
+  shoppingList: fromShoppingList.State;
+  auth: fromAuth.State;
+}
+
+export const appReducer: ActionReducerMap<AppState> = {
+  shoppingList: fromShoppingList.shoppingListReducer,
+  auth: fromAuth.authReducer
+};
+
+```
 ### 15. Removing Redundant Component State Management
+delete all editedIngredientIndex
+modify(xem lai)
+shopping-list.reducer.ts
+```ts
+case ShoppingListActions.UPDATE_INGREDIENT:
+      const ingredient = state.ingredients[state.editedIngredientIndex];
+      const updatedIngredient = {
+        ...ingredient,
+        ...action.payload
+      };
+      const updatedIngredients = [...state.ingredients];
+      updatedIngredients[state.editedIngredientIndex] = updatedIngredient;
+
+      return {
+        ...state,
+        ingredients: updatedIngredients,
+        editedIngredientIndex: -1,
+        editedIngredient: null
+      };
+    case ShoppingListActions.DELETE_INGREDIENT:
+      return {
+        ...state,
+        ingredients: state.ingredients.filter((ig, igIndex) => {
+          return igIndex !== state.editedIngredientIndex;
+        }),
+        editedIngredientIndex: -1,
+        editedIngredient: null
+      };
+```
+shopping-edit.component.ts
+```ts
+ onSubmit(form: NgForm) {
+    const value = form.value;
+    const newIngredient = new Ingredient(value.name, value.amount);
+    if (this.editMode) {
+      // this.slService.updateIngredient(this.editedItemIndex, newIngredient);
+      this.store.dispatch(
+        new ShoppingListActions.UpdateIngredient(newIngredient)
+      ); // modify
+    } else {
+      // this.slService.addIngredient(newIngredient);
+      this.store.dispatch(new ShoppingListActions.AddIngredient(newIngredient));
+    }
+    this.editMode = false;
+    form.reset();
+  }
+```
 
 ### 16. First Summary & Clean Up
-
+Xoa ShoppingListService
 ### 17. One Root State
 
 ### 18. Setting Up Auth Reducer & Actions
