@@ -277,3 +277,142 @@ Utils.hello()  # access class field
 Utils.run()
 ```
 ### 3. Static Method
+
+---
+# The Complete Python 3 Course Go from Beginner to Advanced!
+
+## 02 Setting Up Python On Your Computer
+### 002 Get Started by Installing Python 3_5
+Search python/ open file location
+![](../root/img/2019-12-03-01-37-06.png)
+![](../root/img/2019-12-03-01-37-40.png)
+![](../root/img/2019-12-03-01-38-11.png)
+copy path
+Search: envi
+System vari...
+Add into PATH: C:\Users\phuong\AppData\Local\Programs\Python\Python37
+Add into PATH: C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe
+![](../root/img/2019-12-03-01-56-45.png)
+
+Check 
+```py
+python --version
+```
+### 003 Setting up Sublime Text to Build Python
+
+/*use your own path in the cmd portion. Be sure to delete this line! */
+
+```json
+{
+   "cmd": ["C:\\Users\\Test\\AppData\\Local\\Programs\\Python\\Python35-32\\python.exe", "-u", "$file"],
+   "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*) ",
+   "selector": "source.python"
+}
+
+```
+
+## 03 Introduction to your first program with Python data types and variables
+### 004 First Program in Python
+### 005 Data Types
+Check use `print(type(2.2))`
+### 006 Variables
+```py
+a, b, c = 1.5, 2, 3
+a = b = c = 1
+num = 1
+s = "abc"
+num = s
+
+import keyword
+# list keyword
+print(keyword.kwlist)
+```
+### 007 Indentation
+Ham phai nam trong cac Indentation(Tab vao)
+### 008 How to Clear Screen
+```py
+# cmd
+import os
+clear = lambda: os.system('cls')
+clear()
+```
+## 04 Comments in Python
+### 009 Single-line Comments
+### 010 Multi-line Comments
+## 05 Expressions in Python
+### 011 Basic Arithmetic
+### 012 Division Characteristics
+### 013 Operator Precedence
+### 014 Complex Arithmetic
+### 015 Binary Number Manipulation
+## 06 Learn about Strings
+### 016 Basic String Manipulation
+### 017 Using the format Method
+### 018 Specific Characters
+## 07 Branching in Python
+### 019 Logical Operators and Conditional Statements
+### 020 if Statement
+### 021 if else Statement
+### 022 ifelif Statement
+### 023 Ternary Operator
+## 08 Loops in Python
+### 024 for Loop Part 1
+### 025 for Loop Part 2
+### 026 for Loop Part 3
+### 027 while Loop
+### 028 break and continue Statements
+## 09 Functions in Python
+### 029 Defining and Calling Functions and Returning Values
+### 030 Passing Arguments Default Parameters Scope and Nested Functions
+### 031 Recursive Functions
+### 032 Lambda Functions
+## 10 Exception Handling
+### 033 Exceptions and Errors
+### 034 Handling Exceptions
+### 035 Throwing Exceptions
+## 11 Data Input
+### 036 Data Input Setup and Input Function
+### 037 File Management Reading
+### 038 File Management Writing
+## 12 Useful Data Structures
+### 039 Tuples
+### 040 Tuple Functions
+### 041 Lists
+### 042 List Functions
+### 043 Dictionaries
+### 044 Shallow Copies
+### 045 Sets
+### 046 Set Functions
+## 13 Modules and Packages
+### 047 Modules
+### 048 Packages
+### 049 Built-in Modules
+## 14 All About Object Oriented Programming (OOP)
+### 050 Introduction to OOP
+### 051 Class Definition and Object Instantiation
+### 052 Class Methods Part 1
+### 053 Class Methods Part 2
+### 054 Operator Overloading
+### 055 Class Inheritance Part 1
+### 056 Class Inheritance Part 2
+### 057 Extra Notes in Python
+## 15 Data Visualization
+### 058 Installing Modules for Visualization
+### 059 Visualization Part 1
+### 060 Visualization Part 2
+### 061 Visualization Part 3
+### 062 Pandas Library
+## 16 Numpy Library
+### 063 Installing the Numpy Library
+### 064 Creating Numpy Objects
+### 065 Useful Functions from the Numpy Library
+### 066 Basic Operations with Numpy Library
+## 17 Debugging
+### 067 The pdb Module
+### 068 Commands for Debugging Part 1
+### 069 Commands for Debugging Part 2
+## 18 Regular Expressions
+### 070 Creating Evaluating and Compiling Regular Expressions
+### 071 Patterns
+### 072 Division and Grouping the Results
+### 073 Setting the Search Parameters

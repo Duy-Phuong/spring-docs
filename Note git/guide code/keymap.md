@@ -15,6 +15,9 @@ Trong những năm qua, tôi đã sử dụng một loạt các Code Editor khá
 Các phím tắt dưới đây sẽ dùng cho macOS nếu bạn dùng Win chỉ cần thay  ⌘ => Ctrl, ⇧ => Shift, ⌥ => Alt
 
 ## Basic Editing
+
+ALT SHIFT  ↓: duplicate a line
+
 Key	Command
 CTRL X	Cut line (empty selection)
 CTRL C	Copy line (empty selection)
