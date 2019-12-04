@@ -1,0 +1,21 @@
+<h4>Copy Solution</h4>
+
+<p>Copy should copy contents from one file to another.&nbsp; For example, after running:<br></p>
+
+<pre class="prettyprint linenums">copy('story.txt', 'story_copy.txt') # None
+</pre>
+
+
+
+<p>We would expect the contents of story.txt and story_copy.txt to now be the same.</p>
+
+<p>Here's my solution:</p>
+
+
+
+<pre class="prettyprint linenums">def copy(file_name, new_file_name):
+    with open(file_name) as file:
+        text = file.read()
+    
+    with open(new_file_name, "w") as new_file:
+        new_file.write(text)</pre>

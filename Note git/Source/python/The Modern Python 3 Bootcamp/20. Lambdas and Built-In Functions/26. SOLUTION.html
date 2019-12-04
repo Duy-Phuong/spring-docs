@@ -1,0 +1,34 @@
+<h4>Sum Floats Solution</h4>
+
+<p><em>Write a function called&nbsp;<strong>sum_floats.&nbsp;</strong>This function should accept a variable number of arguments. The function should return the sum of all the parameters that are floats. If there are no floats the function should return 0</em><br></p>
+
+
+
+
+
+
+
+
+
+<ul><li>I started by defining <code>sum_floats</code>&nbsp;, which accepts any number of arguments using <code>*args</code>&nbsp;</li><li>Much like the previous exercise, I use a generator expression to extract the values in args where <code>type() </code>&nbsp;is float.</li><li>I pass those values in to <code>sum</code>&nbsp; and return the result</li></ul>
+
+
+
+
+
+
+
+
+
+<p><br></p>
+
+
+
+
+
+
+
+
+
+<pre class="prettyprint linenums">def sum_floats(*args):
+    return sum(arg for arg in args if type(arg) == float)</pre>

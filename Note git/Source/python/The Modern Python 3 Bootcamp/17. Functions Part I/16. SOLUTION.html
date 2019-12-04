@@ -1,0 +1,27 @@
+<p>Here's the initial broken state of the function:</p>
+
+<pre class="prettyprint linenums">def count_dollar_signs(word):
+    count = 0
+    for char in word:
+        if char == '$':
+            count += 1
+        return count</pre>
+
+
+
+
+
+<p>The problem is that the function returns the very first time through the loop because of the way return is indented.</p>
+
+
+
+<p>To fix it, all we have to do is<strong> outdent the return statement</strong> so that it now only returns after the loop finishes running</p>
+
+
+
+<pre class="prettyprint linenums">def count_dollar_signs(word):
+    count = 0
+    for char in word:
+        if char == '$':
+            count += 1
+    return count</pre>

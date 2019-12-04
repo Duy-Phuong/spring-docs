@@ -1,0 +1,17 @@
+<h4>Chicken Coop Exercise Solution:</h4><p>Here's my implementation of the Chicken class.&nbsp; Notice the total_eggs class attribute.</p>
+
+<p><br></p>
+
+
+
+<pre class="prettyprint linenums">class Chicken:
+    total_eggs = 0
+    def __init__(self, name, species):
+        self.name = name
+        self.species = species
+        self.eggs = 0
+    
+    def lay_egg(self):
+        self.eggs += 1
+        Chicken.total_eggs += 1
+        return self.eggs</pre>

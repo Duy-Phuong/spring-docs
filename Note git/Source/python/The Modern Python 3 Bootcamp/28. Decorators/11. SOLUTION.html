@@ -1,0 +1,48 @@
+<h4>Double Return Decorator</h4>
+
+<p>Most of this function is decorator boilerplate...</p>
+
+
+
+
+
+<pre class="prettyprint linenums">from functools import wraps
+
+def double_return(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        #logic goes in here...
+    return wrapper</pre>
+
+
+
+
+
+
+
+
+
+
+
+<p><br>This wrapper function simply&nbsp;runs the function, and&nbsp;returns a list containing the result twice:</p>
+
+
+
+
+
+<p><br></p>
+
+
+
+
+
+
+
+<pre class="prettyprint linenums">from functools import wraps
+
+def double_return(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        val = fn(*args, **kwargs)
+        return [val, val]
+    return wrapper</pre>

@@ -1,0 +1,153 @@
+<p>The most straight forward solution is to use a large if-elif-else statement:</p>
+
+<pre class="prettyprint linenums">def speak(animal="dog"):
+    if animal == "pig":
+        return "oink"
+    elif animal == "duck":
+         return "quack"
+    elif animal == "cat":
+        return "meow"
+    elif animal == "dog":
+        return "woof"
+    else:
+        return "?"
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>Another shorter solution involves using a dictionary that maps animal names to noises.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<pre class="prettyprint linenums">noises = {
+    "dog": "woof", 
+    "pig": "oink", 
+    "duck": "quack", 
+    "cat": "meow"
+}</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>Then, we just use the dictionary.get() method to retrieve the correct animal noise and save it to a variable called <code>noise</code> . get() will return <code>None</code>  if the animal is not in the dictionary.  Then we just check to see if <code>noise</code>  exists.  If it does, return <code>noise</code> .  Otherwise, return <code>"?"</code> </p>
+
+<pre class="prettyprint linenums">def speak(animal="dog"):
+    noises = {"dog": "woof", "pig": "oink", "duck": "quack", "cat": "meow"}
+    noise = noises.get(animal)
+    if noise:
+        return noise
+    return "?"</pre>
+
+
+
+<p>Thanks to <strong>Todd </strong>for sharing his even more compact solution which passes in a default value to get()</p>
+
+<p><br></p>
+
+<p><br></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<pre class="prettyprint linenums">def speak(animal='dog'):
+    noises = {'pig':'oink', 'duck':'quack', 'cat':'meow', 'dog':'woof'}
+    return noises.get(animal, '?')
+</pre>

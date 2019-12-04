@@ -1,0 +1,19 @@
+<h4>Web Scraping Project</h4>
+
+<h4>Introduction</h4>
+
+
+
+<p>In this project you'll be building a quotes guessing game. When run,&nbsp;your program will scrape a website for a collection of quotes. Pick one at random and display it. The player will have four chances to guess who said the quote. After every wrong guess they'll get a hint about the author's identity.</p>
+
+
+
+<h4>Requirements</h4>
+
+<ol><li>Create a file called `scraping_project.py` which, when run, grabs data on every quote from the website <a href="http://quotes.toscrape.com" rel="nofollow">http://quotes.toscrape.com</a></li><li>You can use `bs4` and `requests` to get the data. For each quote you should grab the <strong>text of the quote</strong>, the <strong>name of the person</strong> who said the quote, and the<strong> href of the link</strong> to the person's bio. Store all of this information in a list.</li><li> Next, display the quote to the user and ask who said it. The player will have four guesses remaining.</li><li>After each incorrect guess, the number of guesses remaining will decrement. If the player gets to zero guesses without identifying the author, the player loses and the game ends. If the player correctly identifies the author, the player wins!</li><li>After every incorrect guess, the player receives a hint about the author.&nbsp;<ol><li> For the first hint, make another request to the author's bio page (this is why we originally scrape this data), and tell the player the author's birth date and location.</li><li>The next two hints are up to you! Some ideas: the first letter of the author's first name, the first letter of the author's last name, the number of letters in one of the names, etc.</li></ol></li><li>When the game is over, ask the player if they want to play again. If yes, restart the game with a new quote. If no, the program is complete.</li></ol>
+
+
+
+<p>Good luck!</p>
+
+<p><br></p>

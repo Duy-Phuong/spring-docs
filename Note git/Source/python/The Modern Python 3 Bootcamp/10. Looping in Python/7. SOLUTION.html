@@ -1,0 +1,44 @@
+<p>Solution Using a Conditional</p>
+
+<p>This solution loops over all the numbers between 10 and 20, checking to see if the number is even inside the loop.<br></p>
+
+
+
+<pre class="prettyprint linenums"># Add up all odd numbers between 10 and 20
+# Store the result in x:
+x = 0
+
+
+# YOUR CODE GOES HERE:
+for n in range(10, 21):  #remember range is exclusive, so we have to go up to 21
+    if n % 2 != 0:
+        x += n</pre>
+
+
+
+
+
+<p><br></p>
+
+
+
+<h4>Solution using range step</h4>
+
+
+
+<p>Instead of looping over every number between 10 and 20, this solution only loops over the odd numbers.  Remember, the 3rd argument to range() is the STEP or interval that you want the range to increment by. Thanks for sharing your version, Abdul.</p>
+
+
+
+<pre class="prettyprint linenums">x = 0
+
+for i in range(11,21,2):
+        x += i</pre>
+
+
+
+
+
+
+
+<p><br></p>

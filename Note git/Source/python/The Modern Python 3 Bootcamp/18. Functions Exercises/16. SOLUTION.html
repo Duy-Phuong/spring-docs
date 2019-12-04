@@ -1,0 +1,4 @@
+<p>Here's the simpler version that doesn't ignore whitespace.  I reverse the string using a slice [::-1] and compare that to the original string, which returns True or False.  </p><pre class="prettyprint linenums">def is_palindrome(string):
+    return string == string[::-1]</pre><h4>The Bonus Version:</h4><p>For the more advanced version that ignores whitespace, I first remove all whitespace from the input string using a string method called <code>replace()</code> . What I'm actually doing is replacing all spaces(" ") with empty strings ("").  I save the result to a new variable I call <code>stripped</code> .  Then, I simply check if <code>stripped</code> is a palindrome, using the same logic I did in the previous solution.</p><pre class="prettyprint linenums">def is_palindrome(string):
+    stripped = string.replace(" ", "")
+    return stripped == stripped[::-1]</pre>

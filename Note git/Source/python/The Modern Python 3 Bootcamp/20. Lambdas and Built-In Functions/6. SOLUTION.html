@@ -1,0 +1,6 @@
+<h4>decrement_list solution</h4>
+
+<ul><li>I define the function decrement_list that accepts a list called l</li><li>Inside, I call map and pass in a lambda and the list, l<br><ul><li>The lambda returns n-1 for each n in the list</li></ul></li><li>The last step is to convert the return value of map to a list<ul><li>Remember, map returns a&nbsp;&lt;map object&gt;, not a list</li></ul></li><li>Oh, and finally we return the result!</li></ul>
+
+<pre class="prettyprint linenums">def decrement_list(l):
+    return list(map(lambda n: n-1, l))</pre>

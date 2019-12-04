@@ -1,0 +1,38 @@
+<h4>is_all_strings solution&nbsp;</h4>
+
+<p><strong>Using a Generator Expression</strong></p>
+
+
+
+<ul><li>I&nbsp;start by defining is_all_strings, which accepts a parameter called lst
+</li><li>I&nbsp;call the built-in function all, passing in a generator expression that checks if the type of each item in the list is a str.&nbsp;&nbsp;</li></ul>
+
+
+
+<pre class="prettyprint linenums">def is_all_strings(lst):
+    return all(type(l) == str for l in lst)</pre>
+
+
+
+
+
+
+
+<p><strong>Using a List Comprehension</strong></p>
+
+
+
+<p>You can do the same thing, using a list comprehension instead of a generator expression: (just add list brackets around it)<br></p>
+
+
+
+<pre class="prettyprint linenums">def is_all_strings(lst):
+    return all([type(l) == str for l in lst])</pre>
+
+
+
+
+
+
+
+<h4>DON'T&nbsp;WORRY,&nbsp;WE&nbsp;TALK&nbsp;A&nbsp;LOT&nbsp;MORE&nbsp;ABOUT&nbsp;GENERATORS&nbsp;LATER&nbsp;IN&nbsp;THE&nbsp;COURSE</h4>

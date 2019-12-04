@@ -1,0 +1,23 @@
+<p>Using list comprehensions(the more Pythonic way):&nbsp;</p>
+
+<pre class="prettyprint linenums">answer = [val for val in [1,2,3,4] if val in [3,4,5,6]]
+#the slice [::-1] is a quick way to reverse a string
+answer2 = [val[::-1].lower() for val in ["Elie", "Tim", "Matt"]]</pre>
+
+
+
+
+
+<p>Without list comprehensions, things are a bit longer:</p>
+
+
+
+
+
+<pre class="prettyprint linenums">answer = []
+for x in [1,2,3,4]:
+&nbsp;&nbsp;&nbsp;&nbsp;if x in [3,4,5,6]:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;answer.append(x)
+answer2 = []
+for name in ["Elie", "Tim", "Matt"]:
+&nbsp;&nbsp;&nbsp;&nbsp;answer2.append(name[::-1].lower())</pre>
