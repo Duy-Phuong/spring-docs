@@ -349,9 +349,31 @@ print(f"Your {kms}km ride was {miles}mi ")
 
 ### 2. Getting User Input
 
+```py
+data = input("What's your favorite color?")
+print("You said " + data)
+
+print("What's your favorite color?")
+data = input()
+print("You said " + data)
+
+```
+
 ### 3. Intro to Conditionals
 
+```py
+name = "Arya Stark"
+if name == "Arya Stark":
+    print("Valar Morghulis")
+elif name == "Jon Snow":
+    print("You know nothing")
+else:
+    print("Carry on")
+```
+
 ### 4. Lucky Number 7.html
+
+Check html file
 
 ### 5. SOLUTION.html
 
