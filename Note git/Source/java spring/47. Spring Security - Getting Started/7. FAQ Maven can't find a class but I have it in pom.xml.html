@@ -1,0 +1,121 @@
+<p><strong>FAQ:&nbsp; Maven can't find a class, but it is listed in the pom.xml
+
+</strong></p>
+
+
+
+<p>First, double-check that you have the correct Maven coordinates in the file (groupId, artifactId and version). Look for typos.<br></p>
+
+<p>
+
+</p>
+
+
+
+<p>--</p>
+
+
+
+<p>This could be caused by a corrupt local Maven repo. You can resolve it with these steps.</p>
+
+
+
+
+
+<p><strong>Option 1:</strong></p>
+
+
+
+<p><strong></strong></p>
+
+<p><strong></strong></p><strong>
+
+</strong><p><strong></strong>1. On your project, right-click: Maven &gt; Update Project</p>
+
+
+
+
+
+<p>2. In the dialog, check the box: Force Update of Snapshots/Releases</p>
+
+
+
+
+
+<p>3. Click Ok</p>
+
+
+
+
+
+<p>Maven will perform a rebuild.</p>
+
+
+
+
+
+<p>If that doesn't solve your problem then move to option 2</p>
+
+
+
+
+
+<p><strong>Option 2:</strong></p>
+
+
+
+<p><strong></strong></p>
+
+<p><strong></strong></p><strong>
+
+</strong><p><strong></strong>1. Delete your local Maven repo, the .m2 directory on your computer</p>
+
+
+
+
+
+<p>On MS Windows</p>
+
+
+
+
+
+<p>either &nbsp;<br>C:\Documents and Settings\&lt;yourUserName&gt;\.m2<br>c:\Users\&lt;yourUserName&gt;\.m2</p>
+
+
+
+
+
+<p>On Mac/Linux</p>
+
+
+
+
+
+<p>~/.m2</p>
+
+
+
+
+
+<p>--</p>
+
+
+
+
+
+<p><em>Note, on your OS, you may need to configure your OS to show hidden files.</em></p>
+
+
+
+<p>2. Once .m2 directory is deleted, restart Eclipse
+
+</p>
+
+
+
+<p>3. On your project, right-click: Maven &gt; Update Project</p>
+
+
+
+<p>This will resolve your issue.</p>

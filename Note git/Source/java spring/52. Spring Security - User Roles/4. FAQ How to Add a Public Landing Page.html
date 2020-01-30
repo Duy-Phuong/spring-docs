@@ -1,0 +1,40 @@
+<p><strong>Question</strong></p><p>I want my application to have a landing page that is accessible to everyone at first, the user can then signup or login to access specific features. Our current framework only points to the login page. How do i implement this scenario?</p><p><br></p><p><strong>Answer</strong></p><p>Good question!</p><p>You can add a public view page and set up the security constraints to allow access to the view page.</p><p>In this example, we have a view page that anyone can access. Then they can click the link to access the secure pages.</p><figure><img src="https://udemy-images.s3.amazonaws.com:443/redactor/raw/2019-04-26_13-23-02-e85917e242381944e0888e401d59553a.png"></figure><p><br></p><p><strong>Source Code</strong></p><p>Here is a working code example of the project: <a href="https://drive.google.com/open?id=1--Q8XnmjD9SLNze_Hk1JlK-nSIISi2YK" rel="noopener noreferrer" target="_blank"><strong>spring-security-landing-page.zip</strong></a></p><p><br></p><p>This project has the following mods</p><p>1. Updated security configs to allow public access to landing page</p><p>2. Updated controller to send requests to landing page</p><p>3. New landing page</p><p><br></p><p>Details below</p><p>---</p><p><br></p><p>1. Updated security configs to allow public access to landing page</p><p>See the config below. It will "permit all" access to the landing page "/".  Also, for successful logout it will redirect to the landing page "/"</p><p><strong>File: DemoSecurityConfig.java</strong></p><pre class="prettyprint linenums">    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+            .antMatchers("/").permitAll()  // allow public access to home page
+            .antMatchers("/employees").hasRole("EMPLOYEE")
+            .antMatchers("/leaders/**").hasRole("MANAGER")
+            .antMatchers("/systems/**").hasRole("ADMIN")
+            .and()
+            .formLogin()
+            .loginPage("/showMyLoginPage")
+            .loginProcessingUrl("/authenticateTheUser")
+            .permitAll()
+            .and()
+            .logout()
+            .logoutSuccessUrl("/")  // after logout then redirect to landing page (root)
+            .permitAll();
+    }</pre><p><br></p><p>2. Updated controller to send requests to landing page</p><p>In the controller file, added new "/" mapping to send to landing page. And changed the original home mapping to "/employees". see changes in bold.</p><p><strong>File: DemoController.java</strong></p><pre class="prettyprint linenums">    @GetMapping("/")
+    public String showLanding() {
+        return "landing";
+    }
+
+    @GetMapping("/employees")
+    public String showHome() {
+        return "home";
+    }</pre><p><br></p><p>3. New landing page</p><p>Created a new view page for landing information. Anyone can access this page</p><p><strong>File: src/main/webapp/WEB-INF/view/landing.jsp</strong></p><pre class="prettyprint linenums">&lt;html&gt;
+   &lt;head&gt;
+      &lt;title&gt;luv2code Landing Page&lt;/title&gt;
+   &lt;/head&gt;
+   &lt;body&gt;
+      &lt;h2&gt;luv2code Landing Page&lt;/h2&gt;
+      &lt;hr&gt;
+      &lt;p&gt;
+         Welcome to the landing page! This page is open to the public ... no login required :-)
+      &lt;/p&gt;
+      &lt;hr&gt;
+      &lt;p&gt;
+         &lt;a href="${pageContext.request.contextPath}/employees"&gt;Access Secure Site (requires login)&lt;/a&gt;
+      &lt;/p&gt;
+   &lt;/body&gt;
+&lt;/html&gt;</pre><p><br></p><p>To test the application, be sure to open a new private/incognito window. </p><p>Now when you run the application, anyone can access the public home page without logging in. If they follow through on the link, then they will be required to login.</p><p><br></p>

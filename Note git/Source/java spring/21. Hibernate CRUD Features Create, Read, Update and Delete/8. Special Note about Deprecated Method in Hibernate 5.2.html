@@ -1,0 +1,11 @@
+<p>If you are using Hibernate 5.2 or higher, then the Query list() method has been deprecated.</p>
+
+<p>In your code you should make the following update:</p>
+
+<p><strong class="redactor-inline-converted">Replace</strong></p>
+
+<p><code class="redactor-inline-converted">session.createQuery("from Student").list()</code></p>
+
+<p><strong>With</strong></p>
+
+<p><code>session.createQuery("from Student").getResultList()</code></p>
