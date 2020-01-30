@@ -21,4 +21,9 @@ Close Project va filter
 
 ### Quick diff
 
-![](../../root/img/2019-11-10-23-54-15.png)
+![](../root/img/2019-11-10-23-54-15.png)
+
+---
+
+### How to import and export project in Eclipse
+https://www.youtube.com/watch?v=fiuSckgjdmY&feature=youtu.be
