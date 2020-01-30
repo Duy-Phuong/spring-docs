@@ -1,5 +1,12 @@
 - [Spring & Hibernate for Beginners (includes Spring Boot)](#spring--hibernate-for-beginners-includes-spring-boot)
   - [Tai lieu](#tai-lieu)
+  - [2. Spring Overview](#2-spring-overview)
+    - [1. Why Spring - part 1](#1-why-spring---part-1)
+    - [2. Why Spring - part 2](#2-why-spring---part-2)
+    - [3. Spring 5 Update](#3-spring-5-update)
+    - [4. Spring Core Framework - Part 1](#4-spring-core-framework---part-1)
+    - [5. Spring Core Framework - Part 2](#5-spring-core-framework---part-2)
+    - [6. Spring Platform](#6-spring-platform)
   - [3. Setting Up Your Development Environment](#3-setting-up-your-development-environment)
     - [2. Installing Tomcat](#2-installing-tomcat)
     - [4. Connecting Tomcat to Eclipse](#4-connecting-tomcat-to-eclipse)
@@ -197,6 +204,31 @@ http://www.luv2code.com/download-spring-hibernate-pdfs
 **free**
 https://freecoursesite.com/1-spring-hibernate-for-beginners/
 
+## 2. Spring Overview
+### 1. Why Spring - part 1
+### 2. Why Spring - part 2
+pdf
+### 3. Spring 5 Update
+
+**Spring 5 update**
+https://github.com/spring-projects/spring-framework/wiki/What%27s-New-in-Spring-Framework-5.x
+- Updated minimum requirements for Java 8 or higher
+
+- Deprecated legacy integration for: Tiles, Velocity, Portlet, Guava etc
+
+- Upgraded Spring MVC to use new versions of Servlet API 4.0
+
+- Added new reactive programming framework: Spring WebFlux
+### 4. Spring Core Framework - Part 1
+Core container: 
+- Factory for creating beans
+- Manage bean dependencies
+
+AOP
+- logging, security, transactions
+### 5. Spring Core Framework - Part 2
+### 6. Spring Platform
+https://spring.io/projects
 ## 3. Setting Up Your Development Environment
 
 You Must Have the Java Development Kit (JDK) Installed
@@ -258,7 +290,7 @@ Thêm thủ công vào:
 http://www.luv2code.com/downloadspring =>
 http://repo.spring.io/release/org/springframework/spring/
 chọn version release ở dưới cùng rồi chọn **spring-framework-5.1.8.RELEASE-dist.zip** để tải
-Tạo project java bình thường, sau đó tạo thư mục lib rồi copy tất các các thư viện trong lib đã tải paste vào
+Tạo project java bình thường, sau đó tạo thư mục lib trong java project rồi copy tất các các thư viện trong lib đã tải paste vào
 **Rightclick/ properties/ Java build path/ libraries/ classpath/** ấn add jar rồi chon đến thư mục lib trong project mà ta vừa tạo chọn hết tất cả các file
 ![](../../root/img/2019-11-11-00-43-58.png)  
 **Nếu đúng sẽ xuất hiện Referenced libraries:**
@@ -266,6 +298,7 @@ Tạo project java bình thường, sau đó tạo thư mục lib rồi copy t�
 ## 4. Spring Inversion of Control - XML Configuration
 
 ### 1. What is Inversion of Control
+The approach of outsourcing the construction and management of objects.
 
 App should be configurable
 • Easily change the coach for another sport
@@ -282,7 +315,7 @@ App should be configurable
 		System.out.println(theCoach.getDailyWorkout());
     }
 ```
-
+F:\Backup\DISK\D\Docs\spring-hiberante\spring-hibernate-source-code-v26
 ### 4. Spring Inversion of Control - Overview
 
 ##### Spring Container
