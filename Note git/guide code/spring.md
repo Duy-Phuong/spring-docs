@@ -567,7 +567,7 @@ Since you have defined a constructor in class code, compiler didn’t create def
 
 1. Create setter method(s) in your class for injections
 2. Configure the injection in Spring config file
-
+ 
 Tao ham setter de khi khai bao trong file config no se tu dong goi
 
 #### Question:
