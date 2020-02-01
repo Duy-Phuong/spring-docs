@@ -20,7 +20,7 @@
         - [Spring Development Process](#spring-development-process)
       - [FAQ: What is a Spring Bean?](#faq-what-is-a-spring-bean)
       - [8. HEADS UP - Add Logging Messages in Spring 5.1](#8-heads-up---add-logging-messages-in-spring-51)
-      - [Why do we specify the Coach interface in getBean()?](#why-do-we-specify-the-coach-interface-in-getbean)
+      - [9. FAQ Why do we specify the Coach interface in getBean().html](#9-faq-why-do-we-specify-the-coach-interface-in-getbeanhtml)
   - [5. Spring Dependency Injection - XML Configuration](#5-spring-dependency-injection---xml-configuration)
     - [Các nguyên tắc đảo ngược phụ thuộc.](#c%c3%a1c-nguy%c3%aan-t%e1%ba%afc-%c4%91%e1%ba%a3o-ng%c6%b0%e1%bb%a3c-ph%e1%bb%a5-thu%e1%bb%99c)
       - [Spring Injection Types(pdf)](#spring-injection-typespdf)
@@ -205,13 +205,18 @@ http://www.luv2code.com/download-spring-hibernate-pdfs
 https://freecoursesite.com/1-spring-hibernate-for-beginners/
 
 ## 2. Spring Overview
+
 ### 1. Why Spring - part 1
+
 ### 2. Why Spring - part 2
+
 pdf
+
 ### 3. Spring 5 Update
 
 **Spring 5 update**
 https://github.com/spring-projects/spring-framework/wiki/What%27s-New-in-Spring-Framework-5.x
+
 - Updated minimum requirements for Java 8 or higher
 
 - Deprecated legacy integration for: Tiles, Velocity, Portlet, Guava etc
@@ -219,16 +224,24 @@ https://github.com/spring-projects/spring-framework/wiki/What%27s-New-in-Spring-
 - Upgraded Spring MVC to use new versions of Servlet API 4.0
 
 - Added new reactive programming framework: Spring WebFlux
+
 ### 4. Spring Core Framework - Part 1
-Core container: 
+
+Core container:
+
 - Factory for creating beans
 - Manage bean dependencies
 
 AOP
+
 - logging, security, transactions
+
 ### 5. Spring Core Framework - Part 2
+
 ### 6. Spring Platform
+
 https://spring.io/projects
+
 ## 3. Setting Up Your Development Environment
 
 You Must Have the Java Development Kit (JDK) Installed
@@ -298,6 +311,7 @@ Tạo project java bình thường, sau đó tạo thư mục lib trong java pro
 ## 4. Spring Inversion of Control - XML Configuration
 
 ### 1. What is Inversion of Control
+
 The approach of outsourcing the construction and management of objects.
 
 App should be configurable
@@ -315,7 +329,9 @@ App should be configurable
 		System.out.println(theCoach.getDailyWorkout());
     }
 ```
+
 F:\Backup\DISK\D\Docs\spring-hiberante\spring-hibernate-source-code-v26
+
 ### 4. Spring Inversion of Control - Overview
 
 ##### Spring Container
@@ -367,7 +383,9 @@ Spring Beans are created from normal Java classes .... just like Java objects.
 
 ---
 
-Here's a blurb from the Spring Reference Manual
+Here's a blurb from the Spring Reference Manual:
+
+In Spring, the objects that form the backbone of your application and that are managed by the Spring IoC container are called beans. A bean is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container. Otherwise, a bean is simply one of many objects in your application. Beans, and the dependencies among them, are reflected in the configuration metadata used by a container.
 
 Source: https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-introduction
 
@@ -482,7 +500,7 @@ Once you make these updates, then you will be able to see additional logging dat
 
 **Question**
 
-#### Why do we specify the Coach interface in getBean()?
+#### 9. FAQ Why do we specify the Coach interface in getBean().html
 
 For example:
 
