@@ -150,15 +150,53 @@
   - [20. Hibernate Configuration with Annotations](#20-hibernate-configuration-with-annotations)
     - [1. Creating the Hibernate Configuration File](#1-creating-the-hibernate-configuration-file)
     - [2. Hibernate Annotations - Part 1](#2-hibernate-annotations---part-1)
+    - [4. HEADS UP - FOR JAVA 9 USERS.html](#4-heads-up---for-java-9-usershtml)
+    - [5. HEADS UP - JAVA 9 USERS - Eclipse Generate toString() fails.html](#5-heads-up---java-9-users---eclipse-generate-tostring-failshtml)
     - [JUST A HEADS UP - FOR JAVA 9, 10 and 11 USERS](#just-a-heads-up---for-java-9-10-and-11-users)
     - [HEADS UP - JAVA 9 USERS - Eclipse Generate toString() fails](#heads-up---java-9-users---eclipse-generate-tostring-fails)
+    - [6. Hibernate Annotations - Part 2](#6-hibernate-annotations---part-2)
+    - [7. FAQ Why we are using JPA Annotation instead of Hibernate.html](#7-faq-why-we-are-using-jpa-annotation-instead-of-hibernatehtml)
     - [FAQ: Why we are using JPA Annotation instead of Hibernate ?](#faq-why-we-are-using-jpa-annotation-instead-of-hibernate)
   - [21. Hibernate CRUD Features Create, Read, Update and Delete](#21-hibernate-crud-features-create-read-update-and-delete)
     - [1. Creating and Saving Java Objects - Part 1](#1-creating-and-saving-java-objects---part-1)
+    - [2. Creating and Saving Java Objects - Part 2](#2-creating-and-saving-java-objects---part-2)
     - [3. Primary Keys - Overview](#3-primary-keys---overview)
-    - [4. Primary Keys - Changing the Starting Index](#4-primary-keys---changing-the-starting-index)
+    - [5. Primary Keys - Changing the Starting Index](#5-primary-keys---changing-the-starting-index)
+    - [6. Reading Objects with Hibernate](#6-reading-objects-with-hibernate)
+    - [7. Querying Objects with Hibernate - Overview](#7-querying-objects-with-hibernate---overview)
+    - [8. Special Note about Deprecated Method in Hibernate 5.2.html](#8-special-note-about-deprecated-method-in-hibernate-52html)
+    - [9. Querying Objects with Hibernate - Write Some Code - Part 1](#9-querying-objects-with-hibernate---write-some-code---part-1)
+    - [10. Querying Objects with Hibernate - Write Some Code - Part 2](#10-querying-objects-with-hibernate---write-some-code---part-2)
+    - [11. FAQ How To View Hibernate SQL Parameter Values.html](#11-faq-how-to-view-hibernate-sql-parameter-valueshtml)
+- [Root logger option](#root-logger-option)
+- [Redirect log messages to console](#redirect-log-messages-to-console)
+    - [12. Updating Objects with Hibernate - Overview](#12-updating-objects-with-hibernate---overview)
+    - [13. Updating Objects with Hibernate - Write Some Code](#13-updating-objects-with-hibernate---write-some-code)
+    - [14. Deleting Objects with Hibernate - Overview](#14-deleting-objects-with-hibernate---overview)
+    - [15. Deleting Objects with Hibernate - Write Some Code](#15-deleting-objects-with-hibernate---write-some-code)
+    - [16. Practice Activity #8 - Hibernate Development.html](#16-practice-activity-8---hibernate-developmenthtml)
+    - [17. FAQ How to read Dates with Hibernate.html](#17-faq-how-to-read-dates-with-hibernatehtml)
   - [22. Hibernate Advanced Mappings](#22-hibernate-advanced-mappings)
+    - [1. Advanced Mappings Overview](#1-advanced-mappings-overview)
+    - [2. Database Concepts](#2-database-concepts)
   - [23. Hibernate Advanced Mappings - @OneToOne](#23-hibernate-advanced-mappings---onetoone)
+    - [1. @OneToOne - Overview - Part 1](#1-onetoone---overview---part-1)
+    - [2. @OneToOne - Overview - Part 2](#2-onetoone---overview---part-2)
+    - [3. @OneToOne - Overview - Part 3](#3-onetoone---overview---part-3)
+    - [4. @OneToOne - Run Database Scripts](#4-onetoone---run-database-scripts)
+    - [5. @OneToOne - Write Some Code - Prep Work](#5-onetoone---write-some-code---prep-work)
+    - [6. @OneToOne - Write Some Code - Create InstructorDetail class](#6-onetoone---write-some-code---create-instructordetail-class)
+    - [7. @OneToOne - Write Some Code - Create Instructor class](#7-onetoone---write-some-code---create-instructor-class)
+    - [8. @OneToOne - Write Some Code - Build Main App - Part 1](#8-onetoone---write-some-code---build-main-app---part-1)
+    - [9. @OneToOne - Write Some Code - Build Main App - Part 2](#9-onetoone---write-some-code---build-main-app---part-2)
+    - [10. @OneToOne - Delete an Entity](#10-onetoone---delete-an-entity)
+    - [11. @OneToOne - Bi-Directional Overview](#11-onetoone---bi-directional-overview)
+    - [12. @OneToOne - Bi-Directional - Create Relationship](#12-onetoone---bi-directional---create-relationship)
+    - [13. @OneToOne - Bi-Directional - Develop Main App](#13-onetoone---bi-directional---develop-main-app)
+    - [14. @OneToOne - Refactoring and Exception Handling](#14-onetoone---refactoring-and-exception-handling)
+    - [15. @OneToOne - Bi-Directional - Cascade Delete](#15-onetoone---bi-directional---cascade-delete)
+    - [16. @OneToOne - Bi-Directional - Delete Only InstructorDetail - Part 1](#16-onetoone---bi-directional---delete-only-instructordetail---part-1)
+    - [17. @OneToOne - Bi-Directional - Delete Only InstructorDetail - Part 2](#17-onetoone---bi-directional---delete-only-instructordetail---part-2)
   - [24. Hibernate Advanced Mappings - @OneToMany](#24-hibernate-advanced-mappings---onetomany)
   - [25. Hibernate Advanced Mappings - Eager vs Lazy Loading](#25-hibernate-advanced-mappings---eager-vs-lazy-loading)
   - [26. Hibernate Advanced Mappings - @OneToMany - Unidirectional](#26-hibernate-advanced-mappings---onetomany---unidirectional)
@@ -2642,10 +2680,12 @@ If not, then plenty of free tutorials available
 
 ### 4. Applying Regular Expressions - Write Some Code
 
+Kiểu dữ liệu khi validate phải là object và có đầy đủ get set
+
 ### 5. How to make Integer Field Required freePasses
 
 ```java
-// Chuyen tu int sang Integer de check NotNull tranh Exception
+// Chuyen tu int sang Integer de check NotNull tranh Exception khi nhap text vao o co chua number
 @NotNull(message="is required")
 	@Min(value=0, message="must be greater than or equal to zero")
 	@Max(value=10, message="must be less than or equal to 10")
@@ -2654,7 +2694,9 @@ If not, then plenty of free tutorials available
 
 ### 6. How to Handle String input for Integer Fields - Custom Message
 
-Tao file .properties
+pdf
+tao folder resource/
+Tao file messages.properties
 typeMismatch.customer.freePasses=Invalid number
 errorType.Class.field
 
@@ -2682,6 +2724,7 @@ Vao print ra theBindingResult de co the biet error code de override **typeMismat
 			@Valid @ModelAttribute("customer") Customer theCustomer,
 			BindingResult theBindingResult) {
 
+        // print to know type of error
 		System.out.println("Last name: |" + theCustomer.getLastName() + "|");
 		System.out.println(theBindingResult);
 		if (theBindingResult.hasErrors()) {
@@ -2897,7 +2940,7 @@ public @interface CourseCode {
 
 ---
 public class CourseCodeConstraintValidator
-	implements ConstraintValidator<CourseCode, String> {
+	implements ConstraintValidator<CourseCode, String> { // String is type of data validate against
 
 	private String coursePrefix;
 
@@ -3114,6 +3157,8 @@ public static void main(String[] args) {
 
 ### 1. Creating the Hibernate Configuration File
 
+http://luv2code.com/hibernate-tutorial
+
 ```xml
 <!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
@@ -3204,6 +3249,10 @@ public class Student {
 }
 
 ```
+
+### 4. HEADS UP - FOR JAVA 9 USERS.html
+
+### 5. HEADS UP - JAVA 9 USERS - Eclipse Generate toString() fails.html
 
 ### JUST A HEADS UP - FOR JAVA 9, 10 and 11 USERS
 
@@ -3356,6 +3405,10 @@ Bug link: https://bugs.eclipse.org/bugs/show_bug.cgi?id=521995
 
 As a work around, you will need to manually write the code for toString(). You can move ahead in the video and then pause the video where you see the toString() code.
 
+### 6. Hibernate Annotations - Part 2
+
+### 7. FAQ Why we are using JPA Annotation instead of Hibernate.html
+
 ### FAQ: Why we are using JPA Annotation instead of Hibernate ?
 
 QUESTION:
@@ -3386,6 +3439,12 @@ Short-lived object
 Retrieved from SessionFactory
 
 Deault name: hibernate.cfg.xml
+Sửa file config thành để chạy được:
+<property name="connection.driver_class">com.mysql.jdbc.Driver
+</property>
+https://o7planning.org/vi/10201/huong-dan-lap-trinh-java-hibernate-cho-nguoi-moi-bat-dau#a77418
+
+### 2. Creating and Saving Java Objects - Part 2
 
 ### 3. Primary Keys - Overview
 
@@ -3397,7 +3456,7 @@ Pick an appropriate strategy for the particular database
 **GenerationType.TABLE**: Assign primary keys using an underlying
 database table to ensure uniqueness
 
-### 4. Primary Keys - Changing the Starting Index
+### 5. Primary Keys - Changing the Starting Index
 
 Bat dau tu 200:
 ALERT TABLE hb.student AUTO_INCREMENT=200
@@ -3420,9 +3479,643 @@ private int id;
 
 ```
 
+### 6. Reading Objects with Hibernate
+
+```java
+package com.luv2code.hibernate.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Student;
+
+public class ReadStudentDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Student.class)
+								.buildSessionFactory();
+
+		// create session
+		Session session = factory.getCurrentSession();
+
+		try {
+			// create a student object
+			System.out.println("Creating new student object...");
+			Student tempStudent = new Student("Daffy", "Duck", "daffy@luv2code.com");
+
+			// start a transaction
+			session.beginTransaction();
+
+			// save the student object
+			System.out.println("Saving the student...");
+			System.out.println(tempStudent);
+			session.save(tempStudent);
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			// MY NEW CODE
+
+			// find out the student's id: primary key
+			System.out.println("Saved student. Generated id: " + tempStudent.getId());
+
+			// now get a new session and start transaction
+			session = factory.getCurrentSession();
+			session.beginTransaction();
+
+			// retrieve student based on the id: primary key
+			System.out.println("\nGetting student with id: " + tempStudent.getId());
+
+			Student myStudent = session.get(Student.class, tempStudent.getId());
+
+			System.out.println("Get complete: " + myStudent);
+
+			// commit the transaction
+			session.getTransaction().commit();
+
+			System.out.println("Done!");
+		}
+		finally {
+			factory.close();
+		}
+	}
+
+}
+
+
+```
+
+### 7. Querying Objects with Hibernate - Overview
+
+```java
+package com.luv2code.hibernate.demo;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Student;
+
+public class QueryStudentDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Student.class)
+								.buildSessionFactory();
+
+		// create session
+		Session session = factory.getCurrentSession();
+
+		try {
+
+			// start a transaction
+			session.beginTransaction();
+
+			// query students
+			List<Student> theStudents = session.createQuery("from Student").getResultList();
+
+			// display the students
+			displayStudents(theStudents);
+
+      // lastName is name of attr in java, it is not column name
+			// query students: lastName='Doe'
+			theStudents = session.createQuery("from Student s where s.lastName='Doe'").getResultList();
+
+			// display the students
+			System.out.println("\n\nStudents who have last name of Doe");
+			displayStudents(theStudents);
+
+			// query students: lastName='Doe' OR firstName='Daffy'
+			theStudents =
+					session.createQuery("from Student s where"
+							+ " s.lastName='Doe' OR s.firstName='Daffy'").getResultList();
+
+			System.out.println("\n\nStudents who have last name of Doe OR first name Daffy");
+			displayStudents(theStudents);
+
+			// query students where email LIKE '%gmail.com'
+			theStudents = session.createQuery("from Student s where"
+					+ " s.email LIKE '%gmail.com'").getResultList();
+
+			System.out.println("\n\nStudents whose email ends with gmail.com");
+			displayStudents(theStudents);
+
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			System.out.println("Done!");
+		}
+		finally {
+			factory.close();
+		}
+	}
+
+	private static void displayStudents(List<Student> theStudents) {
+		for (Student tempStudent : theStudents) {
+			System.out.println(tempStudent);
+		}
+	}
+
+}
+
+
+```
+
+### 8. Special Note about Deprecated Method in Hibernate 5.2.html
+
+If you are using Hibernate 5.2 or higher, then the Query list() method has been deprecated.
+In your code you should make the following update:
+Replace
+session.createQuery("from Student").list()
+With
+session.createQuery("from Student").getResultList()
+
+### 9. Querying Objects with Hibernate - Write Some Code - Part 1
+
+### 10. Querying Objects with Hibernate - Write Some Code - Part 2
+
+### 11. FAQ How To View Hibernate SQL Parameter Values.html
+
+FAQ: How To View Hibernate SQL Parameter Values
+
+Question:
+
+I see hibernate printing out the query parameters as ? in the console.
+Is it possible to printout the value that was actually queried on the
+database. Asking as this would help in the debugging purpose.
+
+Answer:
+
+When using Hibernate, if you log the Hibernate SQL statements, you will see this:
+
+Hibernate: insert into student (email, first_name, last_name, id) values (?, ?, ?, ?)
+
+However, for debugging your application, you want to see the actual parameter values in the Hibernate logs. Basically, you want to get rid of the question marks in the Hibernate logs.
+
+You can view the actual parameters by viewing the low-level trace of the Hibernate logs. This is not set up by default. However, we can add log4j to allow us to see these low-level logs.
+
+Here is an overview of the process:
+
+1. Add log4j to your project classpath
+
+2. Add log4j.properties to your “src” directory
+
+Here are the detailed steps:
+
+1. Add log4j to your project classpath
+
+1a. Download log4j v1.2.17 from this link: – http://central.maven.org/maven2/log4j/log4j/1.2.17/log4j-1.2.17.jar
+
+1b. Copy this file to your project’s lib directory
+
+1c. Right-click your Eclipse project and select Properties
+
+1d. Select Build Path > Libraries > Add JARS…
+
+1e. Select the log4j-1.2.17.jar file from the lib directory
+
+2. Add log4j.properties to your “src” directory
+
+2a. Copy the text from below
+
+# Root logger option
+
+log4j.rootLogger=DEBUG, stdout
+
+# Redirect log messages to console
+
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.Target=System.out
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
+
+log4j.logger.org.hibernate=TRACE
+2b. Save this file as "log4j.properties" in your “src” directory
+
+Note: This file has an important setting:
+
+log4j.logger.org.hibernate=TRACE
+
+This allows you see a low-level trace of Hibernate and this allows you see the real SQL parameter values.
+
+Now run your application. You will see a lot of low-level TRACE logs in the Eclipse Console window.
+
+Right-click in the Eclipse Console window and select Find/Replace…
+
+Search for: binding parameter
+
+or search for: extracted value
+
+(the search string changes depending on which version of Hibernate you are using)
+
+You will see the logs with the real parameter values. Congrats!
+
+### 12. Updating Objects with Hibernate - Overview
+
+### 13. Updating Objects with Hibernate - Write Some Code
+
+```java
+package com.luv2code.hibernate.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Student;
+
+public class UpdateStudentDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Student.class)
+								.buildSessionFactory();
+
+		// create session
+		Session session = factory.getCurrentSession();
+
+		try {
+			int studentId = 1;
+
+			// now get a new session and start transaction
+			session = factory.getCurrentSession();
+			session.beginTransaction();
+
+			// retrieve student based on the id: primary key
+			System.out.println("\nGetting student with id: " + studentId);
+
+			Student myStudent = session.get(Student.class, studentId);
+
+			System.out.println("Updating student...");
+			myStudent.setFirstName("Scooby");
+
+			// commit the transaction
+			session.getTransaction().commit();
+
+			// NEW CODE
+
+			session = factory.getCurrentSession();
+			session.beginTransaction();
+
+			// update email for all students
+			System.out.println("Update email for all students");
+
+			session.createQuery("update Student set email='foo@gmail.com'")
+				.executeUpdate();
+
+			// commit the transaction
+			session.getTransaction().commit();
+
+
+			System.out.println("Done!");
+		}
+		finally {
+			factory.close();
+		}
+	}
+
+}
+
+
+
+
+```
+
+### 14. Deleting Objects with Hibernate - Overview
+
+### 15. Deleting Objects with Hibernate - Write Some Code
+
+```java
+package com.luv2code.hibernate.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Student;
+
+public class DeleteStudentDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Student.class)
+								.buildSessionFactory();
+
+		// create session
+		Session session = factory.getCurrentSession();
+
+		try {
+			int studentId = 1;
+
+			// now get a new session and start transaction
+			session = factory.getCurrentSession();
+			session.beginTransaction();
+
+			// retrieve student based on the id: primary key
+			System.out.println("\nGetting student with id: " + studentId);
+
+			Student myStudent = session.get(Student.class, studentId);
+
+			// delete the student
+			// System.out.println("Deleting student: " + myStudent);
+			// session.delete(myStudent);
+
+			// delete student id=2
+			System.out.println("Deleting student id=2");
+
+			session.createQuery("delete from Student where id=2").executeUpdate();
+
+			// commit the transaction
+			session.getTransaction().commit();
+
+			System.out.println("Done!");
+		}
+		finally {
+			factory.close();
+		}
+	}
+
+}
+
+```
+
+### 16. Practice Activity #8 - Hibernate Development.html
+
+### 17. FAQ How to read Dates with Hibernate.html
+
 ## 22. Hibernate Advanced Mappings
 
+### 1. Advanced Mappings Overview
+
+Xem pdf
+
+### 2. Database Concepts
+
 ## 23. Hibernate Advanced Mappings - @OneToOne
+
+### 1. @OneToOne - Overview - Part 1
+
+pdf sql create table
+
+### 2. @OneToOne - Overview - Part 2
+
+```java
+package com.luv2code.hibernate.demo.entity;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="instructor")
+public class Instructor {
+
+	// annotate the class as an entity and map to db table
+
+	// define the fields
+
+	// annotate the fields with db column names
+
+	// ** set up mapping to InstructorDetail entity
+
+	// create constructors
+
+	// generate getter/setter methods
+
+	// generate toString() method
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
+	private int id;
+
+	@Column(name="first_name")
+	private String firstName;
+
+	@Column(name="last_name")
+	private String lastName;
+
+	@Column(name="email")
+	private String email;
+
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="instructor_detail_id")
+	private InstructorDetail instructorDetail;
+
+	public Instructor() {
+
+	}
+
+	public Instructor(String firstName, String lastName, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
+// getter setter
+
+	@Override
+	public String toString() {
+		return "Instructor [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", instructorDetail=" + instructorDetail + "]";
+	}
+
+
+}
+
+```
+
+```java
+package com.luv2code.hibernate.demo.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="instructor_detail")
+public class InstructorDetail {
+
+	// annotate the class as an entity and map to db table
+
+	// define the fields
+
+	// annotate the fields with db column names
+
+	// create constructors
+
+	// generate getter/setter methods
+
+	// generate toString() method
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
+	private int id;
+
+	@Column(name="youtube_channel")
+	private String youtubeChannel;
+
+	@Column(name="hobby")
+	private String hobby;
+
+	public InstructorDetail() {
+
+	}
+
+	public InstructorDetail(String youtubeChannel, String hobby) {
+		this.youtubeChannel = youtubeChannel;
+		this.hobby = hobby;
+	}
+
+	// getter setter
+
+	@Override
+	public String toString() {
+		return "InstructorDetail [id=" + id + ", youtubeChannel=" + youtubeChannel + ", hobby=" + hobby + "]";
+	}
+
+}
+
+
+
+```
+
+### 3. @OneToOne - Overview - Part 3
+
+Nếu không chỉ rõ thì k có operation nào được cascaded
+
+```java
+package com.luv2code.hibernate.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Instructor;
+import com.luv2code.hibernate.demo.entity.InstructorDetail;
+import com.luv2code.hibernate.demo.entity.Student;
+
+public class CreateDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Instructor.class)
+								.addAnnotatedClass(InstructorDetail.class)
+								.buildSessionFactory();
+
+		// create session
+		Session session = factory.getCurrentSession();
+
+		try {
+
+			// create the objects
+			/*
+			Instructor tempInstructor =
+					new Instructor("Chad", "Darby", "darby@luv2code.com");
+
+			InstructorDetail tempInstructorDetail =
+					new InstructorDetail(
+							"http://www.luv2code.com/youtube",
+							"Luv 2 code!!!");
+			*/
+
+			Instructor tempInstructor =
+					new Instructor("Madhu", "Patel", "madhu@luv2code.com");
+
+			InstructorDetail tempInstructorDetail =
+					new InstructorDetail(
+							"http://www.youtube.com",
+							"Guitar");
+
+			// associate the objects
+			tempInstructor.setInstructorDetail(tempInstructorDetail);
+
+			// start a transaction
+			session.beginTransaction();
+
+			// save the instructor
+			//
+			// Note: this will ALSO save the details object
+			// because of CascadeType.ALL
+			//
+			System.out.println("Saving instructor: " + tempInstructor);
+			session.save(tempInstructor);
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			System.out.println("Done!");
+		}
+		finally {
+			factory.close();
+		}
+	}
+
+}
+
+
+```
+
+### 4. @OneToOne - Run Database Scripts
+
+test connect by jdbc using another schema
+hb-01-0ne-to-one-uni
+
+### 5. @OneToOne - Write Some Code - Prep Work
+
+Xem file word
+
+### 6. @OneToOne - Write Some Code - Create InstructorDetail class
+
+### 7. @OneToOne - Write Some Code - Create Instructor class
+
+### 8. @OneToOne - Write Some Code - Build Main App - Part 1
+
+### 9. @OneToOne - Write Some Code - Build Main App - Part 2
+
+### 10. @OneToOne - Delete an Entity
+
+### 11. @OneToOne - Bi-Directional Overview
+
+### 12. @OneToOne - Bi-Directional - Create Relationship
+
+### 13. @OneToOne - Bi-Directional - Develop Main App
+
+### 14. @OneToOne - Refactoring and Exception Handling
+
+### 15. @OneToOne - Bi-Directional - Cascade Delete
+
+### 16. @OneToOne - Bi-Directional - Delete Only InstructorDetail - Part 1
+
+### 17. @OneToOne - Bi-Directional - Delete Only InstructorDetail - Part 2
 
 ## 24. Hibernate Advanced Mappings - @OneToMany
 

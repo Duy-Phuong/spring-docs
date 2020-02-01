@@ -257,22 +257,6 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
 
 ### 1. Creating and Saving Java Objects - Part 1
 
-### 10. Querying Objects with Hibernate - Write Some Code - Part 2
-
-### 11. FAQ How To View Hibernate SQL Parameter Values.html
-
-### 12. Updating Objects with Hibernate - Overview
-
-### 13. Updating Objects with Hibernate - Write Some Code
-
-### 14. Deleting Objects with Hibernate - Overview
-
-### 15. Deleting Objects with Hibernate - Write Some Code
-
-### 16. Practice Activity #8 - Hibernate Development.html
-
-### 17. FAQ How to read Dates with Hibernate.html
-
 ### 2. Creating and Saving Java Objects - Part 2
 
 ### 3. Primary Keys - Overview
@@ -288,6 +272,22 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
 ### 8. Special Note about Deprecated Method in Hibernate 5.2.html
 
 ### 9. Querying Objects with Hibernate - Write Some Code - Part 1
+
+### 10. Querying Objects with Hibernate - Write Some Code - Part 2
+
+### 11. FAQ How To View Hibernate SQL Parameter Values.html
+
+### 12. Updating Objects with Hibernate - Overview
+
+### 13. Updating Objects with Hibernate - Write Some Code
+
+### 14. Deleting Objects with Hibernate - Overview
+
+### 15. Deleting Objects with Hibernate - Write Some Code
+
+### 16. Practice Activity #8 - Hibernate Development.html
+
+### 17. FAQ How to read Dates with Hibernate.html
 
 ## 22. Hibernate Advanced Mappings
 
