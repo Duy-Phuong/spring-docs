@@ -61,21 +61,36 @@
       - [HEADS UP - FOR JAVA 9, 10 and 11 USERS - @PostConstruct and @PreDestroy](#heads-up---for-java-9-10-and-11-users---postconstruct-and-predestroy)
   - [10. Spring Configuration with Java Code (no xml)](#10-spring-configuration-with-java-code-no-xml)
     - [1. Spring Configuration with Java Code (no xml) – Overview](#1-spring-configuration-with-java-code-no-xml-%e2%80%93-overview)
+    - [4. Defining Spring Beans with Java Code (no xml) - Overview](#4-defining-spring-beans-with-java-code-no-xml---overview)
       - [3. Heads Up - Add Logging Messages in Spring 5.1 - All Java Config Version](#3-heads-up---add-logging-messages-in-spring-51---all-java-config-version)
       - [During All Java Configuration, how does the @Bean annotation work in the background?](#during-all-java-configuration-how-does-the-bean-annotation-work-in-the-background)
+    - [10. Injecting Values from Properties File - Write Some Code - Part 2](#10-injecting-values-from-properties-file---write-some-code---part-2)
     - [FAQ: Problems with Injecting Values - Value not returning from \${foo.email}](#faq-problems-with-injecting-values---value-not-returning-from-fooemail)
-    - [4. Defining Spring Beans with Java Code (no xml) - Overview](#4-defining-spring-beans-with-java-code-no-xml---overview)
+    - [4. Defining Spring Beans with Java Code (no xml) - Overview](#4-defining-spring-beans-with-java-code-no-xml---overview-1)
   - [11. Spring MVC - Building Spring Web Apps](#11-spring-mvc---building-spring-web-apps)
     - [1. Spring MVC Overview](#1-spring-mvc-overview)
     - [2. Spring MVC - Behind the Scenes](#2-spring-mvc---behind-the-scenes)
     - [3. Development Environment Checkpoint](#3-development-environment-checkpoint)
+    - [4. Download Spring MVC Starter Files.html](#4-download-spring-mvc-starter-fileshtml)
     - [5. Spring MVC Configuration - Overview](#5-spring-mvc-configuration---overview)
     - [6. Spring MVC Configuration - JAR Files](#6-spring-mvc-configuration---jar-files)
-      - [How to configure the Spring Dispatcher Servlet using all Java Code (no xml)?](#how-to-configure-the-spring-dispatcher-servlet-using-all-java-code-no-xml)
+    - [7. Spring MVC Configuration - Config Files](#7-spring-mvc-configuration---config-files)
+      - [8. How to configure the Spring Dispatcher Servlet using all Java Code (no xml)?](#8-how-to-configure-the-spring-dispatcher-servlet-using-all-java-code-no-xml)
   - [12. Spring MVC - Creating Controllers and Views](#12-spring-mvc---creating-controllers-and-views)
     - [1. Creating a Spring Home Controller and View – Overview](#1-creating-a-spring-home-controller-and-view-%e2%80%93-overview)
-    - [7. Reading HTML Form Data – Overview](#7-reading-html-form-data-%e2%80%93-overview)
+    - [3. Creating a Spring Home Controller and View - Write Some Code - Part 2](#3-creating-a-spring-home-controller-and-view---write-some-code---part-2)
+    - [4. FAQ HELP! My Spring MVC Controller is not working. What to do.html](#4-faq-help-my-spring-mvc-controller-is-not-working-what-to-dohtml)
+    - [5. FAQ HELP! - Can't Start Tomcat - Ports are in Use!.html](#5-faq-help---cant-start-tomcat---ports-are-in-usehtml)
+    - [6. FAQ How Does Component Scan Work - Your Package Names are Different!.html](#6-faq-how-does-component-scan-work---your-package-names-are-differenthtml)
+    - [7. Reading HTML Form Data - Overview](#7-reading-html-form-data---overview)
+    - [8. Reading HTML Form Data - Write Some Code - Part 1](#8-reading-html-form-data---write-some-code---part-1)
+    - [9. Reading HTML Form Data - Write Some Code - Part 2](#9-reading-html-form-data---write-some-code---part-2)
+    - [10. Reading HTML Form Data - Write Some Code - Part 3](#10-reading-html-form-data---write-some-code---part-3)
     - [11. Adding Data to the Spring Model - Overview](#11-adding-data-to-the-spring-model---overview)
+    - [12. Adding Data to the Spring Model - Write Some Code - Part 1](#12-adding-data-to-the-spring-model---write-some-code---part-1)
+    - [13. Adding Data to the Spring Model - Write Some Code - Part 2](#13-adding-data-to-the-spring-model---write-some-code---part-2)
+    - [14. FAQ How to use CSS, JavaScript and Images in Spring MVC Web App.html](#14-faq-how-to-use-css-javascript-and-images-in-spring-mvc-web-apphtml)
+    - [15. Bonus Deploying To Tomcat using WAR files.html](#15-bonus-deploying-to-tomcat-using-war-fileshtml)
     - [Question: HELP! My Spring MVC Controller is not working. What to do?](#question-help-my-spring-mvc-controller-is-not-working-what-to-do)
     - [Can't Start Tomcat - Ports are in Use](#cant-start-tomcat---ports-are-in-use)
     - [How Does Component Scan Work - Your Package Names are Different!](#how-does-component-scan-work---your-package-names-are-different)
@@ -84,12 +99,15 @@
     - [1. Binding Request Params - Overview](#1-binding-request-params---overview)
     - [2. Binding Request Params - Write Some Code](#2-binding-request-params---write-some-code)
     - [3. Controller Level Request Mapping - Overview](#3-controller-level-request-mapping---overview)
-      - [Question: Can you please clarify how /hello is getting appended to the jsp file action for "processForm"?](#question-can-you-please-clarify-how-hello-is-getting-appended-to-the-jsp-file-action-for-%22processform%22)
+    - [4. Controller Level Request Mapping - Write Some Code - Part 1](#4-controller-level-request-mapping---write-some-code---part-1)
+    - [5. Controller Level Request Mapping - Write Some Code - Part 2](#5-controller-level-request-mapping---write-some-code---part-2)
+    - [6. FAQ How does processForm work for hello.html](#6-faq-how-does-processform-work-for-hellohtml)
   - [14. Spring MVC - Form Tags and Data Binding](#14-spring-mvc---form-tags-and-data-binding)
     - [2. Text Fields - Overview](#2-text-fields---overview)
-    - [3. Drop-Down Lists - Overview](#3-drop-down-lists---overview)
-      - [How to use properties file to load country options](#how-to-use-properties-file-to-load-country-options)
-    - [4. Radio Buttons - Overview](#4-radio-buttons---overview)
+    - [6. Drop-Down Lists - Overview](#6-drop-down-lists---overview)
+    - [9. FAQ Use properties file to load country options.html](#9-faq-use-properties-file-to-load-country-optionshtml)
+    - [11. Radio Buttons - Overview](#11-radio-buttons---overview)
+    - [12. FAQ How to populate radiobuttons with items from Java class.html](#12-faq-how-to-populate-radiobuttons-with-items-from-java-classhtml)
       - [FAQ: How to populate radiobuttons with items from Java class like we did with selectlist?](#faq-how-to-populate-radiobuttons-with-items-from-java-class-like-we-did-with-selectlist)
     - [5. Checkboxes - Overview](#5-checkboxes---overview)
   - [15. Spring MVC Form Validation - Applying Built-In Validation Rules](#15-spring-mvc-form-validation---applying-built-in-validation-rules)
@@ -97,8 +115,11 @@
     - [2. Setting Up Dev Environment for Form Validation](#2-setting-up-dev-environment-for-form-validation)
     - [3. Installing Validation Files](#3-installing-validation-files)
     - [4. Checking for Required Fields Overview](#4-checking-for-required-fields-overview)
+    - [5. Special Note about BindingResult Parameter Order.html](#5-special-note-about-bindingresult-parameter-orderhtml)
     - [6. Add Validation Rule to Customer Class](#6-add-validation-rule-to-customer-class)
     - [7. Display Validation Error Messages on HTML Form](#7-display-validation-error-messages-on-html-form)
+    - [8. Perform Validation in Controller Class - Part 1](#8-perform-validation-in-controller-class---part-1)
+    - [9. Perform Validation in Controller Class - Part 2](#9-perform-validation-in-controller-class---part-2)
     - [10. Update Confirmation Page](#10-update-confirmation-page)
     - [11. Test the Validation Rule for Required Fields](#11-test-the-validation-rule-for-required-fields)
     - [12. Add Pre-processing Code with @InitBinder - Overview](#12-add-pre-processing-code-with-initbinder---overview)
@@ -1117,6 +1138,8 @@ Configure the Spring container with Java code
 
 ---
 
+### 4. Defining Spring Beans with Java Code (no xml) - Overview
+
 solution-code-spring-java-config
 SportConfig
 
@@ -1342,6 +1365,8 @@ This concludes the line-by-line discussion of the source code. All of the behind
 
 I hope this clears your doubt. :-)
 
+### 10. Injecting Values from Properties File - Write Some Code - Part 2
+
 ### FAQ: Problems with Injecting Values - Value not returning from \${foo.email}
 
 Question
@@ -1437,6 +1462,8 @@ https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#m
 
 ### 3. Development Environment Checkpoint
 
+### 4. Download Spring MVC Starter Files.html
+
 In the following videos for Spring MVC, I provide a collection of starter files.
 Download these files from the link below.
 http://www.luv2code.com/downloads/udemy-spring-hibernate/solution-code-spring-mvc-config-files.zip
@@ -1519,16 +1546,18 @@ web.xml
 ### 6. Spring MVC Configuration - JAR Files
 
 **File/ New/ Dynamic web project/Finish**
-Copy jar files vào thư mục WebContent/ WEB-INF/ lib
-Copy thêm 2 file jstl:
+Copy spring jar files vào thư mục WebContent/ WEB-INF/ lib
+Copy thêm 2 file jstl():
 
 - javax.servlet.jsp.jstl-1.2.1.jar
 - javax.servlet.jsp.jstl-api-1.2.1
 
+### 7. Spring MVC Configuration - Config Files
+
 Copy 2 file xml vao WEB-INF
 Question:
 
-#### How to configure the Spring Dispatcher Servlet using all Java Code (no xml)?
+#### 8. How to configure the Spring Dispatcher Servlet using all Java Code (no xml)?
 
 Answer:
 
@@ -1649,14 +1678,84 @@ let me know if you need anything else.
 
 ---
 
+### 3. Creating a Spring Home Controller and View - Write Some Code - Part 2
+
+If error run
+http://luv2code.com/spring-mvc-helps
+
 Display data in jsp files
 Student name: \${param.studentName}
 
 ---
 
-### 7. Reading HTML Form Data – Overview
+solution-code-spring-mvc-create-home-controller-and-view
+
+### 4. FAQ HELP! My Spring MVC Controller is not working. What to do.html
+
+### 5. FAQ HELP! - Can't Start Tomcat - Ports are in Use!.html
+
+### 6. FAQ How Does Component Scan Work - Your Package Names are Different!.html
+
+### 7. Reading HTML Form Data - Overview
+
+solution-code-spring-mvc-reading-html-form-data
+
+### 8. Reading HTML Form Data - Write Some Code - Part 1
+
+### 9. Reading HTML Form Data - Write Some Code - Part 2
+
+process Form
+
+```
+<!DOCTYPE html>
+<html>
+
+<body>
+
+Hello World of Spring!
+
+<br><br>
+
+Student name: ${param.studentName}
+
+</body>
+
+</html>
+
+```
+
+### 10. Reading HTML Form Data - Write Some Code - Part 3
+
+```java
+package com.luv2code.springdemo.mvc;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class HomeController {
+
+	@RequestMapping("/")
+	public String showPage() {
+		return "main-menu";
+	}
+}
+
+```
 
 ### 11. Adding Data to the Spring Model - Overview
+
+The Model is a container for your application data
+
+• In your Controller
+
+• You can put anything in the model
+
+• strings, objects, info from database, etc...
+
+• Your View page (JSP) can access data from the model
+
+solution-code-spring-mvc-adding-data-to-the-spring-model
 
 ```java
 // need a controller method to show the initial HTML form
@@ -1704,6 +1803,14 @@ Student name: ${param.studentName}
 
 The message: ${message}
 ```
+
+### 12. Adding Data to the Spring Model - Write Some Code - Part 1
+
+### 13. Adding Data to the Spring Model - Write Some Code - Part 2
+
+### 14. FAQ How to use CSS, JavaScript and Images in Spring MVC Web App.html
+
+### 15. Bonus Deploying To Tomcat using WAR files.html
 
 ---
 
@@ -2015,9 +2122,28 @@ Source code for this example are available here:
 
 ### 3. Controller Level Request Mapping - Overview
 
+### 4. Controller Level Request Mapping - Write Some Code - Part 1
+
+### 5. Controller Level Request Mapping - Write Some Code - Part 2
+
+```java
+
+@Controller
+@RequestMapping("/hello")
+public class HelloWorldController
+```
+
+main-menu
+
+```ts
+<a href="hello/showForm">Hello World form</a>
+```
+
+### 6. FAQ How does processForm work for hello.html
+
 FAQ:
 
-#### Question: Can you please clarify how /hello is getting appended to the jsp file action for "processForm"?
+Question: Can you please clarify how /hello is getting appended to the jsp file action for "processForm"?
 
 Answer
 
@@ -2049,15 +2175,109 @@ http://luv2code.com/spring-mvc-form-tags
 
 Model is used to pass data betweens controllers and views
 
-### 3. Drop-Down Lists - Overview
+file pdf
+main menu
+
+```ts
+<a href="student/showForm">Student form</a>
+```
+
+StudentController
+
+```java
+package com.luv2code.springdemo.mvc;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/student")
+public class StudentController {
+
+	@RequestMapping("/showForm")
+	public String showForm(Model theModel) {
+
+		// create a student object
+		Student theStudent = new Student();
+
+		// add student object to the model
+		theModel.addAttribute("student", theStudent);
+
+		return "student-form";
+	}
+
+	@RequestMapping("/processForm")
+	public String processForm(@ModelAttribute("student") Student theStudent) {
+
+		// log the input data
+		System.out.println("theStudent: " + theStudent.getFirstName()
+							+ " " + theStudent.getLastName());
+
+		return "student-confirmation";
+	}
+
+}
+
+
+```
+
+studentform
+
+```ts
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Student Registration Form</title>
+</head>
+
+<body>
+
+	<form:form action="processForm" modelAttribute="student">
+
+		First name: <form:input path="firstName" />
+
+		<br><br>
+
+		Last name: <form:input path="lastName" />
+
+		<br><br>
+
+		<input type="submit" value="Submit" />
+
+	</form:form>
+
+
+</body>
+
+</html>
+
+```
+
+student-confirmation
+
+```ts
+The student is confirmed: ${student.firstName} ${student.lastName}
+
+```
+
+### 6. Drop-Down Lists - Overview
 
 Co 2 cach:
 
-- Lay data static
+- Lay data static in jsp file (`<form:options value="" label=""></form:options>`)
 - Lay data tu HashMap
-  Question:
 
-#### How to use properties file to load country options
+### 9. FAQ Use properties file to load country options.html
+
+Question:
+
+How to use properties file to load country options
 
 Answer:
 
@@ -2156,7 +2376,11 @@ You can download entire code from here:
 
 - http://www.luv2code.com/downloads/spring-hibernate/spring-props-mvc-demo.zip
 
-### 4. Radio Buttons - Overview
+### 11. Radio Buttons - Overview
+
+`<form:radiobutton path="favoriteLanguage" value="Java" />`
+
+### 12. FAQ How to populate radiobuttons with items from Java class.html
 
 #### FAQ: How to populate radiobuttons with items from Java class like we did with selectlist?
 
@@ -2213,12 +2437,133 @@ TH Chon nhieu checkbox
 
 Bean validation
 Tải file zip từ trang chủ hibernate
+http://hibernate.org/validator/
 
 ### 3. Installing Validation Files
 
 Copy all file jar cua hibernate tu trong folder lib va lib/required/
 
 ### 4. Checking for Required Fields Overview
+
+customer-form
+
+```ts
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<html>
+
+<head>
+	<title>Customer Registration Form</title>
+
+	<style>
+		.error {color:red}
+	</style>
+</head>
+<body>
+
+<i>Fill out the form. Asterisk (*) means required.</i>
+<br><br>
+
+	<form:form action="processForm" modelAttribute="customer">
+
+		First name: <form:input path="firstName" />
+
+		<br><br>
+
+		Last name (*): <form:input path="lastName" />
+		<form:errors path="lastName" cssClass="error" />
+
+		<br><br>
+
+		Free passes  (*): <form:input path="freePasses" />
+		<form:errors path="freePasses" cssClass="error" />
+
+		<br><br>
+
+		Postal Code: <form:input path="postalCode" />
+		<form:errors path="postalCode" cssClass="error" />
+
+		<br><br>
+
+		<input type="submit" value="Submit" />
+
+	</form:form>
+
+</body>
+
+</html>
+
+
+
+```
+
+Customer
+
+```java
+package com.luv2code.springdemo.mvc;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+public class Customer {
+
+	private String firstName;
+
+	@NotNull(message="is required")
+	@Size(min=1, message="is required")
+	private String lastName;
+
+	@NotNull(message="is required")
+	@Min(value=0, message="must be greater than or equal to zero")
+	@Max(value=10, message="must be less than or equal to 10")
+	private Integer freePasses;
+
+	@Pattern(regexp="^[a-zA-Z0-9]{5}", message="only 5 chars/digits")
+	private String postalCode;
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+
+	public Integer getFreePasses() {
+		return freePasses;
+	}
+
+	public void setFreePasses(Integer freePasses) {
+		this.freePasses = freePasses;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+}
+
+
+
+```
+
+### 5. Special Note about BindingResult Parameter Order.html
 
 When performing Spring MVC validation, the location of the **BindingResult** parameter is very important. In the method signature, the BindingResult parameter must appear immediately after the model attribute.
 
@@ -2252,6 +2597,10 @@ Source: https://docs.spring.io/spring/docs/current/spring-framework-reference/we
 
 ### 7. Display Validation Error Messages on HTML Form
 
+### 8. Perform Validation in Controller Class - Part 1
+
+### 9. Perform Validation in Controller Class - Part 2
+
 ### 10. Update Confirmation Page
 
 ### 11. Test the Validation Rule for Required Fields
@@ -2259,6 +2608,8 @@ Source: https://docs.spring.io/spring/docs/current/spring-framework-reference/we
 TH space cung cho pass
 
 ### 12. Add Pre-processing Code with @InitBinder - Overview
+
+pdf
 
 ```java
 // add an initbinder ... to convert trim input strings

@@ -61,18 +61,6 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
 
 ### 1. Creating a Spring Home Controller and View - Overview
 
-### 10. Reading HTML Form Data - Write Some Code - Part 3
-
-### 11. Adding Data to the Spring Model - Overview
-
-### 12. Adding Data to the Spring Model - Write Some Code - Part 1
-
-### 13. Adding Data to the Spring Model - Write Some Code - Part 2
-
-### 14. FAQ How to use CSS, JavaScript and Images in Spring MVC Web App.html
-
-### 15. Bonus Deploying To Tomcat using WAR files.html
-
 ### 2. Creating a Spring Home Controller and View - Write Some Code - Part 1
 
 ### 3. Creating a Spring Home Controller and View - Write Some Code - Part 2
@@ -88,6 +76,18 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
 ### 8. Reading HTML Form Data - Write Some Code - Part 1
 
 ### 9. Reading HTML Form Data - Write Some Code - Part 2
+
+### 10. Reading HTML Form Data - Write Some Code - Part 3
+
+### 11. Adding Data to the Spring Model - Overview
+
+### 12. Adding Data to the Spring Model - Write Some Code - Part 1
+
+### 13. Adding Data to the Spring Model - Write Some Code - Part 2
+
+### 14. FAQ How to use CSS, JavaScript and Images in Spring MVC Web App.html
+
+### 15. Bonus Deploying To Tomcat using WAR files.html
 
 ## 13. Spring MVC - Request Params and Request Mappings
 
@@ -107,18 +107,6 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
 
 ### 1. Spring MVC Form Tags Overview
 
-### 10. Radio Buttons - Overview
-
-### 11. Radio Buttons - Write Some Code
-
-### 12. FAQ How to populate radiobuttons with items from Java class.html
-
-### 13. Checkboxes - Overview
-
-### 14. Checkboxes - Write Some Code - Part 1
-
-### 15. Checkboxes - Write Some Code - Part 2
-
 ### 2. Text Fields - Overview
 
 ### 3. Text Fields - Write Some Code - Part 1
@@ -134,6 +122,18 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
 ### 8. Drop-Down Lists - Write Some Code - Part 2
 
 ### 9. FAQ Use properties file to load country options.html
+
+### 10. Radio Buttons - Overview
+
+### 11. Radio Buttons - Write Some Code
+
+### 12. FAQ How to populate radiobuttons with items from Java class.html
+
+### 13. Checkboxes - Overview
+
+### 14. Checkboxes - Write Some Code - Part 1
+
+### 15. Checkboxes - Write Some Code - Part 2
 
 ## 15. Spring MVC Form Validation - Applying Built-In Validation Rules
 
