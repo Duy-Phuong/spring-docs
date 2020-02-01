@@ -567,7 +567,7 @@ Since you have defined a constructor in class code, compiler didn’t create def
 
 1. Create setter method(s) in your class for injections
 2. Configure the injection in Spring config file
- 
+
 Tao ham setter de khi khai bao trong file config no se tu dong goi
 
 #### Question:
@@ -616,7 +616,7 @@ The bottom line is it depends on how you retrieve the object and assign it ... t
 
 #### Injecting Values from a Properties File
 
-1. Create Properties File
+1. Create Properties File in src
 2. Load Properties File in Spring config file
 3. Reference values from Properties File
 
@@ -687,6 +687,78 @@ Automatically register the beans in the Spring container
 
 @Component(“beanID”)
 
+applicationContext
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- add entry to enable component scanning -->
+
+	<context:component-scan base-package="com.luv2code.springdemo" />
+
+</beans>
+
+```
+
+solution-code-spring-annotation-explicit-component-names
+
+```java
+package com.luv2code.springdemo;
+
+import org.springframework.stereotype.Component;
+
+@Component("thatSillyCoach")
+public class TennisCoach implements Coach {
+
+
+	@Override
+	public String getDailyWorkout() {
+		return "Practice your backhand volley";
+	}
+
+}
+
+```
+
+Demo
+
+```java
+package com.luv2code.springdemo;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class AnnotationDemoApp {
+
+	public static void main(String[] args) {
+
+		// read spring config file
+		ClassPathXmlApplicationContext context =
+				new ClassPathXmlApplicationContext("applicationContext.xml");
+
+		// get the bean from spring container
+		Coach theCoach = context.getBean("thatSillyCoach", Coach.class);
+
+		// call a method on the bean
+		System.out.println(theCoach.getDailyWorkout());
+
+		// close the context
+		context.close();
+
+	}
+
+}
+
+
+
+```
+
 ### 2. Annotations Project Setup
 
 ### 3. Explicit Component Names - Write Some Code
@@ -730,6 +802,8 @@ ANSWER
 Spring has special support to handle this case. Use the **@Qualifier** annotation. We'll cover this later in the course with slides and code examples. But don't worry, we will address all scenarios :-)
 
 **Question**
+
+https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-autowired-annotation
 
 #### I have finished the video "Constructor Injection - Writing Code part2".
 
@@ -833,6 +907,9 @@ Then you can access it using the name of "foo". Nothing tricky to worry about :-
 Hope this helps. Happy Coding! :-)
 
 **XEM THEM HTML**
+
+16. Using @Qualifier with Constructors
+
 **@Qualifier** is a nice feature, but it is tricky when used with Constructors.
 
 The syntax is much different from other examples and not exactly intuitive. Consider this the "deep end of the pool" when it comes to Spring configuration LOL :-)
@@ -1039,6 +1116,9 @@ Configure the Spring container with Java code
 4. Retrieve bean from Spring container
 
 ---
+
+solution-code-spring-java-config
+SportConfig
 
 #### 3. Heads Up - Add Logging Messages in Spring 5.1 - All Java Config Version
 
