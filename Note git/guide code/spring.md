@@ -4009,6 +4009,19 @@ public class InstructorDetail {
 
 Nếu không chỉ rõ thì k có operation nào được cascaded
 
+### 4. @OneToOne - Run Database Scripts
+
+test connect by jdbc using another schema
+hb-01-0ne-to-one-uni
+
+### 5. @OneToOne - Write Some Code - Prep Work
+
+Xem file word
+
+### 6. @OneToOne - Write Some Code - Create InstructorDetail class
+
+### 7. @OneToOne - Write Some Code - Create Instructor class
+
 ```java
 package com.luv2code.hibernate.demo;
 
@@ -4084,40 +4097,432 @@ public class CreateDemo {
 
 ```
 
-### 4. @OneToOne - Run Database Scripts
-
-test connect by jdbc using another schema
-hb-01-0ne-to-one-uni
-
-### 5. @OneToOne - Write Some Code - Prep Work
-
-Xem file word
-
-### 6. @OneToOne - Write Some Code - Create InstructorDetail class
-
-### 7. @OneToOne - Write Some Code - Create Instructor class
-
 ### 8. @OneToOne - Write Some Code - Build Main App - Part 1
 
 ### 9. @OneToOne - Write Some Code - Build Main App - Part 2
 
 ### 10. @OneToOne - Delete an Entity
 
+```java
+package com.luv2code.hibernate.demo;
+
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Instructor;
+import com.luv2code.hibernate.demo.entity.InstructorDetail;
+
+public class DeleteDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Instructor.class)
+								.addAnnotatedClass(InstructorDetail.class)
+								.buildSessionFactory();
+
+		// create session
+		Session session = factory.getCurrentSession();
+
+		try {
+
+			// start a transaction
+			session.beginTransaction();
+
+			// get instructor by primary key / id
+			int theId = 1;
+			Instructor tempInstructor =
+					session.get(Instructor.class, theId);
+
+			System.out.println("Found instructor: " + tempInstructor);
+
+			// delete the instructors
+			if (tempInstructor != null) {
+
+				System.out.println("Deleting: " + tempInstructor);
+
+				// Note: will ALSO delete associated "details" object
+				// because of CascadeType.ALL
+				//
+				session.delete(tempInstructor);
+			}
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			System.out.println("Done!");
+		}
+		finally {
+			factory.close();
+		}
+	}
+
+}
+
+```
+
 ### 11. @OneToOne - Bi-Directional Overview
+
+pdf
+
+```java
+package com.luv2code.hibernate.demo.entity;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="instructor_detail")
+public class InstructorDetail {
+
+	// annotate the class as an entity and map to db table
+
+	// define the fields
+
+	// annotate the fields with db column names
+
+	// create constructors
+
+	// generate getter/setter methods
+
+	// generate toString() method
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
+	private int id;
+
+	@Column(name="youtube_channel")
+	private String youtubeChannel;
+
+	@Column(name="hobby")
+	private String hobby;
+
+	// add new field for instructor (also add getter/setters)
+
+	// add @OneToOne annotation
+
+	@OneToOne(mappedBy="instructorDetail",
+			cascade={CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+						CascadeType.REFRESH})
+	private Instructor instructor;
+
+
+	public Instructor getInstructor() {
+		return instructor;
+	}
+
+	public void setInstructor(Instructor instructor) {
+		this.instructor = instructor;
+	}
+
+	public InstructorDetail() {
+
+	}
+
+	public InstructorDetail(String youtubeChannel, String hobby) {
+		this.youtubeChannel = youtubeChannel;
+		this.hobby = hobby;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getYoutubeChannel() {
+		return youtubeChannel;
+	}
+
+	public void setYoutubeChannel(String youtubeChannel) {
+		this.youtubeChannel = youtubeChannel;
+	}
+
+	public String getHobby() {
+		return hobby;
+	}
+
+	public void setHobby(String hobby) {
+		this.hobby = hobby;
+	}
+
+	@Override
+	public String toString() {
+		return "InstructorDetail [id=" + id + ", youtubeChannel=" + youtubeChannel + ", hobby=" + hobby + "]";
+	}
+
+}
+
+
+```
 
 ### 12. @OneToOne - Bi-Directional - Create Relationship
 
+Main
+
+```java
+package com.luv2code.hibernate.demo;
+
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Instructor;
+import com.luv2code.hibernate.demo.entity.InstructorDetail;
+
+public class GetInstructorDetailDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Instructor.class)
+								.addAnnotatedClass(InstructorDetail.class)
+								.buildSessionFactory();
+
+		// create session
+		Session session = factory.getCurrentSession();
+
+		try {
+
+			// start a transaction
+			session.beginTransaction();
+
+			// get the instructor detail object
+			int theId = 2999;
+			InstructorDetail tempInstructorDetail =
+					session.get(InstructorDetail.class, theId);
+
+			// print the instructor detail
+			System.out.println("tempInstructorDetail: " + tempInstructorDetail);
+
+			// print  the associated instructor
+			System.out.println("the associated instructor: " +
+								tempInstructorDetail.getInstructor());
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			System.out.println("Done!");
+		}
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			// handle connection leak issue
+			session.close();
+
+			factory.close();
+		}
+	}
+
+}
+
+
+```
+
 ### 13. @OneToOne - Bi-Directional - Develop Main App
+
+```java
+package com.luv2code.hibernate.demo;
+
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Instructor;
+import com.luv2code.hibernate.demo.entity.InstructorDetail;
+
+public class DeleteInstructorDetailDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Instructor.class)
+								.addAnnotatedClass(InstructorDetail.class)
+								.buildSessionFactory();
+
+		// create session
+		Session session = factory.getCurrentSession();
+
+		try {
+
+			// start a transaction
+			session.beginTransaction();
+
+			// get the instructor detail object
+			int theId = 3;
+			InstructorDetail tempInstructorDetail =
+					session.get(InstructorDetail.class, theId);
+
+			// print the instructor detail
+			System.out.println("tempInstructorDetail: " + tempInstructorDetail);
+
+			// print  the associated instructor
+			System.out.println("the associated instructor: " +
+								tempInstructorDetail.getInstructor());
+
+			// now let's delete the instructor detail
+			System.out.println("Deleting tempInstructorDetail: "
+											+ tempInstructorDetail);
+
+			// remove the associated object reference
+			// break bi-directional link
+
+			tempInstructorDetail.getInstructor().setInstructorDetail(null);
+
+			session.delete(tempInstructorDetail);
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			System.out.println("Done!");
+		}
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			// handle connection leak issue
+			session.close();
+
+			factory.close();
+		}
+	}
+
+}
+
+
+```
 
 ### 14. @OneToOne - Refactoring and Exception Handling
 
+Get them
+
+```java
+}
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			// handle connection leak issue
+			session.close();
+
+			factory.close();
+		}
+```
+
 ### 15. @OneToOne - Bi-Directional - Cascade Delete
+
+```java
+package com.luv2code.hibernate.demo;
+
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Instructor;
+import com.luv2code.hibernate.demo.entity.InstructorDetail;
+
+public class DeleteInstructorDetailDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Instructor.class)
+								.addAnnotatedClass(InstructorDetail.class)
+								.buildSessionFactory();
+
+		// create session
+		Session session = factory.getCurrentSession();
+
+		try {
+
+			// start a transaction
+			session.beginTransaction();
+
+			// get the instructor detail object
+			int theId = 3;
+			InstructorDetail tempInstructorDetail =
+					session.get(InstructorDetail.class, theId);
+
+			// print the instructor detail
+			System.out.println("tempInstructorDetail: " + tempInstructorDetail);
+
+			// print  the associated instructor
+			System.out.println("the associated instructor: " +
+								tempInstructorDetail.getInstructor());
+
+			// now let's delete the instructor detail
+			System.out.println("Deleting tempInstructorDetail: "
+											+ tempInstructorDetail);
+
+			// remove the associated object reference
+			// break bi-directional link
+
+			// tempInstructorDetail.getInstructor().setInstructorDetail(null);
+
+			session.delete(tempInstructorDetail);
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			System.out.println("Done!");
+		}
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			// handle connection leak issue
+			session.close();
+
+			factory.close();
+		}
+	}
+
+}
+
+
+```
+
+=> Delete all
 
 ### 16. @OneToOne - Bi-Directional - Delete Only InstructorDetail - Part 1
 
-### 17. @OneToOne - Bi-Directional - Delete Only InstructorDetail - Part 2
+InstructorDetail
 
+```java
+// select all except REMOVE
+@OneToOne(mappedBy="instructorDetail",
+			cascade={CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+						CascadeType.REFRESH})
+```
+
+### 17. @OneToOne - Bi-Directional - Delete Only InstructorDetail - Part 2
+tempInstructorDetail.getInstructor().setInstructorDetail(null);
 ## 24. Hibernate Advanced Mappings - @OneToMany
+http://luv2code.com/hibernate-mapping-database-scripts
+Download db scripts
 
 ## 25. Hibernate Advanced Mappings - Eager vs Lazy Loading
 
