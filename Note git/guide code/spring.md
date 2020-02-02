@@ -198,9 +198,49 @@
     - [16. @OneToOne - Bi-Directional - Delete Only InstructorDetail - Part 1](#16-onetoone---bi-directional---delete-only-instructordetail---part-1)
     - [17. @OneToOne - Bi-Directional - Delete Only InstructorDetail - Part 2](#17-onetoone---bi-directional---delete-only-instructordetail---part-2)
   - [24. Hibernate Advanced Mappings - @OneToMany](#24-hibernate-advanced-mappings---onetomany)
+    - [1. @OneToMany - Bi-Directional Overview - Part 1](#1-onetomany---bi-directional-overview---part-1)
+    - [2. @OneToMany - Bi-Directional Overview - Part 2](#2-onetomany---bi-directional-overview---part-2)
+    - [3. @OneToMany - Bi-Directional - Database Prep Work](#3-onetomany---bi-directional---database-prep-work)
+    - [4. @OneToMany - Bi-Directional - Create Course Mapping](#4-onetomany---bi-directional---create-course-mapping)
+    - [5. @OneToMany - Bi-Directional - Define Course Relationship](#5-onetomany---bi-directional---define-course-relationship)
+    - [6. @OneToMany - Bi-Directional - Update Instructor](#6-onetomany---bi-directional---update-instructor)
+    - [7. @OneToMany - Bi-Directional - Add Instructor to Database](#7-onetomany---bi-directional---add-instructor-to-database)
+    - [8. @OneToMany - Bi-Directional - Create Courses for Instructor](#8-onetomany---bi-directional---create-courses-for-instructor)
+    - [9. @OneToMany - Bi-Directional - Retrieve Instructor Courses](#9-onetomany---bi-directional---retrieve-instructor-courses)
+    - [10. @OneToMany - Bi-Directional - Delete a Course](#10-onetomany---bi-directional---delete-a-course)
   - [25. Hibernate Advanced Mappings - Eager vs Lazy Loading](#25-hibernate-advanced-mappings---eager-vs-lazy-loading)
+    - [1. Eager vs Lazy Loading - Overview - Part 1](#1-eager-vs-lazy-loading---overview---part-1)
+    - [2. Eager vs Lazy Loading - Overview - Part 2](#2-eager-vs-lazy-loading---overview---part-2)
+    - [3. Eager vs Lazy Loading - Coding - Eager](#3-eager-vs-lazy-loading---coding---eager)
+    - [4. Eager vs Lazy Loading - Coding - Lazy](#4-eager-vs-lazy-loading---coding---lazy)
+    - [5. Eager vs Lazy Loading - Coding - Closing the Session](#5-eager-vs-lazy-loading---coding---closing-the-session)
+    - [6. Eager vs Lazy Loading - Coding - Resolve Lazy Loading Issue](#6-eager-vs-lazy-loading---coding---resolve-lazy-loading-issue)
+    - [7. Eager vs Lazy Loading - Coding - HQL JOIN FETCH](#7-eager-vs-lazy-loading---coding---hql-join-fetch)
+    - [8. FAQ How to load the courses at a later time in the application.html](#8-faq-how-to-load-the-courses-at-a-later-time-in-the-applicationhtml)
   - [26. Hibernate Advanced Mappings - @OneToMany - Unidirectional](#26-hibernate-advanced-mappings---onetomany---unidirectional)
+    - [1. @OneToMany - Uni-Directional - Overview - Part 1](#1-onetomany---uni-directional---overview---part-1)
+    - [2. @OneToMany - Uni-Directional - Overview - Part 2](#2-onetomany---uni-directional---overview---part-2)
+    - [3. FAQ @JoinColumn ... where does it find the column.html](#3-faq-joincolumn--where-does-it-find-the-columnhtml)
+    - [4. @OneToMany - Uni-Directional - Set up database tables](#4-onetomany---uni-directional---set-up-database-tables)
+    - [5. @OneToMany - Uni-Directional - Create Review Class](#5-onetomany---uni-directional---create-review-class)
+    - [6. @OneToMany - Uni-Directional - Configure Fetch Type](#6-onetomany---uni-directional---configure-fetch-type)
+    - [7. @OneToMany - Uni-Directional - Create Course Reviews](#7-onetomany---uni-directional---create-course-reviews)
+    - [8. @OneToMany - Uni-Directional - Get Course Reviews](#8-onetomany---uni-directional---get-course-reviews)
+    - [9. @OneToMany - Uni-Directional - Delete Course Reviews](#9-onetomany---uni-directional---delete-course-reviews)
   - [27. Hibernate Advanced Mappings - @ManyToMany](#27-hibernate-advanced-mappings---manytomany)
+    - [1. @ManyToMany - Overview - Part 1](#1-manytomany---overview---part-1)
+    - [2. @ManyToMany - Overview - Part 2](#2-manytomany---overview---part-2)
+    - [3. @ManyToMany - Set up database tables](#3-manytomany---set-up-database-tables)
+    - [4. @ManyToMany - Update Course class](#4-manytomany---update-course-class)
+    - [5. @ManyToMany - Configure Course for many-to-many](#5-manytomany---configure-course-for-many-to-many)
+    - [6. @ManyToMany - Configure Student for many-to-many](#6-manytomany---configure-student-for-many-to-many)
+    - [7. @ManyToMany - Create a Main App](#7-manytomany---create-a-main-app)
+    - [8. @ManyToMany - Review app output](#8-manytomany---review-app-output)
+    - [9. @ManyToMany - Add more courses for a student](#9-manytomany---add-more-courses-for-a-student)
+    - [10. @ManyToMany - Verify Data in Join Table](#10-manytomany---verify-data-in-join-table)
+    - [11. @ManyToMany - Get Courses for Student](#11-manytomany---get-courses-for-student)
+    - [12. @ManyToMany - Delete a Course](#12-manytomany---delete-a-course)
+    - [13. @ManyToMany - Delete a Student](#13-manytomany---delete-a-student)
   - [28. Build a Database Web App - Spring MVC and Hibernate Project - Part 1](#28-build-a-database-web-app---spring-mvc-and-hibernate-project---part-1)
   - [30. Build a Database Web App - Spring MVC and Hibernate Project - Part 2](#30-build-a-database-web-app---spring-mvc-and-hibernate-project---part-2)
   - [31. Setting Up Your Development Environment](#31-setting-up-your-development-environment)
@@ -4519,17 +4559,1291 @@ InstructorDetail
 ```
 
 ### 17. @OneToOne - Bi-Directional - Delete Only InstructorDetail - Part 2
+
 tempInstructorDetail.getInstructor().setInstructorDetail(null);
+
 ## 24. Hibernate Advanced Mappings - @OneToMany
+
 http://luv2code.com/hibernate-mapping-database-scripts
 Download db scripts
 
+### 1. @OneToMany - Bi-Directional Overview - Part 1
+
+### 2. @OneToMany - Bi-Directional Overview - Part 2
+
+### 3. @OneToMany - Bi-Directional - Database Prep Work
+
+### 4. @OneToMany - Bi-Directional - Create Course Mapping
+
+Chu y: import javax.persistence...;
+
+```java
+package com.luv2code.hibernate.demo.entity;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="course")
+public class Course {
+
+	// define our fields
+
+	// define constructors
+
+	// define getter setters
+
+	// define tostring
+
+	// annotate fields
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
+	private int id;
+
+	@Column(name="title")
+	private String title;
+
+	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+						 CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinColumn(name="instructor_id")
+	private Instructor instructor;
+
+	public Course() {
+
+	}
+
+	public Course(String title) {
+		this.title = title;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Instructor getInstructor() {
+		return instructor;
+	}
+
+	public void setInstructor(Instructor instructor) {
+		this.instructor = instructor;
+	}
+
+	@Override
+	public String toString() {
+		return "Course [id=" + id + ", title=" + title + "]";
+	}
+
+
+}
+
+```
+
+### 5. @OneToMany - Bi-Directional - Define Course Relationship
+
+### 6. @OneToMany - Bi-Directional - Update Instructor
+
+```java
+// Instructor
+@OneToMany(mappedBy="instructor",
+			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+						 CascadeType.DETACH, CascadeType.REFRESH})
+	private List<Course> courses;
+
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+
+	// add convenience methods for bi-directional relationship
+
+	public void add(Course tempCourse) {
+
+		if (courses == null) {
+			courses = new ArrayList<>();
+		}
+
+		courses.add(tempCourse);
+
+		tempCourse.setInstructor(this);
+	}
+```
+
+### 7. @OneToMany - Bi-Directional - Add Instructor to Database
+
+```java
+package com.luv2code.hibernate.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Course;
+import com.luv2code.hibernate.demo.entity.Instructor;
+import com.luv2code.hibernate.demo.entity.InstructorDetail;
+
+public class CreateInstructorDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Instructor.class)
+								.addAnnotatedClass(InstructorDetail.class)
+								.addAnnotatedClass(Course.class)
+								.buildSessionFactory();
+
+		// create session
+		Session session = factory.getCurrentSession();
+
+		try {
+
+			// create the objects
+			Instructor tempInstructor =
+					new Instructor("Susan", "Public", "susan.public@luv2code.com");
+
+			InstructorDetail tempInstructorDetail =
+					new InstructorDetail(
+							"http://www.youtube.com",
+							"Video Games");
+
+			// associate the objects
+			tempInstructor.setInstructorDetail(tempInstructorDetail);
+
+			// start a transaction
+			session.beginTransaction();
+
+			// save the instructor
+			//
+			// Note: this will ALSO save the details object
+			// because of CascadeType.ALL
+			//
+			System.out.println("Saving instructor: " + tempInstructor);
+			session.save(tempInstructor);
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			System.out.println("Done!");
+		}
+		finally {
+
+			// add clean up code
+			session.close();
+
+			factory.close();
+		}
+	}
+
+}
+
+
+
+```
+
+Link to new schema
+
+### 8. @OneToMany - Bi-Directional - Create Courses for Instructor
+
+```java
+package com.luv2code.hibernate.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Course;
+import com.luv2code.hibernate.demo.entity.Instructor;
+import com.luv2code.hibernate.demo.entity.InstructorDetail;
+
+public class CreateCoursesDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Instructor.class)
+								.addAnnotatedClass(InstructorDetail.class)
+								.addAnnotatedClass(Course.class)
+								.buildSessionFactory();
+
+		// create session
+		Session session = factory.getCurrentSession();
+
+		try {
+
+			// start a transaction
+			session.beginTransaction();
+
+			// get the instructor from db
+			int theId = 1;
+			Instructor tempInstructor = session.get(Instructor.class, theId);
+
+			// create some courses
+			Course tempCourse1 = new Course("Air Guitar - The Ultimate Guide");
+			Course tempCourse2 = new Course("The Pinball Masterclass");
+
+			// add courses to instructor
+			tempInstructor.add(tempCourse1);
+			tempInstructor.add(tempCourse2);
+
+			// save the courses
+			session.save(tempCourse1);
+			session.save(tempCourse2);
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			System.out.println("Done!");
+		}
+		finally {
+
+			// add clean up code
+			session.close();
+
+			factory.close();
+		}
+	}
+
+}
+
+```
+
+### 9. @OneToMany - Bi-Directional - Retrieve Instructor Courses
+
+```java
+package com.luv2code.hibernate.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Course;
+import com.luv2code.hibernate.demo.entity.Instructor;
+import com.luv2code.hibernate.demo.entity.InstructorDetail;
+
+public class GetInstructorCoursesDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Instructor.class)
+								.addAnnotatedClass(InstructorDetail.class)
+								.addAnnotatedClass(Course.class)
+								.buildSessionFactory();
+
+		// create session
+		Session session = factory.getCurrentSession();
+
+		try {
+
+			// start a transaction
+			session.beginTransaction();
+
+			// get the instructor from db
+			int theId = 1;
+			Instructor tempInstructor = session.get(Instructor.class, theId);
+
+			System.out.println("Instructor: " + tempInstructor);
+
+			// get courses for the instructor
+			System.out.println("Courses: " + tempInstructor.getCourses());
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			System.out.println("Done!");
+		}
+		finally {
+
+			// add clean up code
+			session.close();
+
+			factory.close();
+		}
+	}
+
+}
+
+
+```
+
+### 10. @OneToMany - Bi-Directional - Delete a Course
+
+```java
+package com.luv2code.hibernate.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Course;
+import com.luv2code.hibernate.demo.entity.Instructor;
+import com.luv2code.hibernate.demo.entity.InstructorDetail;
+
+public class DeleteCourseDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Instructor.class)
+								.addAnnotatedClass(InstructorDetail.class)
+								.addAnnotatedClass(Course.class)
+								.buildSessionFactory();
+
+		// create session
+		Session session = factory.getCurrentSession();
+
+		try {
+
+			// start a transaction
+			session.beginTransaction();
+
+			// get a course
+			int theId = 10;
+			Course tempCourse = session.get(Course.class, theId);
+
+			// delete course
+			System.out.println("Deleting course: " + tempCourse);
+
+			session.delete(tempCourse);
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			System.out.println("Done!");
+		}
+		finally {
+
+			// add clean up code
+			session.close();
+
+			factory.close();
+		}
+	}
+
+}
+
+```
+
 ## 25. Hibernate Advanced Mappings - Eager vs Lazy Loading
+
+### 1. Eager vs Lazy Loading - Overview - Part 1
+
+### 2. Eager vs Lazy Loading - Overview - Part 2
+
+Xem pdf
+![](../../root/img/2020-02-02-10-22-34.png)
+
+### 3. Eager vs Lazy Loading - Coding - Eager
+
+Instructor
+
+```java
+
+	@OneToMany(fetch=FetchType.LAZY,
+			   mappedBy="instructor",
+			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+						 CascadeType.DETACH, CascadeType.REFRESH})
+	private List<Course> courses;
+
+
+	public Instructor() {
+```
+
+```java
+package com.luv2code.hibernate.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Course;
+import com.luv2code.hibernate.demo.entity.Instructor;
+import com.luv2code.hibernate.demo.entity.InstructorDetail;
+
+public class EagerLazyDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Instructor.class)
+								.addAnnotatedClass(InstructorDetail.class)
+								.addAnnotatedClass(Course.class)
+								.buildSessionFactory();
+
+		// create session
+		Session session = factory.getCurrentSession();
+
+		try {
+
+			// start a transaction
+			session.beginTransaction();
+
+			// get the instructor from db
+			int theId = 1;
+			Instructor tempInstructor = session.get(Instructor.class, theId);
+
+			System.out.println("luv2code: Instructor: " + tempInstructor);
+
+			System.out.println("luv2code: Courses: " + tempInstructor.getCourses());
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			// close the session
+			session.close();
+
+			System.out.println("\nluv2code: The session is now closed!\n");
+
+			// option 1: call getter method while session is open
+
+			// get courses for the instructor
+			System.out.println("luv2code: Courses: " + tempInstructor.getCourses());
+
+			System.out.println("luv2code: Done!");
+		}
+		finally {
+
+			// add clean up code
+			session.close();
+
+			factory.close();
+		}
+	}
+
+}
+
+
+```
+
+### 4. Eager vs Lazy Loading - Coding - Lazy
+
+Debug moi thay duoc khi co get ra no moi query
+
+### 5. Eager vs Lazy Loading - Coding - Closing the Session
+
+Dat `session.close();` truoc getCourse => exception
+
+### 6. Eager vs Lazy Loading - Coding - Resolve Lazy Loading Issue
+
+Option 1:
+
+```java
+      // get truoc 1 lan
+			System.out.println("luv2code: Courses: " + tempInstructor.getCourses());
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			// close the session
+			session.close();
+
+			System.out.println("\nluv2code: The session is now closed!\n");
+
+			// option 1: call getter method while session is open
+
+			// get courses for the instructor
+			System.out.println("luv2code: Courses: " + tempInstructor.getCourses());
+```
+
+### 7. Eager vs Lazy Loading - Coding - HQL JOIN FETCH
+
+Option 2:
+
+```java
+package com.luv2code.hibernate.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
+
+import com.luv2code.hibernate.demo.entity.Course;
+import com.luv2code.hibernate.demo.entity.Instructor;
+import com.luv2code.hibernate.demo.entity.InstructorDetail;
+
+public class FetchJoinDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Instructor.class)
+								.addAnnotatedClass(InstructorDetail.class)
+								.addAnnotatedClass(Course.class)
+								.buildSessionFactory();
+
+		// create session
+		Session session = factory.getCurrentSession();
+
+		try {
+
+			// start a transaction
+			session.beginTransaction();
+
+			// option 2: Hibernate query with HQL
+
+			// get the instructor from db
+			int theId = 1;
+
+			Query<Instructor> query =
+					session.createQuery("select i from Instructor i "
+									+ "JOIN FETCH i.courses "
+									+ "where i.id=:theInstructorId",
+							Instructor.class);
+
+			// set parameter on query
+			query.setParameter("theInstructorId", theId);
+
+			// execute query and get instructor
+			Instructor tempInstructor = query.getSingleResult();
+
+			System.out.println("luv2code: Instructor: " + tempInstructor);
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			// close the session
+			session.close();
+
+			System.out.println("\nluv2code: The session is now closed!\n");
+
+			// get courses for the instructor
+			System.out.println("luv2code: Courses: " + tempInstructor.getCourses());
+
+			System.out.println("luv2code: Done!");
+		}
+		finally {
+
+			// add clean up code
+			session.close();
+
+			factory.close();
+		}
+	}
+
+}
+
+
+```
+
+=> Get all course and instructor
+
+### 8. FAQ How to load the courses at a later time in the application.html
+
+FAQ: How load the courses at a later time in the application?
+
+Question
+I've watched your 2 solutions for loading related data after session closing. Both, either getting related courses before closing session and using JOIN FETCH seem to be negating of lazy loading (using those solutions we completely resign of lazy loading.
+
+Is there any good solution to load these data somewhere else in the app? Should I open new session?
+
+---
+
+Answer
+Yes, you can load it later with using a new session, just make use of HQL
+
+Here's the code snippet. Make note of HQL in bold
+
+```java
+    session = factory.getCurrentSession();
+
+    session.beginTransaction();
+
+    // get courses for a given instructor
+    Query<Course> query = session.createQuery("select c from Course c " + "where c.instructor.id=:theInstructorId",  Course.class);
+
+    query.setParameter("theInstructorId", theId);
+
+    List<Course> tempCourses = query.getResultList();
+
+    System.out.println("tempCourses: " + tempCourses);
+
+```
+
+---
+
+Here's the full example.
+
+:-)
+
+---
+
+```java
+package com.luv2code.hibernate.demo;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
+
+import com.luv2code.hibernate.demo.entity.Course;
+import com.luv2code.hibernate.demo.entity.Instructor;
+import com.luv2code.hibernate.demo.entity.InstructorDetail;
+
+public class GetCoursesLater {
+
+    public static void main(String[] args) {
+
+        // create session factory
+        SessionFactory factory = new Configuration()
+          .configure("hibernate.cfg.xml")
+          .addAnnotatedClass(Instructor.class)
+          .addAnnotatedClass(InstructorDetail.class)
+          .addAnnotatedClass(Course.class)
+          .buildSessionFactory();
+
+        // create session
+        Session session = factory.getCurrentSession();
+
+        try {
+
+            // start a transaction
+            session.beginTransaction();
+
+            // get the instructor from db
+            int theId = 1;
+            Instructor tempInstructor = session.get(Instructor.class, theId);
+
+            System.out.println("luv2code: Instructor: " + tempInstructor);
+
+            // commit transaction
+            session.getTransaction().commit();
+
+            // close the session
+            session.close();
+
+            System.out.println("\nluv2code: The session is now closed!\n");
+
+            //
+            // THIS HAPPENS SOMEWHERE ELSE / LATER IN THE PROGRAM
+
+            // YOU NEED TO GET A NEW SESSION
+            //
+
+            System.out.println("\n\nluv2code: Opening a NEW session \n");
+
+            session = factory.getCurrentSession();
+
+            session.beginTransaction();
+
+            // get courses for a given instructor
+            Query<Course> query = session.createQuery("select c from Course c "                 + "where c.instructor.id=:theInstructorId",         Course.class);
+
+            query.setParameter("theInstructorId", theId);
+
+            List<Course> tempCourses = query.getResultList();
+
+            System.out.println("tempCourses: " + tempCourses);
+
+            // now assign to instructor object in memory
+            tempInstructor.setCourses(tempCourses);
+
+            System.out.println("luv2code: Courses: " + tempInstructor.getCourses());
+
+            session.getTransaction().commit();
+
+            System.out.println("luv2code: Done!");
+        }
+        finally {
+
+            // add clean up code
+            session.close();
+
+            factory.close();
+        }
+    }
+
+}
+
+```
 
 ## 26. Hibernate Advanced Mappings - @OneToMany - Unidirectional
 
+@JoinColumn o table Course
+
+### 1. @OneToMany - Uni-Directional - Overview - Part 1
+
+### 2. @OneToMany - Uni-Directional - Overview - Part 2
+
+### 3. FAQ @JoinColumn ... where does it find the column.html
+
+@JoinColum ... where does it find the column?
+
+Question
+
+In the Course class,we have OneToMany relation with reviews with join column course_id.
+
+But in course table we do not have column course_id.
+
+Ideally when we say @JoinColumn a new column should be created in course table ... isn't it?
+
+How does @JoinColum know where to find the join column?
+
+---
+
+Answer
+
+The JoinColumn is actually fairly complex and it goes through a number of advanced steps to find the desired column.
+
+This info below is from the documentation
+
+Source: http://docs.oracle.com/javaee/7/api/javax/persistence/JoinColumn.html#name--
+
+---
+
+The table in which it is found depends upon the context.
+
+- If the join is for a OneToOne or ManyToOne mapping using a foreign key mapping strategy, the foreign key column is in the table of the source entity or embeddable.
+
+- If the join is for a unidirectional OneToMany mapping using a foreign key mapping strategy, the foreign key is in the table of the target entity.
+
+- If the join is for a ManyToMany mapping or for a OneToOne or bidirectional ManyToOne/OneToMany mapping using a join table, the foreign key is in a join table.
+
+- If the join is for an element collection, the foreign key is in a collection table.
+
+--
+
+So as you can see, it depends on the context.
+
+In our training video, we are using @OneToMany uni-directional (course has one-to-many reviews).
+
+As a result, the join column / foreign key column is in the target entity. In this case, the target entity is the Review class. So, you will find the join column "course_id" in the "review" table.
+
+### 4. @OneToMany - Uni-Directional - Set up database tables
+
+### 5. @OneToMany - Uni-Directional - Create Review Class
+
+```java
+package com.luv2code.hibernate.demo.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="review")
+public class Review {
+
+	// define fields
+
+	// define constructors
+
+	// define getter/setters
+
+	// define tostring
+
+	// annotate fields
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
+	private int id;
+
+	@Column(name="comment")
+	private String comment;
+
+	public Review() {
+
+	}
+
+	public Review(String comment) {
+		this.comment = comment;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	@Override
+	public String toString() {
+		return "Review [id=" + id + ", comment=" + comment + "]";
+	}
+
+}
+
+```
+
+### 6. @OneToMany - Uni-Directional - Configure Fetch Type
+
+```java
+
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="course_id")
+	private List<Review> reviews;
+
+	public Course() {
+
+	}
+
+  public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
+	// add a convenience method
+
+	public void addReview(Review theReview) {
+
+		if (reviews == null) {
+			reviews = new ArrayList<>();
+		}
+
+		reviews.add(theReview);
+	}
+
+```
+
+### 7. @OneToMany - Uni-Directional - Create Course Reviews
+
+```java
+package com.luv2code.hibernate.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Course;
+import com.luv2code.hibernate.demo.entity.Instructor;
+import com.luv2code.hibernate.demo.entity.InstructorDetail;
+import com.luv2code.hibernate.demo.entity.Review;
+
+public class CreateCourseAndReviewsDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Instructor.class)
+								.addAnnotatedClass(InstructorDetail.class)
+								.addAnnotatedClass(Course.class)
+								.addAnnotatedClass(Review.class) // add
+								.buildSessionFactory();
+
+		// create session
+		Session session = factory.getCurrentSession();
+
+		try {
+
+			// start a transaction
+			session.beginTransaction();
+
+
+			// create a course
+			Course tempCourse = new Course("Pacman - How To Score One Million Points");
+
+			// add some reviews
+			tempCourse.addReview(new Review("Great course ... loved it!"));
+			tempCourse.addReview(new Review("Cool course, job well done"));
+			tempCourse.addReview(new Review("What a dumb course, you are an idiot!"));
+
+			// save the course ... and leverage the cascade all :-)
+			System.out.println("Saving the course");
+			System.out.println(tempCourse);
+			System.out.println(tempCourse.getReviews());
+
+			session.save(tempCourse);
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			System.out.println("Done!");
+		}
+		finally {
+
+			// add clean up code
+			session.close();
+
+			factory.close();
+		}
+	}
+
+}
+
+```
+
+### 8. @OneToMany - Uni-Directional - Get Course Reviews
+
+GetCourseAndReviewsDemo
+
+```java
+try {
+
+			// start a transaction
+			session.beginTransaction();
+
+			// get the course
+			int theId = 10;
+			Course tempCourse = session.get(Course.class, theId);
+
+			// print the course
+			System.out.println(tempCourse);
+
+			// print the course reviews
+			System.out.println(tempCourse.getReviews());
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			System.out.println("Done!");
+		}
+```
+
+### 9. @OneToMany - Uni-Directional - Delete Course Reviews
+
+DeleteCourseAndReviewsDemo
+
+```java
+try {
+
+			// start a transaction
+			session.beginTransaction();
+
+			// get the course
+			int theId = 10;
+			Course tempCourse = session.get(Course.class, theId);
+
+			// print the course
+			System.out.println("Deleting the course ... ");
+			System.out.println(tempCourse);
+
+			// print the course reviews
+			System.out.println(tempCourse.getReviews());
+
+			// delete the course
+			session.delete(tempCourse);
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			System.out.println("Done!");
+		}
+```
+
 ## 27. Hibernate Advanced Mappings - @ManyToMany
 
+### 1. @ManyToMany - Overview - Part 1
+
+Course
+
+```java
+@JoinTable(
+			name="course_student",
+			joinColumns=@JoinColumn(name="course_id"),
+			inverseJoinColumns=@JoinColumn(name="student_id")
+			)
+	private List<Student> students;
+
+	// add a convenience method
+
+	public void addStudent(Student theStudent) {
+
+		if (students == null) {
+			students = new ArrayList<>();
+		}
+
+		students.add(theStudent);
+	}
+```
+
+### 2. @ManyToMany - Overview - Part 2
+
+### 3. @ManyToMany - Set up database tables
+
+create table course_student
+
+### 4. @ManyToMany - Update Course class
+
+### 5. @ManyToMany - Configure Course for many-to-many
+Student
+```java
+@ManyToMany(fetch=FetchType.LAZY,
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+			 CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinTable(
+			name="course_student",
+			joinColumns=@JoinColumn(name="student_id"),
+			inverseJoinColumns=@JoinColumn(name="course_id")
+			)	
+	private List<Course> courses;
+```
+### 6. @ManyToMany - Configure Student for many-to-many
+
+### 7. @ManyToMany - Create a Main App
+```java
+package com.luv2code.hibernate.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Course;
+import com.luv2code.hibernate.demo.entity.Instructor;
+import com.luv2code.hibernate.demo.entity.InstructorDetail;
+import com.luv2code.hibernate.demo.entity.Review;
+import com.luv2code.hibernate.demo.entity.Student;
+
+public class CreateCourseAndStudentsDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Instructor.class)
+								.addAnnotatedClass(InstructorDetail.class)
+								.addAnnotatedClass(Course.class)
+								.addAnnotatedClass(Review.class)
+								.addAnnotatedClass(Student.class)
+								.buildSessionFactory();
+		
+		// create session
+		Session session = factory.getCurrentSession();
+		
+		try {			
+			
+			// start a transaction
+			session.beginTransaction();
+						
+			// create a course
+			Course tempCourse = new Course("Pacman - How To Score One Million Points");
+						
+			// save the course
+			System.out.println("\nSaving the course ...");
+			session.save(tempCourse);
+			System.out.println("Saved the course: " + tempCourse);
+			
+			// create the students
+			Student tempStudent1 = new Student("John", "Doe", "john@luv2code.com");
+			Student tempStudent2 = new Student("Mary", "Public", "mary@luv2code.com");
+						
+			// add students to the course
+			tempCourse.addStudent(tempStudent1);
+			tempCourse.addStudent(tempStudent2);
+			
+			// save the students
+			System.out.println("\nSaving students ...");
+			session.save(tempStudent1);
+			session.save(tempStudent2);
+			System.out.println("Saved students: " + tempCourse.getStudents());
+			
+			// commit transaction
+			session.getTransaction().commit();
+			
+			System.out.println("Done!");
+		}
+		finally {
+			
+			// add clean up code
+			session.close();
+			
+			factory.close();
+		}
+	}
+
+}
+
+
+```
+### 8. @ManyToMany - Review app output
+
+### 9. @ManyToMany - Add more courses for a student
+```java
+package com.luv2code.hibernate.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Course;
+import com.luv2code.hibernate.demo.entity.Instructor;
+import com.luv2code.hibernate.demo.entity.InstructorDetail;
+import com.luv2code.hibernate.demo.entity.Review;
+import com.luv2code.hibernate.demo.entity.Student;
+
+public class AddCoursesForMaryDemo {
+
+	public static void main(String[] args) {
+
+		// create session factory
+		SessionFactory factory = new Configuration()
+								.configure("hibernate.cfg.xml")
+								.addAnnotatedClass(Instructor.class)
+								.addAnnotatedClass(InstructorDetail.class)
+								.addAnnotatedClass(Course.class)
+								.addAnnotatedClass(Review.class)
+								.addAnnotatedClass(Student.class)
+								.buildSessionFactory();
+		
+		// create session
+		Session session = factory.getCurrentSession();
+		
+		try {			
+			
+			// start a transaction
+			session.beginTransaction();
+				
+			// get the student mary from database
+			int studentId = 2;
+			Student tempStudent = session.get(Student.class, studentId);
+			
+			System.out.println("\nLoaded student: " + tempStudent);
+			System.out.println("Courses: " + tempStudent.getCourses());
+			
+			// create more courses 
+			Course tempCourse1 = new Course("Rubik's Cube - How to Speed Cube");
+			Course tempCourse2 = new Course("Atari 2600 - Game Development");
+						
+			// add student to courses
+			tempCourse1.addStudent(tempStudent);
+			tempCourse2.addStudent(tempStudent);
+						
+			// save the courses
+			System.out.println("\nSaving the courses ...");
+			
+			session.save(tempCourse1);
+			session.save(tempCourse2);
+						
+			// commit transaction
+			session.getTransaction().commit();
+			
+			System.out.println("Done!");
+		}
+		finally {
+			
+			// add clean up code
+			session.close();
+			
+			factory.close();
+		}
+	}
+
+}
+
+
+```
+### 10. @ManyToMany - Verify Data in Join Table
+
+### 11. @ManyToMany - Get Courses for Student
+```java
+try {			
+			
+			// start a transaction
+			session.beginTransaction();
+				
+			// get the student from database
+			int studentId = 1;
+			Student tempStudent = session.get(Student.class, studentId);
+			
+			System.out.println("\nLoaded student: " + tempStudent);
+			System.out.println("Courses: " + tempStudent.getCourses());		
+						
+			// commit transaction
+			session.getTransaction().commit();
+			
+			System.out.println("Done!");
+		}
+```
+### 12. @ManyToMany - Delete a Course
+```java
+try {			
+			
+			// start a transaction
+			session.beginTransaction();
+
+			// get the pacman course from db
+			int courseId = 10;
+			Course tempCourse = session.get(Course.class, courseId);
+			
+			// delete the course
+			System.out.println("Deleting course: " + tempCourse);
+			
+			session.delete(tempCourse);
+						
+			// commit transaction
+			session.getTransaction().commit();
+			
+			System.out.println("Done!");
+		}
+```
+### 13. @ManyToMany - Delete a Student
+```java
+try {			
+			
+			// start a transaction
+			session.beginTransaction();
+				
+			// get the student from database
+			int studentId = 2;
+			Student tempStudent = session.get(Student.class, studentId);
+			
+			System.out.println("\nLoaded student: " + tempStudent);
+			System.out.println("Courses: " + tempStudent.getCourses());		
+		
+			// delete student
+			System.out.println("\nDeleting student: " + tempStudent);
+			session.delete(tempStudent);
+			
+			// commit transaction
+			session.getTransaction().commit();
+			
+			System.out.println("Done!");
+		}
+```
 ## 28. Build a Database Web App - Spring MVC and Hibernate Project - Part 1
 
 ## 30. Build a Database Web App - Spring MVC and Hibernate Project - Part 2
