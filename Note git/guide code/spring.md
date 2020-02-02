@@ -254,6 +254,20 @@
 		- [10. Test Spring MVC Controller - Part 1](#10-test-spring-mvc-controller---part-1)
 		- [11. Test Spring MVC Controller - Part 2](#11-test-spring-mvc-controller---part-2)
 	- [30. Build a Database Web App - Spring MVC and Hibernate Project - Part 2](#30-build-a-database-web-app---spring-mvc-and-hibernate-project---part-2)
+		- [1. List Customers - Overview](#1-list-customers---overview)
+		- [2. List Customers - Overview of Development Process](#2-list-customers---overview-of-development-process)
+		- [3. List Customers - Creating Hibernate Entity - Part 1](#3-list-customers---creating-hibernate-entity---part-1)
+		- [4. List Customers - Creating Hibernate Entity - Part 2](#4-list-customers---creating-hibernate-entity---part-2)
+		- [5. List Customers - Developing Hibernate DAO - Overview - Part 1](#5-list-customers---developing-hibernate-dao---overview---part-1)
+		- [6. List Customers - Developing Hibernate DAO - Overview - Part 2](#6-list-customers---developing-hibernate-dao---overview---part-2)
+		- [7. List Customers - Developing Hibernate DAO - Write Some Code - Part 1](#7-list-customers---developing-hibernate-dao---write-some-code---part-1)
+		- [8. List Customers - Developing Hibernate DAO - Write Some Code - Part 2](#8-list-customers---developing-hibernate-dao---write-some-code---part-2)
+		- [9. List Customers - Injecting DAO into Controller](#9-list-customers---injecting-dao-into-controller)
+		- [10. List Customers - Developing JSP View Page](#10-list-customers---developing-jsp-view-page)
+		- [11. Making it Pretty with CSS - Overview](#11-making-it-pretty-with-css---overview)
+		- [12. Making it Pretty with CSS - Write Some Code - Part 1](#12-making-it-pretty-with-css---write-some-code---part-1)
+		- [13. Making it Pretty with CSS - Write Some Code - Part 2](#13-making-it-pretty-with-css---write-some-code---part-2)
+		- [14. Adding a Welcome File](#14-adding-a-welcome-file)
 	- [31. Setting Up Your Development Environment](#31-setting-up-your-development-environment)
 	- [32. Build a Database Web App - Spring MVC and Hibernate Project - Part 3](#32-build-a-database-web-app---spring-mvc-and-hibernate-project---part-3)
 	- [33. Build a Database Web App - Spring MVC and Hibernate Project - Part 4](#33-build-a-database-web-app---spring-mvc-and-hibernate-project---part-4)
@@ -6142,6 +6156,7 @@ Spring
 ### 10. Test Spring MVC Controller - Part 1
 
 ### 11. Test Spring MVC Controller - Part 2
+
 ```java
 package com.luv2code.springdemo.controller;
 
@@ -6155,15 +6170,16 @@ public class CustomerController {
 
 	@RequestMapping("/list")
 	public String listCustomers(Model theModel) {
-		
+
 		return "list-customers";
 	}
-	
+
 }
 
 
 
 ```
+
 Clean project => start TOMCAT
 Run: http://localhost:8080/web-custom-tracker/customer/list
 
@@ -6174,6 +6190,7 @@ Run: http://localhost:8080/web-custom-tracker/customer/list
 ### 2. List Customers - Overview of Development Process
 
 ### 3. List Customers - Creating Hibernate Entity - Part 1
+
 ```java
 package com.luv2code.springdemo.entity;
 
@@ -6192,18 +6209,18 @@ public class Customer {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
-	
+
 	@Column(name="first_name")
 	private String firstName;
-	
+
 	@Column(name="last_name")
 	private String lastName;
-	
+
 	@Column(name="email")
 	private String email;
-	
+
 	public Customer() {
-		
+
 	}
 
 	public int getId() {
@@ -6242,7 +6259,7 @@ public class Customer {
 	public String toString() {
 		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
 	}
-		
+
 }
 
 
@@ -6251,6 +6268,7 @@ public class Customer {
 
 
 ```
+
 ### 4. List Customers - Creating Hibernate Entity - Part 2
 
 ### 5. List Customers - Developing Hibernate DAO - Overview - Part 1
@@ -6260,6 +6278,7 @@ public class Customer {
 ### 7. List Customers - Developing Hibernate DAO - Write Some Code - Part 1
 
 ### 8. List Customers - Developing Hibernate DAO - Write Some Code - Part 2
+
 ```java
 package com.luv2code.springdemo.dao;
 
@@ -6280,22 +6299,22 @@ public class CustomerDAOImpl implements CustomerDAO {
 	// need to inject the session factory
 	@Autowired
 	private SessionFactory sessionFactory;
-			
+
 	@Override
 	@Transactional
 	public List<Customer> getCustomers() {
-		
+
 		// get the current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
-				
+
 		// create a query
-		Query<Customer> theQuery = 
+		Query<Customer> theQuery =
 				currentSession.createQuery("from Customer", Customer.class);
-		
+
 		// execute query and get result list
 		List<Customer> customers = theQuery.getResultList();
-				
-		// return the results		
+
+		// return the results
 		return customers;
 	}
 
@@ -6303,7 +6322,9 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
 ```
+
 ### 9. List Customers - Injecting DAO into Controller
+
 ```java
 package com.luv2code.springdemo.controller;
 
@@ -6324,19 +6345,19 @@ public class CustomerController {
 	// need to inject the customer dao
 	@Autowired
 	private CustomerDAO customerDAO;
-	
+
 	@RequestMapping("/list")
 	public String listCustomers(Model theModel) {
-		
+
 		// get customers from the dao
 		List<Customer> theCustomers = customerDAO.getCustomers();
-				
+
 		// add the customers to the model
 		theModel.addAttribute("customers", theCustomers);
-		
+
 		return "list-customers";
 	}
-	
+
 }
 
 
@@ -6344,7 +6365,90 @@ public class CustomerController {
 
 ### 10. List Customers - Developing JSP View Page
 
+Run: http://localhost:8080/web-custom-tracker/customer/list
+
+```ts
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>List Customers</title>
+
+	<!-- reference our style sheet -->
+
+	<link type="text/css"
+		  rel="stylesheet"
+		  href="${pageContext.request.contextPath}/resources/css/style.css" />
+
+</head>
+
+<body>
+
+	<div id="wrapper">
+		<div id="header">
+			<h2>CRM - Customer Relationship Manager</h2>
+		</div>
+	</div>
+
+	<div id="container">
+
+		<div id="content">
+
+			<!--  add our html table here -->
+
+			<table>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+				</tr>
+
+				<!-- loop over and print our customers -->
+				<c:forEach var="tempCustomer" items="${customers}">
+
+					<tr>
+						<td> ${tempCustomer.firstName} </td>
+						<td> ${tempCustomer.lastName} </td>
+						<td> ${tempCustomer.email} </td>
+					</tr>
+
+				</c:forEach>
+
+			</table>
+
+		</div>
+
+	</div>
+
+
+</body>
+
+</html>
+
+
+```
+
 ### 11. Making it Pretty with CSS - Overview
+
+Create resource folder in WEBCONTENT
+
+```xml
+	<!-- Add support for reading web resources: css, images, js, etc ... -->
+	<mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
+```
+
+reference our style sheet in JSP page
+
+```ts
+<!-- reference our style sheet -->
+
+	<link type="text/css"
+		  rel="stylesheet"
+		  href="${pageContext.request.contextPath}/resources/css/style.css" />
+```
 
 ### 12. Making it Pretty with CSS - Write Some Code - Part 1
 
@@ -6352,15 +6456,243 @@ public class CustomerController {
 
 ### 14. Adding a Welcome File
 
-## 31. Setting Up Your Development Environment
+Create file index.jsp in WEBCONTENT
 
-## 32. Build a Database Web App - Spring MVC and Hibernate Project - Part 3
+```ts
+<% response.sendRedirect("customer/list"); %>
+```
 
-## 33. Build a Database Web App - Spring MVC and Hibernate Project - Part 4
 
-## 34. Build a Database Web App - Spring MVC and Hibernate Project - Part 5
+## 30. Build a Database Web App - Spring MVC and Hibernate Project - Part 3
 
-## 35. Build a Database Web App - Spring MVC and Hibernate Project - Part 6
+### 1. Refactor @GetMapping and @PostMapping - Overview
+
+### 2. Refactor @GetMapping and @PostMapping - Write Some Code
+```java
+@GetMapping("/list")
+	public String listCustomers(Model theModel) {
+```
+### 3. Refactor Add a Service Layer - Overview
+
+### 4. Refactor Add a Service Layer - Write Some Code - Part 1
+CustomerServiceImpl
+```java
+package com.luv2code.springdemo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.luv2code.springdemo.dao.CustomerDAO;
+import com.luv2code.springdemo.entity.Customer;
+
+@Service
+public class CustomerServiceImpl implements CustomerService {
+
+	// need to inject customer dao
+	@Autowired
+	private CustomerDAO customerDAO;
+	
+	@Override
+	@Transactional
+	public List<Customer> getCustomers() {
+		return customerDAO.getCustomers();
+	}
+}
+
+```
+Controller
+```java
+// need to inject our customer service
+	@Autowired
+	private CustomerService customerService;
+```
+### 5. Refactor Add a Service Layer - Write Some Code - Part 2
+
+## 31. Build a Database Web App - Spring MVC and Hibernate Project - Part 4
+
+### 1. Add Customer - Overview
+
+### 2. Add Customer - Setting up the Add Button - Part 1
+Call Controller
+```ts
+<!-- put new button: Add Customer -->
+		
+			<input type="button" value="Add Customer"
+				   onclick="window.location.href='showFormForAdd'; return false;"
+				   class="add-button"
+			/>
+```
+### 3. Add Customer - Setting up the Add Button - Part 2
+```java
+@GetMapping("/showFormForAdd")
+	public String showFormForAdd(Model theModel) {
+		
+		// create model attribute to bind form data
+		Customer theCustomer = new Customer();
+		
+		theModel.addAttribute("customer", theCustomer);
+		
+		return "customer-form";
+	}
+```
+### 4. Add Customer - Creating the HTML Form - Part 1
+customer-form.jsp
+```ts
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Save Customer</title>
+
+	<link type="text/css"
+		  rel="stylesheet"
+		  href="${pageContext.request.contextPath}/resources/css/style.css">
+
+	<link type="text/css"
+		  rel="stylesheet"
+		  href="${pageContext.request.contextPath}/resources/css/add-customer-style.css">
+</head>
+
+<body>
+	
+	<div id="wrapper">
+		<div id="header">
+			<h2>CRM - Customer Relationship Manager</h2>
+		</div>
+	</div>
+
+	<div id="container">
+		<h3>Save Customer</h3>
+	
+		<form:form action="saveCustomer" modelAttribute="customer" method="POST">
+		
+			<table>
+				<tbody>
+					<tr>
+						<td><label>First name:</label></td>
+						<td><form:input path="firstName" /></td>
+					</tr>
+				
+					<tr>
+						<td><label>Last name:</label></td>
+						<td><form:input path="lastName" /></td>
+					</tr>
+
+					<tr>
+						<td><label>Email:</label></td>
+						<td><form:input path="email" /></td>
+					</tr>
+
+					<tr>
+						<td><label></label></td>
+						<td><input type="submit" value="Save" class="save" /></td>
+					</tr>
+
+				
+				</tbody>
+			</table>
+		
+		
+		</form:form>
+	
+		<div style="clear; both;"></div>
+		
+		<p>
+			<a href="${pageContext.request.contextPath}/customer/list">Back to List</a>
+		</p>
+	
+	</div>
+
+</body>
+
+</html>
+
+
+```
+### 5. Add Customer - Creating the HTML Form - Part 2
+
+### 6. Add Customer - Creating the HTML Form - Part 3
+
+### 7. Add Customer - Save to Database - Part 1
+```java
+
+	@PostMapping("/saveCustomer")
+	public String saveCustomer(@ModelAttribute("customer") Customer theCustomer) {
+		
+		// save the customer using our service
+		customerService.saveCustomer(theCustomer);
+		
+		
+		return "redirect:/customer/list";
+	}
+```
+
+Service
+```java
+@Override
+	@Transactional
+	public void saveCustomer(Customer theCustomer) {
+
+		customerDAO.saveCustomer(theCustomer);
+	}
+```
+### 8. Add Customer - Save to Database - Part 2
+DAO
+```java
+@Override
+	public void saveCustomer(Customer theCustomer) {
+
+		// get current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		// save the customer ... finally LOL
+		currentSession.save(theCustomer);
+		
+	}
+```
+### 9. Sort Customer Data
+```java
+// create a query  ... sort by last name
+		Query<Customer> theQuery = 
+				currentSession.createQuery("from Customer order by lastName",
+											Customer.class);
+```
+## 32. Build a Database Web App - Spring MVC and Hibernate Project - Part 5
+
+### 1. Update Customer - Overview
+
+### 2. Update Customer - Creating Update Link
+
+### 3. Update Customer - Prepopulating the Form - Part 1
+
+### 4. Update Customer - Prepopulating the Form - Part 2
+
+### 5. Update Customer - Prepopulating the Form - Part 3
+
+### 6. Update Customer - Save Customer to Database - Part 1
+
+### 7. Update Customer - Save Customer to Database - Part 2
+
+## 33. Build a Database Web App - Spring MVC and Hibernate Project - Part 6
+
+### 1. Delete Customer - Overview
+
+### 2. Delete Customer - Creating Delete Link - Part 1
+
+### 3. Delete Customer - Creating Delete Link - Part 2
+
+### 4. Delete Customer - Delete from Database - Part 1
+
+### 5. Delete Customer - Delete from Database - Part 2
+
+### 6. Delete Customer - Delete from Database - Part 3
+
+### 7. FAQ How to Add Search support.html
 
 ## 34. AOP Aspect-Oriented Programming Overview
 
