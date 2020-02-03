@@ -6970,78 +6970,973 @@ Congrats!
 
 ## 34. AOP Aspect-Oriented Programming Overview
 
-#### 1. AOP - The Business Problem
+### 1. AOP - The Business Problem
 
-#### 2. AOP Solution and AOP Use Cases
+### 2. AOP Solution and AOP Use Cases
 
-#### 3. Comparing Spring AOP and AspectJ
+### 3. Comparing Spring AOP and AspectJ
 
 ## 35. AOP @Before Advice Type
 
-#### 1. AOP @Before Advice Overview
+### 1. AOP @Before Advice Overview
+using pointcut expression in @Before
+### 2. AOP AOP Project Setup
 
-#### 2. AOP AOP Project Setup
+Khong chon beta version to download
+After add jar to classpath
+http://luv2code.com/download-aspectjweaver  
 
-**Filter vào view**
-
-http://luv2code.com/download-aspectjweaver
 https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
 Sau đó vào buildpath add
 
-#### 3. AOP @Before Advice - Write Some Code
+### 3. AOP @Before Advice - Write Some Code
+```java
+package com.luv2code.aopdemo.dao;
 
-#### 4. AOP @Before Advice - Add and Test AOP Aspect
+import org.springframework.stereotype.Component;
+
+@Component
+public class AccountDAO {
+
+	public void addAccount() {
+		
+		System.out.println(getClass() + ": DOING MY DB WORK: ADDING AN ACCOUNT");
+		
+	}
+}
+
+```
+
+Config
+```java
+package com.luv2code.aopdemo;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+@Configuration
+@EnableAspectJAutoProxy
+@ComponentScan("com.luv2code.aopdemo")
+public class DemoConfig {
+
+}
+
+```
+### 4. AOP @Before Advice - Add and Test AOP Aspect
+```java
+package com.luv2code.aopdemo.aspect;
+
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.springframework.stereotype.Component;
+
+@Aspect
+@Component
+public class MyDemoLoggingAspect {
+
+	// this is where we add all of our related advices for logging
+	
+	// let's start with an @Before advice
+
+	@Before("execution(public void addAccount())")
+	public void beforeAddAccountAdvice() {
+		
+		System.out.println("\n=====>>> Executing @Before advice on addAccount()");
+		
+	}
+}
+```
+
+Main
+```java
+package com.luv2code.aopdemo;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.luv2code.aopdemo.dao.AccountDAO;
+
+public class MainDemoApp {
+
+	public static void main(String[] args) {
+
+		// read spring config java class
+		AnnotationConfigApplicationContext context =
+				new AnnotationConfigApplicationContext(DemoConfig.class);
+		
+		// get the bean from spring container
+		AccountDAO theAccountDAO = context.getBean("accountDAO", AccountDAO.class);
+		
+		// call the business method
+		theAccountDAO.addAccount();
+
+		// do it again!
+		System.out.println("\nlet's call it again!\n");
+		
+		// call the business method again
+		theAccountDAO.addAccount();
+				
+		// close the context
+		context.close();
+	}
+
+}
+
+
+
+
+```
 
 ## 36. AOP Pointcut Expressions - Match Methods and Return Types
 
-#### 1. AOP - Pointcut Expressions Overview
+### 1. AOP - Pointcut Expressions Overview
+solution-code-spring-aop-match-method-basic.zip
+### 2. AOP - Pointcut Expressions - Match any addAccount Method - Part 2
+```java
+package com.luv2code.aopdemo.aspect;
 
-#### 2. AOP - Pointcut Expressions - Match any addAccount Method - Part 2
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
 
-#### 3. AOP - Pointcut Expressions - Match only DAO addAccount - Match any add Method
+@Aspect
+@Component
+public class MyDemoLoggingAspect {
 
-#### 4. AOP - Pointcut Expressions - Match any Return Type
+	@Before("execution(public void addAccount())")
+	public void beforeAddAccountAdvice() {
+		
+		System.out.println("\n=====>>> Executing @Before advice on method");
+		
+	}
+	
+}
 
+
+
+```
+
+```java
+package com.luv2code.aopdemo;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.luv2code.aopdemo.dao.AccountDAO;
+
+public class MainDemoApp {
+
+	public static void main(String[] args) {
+
+		// read spring config java class
+		AnnotationConfigApplicationContext context =
+				new AnnotationConfigApplicationContext(DemoConfig.class);
+		
+		// get the bean from spring container
+		AccountDAO theAccountDAO = context.getBean("accountDAO", AccountDAO.class);
+		
+		// call the business method
+		theAccountDAO.addAccount();
+
+		// do it again!
+		System.out.println("\nlet's call it again!\n");
+		
+		// call the business method again
+		theAccountDAO.addAccount();
+				
+		// close the context
+		context.close();
+	}
+
+}
+
+
+
+
+```
+### 3. AOP - Pointcut Expressions - Match only DAO addAccount - Match any add Method
+
+In eclipse using copy qualified name in class java
+```java
+@Before("execution(public void com.luv2code.aopdemo.dao.AccountDAO.addAccount())")
+	public void beforeAddAccountAdvice() {
+		
+		System.out.println("\n=====>>> Executing @Before advice on method");
+		
+	}
+
+// step 2
+
+@Before("execution(public void add*())")
+	public void beforeAddAccountAdvice() {
+		
+		System.out.println("\n=====>>> Executing @Before advice on method");
+		
+	}
+```
+### 4. AOP - Pointcut Expressions - Match any Return Type
+```java
+@Before("execution(* add*())")
+	public void beforeAddAccountAdvice() {
+		
+		System.out.println("\n=====>>> Executing @Before advice on method");
+		
+	}
+```
 ## 37. AOP Pointcut Expressions - Match Method Parameter Types
 
-#### 1. AOP Pointcut Expressions - Match Method Parameter Types Overview
+### 1. AOP Pointcut Expressions - Match Method Parameter Types Overview
 
-#### 2. AOP Pointcut Expressions - Match Method with Account and more Params
+### 2. AOP Pointcut Expressions - Match Method with Account and more Params
+```java
+@Before("execution(* add*(com.luv2code.aopdemo.Account, ..))")
+	public void beforeAddAccountAdvice() {
+		
+		System.out.println("\n=====>>> Executing @Before advice on method");
+		
+	}
+```
+### 3. AOP Pointcut Expressions - Match Method Any Params - Match Method in a Package
+```java
+@Before("execution(* add*(..))")
+	public void beforeAddAccountAdvice() {
+		
+		System.out.println("\n=====>>> Executing @Before advice on method");
+		
+	}
 
-#### 3. AOP Pointcut Expressions - Match Method Any Params - Match Method in a Package
-
+// step 2
+@Before("execution(* com.luv2code.aopdemo.dao.*.*(..))")
+	public void beforeAddAccountAdvice() {
+		
+		System.out.println("\n=====>>> Executing @Before advice on method");
+		
+	}
+```
 ## 38. AOP Pointcut Declarations
 
-#### 1. AOP Pointcut Declarations - Overview
+### 1. AOP Pointcut Declarations - Overview
 
-#### 2. AOP Pointcut Declarations - Write Some Code
+### 2. AOP Pointcut Declarations - Write Some Code
 
-#### 3. AOP Combining Pointcuts - Overview
+### 3. AOP Combining Pointcuts - Overview
 
-#### 4. AOP Combining Pointcuts - Write Some Code - Part 1
+### 4. AOP Combining Pointcuts - Write Some Code - Part 1
 
-#### 5. AOP Combining Pointcuts - Write Some Code - Part 2
+### 5. AOP Combining Pointcuts - Write Some Code - Part 2
 
 ## 39. AOP Ordering Aspects
 
-Thêm copy Qualify Name
+### 1. AOP Ordering Aspects - Overview
+
+### 2. AOP Ordering Aspects - Write Some Code - Part 1
+
+### 3. AOP Ordering Aspects - Write Some Code - Part 2
+
+## 4. Spring Inversion of Control - XML Configuration
+
+### 1. What is Inversion of Control
+
+### 10. Practice Activity #1 - Inversion of Control with XML Configuration.html
+
+### 2. Code Demo - Rough Prototype Part 1
+
+### 3. Code Demo - Rough Prototype Part 2
+
+### 4. Spring Inversion of Control - Overview
+
+### 5. FAQ What is a Spring Bean.html
+
+### 6. Spring Inversion of Control - Write Some Code - Part 1
+
+### 7. Spring Inversion of Control - Write Some Code - Part 2
+
+### 8. HEADS UP - Add Logging Messages in Spring 5.1.html
+
+### 9. FAQ Why do we specify the Coach interface in getBean().html
 
 ## 40. AOP JoinPoints
 
+### 1. AOP Read Method Arguments with JoinPoints - Overview
+
+### 2. AOP Read Method Arguments with JoinPoints - Write Some Code
+
 ## 41. AOP @AfterReturning Advice Type
 
-Before => after => hàm main
+### 1. AOP @AfterReturning Overview
+
+### 2. AOP @AfterReturning - Write Some Code - Part 1
+
+### 3. AOP @AfterReturning - Write Some Code - Part 2
+
+### 4. AOP @AfterReturning - Write Some Code - Part 2
+
+### 5. AOP @AfterReturning - Modifying Data - Write Some Code
 
 ## 42. AOP @AfterThrowing Advice Type
 
+### 1. AOP @AfterThrowing
+
+### 2. AOP @AfterThrowing - Write Some Code
+
 ## 43. AOP @After Advice Type
 
-- After chay truoc @AfterThrowing and @AfterReturning
+### 1. AOP @After Overview
+
+### 2. AOP @After - Write Some Code
 
 ## 44. AOP @Around Advice Type
 
+### 1. AOP @Around Advice Overview
+
+### 2. AOP @Around - Write Some Code - Part 1
+
+### 3. AOP @Around - Write Some Code - Part 2
+
+### 4. AOP @Around Advice - Resolve Order Issue
+
+### 5. AOP @Around Advice - Handling Exceptions - Overview
+
+### 6. AOP @Around Advice - Handling Exceptions - Write Some Code
+
+### 7. AOP @Around Advice - Rethrowing Exceptions
+
 ## 45. AOP Add AOP Logging to Spring MVC App - Real-Time Project
 
-```
+### 1. AOP AOP and Spring MVC App - Overview
 
-```
+### 2. AOP AOP and Spring MVC App - Write Some Code - Create Aspect
+
+### 3. AOP AOP and Spring MVC App - Write Some Code - Add @Before Advice
+
+### 4. AOP AOP and Spring MVC App - Write Some Code - Add @AfterReturning Advice
+
+## 46. Maven Crash Course
+
+### 1. Maven Overview - Part 1
+
+### 10. Maven - Repositories Overview
+
+### 11. Maven - Local Repository
+
+### 12. Maven - Central Repository (remote)
+
+### 13. Maven - Additional Repositories Overview
+
+### 14. Maven - Additional Repositories Demo
+
+### 15. Maven - Private Repositories
+
+### 16. FAQ How to use Maven with customer-tracker project.html
+
+### 16.1 maven-with-crm-app.pdf.pdf
+
+### 2. Maven Overview - Part 2
+
+### 3. Maven Key Concepts - POM file and Coordinates
+
+### 4. Maven - How to Find Dependencies
+
+### 5. Maven Archetypes
+
+### 6. Maven - Creating a Simple Project - Part 1
+
+### 7. How to Install the m2eclipse Plugin.html
+
+### 8. Maven - Creating a Simple Project - Part 2
+
+### 9. Maven - Creating a Web App Project
+
+## 47. Spring Security - Getting Started
+
+### 1. Spring Security - Overview
+
+### 10. Spring Security - Create Controller and View
+
+### 11. Spring Security - Run the App
+
+### 12. Spring Security - Add Spring Security Maven Dependencies
+
+### 13. Spring Security - Latest Version.html
+
+### 14. Spring Security - Add Spring Security Maven Dependencies - Demo
+
+### 15. Spring Security - Basic Security (Users, Passwords and Roles)
+
+### 16. Spring Security - Create Security Initializer
+
+### 17. HEADS UP - New Spring Security 5.0.2 - Deprecated method.html
+
+### 18. Spring Security - Create Security Config
+
+### 2. Spring Security - Demo
+
+### 3. Spring Security - All Java Configuration - Part 1
+
+### 4. Spring Security - All Java Configuration - Part 2
+
+### 5. Spring Security - Project Downloads and Setup
+
+### 6. Spring Security - Maven Configuration
+
+### 7. FAQ Maven can't find a class but I have it in pom.xml.html
+
+### 8. Spring Security - Create Spring Java Config class
+
+### 9. Spring Security - Create Spring Initializer class
+
+## 48. Spring Security - Adding Custom Login Form
+
+### 1. Spring Security - Rename Context Roots
+
+### 10. Spring Security - Adding Login Error Message - Coding
+
+### 2. Spring Security - Dev and Testing with New Private Window
+
+### 3. Spring Security - Custom Login Form Overview - Part 1
+
+### 4. Spring Security - Custom Login Form Overview - Part 2
+
+### 5. Spring Security - Spring Config for Custom Login Form
+
+### 6. Spring Security - Create Request Mapping for Login Form
+
+### 7. Spring Security - Building Custom Login Form
+
+### 8. Spring Security - Testing Custom Login Form
+
+### 9. Spring Security - Adding Login Error Message - Overview
+
+## 49. Spring Security - Boostrap CSS Login Form
+
+### 1. Spring Security - Bootstrap CSS Login Form
+
+### 2. Spring Security - Bootstrap CSS Login Form - Adding Form
+
+### 3. Spring Security - Bootstrap CSS Login Form - Customizing Form
+
+### 4. Spring Security - Bootstrap CSS Login Form - Testing
+
+## 5. Spring Dependency Injection - XML Configuration
+
+### 1. Spring Dependency Injection - Overview
+
+### 10. Injecting Literal Values - Overview
+
+### 11. Injecting Literal Values - Write Some Code
+
+### 12. FAQ Why do we use CricketCoach class instead of Coach Interface.html
+
+### 13. Injecting Values from a Properties File - Overview
+
+### 14. Injecting Values from a Properties File - Write Some Code
+
+### 15. Practice Activity #2 - Dependency Injection with XML Configuration.html
+
+### 2. Spring Dependency Injection - Behind the Scenes
+
+### 3. Spring Dependency Injection - Write Some Code - Part 1
+
+### 4. Spring Dependency Injection - Write Some Code - Part 2
+
+### 5. Spring Dependency Injection - Write Some Code - Part 3
+
+### 6. FAQ What is the purpose for the no arg constructor.html
+
+### 7. Setter Injection - Overview
+
+### 8. Setter Injection - Write Some Code - Part 1
+
+### 9. Setter Injection - Write Some Code - Part 2
+
+## 50. Spring Security - Adding Logout Support
+
+### 1. Spring Security - Logout Overview
+
+### 2. Spring Security - Logout Configuration
+
+### 3. Spring Security - Customizing Logout Message
+
+## 51. Spring Security - Cross Site Request Forgery (CSRF)
+
+### 1. Spring Security - Cross Site Request Forgery (CSRF)
+
+### 2. Spring Security - Viewing CSRF Tokens
+
+### 3. Spring Security - Manually Adding CSRF Tokens
+
+## 52. Spring Security - User Roles
+
+### 1. Spring Security - Displaying User ID and Roles - Overview
+
+### 2. Spring Security - Displaying User ID and Roles - Write Some Code
+
+### 3. Spring Security - Displaying User ID and Roles - Test the App
+
+### 4. FAQ How to Add a Public Landing Page.html
+
+## 53. Spring Security - Restrict Access Based on Role
+
+### 1. Spring Security - Restrict Access - Overview
+
+### 10. Spring Security - Display Content based on Roles - Write Some Code
+
+### 11. Spring Security - Display Content based on Roles - Testing
+
+### 2. Spring Security - Restrict Access - Update Home Page
+
+### 3. Spring Security - Restrict Access - Create Controller and Views
+
+### 4. Spring Security - Restrict Access - Security Configuration
+
+### 5. Spring Security - Restrict Access - Test Admin Access
+
+### 6. Spring Security - Create a Custom Access Denied Page - Overview
+
+### 7. Spring Security - Create a Custom Access Denied Page - Configuration
+
+### 8. Spring Security - Create a Custom Access Denied Page - Coding
+
+### 9. Spring Security - Display Content based on Roles - Overview
+
+## 54. Spring Security - Add JDBC Database Authentication
+
+### 1. Spring Security JDBC - Overview - Defining Database Schema
+
+### 10. Spring Security JDBC - Coding - Add JDBC Authentication
+
+### 11. Spring Security JDBC - Coding - Test the App
+
+### 2. Spring Security JDBC - Overview - DataSource Configuration
+
+### 3. Spring Security JDBC - Overview - Add JDBC Authentication
+
+### 4. Spring Security JDBC - Coding - Run SQL Script
+
+### 5. Spring Security JDBC - Coding - Update Maven POM File
+
+### 6. Spring Security JDBC - Coding - Add JDBC Properties File
+
+### 7. Spring Security JDBC - Coding - Define DataSource
+
+### 8. Spring Security JDBC - Coding - Reading Props File
+
+### 9. Spring Security JDBC - Coding - Configure Data Source
+
+## 55. Spring Security - Password Encryption
+
+### 1. Spring Security - Password Encryption - Bcrypt Overview
+
+### 1.1 Detailed bcrypt algorithm analysis.html
+
+### 1.2 Why you should use bcrypt to hash password.html
+
+### 1.3 Generate BCrypt Password.html
+
+### 1.4 Password hashing - Best Practices.html
+
+### 2. bcrypt Additional Resources.html
+
+### 3. Spring Security - Password Encryption - Spring Configuration
+
+### 4. Spring Security - Password Encryption - Setting up Database Schema
+
+### 5. Spring Security - Password Encryption - Bcrypt Configuration
+
+### 6. Spring Security - Password Encryption - Testing Passwords
+
+### 7. Bonus Lecture Spring Security - User Registration.html
+
+### 8. Bonus Lecture Adding Spring Security to CRM App.html
+
+### 1.1 Why you should use bcrypt to hash password.html
+
+### 1.2 Detailed bcrypt algorithm analysis.html
+
+### 1.3 Password hashing - Best Practices.html
+
+### 1.4 Generate BCrypt Password.html
+
+## 56. Spring REST - Overview
+
+### 1. Spring REST - What are REST Web Services - Part 1
+
+### 2. Spring REST - What are REST Web Services - Part 2
+
+## 57. Spring REST - JSON Data Binding
+
+### 1. Spring REST - JSON Overview
+
+### 2. Spring REST - JSON Data Binding with Jackson - Overview 1
+
+### 3. Spring REST - JSON Data Binding with Jackson - Overview 2
+
+### 4. Spring REST - JSON Jackson Demo - Set Up Maven Project
+
+### 5. Spring REST - JSON Jackson Demo - Processing JSON
+
+### 6. Spring REST - JSON Jackson Demo - Nested Objects and Arrays
+
+### 7. Spring REST - JSON Jackson Demo - Display Nested and Arrays
+
+### 8. Spring REST - JSON Jackson Demo - Ignore Properties
+
+## 58. Spring REST - Create a Spring REST Controller
+
+### 1. Spring REST - HTTP Overview
+
+### 2. Spring REST - Install a REST Client
+
+### 3. Spring REST - Creating a Spring REST Controller - Overview 1
+
+### 4. Spring REST - Creating a Spring REST Controller - Overview 2
+
+### 5. Spring REST - REST Controller Demo - Set Up Maven Project
+
+### 6. Spring REST - REST Controller Demo - Set Up All Java Configuration
+
+### 7. Spring REST - REST Controller Demo - Creating the REST Controller
+
+### 8. Spring REST - App Enhancement with Default Page
+
+## 59. Spring REST - Retrieve POJOs as JSON
+
+### 1. Spring REST - Retrieve POJOs as JSON - Overview
+
+### 2. Spring REST - Retrieve POJOs as JSON - Create POJO
+
+### 3. Spring REST - Retrieve POJOs as JSON - Create REST Controller
+
+### 4. Spring REST - Retrieve POJOs as JSON - Test REST Controller
+
+## 6. Spring Bean Scopes and Lifecycle
+
+### 1. Bean Scopes - Overview
+
+### 2. Bean Scopes - Write Some Code - Part 1
+
+### 3. Bean Scopes - Write Some Code - Part 2
+
+### 4. Bean Lifecycle - Overview
+
+### 5. Special Note Defining init and destroy methods - Method Signatures.html
+
+### 6. Bean Lifecycle - Write Some Code
+
+### 7. Special Note about Destroy Lifecycle and Prototype Scope.html
+
+### 8. Practice Activity #3 - Bean Scopes with XML Configuration.html
+
+## 60. Spring REST - Using @PathVariable for REST Endpoints
+
+### 1. Spring REST - Using @PathVariable for REST Endpoints - Overview
+
+### 2. Spring REST - Using @PathVariable for REST Endpoints - Refactoring Code
+
+### 3. Spring REST - Using @PathVariable for REST Endpoints - Coding @PathVariable
+
+## 61. Spring REST - Exception Handling
+
+### 1. Spring REST - Exception Handling Overview - Part 1
+
+### 2. Spring REST - Exception Handling Overview - Part 2
+
+### 3. Spring REST - Exception Handling - Create Custom Error Response and Exception
+
+### 4. Spring REST - Exception Handling - Update REST Service to throw Exception
+
+### 5. Spring REST - Exception Handling - Add Exception Handler with @ExceptionHandler
+
+### 6. Spring REST - Exception Handling - Test the App
+
+### 7. Spring REST - Exception Handling - Adding Generic Exception Handler
+
+### 8. Spring REST - Global Exception Handling Overview
+
+### 9. Spring REST - Global Exception Handling with @ControllerAdvice
+
+## 62. Spring REST - API Design Best Practices
+
+### 1. Spring REST - API Design Best Practices
+
+### 2. Spring REST - API Design of Real-Time Projects (PayPal, Github and SalesForce)
+
+## 63. Spring REST - CRUD Database Real-Time Project - Overview
+
+### 1. Spring REST - CRUD Database Real-Time Project - Overview
+
+### 2. Spring REST - Import Maven Project
+
+### 3. Spring REST - Maven POM file and All Java Config (no xml)
+
+### 4. Spring REST - Project Service and DAO
+
+### 5. Spring REST - Create Database Tables
+
+## 64. Spring REST - CRUD Database Real-Time Project - Get Customers
+
+### 1. Spring REST - CRUD Database Real-Time Project - Get Customers Overview
+
+### 2. Spring REST - CRUD Database Real-Time Project - Create REST Controller
+
+### 3. Spring REST - CRUD Database Real-Time Project - Testing in Postman
+
+### 4. Spring REST - CRUD Database Real-Time Project - Get Single Customer Overview
+
+### 5. Spring REST - CRUD Database Real-Time Project - Get Single Customer - Testing
+
+## 65. Spring REST - CRUD Database Real-Time Project - Exception Handling
+
+### 1. Spring REST - CRUD Database Real-Time Project - Exception Handling - Responses
+
+### 2. Spring REST - CRUD Database Real-Time Project - Exception Handling - Refactor
+
+### 3. Spring REST - CRUD Database Real-Time Project - Exception Handling - Annotation
+
+### 4. Spring REST - CRUD Database Real-Time Project - Exception Handling - Catch All
+
+## 66. Spring REST - CRUD Database Real-Time Project - Add Customer
+
+### 1. Spring REST - CRUD Database Real-Time Project - Add Customer - Overview
+
+### 2. Spring REST - CRUD Database Real-Time Project - Add Customer - Coding
+
+### 3. Spring REST - CRUD Database Real-Time Project - Add Customer - Testing
+
+## 67. Spring REST - CRUD Database Real-Time Project - Update Customer
+
+### 1. Spring REST - CRUD Database Real-Time Project - Update Customer - Overview
+
+### 2. Spring REST - CRUD Database Real-Time Project - Update Customer - Coding
+
+## 68. Spring REST - CRUD Database Real-Time Project - Delete Customer
+
+### 1. Spring REST - CRUD Database Real-Time Project - Delete Customer - Overview
+
+### 2. Spring REST - CRUD Database Real-Time Project - Delete Customer - Coding
+
+### 3. Spring REST - CRUD Database Real-Time Project - Delete Customer - Testing
+
+## 69. Spring REST - Bonus Lectures
+
+### 1. Bonus Lecture Creating a REST Client with Spring.html
+
+### 1.1 crm-web-app-rest-client-demo.pdf.pdf
+
+### 2. Bonus Lecture Securing REST API Endpoints.html
+
+### 2.1 adding-spring-security-to-crm-rest-api.pdf.pdf
+
+## 7. Spring Configuration with Java Annotations - Inversion of Control
+
+### 1. Annotations Overview - Component Scanning
+
+### 2. Annotations Project Setup
+
+### 3. Explicit Component Names - Write Some Code - Part 1
+
+### 4. Explicit Component Names - Write Some Code - Part 2
+
+### 5. Default Component Names - Overview
+
+### 6. Default Component Names - Write Some Code
+
+### 7. Practice Activity #4 - Inversion of Control with Annotations.html
+
+## 70. Spring Boot - Overview
+
+### 1. Spring Boot - What is Spring Boot
+
+### 2. Spring Boot - Creating a Project with Spring Boot Initializr
+
+### 3. Spring Boot - Developing a REST API Controller with Spring Boot
+
+### 4. Spring Boot - Exploring the Spring Boot Project Structure - Part 1
+
+### 5. Spring Boot - Exploring the Spring Boot Project Structure - Part 2
+
+### 6. Spring Boot - Spring Boot Starters - A Curated List of Dependencies
+
+### 7. Spring Boot - Parents for Spring Boot Starters
+
+## 71. Spring Boot - Spring Boot Dev Tools and Spring Boot Actuator
+
+### 1. Spring Boot - Dev Tools
+
+### 2. Spring Boot - Spring Boot Actuator - Overview
+
+### 3. Spring Boot - Spring Boot Actuator - Accessing Actuator Endpoints
+
+### 4. Spring Boot - Spring Boot Actuator - Applying Security to Actuator Endpoints
+
+## 72. Spring Boot - Running Spring Boot Apps from the Command Line
+
+### 1. Spring Boot - Running Spring Boot Apps from the Command Line - Overview
+
+### 2. Spring Boot - Running Spring Boot Apps from the Command Line - Coding
+
+## 73. Spring Boot - Application Properties
+
+### 1. Spring Boot - Injecting Custom Application Properties
+
+### 2. Spring Boot - Configuring the Spring Boot Server
+
+## 74. Spring Boot - Build a REST CRUD API with Hibernate - Real-Time Project
+
+### 1. Spring Boot - REST CRUD Real-Time Project Overview and Database Set Up
+
+### 10. Spring Boot - REST Controller Methods to Update and Delete an Employee
+
+### 2. Spring Boot - Create Project with Spring Initializr
+
+### 3. Spring Boot - Integrating Hibernate and JPA
+
+### 4. Spring Boot - Configuring the Spring Boot Data Source
+
+### 5. Spring Boot - Developing the DAO Interface and Implementation
+
+### 6. Spring Boot - Creating REST Controller Methods
+
+### 7. Spring Boot - Additional CRUD Methods for DAO
+
+### 8. Spring Boot - Refactoring the Code to use a Service Layer
+
+### 9. Spring Boot - REST Controller Methods to Find and Add Employee
+
+## 75. Spring Boot - Build a REST CRUD API with JPA - Real-Time Project
+
+### 1. Spring Boot - REST JPA Overview
+
+### 2. Spring Boot - Creating JPA DAO Implementation for REST API
+
+### 3. Spring Boot - Testing the REST API with JPA DAO Implementation
+
+## 76. Spring Boot - Spring Data JPA - Real-Time Project
+
+### 1. Spring Boot - Spring Data JPA Overview
+
+### 2. Spring Boot - Creating Spring Data JPA Repository
+
+### 3. Spring Boot - Testing the REST API with Spring Data JPA Repository
+
+## 77. Spring Boot - Spring Data REST - Real-Time Project
+
+### 1. Spring Boot - Spring Data REST Overview
+
+### 2. Spring Boot - Spring Data REST - Creating a REST API
+
+### 3. Spring Boot - Spring Data REST - Configuration, Pagination and Sorting
+
+## 78. Spring Boot - Thymeleaf
+
+### 1. Spring Boot - Thymeleaf Overview
+
+### 2. Spring Boot - Thymeleaf Helloworld - Create a Thymeleaf App
+
+### 3. Spring Boot - Thymeleaf Helloworld - Apply CSS Stylesheets
+
+## 79. Spring Boot - Thymeleaf - Build HTML Tables
+
+### 1. Spring Boot - Thymeleaf - Build HTML Tables - Overview
+
+### 2. Spring Boot - Thymeleaf - Build HTML Tables - Write Some Code
+
+### 3. Spring Boot - Thymeleaf - Add Bootstrap CSS
+
+## 8. Spring Configuration with Java Annotations - Dependency Injection
+
+### 1. Constructor Injection - Overview
+
+### 10. Field Injection - Write Some Code
+
+### 11. Which Injection Type Should You Use
+
+### 12. Qualifiers for Dependency Injection - Overview
+
+### 13. Qualifiers for Dependency Injection - Write Some Code - Part 1
+
+### 14. Qualifiers for Dependency Injection - Write Some Code - Part 2
+
+### 15. Annotations - Default Bean Names - The Special Case.html
+
+### 16. Using @Qualifier with Constructors.html
+
+### 17. FAQ How to inject properties file using Java annotations.html
+
+### 18. Practice Activity #5 - Dependency Injection with Annotations.html
+
+### 2. Autowiring FAQ What if there are Multiple Implementations.html
+
+### 3. Constructor Injection - Write Some Code - Part 1
+
+### 4. Constructor Injection - Write Some Code - Part 2
+
+### 5. FAQ Constructor Injection - Autowired Optional.html
+
+### 5.1 Constructor Injection - Autowired.html
+
+### 6. Setter Injection - Overview
+
+### 7. Setter Injection - Write Some Code
+
+### 8. Method Injection
+
+### 9. Field Injection - Overview
+
+## 80. Spring Boot - Thymeleaf - CRUD Database Real-Time Project
+
+### 1. Spring Boot - Thymeleaf - CRUD Database Project - Get Employees - Part 1
+
+### 2. Spring Boot - Thymeleaf - CRUD Database Project - Get Employees - Part 2
+
+### 3. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Add Employee - Part 1
+
+### 4. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Add Employee - Part 2
+
+### 5. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Add Employee - Part 3
+
+### 6. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Update Employee - 1
+
+### 7. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Update Employee - 2
+
+### 8. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Delete Employee
+
+### 6. More Thymeleaf coming.html
+
+## 81. Summary
+
+### 1. Thank You and Please Leave a Rating for the Course
+
+### 2. Direct Links to My Java Courses.html
+
+## 82. Appendix
+
+### 1. FAQ Spring Student Questions.html
+
+## 83. Bonus Spring Boot Deployments on Tomcat
+
+### 1. Deploying Spring Boot WAR file with JSP to Tomcat.html
+
+### 2. Deploy Spring Boot WAR file with Thymeleaf to Tomcat.html
+
+## 9. Spring Configuration with Java Annotations - Bean Scopes and Lifecycle Methods
+
+### 1. @Scope Annotation - Overview
+
+### 2. @Scope Annotation - Write Some Code
+
+### 3. Bean Lifecycle Method Annotations - Overview
+
+### 4. Special Note about @PostConstruct and @PreDestroy Method Signatures.html
+
+### 5. HEADS UP - FOR JAVA 9 USERS - @PostConstruct and @PreDestroy.html
+
+### 6. Bean Lifecycle Method Annotations - Write Some Code
+
+### 7. Special Note about Destroy Lifecycle and Prototype Scope.html
+
+### 8. Practice Activity #6 - Bean Scopes with Annotations.html
+
+## 69. Spring REST - Bonus Lecture - Securing REST API Endpoints with Spring Security
+
+### 1. Bonus Lecture Securing REST API Endpoints.html
