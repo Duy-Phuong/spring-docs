@@ -7216,13 +7216,79 @@ In eclipse using copy qualified name in class java
 ## 38. AOP Pointcut Declarations
 
 ### 1. AOP Pointcut Declarations - Overview
-
+reuse
 ### 2. AOP Pointcut Declarations - Write Some Code
+```java
+package com.luv2code.aopdemo.aspect;
 
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
+
+@Aspect
+@Component
+public class MyDemoLoggingAspect {
+
+	@Pointcut("execution(* com.luv2code.aopdemo.dao.*.*(..))")
+	private void forDaoPackage() {}
+	
+	@Before("forDaoPackage()")
+	public void beforeAddAccountAdvice() {		
+		System.out.println("\n=====>>> Executing @Before advice on method");		
+	}
+	
+	@Before("forDaoPackage()")
+	public void performApiAnalytics() {
+		System.out.println("\n=====>>> Performing API analytics");		
+	}
+	
+}
+
+```
 ### 3. AOP Combining Pointcuts - Overview
 
 ### 4. AOP Combining Pointcuts - Write Some Code - Part 1
+```java
+package com.luv2code.aopdemo.aspect;
 
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
+
+@Aspect
+@Component
+public class MyDemoLoggingAspect {
+
+	@Pointcut("execution(* com.luv2code.aopdemo.dao.*.*(..))")
+	private void forDaoPackage() {}
+	
+	// create pointcut for getter methods
+	@Pointcut("execution(* com.luv2code.aopdemo.dao.*.get*(..))")
+	private void getter() {}
+	
+	// create pointcut for setter methods
+	@Pointcut("execution(* com.luv2code.aopdemo.dao.*.set*(..))")
+	private void setter() {}
+	
+	// create pointcut: include package ... exclude getter/setter
+	@Pointcut("forDaoPackage() && !(getter() || setter())")
+	private void forDaoPackageNoGetterSetter() {}
+	
+	@Before("forDaoPackageNoGetterSetter()")
+	public void beforeAddAccountAdvice() {		
+		System.out.println("\n=====>>> Executing @Before advice on method");		
+	}
+	
+	@Before("forDaoPackageNoGetterSetter()")
+	public void performApiAnalytics() {
+		System.out.println("\n=====>>> Performing API analytics");		
+	}
+	
+}
+
+```
 ### 5. AOP Combining Pointcuts - Write Some Code - Part 2
 
 ## 39. AOP Ordering Aspects
@@ -7230,83 +7296,625 @@ In eclipse using copy qualified name in class java
 ### 1. AOP Ordering Aspects - Overview
 
 ### 2. AOP Ordering Aspects - Write Some Code - Part 1
+```java
+package com.luv2code.aopdemo.aspect;
 
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+@Aspect
+@Component
+@Order(123)
+public class MyApiAnalyticsAspect {
+
+	@Before("com.luv2code.aopdemo.aspect.LuvAopExpressions.forDaoPackageNoGetterSetter()")
+	public void performApiAnalytics() {
+		System.out.println("\n=====>>> Performing API analytics");		
+	}
+
+}
+
+```
+
+```java
+package com.luv2code.aopdemo.aspect;
+
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+
+@Aspect
+public class LuvAopExpressions {
+
+	@Pointcut("execution(* com.luv2code.aopdemo.dao.*.*(..))")
+	public void forDaoPackage() {}
+	
+	// create pointcut for getter methods
+	@Pointcut("execution(* com.luv2code.aopdemo.dao.*.get*(..))")
+	public void getter() {}
+	
+	// create pointcut for setter methods
+	@Pointcut("execution(* com.luv2code.aopdemo.dao.*.set*(..))")
+	public void setter() {}
+	
+	// create pointcut: include package ... exclude getter/setter
+	@Pointcut("forDaoPackage() && !(getter() || setter())")
+	public void forDaoPackageNoGetterSetter() {}
+
+}
+
+```
 ### 3. AOP Ordering Aspects - Write Some Code - Part 2
-
-## 4. Spring Inversion of Control - XML Configuration
-
-### 1. What is Inversion of Control
-
-### 10. Practice Activity #1 - Inversion of Control with XML Configuration.html
-
-### 2. Code Demo - Rough Prototype Part 1
-
-### 3. Code Demo - Rough Prototype Part 2
-
-### 4. Spring Inversion of Control - Overview
-
-### 5. FAQ What is a Spring Bean.html
-
-### 6. Spring Inversion of Control - Write Some Code - Part 1
-
-### 7. Spring Inversion of Control - Write Some Code - Part 2
-
-### 8. HEADS UP - Add Logging Messages in Spring 5.1.html
-
-### 9. FAQ Why do we specify the Coach interface in getBean().html
 
 ## 40. AOP JoinPoints
 
 ### 1. AOP Read Method Arguments with JoinPoints - Overview
 
 ### 2. AOP Read Method Arguments with JoinPoints - Write Some Code
+```java
+package com.luv2code.aopdemo.aspect;
 
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+import com.luv2code.aopdemo.Account;
+
+@Aspect
+@Component
+@Order(2)
+public class MyDemoLoggingAspect {
+	
+	@Before("com.luv2code.aopdemo.aspect.LuvAopExpressions.forDaoPackageNoGetterSetter()")
+	public void beforeAddAccountAdvice(JoinPoint theJoinPoint) {
+		
+		System.out.println("\n=====>>> Executing @Before advice on method");	
+		
+		// display the method signature
+		MethodSignature methodSig = (MethodSignature) theJoinPoint.getSignature();
+		
+		System.out.println("Method: " + methodSig);
+		
+		// display method arguments
+		
+		// get args
+		Object[] args = theJoinPoint.getArgs();
+		
+		// loop thru args
+		for (Object tempArg : args) {
+			System.out.println(tempArg);
+			
+			if (tempArg instanceof Account) {
+				
+				// downcast and print Account specific stuff
+				Account theAccount = (Account) tempArg;
+				
+				System.out.println("account name: " + theAccount.getName());
+				System.out.println("account level: " + theAccount.getLevel());								
+
+			}
+		}
+		
+	}
+	
+}
+
+```
 ## 41. AOP @AfterReturning Advice Type
 
 ### 1. AOP @AfterReturning Overview
 
 ### 2. AOP @AfterReturning - Write Some Code - Part 1
-
+```java
+// add a new method: findAccounts()
+	
+	public List<Account> findAccounts() {
+		
+		List<Account> myAccounts = new ArrayList<>();
+		
+		// create sample accounts
+		Account temp1 = new Account("John", "Silver");
+		Account temp2 = new Account("Madhu", "Platinum");
+		Account temp3 = new Account("Luca", "Gold");
+		
+		// add them to our accounts list
+		myAccounts.add(temp1);
+		myAccounts.add(temp2);
+		myAccounts.add(temp3);
+		
+		
+		return myAccounts;		
+	}
+```
 ### 3. AOP @AfterReturning - Write Some Code - Part 2
+```java
+package com.luv2code.aopdemo;
+
+import java.util.List;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.luv2code.aopdemo.dao.AccountDAO;
+import com.luv2code.aopdemo.dao.MembershipDAO;
+
+public class AfterReturningDemoApp {
+
+	public static void main(String[] args) {
+
+		// read spring config java class
+		AnnotationConfigApplicationContext context =
+				new AnnotationConfigApplicationContext(DemoConfig.class);
+		
+		// get the bean from spring container
+		AccountDAO theAccountDAO = context.getBean("accountDAO", AccountDAO.class);
+		
+		// call method to find the accounts
+		List<Account> theAccounts = theAccountDAO.findAccounts();
+		
+		// display the accounts
+		System.out.println("\n\nMain Program: AfterReturningDemoApp");
+		System.out.println("----");
+		
+		System.out.println(theAccounts);
+		
+		System.out.println("\n");
+		
+		// close the context
+		context.close();
+	}
+
+}
+
+
+
+```
+
+result: ten gi cung duoc mien phai trung nhau la ok
+```java
+package com.luv2code.aopdemo.aspect;
+
+import java.util.List;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+import com.luv2code.aopdemo.Account;
+
+@Aspect
+@Component
+@Order(2)
+public class MyDemoLoggingAspect {
+		
+	// add a new advice for @AfterReturning on the findAccounts method
+	
+	@AfterReturning(
+			pointcut="execution(* com.luv2code.aopdemo.dao.AccountDAO.findAccounts(..))",
+			returning="result")
+	public void afterReturningFindAccountsAdvice(
+					JoinPoint theJoinPoint, List<Account> result) {
+		
+		// print out which method we are advising on 
+		String method = theJoinPoint.getSignature().toShortString();
+		System.out.println("\n=====>>> Executing @AfterReturning on method: " + method);
+				
+		// print out the results of the method call
+		System.out.println("\n=====>>> result is: " + result);
+		
+		// let's post-process the data ... let's modify it :-)
+		
+		// convert the account names to uppercase
+		convertAccountNamesToUpperCase(result);
+
+		System.out.println("\n=====>>> result is: " + result);
+		
+	}
+
+	private void convertAccountNamesToUpperCase(List<Account> result) {
+
+		// loop through accounts
+
+		for (Account tempAccount : result) {
+			
+			// get uppercase version of name
+			String theUpperName = tempAccount.getName().toUpperCase();
+			
+			// update the name on the account
+			tempAccount.setName(theUpperName);
+		}
+
+	}
+
+
+	@Before("com.luv2code.aopdemo.aspect.LuvAopExpressions.forDaoPackageNoGetterSetter()")
+	public void beforeAddAccountAdvice(JoinPoint theJoinPoint) {
+		
+		System.out.println("\n=====>>> Executing @Before advice on method");	
+		
+		// display the method signature
+		MethodSignature methodSig = (MethodSignature) theJoinPoint.getSignature();
+		
+		System.out.println("Method: " + methodSig);
+		
+		// display method arguments
+		
+		// get args
+		Object[] args = theJoinPoint.getArgs();
+		
+		// loop thru args
+		for (Object tempArg : args) {
+			System.out.println(tempArg);
+			
+			if (tempArg instanceof Account) {
+				
+				// downcast and print Account specific stuff
+				Account theAccount = (Account) tempArg;
+				
+				System.out.println("account name: " + theAccount.getName());
+				System.out.println("account level: " + theAccount.getLevel());								
+
+			}
+		}
+		
+	}
+	
+}
+```
 
 ### 4. AOP @AfterReturning - Write Some Code - Part 2
 
 ### 5. AOP @AfterReturning - Modifying Data - Write Some Code
-
+To Uppercase
 ## 42. AOP @AfterThrowing Advice Type
 
 ### 1. AOP @AfterThrowing
-
+AfterThrowingDemoApp
+```java
+// call method to find the accounts
+		List<Account> theAccounts = null;
+		
+		try {
+			// add a boolean flag to simulate exceptions
+			boolean tripWire = true;
+			theAccounts = theAccountDAO.findAccounts(tripWire);
+		}
+		catch (Exception exc) {
+			System.out.println("\n\nMain Program ... caught exception: " + exc);
+		}
+		
+		// display the accounts
+		System.out.println("\n\nMain Program: AfterThrowingDemoApp");
+		System.out.println("----");
+		
+		System.out.println(theAccounts);
+```
 ### 2. AOP @AfterThrowing - Write Some Code
-
+```java
+public class MyDemoLoggingAspect {
+	
+	@AfterThrowing(
+			pointcut="execution(* com.luv2code.aopdemo.dao.AccountDAO.findAccounts(..))",
+			throwing="theExc")
+	public void afterThrowingFindAccountsAdvice(
+					JoinPoint theJoinPoint, Throwable theExc) {
+		
+		// print out which method we are advising on
+		String method = theJoinPoint.getSignature().toShortString();
+		System.out.println("\n=====>>> Executing @AfterThrowing on method: " + method);
+		
+		// log the exception
+		System.out.println("\n=====>>> The exception is: " + theExc);
+	
+	}
+```
 ## 43. AOP @After Advice Type
 
 ### 1. AOP @After Overview
 
 ### 2. AOP @After - Write Some Code
-
+```java
+@After("execution(* com.luv2code.aopdemo.dao.AccountDAO.findAccounts(..))")
+	public void afterFinallyFindAccountsAdvice(JoinPoint theJoinPoint) {
+		
+		// print out which method we are advising on
+		String method = theJoinPoint.getSignature().toShortString();
+		System.out.println("\n=====>>> Executing @After (finally) on method: " 
+							+ method);
+	
+	}
+	
+```
 ## 44. AOP @Around Advice Type
 
 ### 1. AOP @Around Advice Overview
 
 ### 2. AOP @Around - Write Some Code - Part 1
 
+Create sevice
+```java
+package com.luv2code.aopdemo.service;
+
+import java.util.concurrent.TimeUnit;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class TrafficFortuneService {
+
+	public String getFortune() {
+		
+		// simulate a delay
+
+		try {
+			
+			TimeUnit.SECONDS.sleep(5);
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// return a fortune
+		return "Expect heavy traffic this morning";
+		
+	}
+}
+
+```
+
+```java
+@Around("execution(* com.luv2code.aopdemo.service.*.getFortune(..))")	
+	public Object aroundGetFortune(
+			ProceedingJoinPoint theProceedingJoinPoint) throws Throwable {
+		
+		// print out method we are advising on
+		String method = theProceedingJoinPoint.getSignature().toShortString();
+		System.out.println("\n=====>>> Executing @Around on method: " + method);
+		
+		// get begin timestamp
+		long begin = System.currentTimeMillis();
+		
+		// now, let's execute the method
+		Object result = theProceedingJoinPoint.proceed();
+		
+		// get end timestamp
+		long end = System.currentTimeMillis();
+		
+		// compute duration and display it
+		long duration = end - begin;
+		System.out.println("\n=====> Duration: " + duration / 1000.0 + " seconds");
+		
+		return result;
+	}
+```
 ### 3. AOP @Around - Write Some Code - Part 2
-
+```java
+// get the bean from spring container
+		TrafficFortuneService theFortuneService = 
+				context.getBean("trafficFortuneService", TrafficFortuneService.class);
+		
+		System.out.println("\nMain Program: AroundDemoApp");
+		
+		System.out.println("Calling getFortune");
+		
+		String data = theFortuneService.getFortune();
+		
+		System.out.println("\nMy fortune is: " + data);
+		
+		System.out.println("Finished");
+		
+		// close the context
+		context.close();
+```
 ### 4. AOP @Around Advice - Resolve Order Issue
+Using Logger to print
+```java
 
+public class MyDemoLoggingAspect {
+	
+	private Logger myLogger = Logger.getLogger(getClass().getName());
+	
+	@Around("execution(* com.luv2code.aopdemo.service.*.getFortune(..))")	
+	public Object aroundGetFortune(
+			ProceedingJoinPoint theProceedingJoinPoint) throws Throwable {
+		
+		// print out method we are advising on
+		String method = theProceedingJoinPoint.getSignature().toShortString();
+		myLogger.info("\n=====>>> Executing @Around on method: " + method);
+		
+		// get begin timestamp
+		long begin = System.currentTimeMillis();
+		
+		// now, let's execute the method
+		Object result = theProceedingJoinPoint.proceed();
+		
+		// get end timestamp
+		long end = System.currentTimeMillis();
+		
+		// compute duration and display it
+		long duration = end - begin;
+		myLogger.info("\n=====> Duration: " + duration / 1000.0 + " seconds");
+		
+		return result;
+	}
+```
+
+Add in main
+```java
+
+public class AroundWithLoggerDemoApp {
+
+	private static Logger myLogger = 
+					Logger.getLogger(AroundWithLoggerDemoApp.class.getName());
+```
 ### 5. AOP @Around Advice - Handling Exceptions - Overview
 
 ### 6. AOP @Around Advice - Handling Exceptions - Write Some Code
-
+```java
+@Around("execution(* com.luv2code.aopdemo.service.*.getFortune(..))")	
+	public Object aroundGetFortune(
+			ProceedingJoinPoint theProceedingJoinPoint) throws Throwable {
+		
+		// print out method we are advising on
+		String method = theProceedingJoinPoint.getSignature().toShortString();
+		myLogger.info("\n=====>>> Executing @Around on method: " + method);
+		
+		// get begin timestamp
+		long begin = System.currentTimeMillis();
+		
+		// now, let's execute the method
+		Object result = null;
+		
+		// add
+		try {
+			result = theProceedingJoinPoint.proceed();
+		} catch (Exception e) {
+			// log the exception
+			myLogger.warning(e.getMessage());
+			
+			// give users a custom messagee
+			result = "Major accident! But no worries, "
+					+ "your private AOP helicopter is on the way!";
+		}
+		
+		// get end timestamp
+		long end = System.currentTimeMillis();
+		
+		// compute duration and display it
+		long duration = end - begin;
+		myLogger.info("\n=====> Duration: " + duration / 1000.0 + " seconds");
+		
+		return result;
+	}
+```
 ### 7. AOP @Around Advice - Rethrowing Exceptions
+```java
+@Around("execution(* com.luv2code.aopdemo.service.*.getFortune(..))")	
+	public Object aroundGetFortune(
+			ProceedingJoinPoint theProceedingJoinPoint) throws Throwable {
+		
+		// print out method we are advising on
+		String method = theProceedingJoinPoint.getSignature().toShortString();
+		myLogger.info("\n=====>>> Executing @Around on method: " + method);
+		
+		// get begin timestamp
+		long begin = System.currentTimeMillis();
+		
+		// now, let's execute the method
+		Object result = null;
+		
+		// add
+		try {
+			result = theProceedingJoinPoint.proceed();
+		} catch (Exception e) {
+			// log the exception
+			myLogger.warning(e.getMessage());
 
+			// rethrow exception
+			throw e;
+		}
+		
+		// get end timestamp
+		long end = System.currentTimeMillis();
+		
+		// compute duration and display it
+		long duration = end - begin;
+		myLogger.info("\n=====> Duration: " + duration / 1000.0 + " seconds");
+		
+		return result;
+	}
+```
 ## 45. AOP Add AOP Logging to Spring MVC App - Real-Time Project
 
 ### 1. AOP AOP and Spring MVC App - Overview
-
+Right click/ Properties/ Web project settings
+chang Url to: web-custom-tracker-aop
 ### 2. AOP AOP and Spring MVC App - Write Some Code - Create Aspect
+Config like pdf
+solution-code-spring-aop-mvc-logging.zip
 
+```java
+package com.luv2code.springdemo.aspect;
+
+import java.util.logging.Logger;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
+
+@Aspect
+@Component
+public class CRMLoggingAspect {
+
+	// setup logger
+	private Logger myLogger = Logger.getLogger(getClass().getName());
+	
+	// setup pointcut declarations
+	@Pointcut("execution(* com.luv2code.springdemo.controller.*.*(..))")
+	private void forControllerPackage() {}
+	
+	// do the same for service and dao
+	@Pointcut("execution(* com.luv2code.springdemo.service.*.*(..))")
+	private void forServicePackage() {}
+	
+	@Pointcut("execution(* com.luv2code.springdemo.dao.*.*(..))")
+	private void forDaoPackage() {}
+	
+	@Pointcut("forControllerPackage() || forServicePackage() || forDaoPackage()")
+	private void forAppFlow() {}
+	
+	// add @Before advice
+	@Before("forAppFlow()")
+	public void before(JoinPoint theJoinPoint) {
+		
+		// display method we are calling
+		String theMethod = theJoinPoint.getSignature().toShortString();
+		myLogger.info("=====>> in @Before: calling method: " + theMethod);
+		
+		// display the arguments to the method
+		
+		// get the arguments
+		Object[] args = theJoinPoint.getArgs();
+		
+		// loop thru and display args
+		for (Object tempArg : args) {
+			myLogger.info("=====>> argument: " + tempArg);
+		}
+		
+	}
+	
+	
+	// add @AfterReturning advice
+	@AfterReturning(
+			pointcut="forAppFlow()",
+			returning="theResult"
+			)
+	public void afterReturning(JoinPoint theJoinPoint, Object theResult) {
+	
+		// display method we are returning from
+		String theMethod = theJoinPoint.getSignature().toShortString();
+		myLogger.info("=====>> in @AfterReturning: from method: " + theMethod);
+				
+		// display data returned
+		myLogger.info("=====>> result: " + theResult);
+	
+	}
+	
+	
+}
+
+```
 ### 3. AOP AOP and Spring MVC App - Write Some Code - Add @Before Advice
 
 ### 4. AOP AOP and Spring MVC App - Write Some Code - Add @AfterReturning Advice
