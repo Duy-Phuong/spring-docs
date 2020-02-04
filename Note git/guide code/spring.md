@@ -7987,37 +7987,500 @@ xem pdf
 ### 1. Spring Security - Overview
 
 ### 2. Spring Security - Demo
+Development Process
 
+1. Add Maven dependencies for Spring MVC Web App
+
+2. Create Spring App Configuration (@Configuration)
+
+3. Create Spring Dispatcher Servlet Initializer
+
+4. Develop our Spring controller
+
+5. Develop our JSP view page
 ### 3. Spring Security - All Java Configuration - Part 1
+pom
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
+	<groupId>com.luv2code</groupId>
+	<artifactId>spring-security-demo</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+
+	<name>spring-security-demo</name>
+
+	<properties>
+		<springframework.version>5.0.2.RELEASE</springframework.version>
+
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+
+		<!-- Spring MVC support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<!-- Servlet, JSP and JSTL support -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<!-- TO DO: Add support for Maven WAR Plugin -->
+
+
+</project>
+
+```
 ### 4. Spring Security - All Java Configuration - Part 2
+Xem lai word and video
+Import/ Maven/ Existing maven project
 
+Khi import project demo se loi: spring-security-demo-01-base-app
+Import maven project error => fix add : File WORD
 ### 5. Spring Security - Project Downloads and Setup
 
 ### 6. Spring Security - Maven Configuration
 
 ### 7. FAQ Maven can't find a class but I have it in pom.xml.html
+FAQ:  Maven can't find a class, but it is listed in the pom.xml
 
+First, double-check that you have the correct Maven coordinates in the file (groupId, artifactId and version). Look for typos.
+
+--
+
+This could be caused by a corrupt local Maven repo. You can resolve it with these steps.
+
+Option 1:
+
+
+
+1. On your project, right-click: Maven > Update Project
+
+2. In the dialog, check the box: Force Update of Snapshots/Releases
+
+3. Click Ok
+
+Maven will perform a rebuild.
+
+If that doesn't solve your problem then move to option 2
+
+Option 2:
+
+
+
+1. Delete your local Maven repo, the .m2 directory on your computer
+
+On MS Windows
+
+either  
+C:\Documents and Settings\<yourUserName>\.m2
+c:\Users\<yourUserName>\.m2
+
+On Mac/Linux
+
+~/.m2
+
+--
+
+Note, on your OS, you may need to configure your OS to show hidden files.
+
+2. Once .m2 directory is deleted, restart Eclipse
+
+3. On your project, right-click: Maven > Update Project
+
+This will resolve your issue.
 ### 8. Spring Security - Create Spring Java Config class
+solution-code-spring-security-demo-01-base-app
+```java
+package com.luv2code.springsecurity.demo.config;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages="com.luv2code.springsecurity.demo")
+public class DemoAppConfig {
+
+	// define a bean for ViewResolver
+
+	@Bean
+	public ViewResolver viewResolver() {
+		
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		
+		viewResolver.setPrefix("/WEB-INF/view/");
+		viewResolver.setSuffix(".jsp");
+		
+		return viewResolver;
+	}
+	
+}
+
+
+```
 ### 9. Spring Security - Create Spring Initializer class
+```java
+package com.luv2code.springsecurity.demo.config;
 
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+	@Override
+	protected Class<?>[] getRootConfigClasses() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Class<?>[] getServletConfigClasses() {
+		return new Class[] { DemoAppConfig.class };
+	}
+
+	@Override
+	protected String[] getServletMappings() {
+		return new String[] { "/" };
+	}
+
+}
+
+```
 ### 10. Spring Security - Create Controller and View
+```java
+package com.luv2code.springsecurity.demo.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class DemoController {
+
+	@GetMapping("/")
+	public String showHome() {
+		
+		return "home";
+	}
+}
+
+```
 ### 11. Spring Security - Run the App
-
+add file demo.jsp
 ### 12. Spring Security - Add Spring Security Maven Dependencies
-
+solution-code-spring-security-demo-02-basic-security
 ### 13. Spring Security - Latest Version.html
+UPDATES - Spring Security 5.1.1
+
+Spring Security 5.1.1 was released on 16 October 2018. This is a maintenance/bug fix release.
+
+Spring Security 5.1.1 is compatible with Spring Framework 5.1.1
+
+If you want to use the latest version, update your Maven POM file to use the compatible versions below
+
+<springframework.version>5.1.1.RELEASE</springframework.version>
+
+<springsecurity.version>5.1.1.RELEASE</springsecurity.version>
+---
+
+UPDATES - Spring Security 5.1.0
+
+Spring Security 5.1.0 was released on 27 September 2018. This is a maintenance/bug fix release.
+
+Spring Security 5.1.0 is compatible with Spring Framework 5.1.0
+
+If you want to use the latest version, update your Maven POM file to use the compatible versions below
+
+<springframework.version>5.1.0.RELEASE</springframework.version>
+
+<springsecurity.version>5.1.0.RELEASE</springsecurity.version>
+---
+
+UPDATES - Spring Security 5.0.7
+
+Spring Security 5.0.7 was released on 26 July 2018. This is a maintenance/bug fix release.
+
+Spring Security 5.0.7 is compatible with Spring Framework 5.0.8
+
+If you want to use the latest version, update your Maven POM file to use the compatible versions below
+
+<springframework.version>5.0.8.RELEASE</springframework.version>
+
+<springsecurity.version>5.0.7.RELEASE</springsecurity.version>
+---
+
+UPDATES - Spring Security 5.0.6
+
+Spring Security 5.0.6 was released on 13 June 2018. This is a maintenance/bug fix release.
+
+Spring Security 5.0.6 is compatible with Spring Framework 5.0.7
+
+If you want to use the latest version, update your Maven POM file to use the compatible versions below
+
+<springframework.version>5.0.7.RELEASE</springframework.version>
+
+<springsecurity.version>5.0.6.RELEASE</springsecurity.version>
+---
+
+UPDATES - Spring Security 5.0.5
+
+Spring Security 5.0.5 was released on 8 May 2018. This is a maintenance/bug fix release.
+
+Spring Security 5.0.5 is compatible with Spring Framework 5.0.6
+
+If you want to use the latest version, update your Maven POM file to use the compatible versions below
+
+<springframework.version>5.0.6.RELEASE</springframework.version>
+
+<springsecurity.version>5.0.5.RELEASE</springsecurity.version>
+---
+
+UPDATES - Spring Security 5.0.4
+
+Spring Security 5.0.4 was released on 5 April 2018. This is a maintenance/bug fix release.
+
+Spring Security 5.0.4 is compatible with Spring Framework 5.0.5
+
+If you want to use the latest version, update your Maven POM file to use the compatible versions below
+
+<springframework.version>5.0.5.RELEASE</springframework.version>
+
+<springsecurity.version>5.0.4.RELEASE</springsecurity.version>
+---
+
+UPDATES - Spring Security 5.0.3
+
+Spring Security 5.0.3 was released the week of 28 Feb 2018. This is a maintenance/bug fix release.
+
+Spring Security 5.0.3 is compatible with Spring Framework 5.0.4
+
+If you want to use the latest version, update your Maven POM file to use the compatible versions below
+
+<springframework.version>5.0.4.RELEASE</springframework.version>
+
+<springsecurity.version>5.0.3.RELEASE</springsecurity.version>
+---
+
+UPDATES - Spring Security 5.0.2
+
+Spring Security 5.0.2 was released the week of 20 Feb 2018. This is a maintenance/bug fix release.
+
+Spring Security 5.0.2 is compatible with Spring Framework 5.0.4
+
+If you want to use the latest version, update your Maven POM file to use the compatible versions below
+
+<springframework.version>5.0.4.RELEASE</springframework.version>
+
+<springsecurity.version>5.0.2.RELEASE</springsecurity.version>
+---
+
+UPDATES Spring Security 5.0.1
+
+Spring Security 5.0.1 was released the week of 24 Jan 2018. This is a maintenance/bug fix release.
+
+Spring Security 5.0.1 is compatible with Spring Framework 5.0.3
+
+If you want to use the latest version, update your Maven POM file to use the compatible versions below
+
+<springframework.version>5.0.3.RELEASE</springframework.version>
+
+<springsecurity.version>5.0.1.RELEASE</springsecurity.version>
 
 ### 14. Spring Security - Add Spring Security Maven Dependencies - Demo
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
+	<groupId>com.luv2code</groupId>
+	<artifactId>spring-security-demo</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+
+	<name>spring-security-demo</name>
+
+	<properties>
+		<springframework.version>5.0.2.RELEASE</springframework.version>
+		<springsecurity.version>5.0.0.RELEASE</springsecurity.version>
+
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+
+		<!-- Spring MVC support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+<!-- add new -->
+		<!-- Spring Security -->
+		<!-- spring-security-web and spring-security-config -->
+		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>${springsecurity.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>${springsecurity.version}</version>
+		</dependency>	
+		
+		<!-- Servlet, JSP and JSTL support -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<!-- TO DO: Add support for Maven WAR Plugin -->
+
+	<build>
+		<finalName>spring-security-demo</finalName>
+	
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<!-- Add Maven coordinates (GAV) for: maven-war-plugin -->
+				    <groupId>org.apache.maven.plugins</groupId>
+				    <artifactId>maven-war-plugin</artifactId>
+				    <version>3.2.0</version>					
+				</plugin>						
+			</plugins>
+		</pluginManagement>
+	</build>
+
+
+</project>
+
+```
 ### 15. Spring Security - Basic Security (Users, Passwords and Roles)
+- Step 1
+```java
+package com.luv2code.springsecurity.demo.config;
 
+import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
+
+public class SecurityWebApplicationInitializer 
+						extends AbstractSecurityWebApplicationInitializer {
+
+}
+
+```
+
+- Step 2
+```java
+package com.luv2code.springsecurity.demo.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.User.UserBuilder;
+
+@Configuration
+@EnableWebSecurity
+public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+		// add our users for in memory authentication
+		
+		UserBuilder users = User.withDefaultPasswordEncoder();
+		
+		auth.inMemoryAuthentication()
+			.withUser(users.username("john").password("test123").roles("EMPLOYEE"))
+			.withUser(users.username("mary").password("test123").roles("MANAGER"))
+			.withUser(users.username("susan").password("test123").roles("ADMIN"));
+	}
+	
+}
+
+```
 ### 16. Spring Security - Create Security Initializer
 
 ### 17. HEADS UP - New Spring Security 5.0.2 - Deprecated method.html
+HEADS UP: New Spring Security 5.0.2  - deprecated method
 
+The Spring Security team released Spring Security 5.0.2 on 20 Feb 2018.
+
+They deprecated the method: User.withDefaultPasswordEncoder() 
+
+We use this for the in-memory authentication section of the course.
+
+This issue only applies to in-memory authentication.
+
+But don't worry, this is okay for demo purposes (in-memory).
+
+Later in the course we'll store user accounts in the database using encryption. As a result, this will be a non-issue (there are no deprecated methods for database storage).
+
+---
+
+In the following video, when you see a deprecation warning for, User.withDefaultPasswordEncoder()  you can safely ignore it: because we are only using it for demo purposes.
 ### 18. Spring Security - Create Security Config
 
 ## 48. Spring Security - Adding Custom Login Form
