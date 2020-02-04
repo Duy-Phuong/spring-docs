@@ -7922,27 +7922,26 @@ public class CRMLoggingAspect {
 ## 46. Maven Crash Course
 
 ### 1. Maven Overview - Part 1
+Free Maven Resources
 
-### 10. Maven - Repositories Overview
+• Maven Reference Manual
 
-### 11. Maven - Local Repository
+• www.luv2code.com/mavenreferencemanual
 
-### 12. Maven - Central Repository (remote)
+Maven eBooks
 
-### 13. Maven - Additional Repositories Overview
+• www.luv2code.com/mavenebooks
 
-### 14. Maven - Additional Repositories Demo
+Maven Cheat Sheet
 
-### 15. Maven - Private Repositories
-
-### 16. FAQ How to use Maven with customer-tracker project.html
-
-### 16.1 maven-with-crm-app.pdf.pdf
+• www.luv2code.com/mavencheatsheet
 
 ### 2. Maven Overview - Part 2
 
 ### 3. Maven Key Concepts - POM file and Coordinates
-
+- Project meta data
+- Dependencies
+- Plug in
 ### 4. Maven - How to Find Dependencies
 
 ### 5. Maven Archetypes
@@ -7955,9 +7954,53 @@ public class CRMLoggingAspect {
 
 ### 9. Maven - Creating a Web App Project
 
+### 10. Maven - Repositories Overview
+Local Repository
+
+• Located on developer’s computer
+
+• MS Windows: c:\Users\<users-home-dir>\.m2\repository
+
+• Mac and Linux: ~/.m2/repository
+
+• Maven will search this local repository first
+
+• Before going to Maven Central Repository
+
+• Your local cache
+### 11. Maven - Local Repository
+
+### 12. Maven - Central Repository (remote)
+Vao trang repo.mave search
+Xem lai
+### 13. Maven - Additional Repositories Overview
+Xem lai
+### 14. Maven - Additional Repositories Demo
+
+### 15. Maven - Private Repositories
+
+### 16. FAQ How to use Maven with customer-tracker project.html
+xem pdf
+### 16.1 maven-with-crm-app.pdf.pdf
 ## 47. Spring Security - Getting Started
 
 ### 1. Spring Security - Overview
+
+### 2. Spring Security - Demo
+
+### 3. Spring Security - All Java Configuration - Part 1
+
+### 4. Spring Security - All Java Configuration - Part 2
+
+### 5. Spring Security - Project Downloads and Setup
+
+### 6. Spring Security - Maven Configuration
+
+### 7. FAQ Maven can't find a class but I have it in pom.xml.html
+
+### 8. Spring Security - Create Spring Java Config class
+
+### 9. Spring Security - Create Spring Initializer class
 
 ### 10. Spring Security - Create Controller and View
 
@@ -7976,22 +8019,6 @@ public class CRMLoggingAspect {
 ### 17. HEADS UP - New Spring Security 5.0.2 - Deprecated method.html
 
 ### 18. Spring Security - Create Security Config
-
-### 2. Spring Security - Demo
-
-### 3. Spring Security - All Java Configuration - Part 1
-
-### 4. Spring Security - All Java Configuration - Part 2
-
-### 5. Spring Security - Project Downloads and Setup
-
-### 6. Spring Security - Maven Configuration
-
-### 7. FAQ Maven can't find a class but I have it in pom.xml.html
-
-### 8. Spring Security - Create Spring Java Config class
-
-### 9. Spring Security - Create Spring Initializer class
 
 ## 48. Spring Security - Adding Custom Login Form
 
