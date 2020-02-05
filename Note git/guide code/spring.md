@@ -8996,10 +8996,19 @@ Now when you run the application, anyone can access the public home page without
 
 ### 1. Spring Security - Restrict Access - Overview
 
-### 10. Spring Security - Display Content based on Roles - Write Some Code
+
+### 2. Spring Security - Restrict Access - Update Home Page
 home.jsp
 ```html
-<security:authorize access="hasRole('MANAGER')">
+<!-- display user name and role -->
+	
+	<p>
+		User: <security:authentication property="principal.username" />
+		<br><br>
+		Role(s): <security:authentication property="principal.authorities" />
+	</p>
+	
+	<security:authorize access="hasRole('MANAGER')">
 	
 		<!-- Add a link to point to /leaders ... this is for the managers -->
 		
@@ -9008,9 +9017,10 @@ home.jsp
 			(Only for Manager peeps)
 		</p>
 
-</security:authorize>	
-
-<security:authorize access="hasRole('ADMIN')">  
+	</security:authorize>	
+	
+	
+	<security:authorize access="hasRole('ADMIN')">  
 
 		<!-- Add a link to point to /systems ... this is for the admins -->
 		
@@ -9020,24 +9030,120 @@ home.jsp
 		</p>
 	
 	</security:authorize>
+	
+	<hr>
+	
+	
+	<!-- Add a logout button -->
+	<form:form action="${pageContext.request.contextPath}/logout" 
+			   method="POST">
+	
+		<input type="submit" value="Logout" />
+	
+	</form:form>
 ```
-### 11. Spring Security - Display Content based on Roles - Testing
-
-### 2. Spring Security - Restrict Access - Update Home Page
-
+run and test
+add leaders.jsp
 ### 3. Spring Security - Restrict Access - Create Controller and Views
 
 ### 4. Spring Security - Restrict Access - Security Configuration
+```java
+package com.luv2code.springsecurity.demo.config;
 
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.User.UserBuilder;
+
+@Configuration
+@EnableWebSecurity
+public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+		// add our users for in memory authentication
+		
+		UserBuilder users = User.withDefaultPasswordEncoder();
+		
+		auth.inMemoryAuthentication()
+			.withUser(users.username("john").password("test123").roles("EMPLOYEE"))
+			.withUser(users.username("mary").password("test123").roles("EMPLOYEE", "MANAGER"))
+			.withUser(users.username("susan").password("test123").roles("EMPLOYEE", "ADMIN"));
+	}
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+
+		http.authorizeRequests()
+			.antMatchers("/").hasRole("EMPLOYEE")
+			.antMatchers("/leaders/**").hasRole("MANAGER")
+			.antMatchers("/systems/**").hasRole("ADMIN")
+			.and()
+			.formLogin()
+				.loginPage("/showMyLoginPage")
+				.loginProcessingUrl("/authenticateTheUser")
+				.permitAll()
+			.and()
+			.logout().permitAll()
+			.and()
+			.exceptionHandling().accessDeniedPage("/access-denied");
+		
+	}
+		
+}
+
+
+```
 ### 5. Spring Security - Restrict Access - Test Admin Access
-
+Create system.jsp and controller
 ### 6. Spring Security - Create a Custom Access Denied Page - Overview
+Create access-denied.jsp
+```jsp
+<html>
 
+<head>
+	<title>luv2code - Access Denied</title>
+</head>
+
+<body>
+
+	<h2>Access Denied - You are not authorized to access this resource.</h2>
+
+	<hr>
+	
+	<a href="${pageContext.request.contextPath}/">Back to Home Page</a>
+	
+</body>
+
+</html>
+```
+auto map
 ### 7. Spring Security - Create a Custom Access Denied Page - Configuration
+add to show needed link
+```html
+	<security:authorize access="hasRole('MANAGER')">
+	
+		<!-- Add a link to point to /leaders ... this is for the managers -->
+		
+		<p>
+			<a href="${pageContext.request.contextPath}/leaders">Leadership Meeting</a>
+			(Only for Manager peeps)
+		</p>
 
+	</security:authorize>	
+```
 ### 8. Spring Security - Create a Custom Access Denied Page - Coding
 
 ### 9. Spring Security - Display Content based on Roles - Overview
+
+### 10. Spring Security - Display Content based on Roles - Write Some Code
+
+### 11. Spring Security - Display Content based on Roles - Testing
+EMPLOYEE cannot see any link
 
 ## 54. Spring Security - Add JDBC Database Authentication
 
