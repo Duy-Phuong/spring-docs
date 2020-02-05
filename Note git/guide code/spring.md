@@ -8486,99 +8486,541 @@ In the following video, when you see a deprecation warning for, User.withDefault
 ## 48. Spring Security - Adding Custom Login Form
 
 ### 1. Spring Security - Rename Context Roots
+Xem lai
+Fix error:  
+![](../../root/img/2020-02-05-21-35-04.png)  
+Change Context root
+![](../../root/img/2020-02-05-21-35-54.png)
 
-### 10. Spring Security - Adding Login Error Message - Coding
+![](../../root/img/2020-02-05-21-36-47.png)
 
 ### 2. Spring Security - Dev and Testing with New Private Window
+solution-code-spring-security-demo-03-custom-login-form
+![](../../root/img/2020-02-05-21-42-08.png)  
+
+Because user login is based on web browser session
+
+1. Open new private window => new session
+2. Start new browser
+3. Quit Browser and start again
 
 ### 3. Spring Security - Custom Login Form Overview - Part 1
-
+pdf
 ### 4. Spring Security - Custom Login Form Overview - Part 2
-
+pdf
 ### 5. Spring Security - Spring Config for Custom Login Form
+![](../../root/img/2020-02-05-22-21-57.png)
 
+![](../../root/img/2020-02-05-22-26-20.png)
+
+DemoSecurityConfig
+```java
+package com.luv2code.springsecurity.demo.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.User.UserBuilder;
+
+@Configuration
+@EnableWebSecurity
+public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+		// add our users for in memory authentication
+		
+		UserBuilder users = User.withDefaultPasswordEncoder();
+		
+		auth.inMemoryAuthentication()
+			.withUser(users.username("john").password("test123").roles("EMPLOYEE"))
+			.withUser(users.username("mary").password("test123").roles("MANAGER"))
+			.withUser(users.username("susan").password("test123").roles("ADMIN"));
+	}
+
+// Add new
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+
+		http.authorizeRequests()
+				.anyRequest().authenticated()
+			.and()
+			.formLogin()
+				.loginPage("/showMyLoginPage")
+				.loginProcessingUrl("/authenticateTheUser")
+				.permitAll();
+		
+	}
+		
+}
+
+
+```
 ### 6. Spring Security - Create Request Mapping for Login Form
+```java
 
+@Controller
+public class LoginController {
+
+	@GetMapping("/showMyLoginPage")
+	public String showMyLoginPage() {
+		
+		return "plain-login";
+		
+	}
+}
+
+```
 ### 7. Spring Security - Building Custom Login Form
 
-### 8. Spring Security - Testing Custom Login Form
+plain-login
+```ts
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 
+<html>
+
+<head>
+	<title>Custom Login Page</title>
+	
+	<style>
+		.failed {
+			color: red;
+		}
+	</style>
+	
+</head>
+
+<body>
+
+<h3>My Custom Login Page</h3>
+
+	<form:form action="${pageContext.request.contextPath}/authenticateTheUser"
+			   method="POST">
+	
+		<!-- Check for login error -->
+	
+		<c:if test="${param.error != null}">
+		
+			<i class="failed">Sorry! You entered invalid username/password.</i>
+			
+		</c:if>
+			
+		<p>
+			User name: <input type="text" name="username" />
+		</p>
+
+		<p>
+			Password: <input type="password" name="password" />
+		</p>
+		
+		<input type="submit" value="Login" />
+		
+	</form:form>
+
+</body>
+
+</html>
+
+
+```
+### 8. Spring Security - Testing Custom Login Form
+Login fail cannot show error msg
+
+```ts
+<!-- Check for login error -->
+	
+		<c:if test="${param.error != null}">
+		
+			<i class="failed">Sorry! You entered invalid username/password.</i>
+			
+		</c:if>
+```
 ### 9. Spring Security - Adding Login Error Message - Overview
+### 10. Spring Security - Adding Login Error Message - Coding
 
 ## 49. Spring Security - Boostrap CSS Login Form
 
 ### 1. Spring Security - Bootstrap CSS Login Form
-
+http://luv2code.com/bootstrap-login-template
 ### 2. Spring Security - Bootstrap CSS Login Form - Adding Form
 
 ### 3. Spring Security - Bootstrap CSS Login Form - Customizing Form
+```ts
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 
-### 4. Spring Security - Bootstrap CSS Login Form - Testing
+<!doctype html>
+<html lang="en">
 
-## 5. Spring Dependency Injection - XML Configuration
+<head>
+	
+	<title>Login Page</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<!-- Reference Bootstrap files -->
+	<link rel="stylesheet"
+		 href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	
+	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-### 1. Spring Dependency Injection - Overview
+</head>
 
-### 10. Injecting Literal Values - Overview
+<body>
 
-### 11. Injecting Literal Values - Write Some Code
+	<div>
+		
+		<div id="loginbox" style="margin-top: 50px;"
+			class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
+			
+			<div class="panel panel-info">
 
-### 12. FAQ Why do we use CricketCoach class instead of Coach Interface.html
+				<div class="panel-heading">
+					<div class="panel-title">Sign In</div>
+				</div>
 
-### 13. Injecting Values from a Properties File - Overview
+				<div style="padding-top: 30px" class="panel-body">
 
-### 14. Injecting Values from a Properties File - Write Some Code
+					<!-- Login Form -->
+					<form:form action="${pageContext.request.contextPath}/authenticateTheUser" 
+							   method="POST" class="form-horizontal">
 
-### 15. Practice Activity #2 - Dependency Injection with XML Configuration.html
+					    <!-- Place for messages: error, alert etc ... -->
+					    <div class="form-group">
+					        <div class="col-xs-15">
+					            <div>
+										
+								<!-- Check for login error -->
+	
+								<c:if test="${param.error != null}">
 
-### 2. Spring Dependency Injection - Behind the Scenes
+									<div class="alert alert-danger col-xs-offset-1 col-xs-10">
+										Invalid username and password.
+									</div>
+								
+								</c:if>
+																	
+									<!--		            
+									<div class="alert alert-success col-xs-offset-1 col-xs-10">
+										You have been logged out.
+									</div>
+								    -->
 
-### 3. Spring Dependency Injection - Write Some Code - Part 1
+					            </div>
+					        </div>
+					    </div>
 
-### 4. Spring Dependency Injection - Write Some Code - Part 2
+						<!-- User name -->
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> 
+							
+							<input type="text" name="username" placeholder="username" class="form-control">
+						</div>
 
-### 5. Spring Dependency Injection - Write Some Code - Part 3
+						<!-- Password -->
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span> 
+							
+							<input type="password" name="password" placeholder="password" class="form-control" >
+						</div>
 
-### 6. FAQ What is the purpose for the no arg constructor.html
+						<!-- Login/Submit Button -->
+						<div style="margin-top: 10px" class="form-group">						
+							<div class="col-sm-6 controls">
+								<button type="submit" class="btn btn-success">Login</button>
+							</div>
+						</div>
 
-### 7. Setter Injection - Overview
+					</form:form>
 
-### 8. Setter Injection - Write Some Code - Part 1
+				</div>
 
-### 9. Setter Injection - Write Some Code - Part 2
+			</div>
 
+		</div>
+
+	</div>
+
+</body>
+</html>
+```
 ## 50. Spring Security - Adding Logout Support
 
 ### 1. Spring Security - Logout Overview
 
 ### 2. Spring Security - Logout Configuration
+DemoSecurityConfig
+```java
+@Override
+	protected void configure(HttpSecurity http) throws Exception {
 
+		http.authorizeRequests()
+				.anyRequest().authenticated()
+			.and()
+			.formLogin()
+				.loginPage("/showMyLoginPage")
+				.loginProcessingUrl("/authenticateTheUser")
+				.permitAll()
+			.and()
+			.logout().permitAll();
+		
+	}
+```
+homte.jsp
+```ts
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<html>
+
+<head>
+	<title>luv2code Company Home Page</title>
+</head>
+
+<body>
+	<h2>luv2code Company Home Page</h2>
+	<hr>
+	
+	<p>
+	Welcome to the luv2code company home page!
+	</p>
+	
+	<!-- Add a logout button -->
+	<form:form action="${pageContext.request.contextPath}/logout" 
+			   method="POST">
+	
+		<input type="submit" value="Logout" />
+	
+	</form:form>
+	
+</body>
+
+</html>
+```
 ### 3. Spring Security - Customizing Logout Message
+fancy-logout
+```ts
+<!-- Check for logout -->
 
+		<c:if test="${param.logout != null}">
+			<div class="alert alert-success col-xs-offset-1 col-xs-10">
+			You have been logged out.
+			</div>
+								    
+		</c:if>
+```
 ## 51. Spring Security - Cross Site Request Forgery (CSRF)
 
 ### 1. Spring Security - Cross Site Request Forgery (CSRF)
 
 ### 2. Spring Security - Viewing CSRF Tokens
+F12
+![](../../root/img/2020-02-05-23-56-49.png)  
 
+![](../../root/img/2020-02-05-23-58-15.png)
 ### 3. Spring Security - Manually Adding CSRF Tokens
+fancy
+```ts
+<!-- I'm manually adding tokens ... Bro! -->
 
+						<input type="hidden"
+							   name="${_csrf.parameterName}"
+							   value="${_csrf.token}" />
+```
+
+F12 to check
 ## 52. Spring Security - User Roles
 
 ### 1. Spring Security - Displaying User ID and Roles - Overview
+- Step 1: 
+  pom.xml
 
+```xml
+<!-- Add Spring Security Taglibs support -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-taglibs</artifactId>
+		    <version>${springsecurity.version}</version>
+		</dependency>	
+```
+
+home.jsp
+```ts
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
+<html>
+
+<head>
+	<title>luv2code Company Home Page</title>
+</head>
+
+<body>
+	
+	<!-- display user name and role -->
+	
+	<p>
+		User: <security:authentication property="principal.username" />
+		<br><br>
+		Role(s): <security:authentication property="principal.authorities" />
+	</p>
+```
 ### 2. Spring Security - Displaying User ID and Roles - Write Some Code
+![](../../root/img/2020-02-06-00-26-26.png)  
 
+![](../../root/img/2020-02-06-00-27-12.png)
 ### 3. Spring Security - Displaying User ID and Roles - Test the App
 
 ### 4. FAQ How to Add a Public Landing Page.html
+Question
+
+I want my application to have a landing page that is accessible to everyone at first, the user can then signup or login to access specific features. Our current framework only points to the login page. How do i implement this scenario?
+
+
+
+Answer
+
+Good question!
+
+You can add a public view page and set up the security constraints to allow access to the view page.
+
+In this example, we have a view page that anyone can access. Then they can click the link to access the secure pages.
+
+
+
+
+Source Code
+
+Here is a working code example of the project: spring-security-landing-page.zip
+
+
+
+This project has the following mods
+
+1. Updated security configs to allow public access to landing page
+
+2. Updated controller to send requests to landing page
+
+3. New landing page
+
+
+
+Details below
+
+---
+
+
+
+1. Updated security configs to allow public access to landing page
+
+See the config below. It will "permit all" access to the landing page "/".  Also, for successful logout it will redirect to the landing page "/"
+
+File: DemoSecurityConfig.java
+```java
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+            .antMatchers("/").permitAll()  // allow public access to home page
+            .antMatchers("/employees").hasRole("EMPLOYEE")
+            .antMatchers("/leaders/**").hasRole("MANAGER")
+            .antMatchers("/systems/**").hasRole("ADMIN")
+            .and()
+            .formLogin()
+            .loginPage("/showMyLoginPage")
+            .loginProcessingUrl("/authenticateTheUser")
+            .permitAll()
+            .and()
+            .logout()
+            .logoutSuccessUrl("/")  // after logout then redirect to landing page (root)
+            .permitAll();
+    }
+
+```
+
+2. Updated controller to send requests to landing page
+
+In the controller file, added new "/" mapping to send to landing page. And changed the original home mapping to "/employees". see changes in bold.
+
+File: DemoController.java
+
+    @GetMapping("/")
+    public String showLanding() {
+        return "landing";
+    }
+
+    @GetMapping("/employees")
+    public String showHome() {
+        return "home";
+    }
+
+
+3. New landing page
+
+Created a new view page for landing information. Anyone can access this page
+
+```html
+File: src/main/webapp/WEB-INF/view/landing.jsp
+
+<html>
+   <head>
+      <title>luv2code Landing Page</title>
+   </head>
+   <body>
+      <h2>luv2code Landing Page</h2>
+      <hr>
+      <p>
+         Welcome to the landing page! This page is open to the public ... no login required :-)
+      </p>
+      <hr>
+      <p>
+         <a href="${pageContext.request.contextPath}/employees">Access Secure Site (requires login)</a>
+      </p>
+   </body>
+</html>
+
+```
+
+To test the application, be sure to open a new private/incognito window.
+
+Now when you run the application, anyone can access the public home page without logging in. If they follow through on the link, then they will be required to login.
+
 
 ## 53. Spring Security - Restrict Access Based on Role
 
 ### 1. Spring Security - Restrict Access - Overview
 
 ### 10. Spring Security - Display Content based on Roles - Write Some Code
+home.jsp
+```html
+<security:authorize access="hasRole('MANAGER')">
+	
+		<!-- Add a link to point to /leaders ... this is for the managers -->
+		
+		<p>
+			<a href="${pageContext.request.contextPath}/leaders">Leadership Meeting</a>
+			(Only for Manager peeps)
+		</p>
 
+</security:authorize>	
+
+<security:authorize access="hasRole('ADMIN')">  
+
+		<!-- Add a link to point to /systems ... this is for the admins -->
+		
+		<p>
+			<a href="${pageContext.request.contextPath}/systems">IT Systems Meeting</a>
+			(Only for Admin peeps)
+		</p>
+	
+	</security:authorize>
+```
 ### 11. Spring Security - Display Content based on Roles - Testing
 
 ### 2. Spring Security - Restrict Access - Update Home Page
