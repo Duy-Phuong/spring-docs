@@ -9144,30 +9144,192 @@ add to show needed link
 
 ### 11. Spring Security - Display Content based on Roles - Testing
 EMPLOYEE cannot see any link
-
+Neu su truc tiep tren URL cung se bi access denied
 ## 54. Spring Security - Add JDBC Database Authentication
 
 ### 1. Spring Security JDBC - Overview - Defining Database Schema
-
-### 10. Spring Security JDBC - Coding - Add JDBC Authentication
-
-### 11. Spring Security JDBC - Coding - Test the App
+table phai giong va enable = 1 => user can log in
 
 ### 2. Spring Security JDBC - Overview - DataSource Configuration
-
+http://luv2code.com/spring-security-demo-db-plaintext-starter
 ### 3. Spring Security JDBC - Overview - Add JDBC Authentication
 
 ### 4. Spring Security JDBC - Coding - Run SQL Script
-
+View schema
 ### 5. Spring Security JDBC - Coding - Update Maven POM File
+```xml
+		<!-- Add MySQL and C3P0 support -->
 
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.45</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.2</version>
+		</dependency>
+				
+```
 ### 6. Spring Security JDBC - Coding - Add JDBC Properties File
+Create folder resource
+```properties
+#
+# JDBC connection properties
+#
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost:3306/spring_security_demo_plaintext?useSSL=false
+jdbc.user=springstudent
+jdbc.password=springstudent
 
+#
+# Connection pool properties
+#
+connection.pool.initialPoolSize=5
+connection.pool.minPoolSize=5
+connection.pool.maxPoolSize=20
+connection.pool.maxIdleTime=3000
+```
 ### 7. Spring Security JDBC - Coding - Define DataSource
+```java
+package com.luv2code.springsecurity.demo.config;
 
+import java.beans.PropertyVetoException;
+import java.util.logging.Logger;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages="com.luv2code.springsecurity.demo")
+@PropertySource("classpath:persistence-mysql.properties")
+public class DemoAppConfig {
+
+	// set up variable to hold the properties
+	
+	@Autowired
+	private Environment env;
+	
+	// set up a logger for diagnostics
+	
+	private Logger logger = Logger.getLogger(getClass().getName());
+	
+	
+	// define a bean for ViewResolver
+
+	@Bean
+	public ViewResolver viewResolver() {
+		
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		
+		viewResolver.setPrefix("/WEB-INF/view/");
+		viewResolver.setSuffix(".jsp");
+		
+		return viewResolver;
+	}
+	
+	// define a bean for our security datasource
+	
+	@Bean
+	public DataSource securityDataSource() {
+		
+		// create connection pool
+		ComboPooledDataSource securityDataSource
+									= new ComboPooledDataSource();
+				
+		// set the jdbc driver class
+		
+		try {
+			securityDataSource.setDriverClass(env.getProperty("jdbc.driver"));
+		} catch (PropertyVetoException exc) {
+			throw new RuntimeException(exc);
+		}
+		
+		// log the connection props
+		// for sanity's sake, log this info
+		// just to make sure we are REALLY reading data from properties file
+		
+		logger.info(">>> jdbc.url=" + env.getProperty("jdbc.url"));
+		logger.info(">>> jdbc.user=" + env.getProperty("jdbc.user"));
+		
+		
+		// set database connection props
+		
+		securityDataSource.setJdbcUrl(env.getProperty("jdbc.url"));
+		securityDataSource.setUser(env.getProperty("jdbc.user"));
+		securityDataSource.setPassword(env.getProperty("jdbc.password"));
+		
+		// set connection pool props
+		
+		securityDataSource.setInitialPoolSize(
+				getIntProperty("connection.pool.initialPoolSize"));
+
+		securityDataSource.setMinPoolSize(
+				getIntProperty("connection.pool.minPoolSize"));
+
+		securityDataSource.setMaxPoolSize(
+				getIntProperty("connection.pool.maxPoolSize"));
+
+		securityDataSource.setMaxIdleTime(
+				getIntProperty("connection.pool.maxIdleTime"));
+		
+		return securityDataSource;
+	}
+	
+	// need a helper method 
+	// read environment property and convert to int
+	
+	private int getIntProperty(String propName) {
+		
+		String propVal = env.getProperty(propName);
+		
+		// now convert to int
+		int intPropVal = Integer.parseInt(propVal);
+		
+		return intPropVal;
+	}
+}
+```
 ### 8. Spring Security JDBC - Coding - Reading Props File
 
 ### 9. Spring Security JDBC - Coding - Configure Data Source
+### 10. Spring Security JDBC - Coding - Add JDBC Authentication
+DemoSecurityConfig
+```java
+@Configuration
+@EnableWebSecurity
+public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
+
+	// add a reference to our security data source
+	
+	@Autowired
+	private DataSource securityDataSource;
+	
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+		// use jdbc authentication ... oh yeah!!!
+		
+		auth.jdbcAuthentication().dataSource(securityDataSource);
+		
+	}
+```
+### 11. Spring Security JDBC - Coding - Test the App
 
 ## 55. Spring Security - Password Encryption
 
@@ -9214,9 +9376,76 @@ EMPLOYEE cannot see any link
 ### 1. Spring REST - JSON Overview
 
 ### 2. Spring REST - JSON Data Binding with Jackson - Overview 1
+pom.xml
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
+	<groupId>com.luv2code</groupId>
+	<artifactId>jackson-json-demo</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+
+	<name>jackson-demo</name>
+
+
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+	<!-- add new -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+
+	</dependencies>
+
+</project>
+
+```
 ### 3. Spring REST - JSON Data Binding with Jackson - Overview 2
+```java
+package com.luv2code.jacksondemo;
 
+import java.io.File;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class Driver {
+
+	public static void main(String[] args) {
+
+		try {
+			
+			// create object mapper
+			ObjectMapper mapper = new ObjectMapper();
+			
+			// read JSON from file and map/convert to Java POJO
+			Customer myCustomer = mapper.readValue(new File("data/sample.json"), Customer.class);
+			
+			// also print individual items
+			System.out.println("First name = " + myCustomer.getFirstName());
+			System.out.println("Last name = " + myCustomer.getLastName());		
+
+			// get nested object: array
+			Address tempAddress = myCustomer.getAddress();
+			System.out.println("Street = " + tempAddress.getStreet());		
+			System.out.println("City = " + tempAddress.getCity());		
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}
+
+```
 ### 4. Spring REST - JSON Jackson Demo - Set Up Maven Project
 
 ### 5. Spring REST - JSON Jackson Demo - Processing JSON
@@ -9226,7 +9455,9 @@ EMPLOYEE cannot see any link
 ### 7. Spring REST - JSON Jackson Demo - Display Nested and Arrays
 
 ### 8. Spring REST - JSON Jackson Demo - Ignore Properties
+Will ignore json properties unknown
 
+![](../../root/img/2020-02-07-21-15-12.png)
 ## 58. Spring REST - Create a Spring REST Controller
 
 ### 1. Spring REST - HTTP Overview
