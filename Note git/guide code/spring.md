@@ -496,15 +496,6 @@
 		- [2. Spring REST - Retrieve POJOs as JSON - Create POJO](#2-spring-rest---retrieve-pojos-as-json---create-pojo)
 		- [3. Spring REST - Retrieve POJOs as JSON - Create REST Controller](#3-spring-rest---retrieve-pojos-as-json---create-rest-controller)
 		- [4. Spring REST - Retrieve POJOs as JSON - Test REST Controller](#4-spring-rest---retrieve-pojos-as-json---test-rest-controller)
-	- [6. Spring Bean Scopes and Lifecycle](#6-spring-bean-scopes-and-lifecycle-1)
-		- [1. Bean Scopes - Overview](#1-bean-scopes---overview)
-		- [2. Bean Scopes - Write Some Code - Part 1](#2-bean-scopes---write-some-code---part-1)
-		- [3. Bean Scopes - Write Some Code - Part 2](#3-bean-scopes---write-some-code---part-2)
-		- [4. Bean Lifecycle - Overview](#4-bean-lifecycle---overview)
-		- [5. Special Note Defining init and destroy methods - Method Signatures.html](#5-special-note-defining-init-and-destroy-methods---method-signatureshtml)
-		- [6. Bean Lifecycle - Write Some Code](#6-bean-lifecycle---write-some-code)
-		- [7. Special Note about Destroy Lifecycle and Prototype Scope.html](#7-special-note-about-destroy-lifecycle-and-prototype-scopehtml)
-		- [8. Practice Activity #3 - Bean Scopes with XML Configuration.html](#8-practice-activity-3---bean-scopes-with-xml-configurationhtml)
 	- [60. Spring REST - Using @PathVariable for REST Endpoints](#60-spring-rest---using-pathvariable-for-rest-endpoints)
 		- [1. Spring REST - Using @PathVariable for REST Endpoints - Overview](#1-spring-rest---using-pathvariable-for-rest-endpoints---overview)
 		- [2. Spring REST - Using @PathVariable for REST Endpoints - Refactoring Code](#2-spring-rest---using-pathvariable-for-rest-endpoints---refactoring-code)
@@ -555,14 +546,6 @@
 		- [1.1 crm-web-app-rest-client-demo.pdf.pdf](#11-crm-web-app-rest-client-demopdfpdf)
 		- [2. Bonus Lecture Securing REST API Endpoints.html](#2-bonus-lecture-securing-rest-api-endpointshtml)
 		- [2.1 adding-spring-security-to-crm-rest-api.pdf.pdf](#21-adding-spring-security-to-crm-rest-apipdfpdf)
-	- [7. Spring Configuration with Java Annotations - Inversion of Control](#7-spring-configuration-with-java-annotations---inversion-of-control-1)
-		- [1. Annotations Overview - Component Scanning](#1-annotations-overview---component-scanning-1)
-		- [2. Annotations Project Setup](#2-annotations-project-setup-1)
-		- [3. Explicit Component Names - Write Some Code - Part 1](#3-explicit-component-names---write-some-code---part-1)
-		- [4. Explicit Component Names - Write Some Code - Part 2](#4-explicit-component-names---write-some-code---part-2)
-		- [5. Default Component Names - Overview](#5-default-component-names---overview)
-		- [6. Default Component Names - Write Some Code](#6-default-component-names---write-some-code)
-		- [7. Practice Activity #4 - Inversion of Control with Annotations.html](#7-practice-activity-4---inversion-of-control-with-annotationshtml)
 	- [70. Spring Boot - Overview](#70-spring-boot---overview)
 		- [1. Spring Boot - What is Spring Boot](#1-spring-boot---what-is-spring-boot)
 		- [2. Spring Boot - Creating a Project with Spring Boot Initializr](#2-spring-boot---creating-a-project-with-spring-boot-initializr)
@@ -658,7 +641,7 @@
 		- [4. Special Note about @PostConstruct and @PreDestroy Method Signatures.html](#4-special-note-about-postconstruct-and-predestroy-method-signatureshtml)
 		- [5. HEADS UP - FOR JAVA 9 USERS - @PostConstruct and @PreDestroy.html](#5-heads-up---for-java-9-users---postconstruct-and-predestroyhtml)
 		- [6. Bean Lifecycle Method Annotations - Write Some Code](#6-bean-lifecycle-method-annotations---write-some-code)
-		- [7. Special Note about Destroy Lifecycle and Prototype Scope.html](#7-special-note-about-destroy-lifecycle-and-prototype-scopehtml-1)
+		- [7. Special Note about Destroy Lifecycle and Prototype Scope.html](#7-special-note-about-destroy-lifecycle-and-prototype-scopehtml)
 		- [8. Practice Activity #6 - Bean Scopes with Annotations.html](#8-practice-activity-6---bean-scopes-with-annotationshtml)
 	- [69. Spring REST - Bonus Lecture - Securing REST API Endpoints with Spring Security](#69-spring-rest---bonus-lecture---securing-rest-api-endpoints-with-spring-security)
 		- [1. Bonus Lecture Securing REST API Endpoints.html](#1-bonus-lecture-securing-rest-api-endpointshtml)
@@ -10241,27 +10224,66 @@ index.jsp
 <a href="${pageContext.request.contextPath}/api/students">Get All Students</a>
 ```
 
-## 6. Spring Bean Scopes and Lifecycle
-
-### 1. Bean Scopes - Overview
-
-### 2. Bean Scopes - Write Some Code - Part 1
-
-### 3. Bean Scopes - Write Some Code - Part 2
-
-### 4. Bean Lifecycle - Overview
-
-### 5. Special Note Defining init and destroy methods - Method Signatures.html
-
-### 6. Bean Lifecycle - Write Some Code
-
-### 7. Special Note about Destroy Lifecycle and Prototype Scope.html
-
-### 8. Practice Activity #3 - Bean Scopes with XML Configuration.html
-
 ## 60. Spring REST - Using @PathVariable for REST Endpoints
 
 ### 1. Spring REST - Using @PathVariable for REST Endpoints - Overview
+
+```java
+package com.luv2code.springdemo.rest;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.luv2code.springdemo.entity.Student;
+
+@RestController
+@RequestMapping("/api")
+public class StudentRestController {
+
+	private List<Student> theStudents;
+
+
+	// define @PostConstruct to load the student data ... only once!
+
+	@PostConstruct
+	public void loadData() {
+
+		theStudents = new ArrayList<>();
+
+		theStudents.add(new Student("Poornima", "Patel"));
+		theStudents.add(new Student("Mario", "Rossi"));
+		theStudents.add(new Student("Mary", "Smith"));
+	}
+
+
+
+	// define endpoint for "/students" - return list of students
+
+	@GetMapping("/students")
+	public List<Student> getStudents() {
+
+		return theStudents;
+	}
+
+	// define endpoint for "/students/{studentId}" - return student at index
+
+	@GetMapping("/students/{studentId}")
+	public Student getStudent(@PathVariable int studentId) {
+
+		// just index into the list ... keep it simple for now
+
+		return theStudents.get(studentId);
+
+	}
+}
+```
 
 ### 2. Spring REST - Using @PathVariable for REST Endpoints - Refactoring Code
 
@@ -10275,17 +10297,162 @@ index.jsp
 
 ### 3. Spring REST - Exception Handling - Create Custom Error Response and Exception
 
+```java
+package com.luv2code.springdemo.rest;
+
+public class StudentErrorResponse {
+
+	private int status;
+	private String message;
+	private long timeStamp;
+
+	public StudentErrorResponse() {
+
+	}
+
+	public StudentErrorResponse(int status, String message, long timeStamp) {
+		this.status = status;
+		this.message = message;
+		this.timeStamp = timeStamp;
+	}
+	// get setƯ
+```
+
 ### 4. Spring REST - Exception Handling - Update REST Service to throw Exception
+
+![](../../root/img/2020-02-10-00-47-24.png)
+
+![](../../root/img/2020-02-10-00-47-59.png)
 
 ### 5. Spring REST - Exception Handling - Add Exception Handler with @ExceptionHandler
 
+```java
+package com.luv2code.springdemo.rest;
+
+public class StudentNotFoundException extends RuntimeException {
+
+	public StudentNotFoundException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public StudentNotFoundException(String message) {
+		super(message);
+	}
+
+	public StudentNotFoundException(Throwable cause) {
+		super(cause);
+	}
+
+}
+
+```
+
 ### 6. Spring REST - Exception Handling - Test the App
 
+```java
+@GetMapping("/students/{studentId}")
+	public Student getStudent(@PathVariable int studentId) {
+
+		// just index into the list ... keep it simple for now
+
+		// check the studentId against list size
+
+		if ( (studentId >= theStudents.size()) || (studentId < 0) ) {
+			throw new StudentNotFoundException("Student id not found - " + studentId);
+		}
+
+		return theStudents.get(studentId);
+
+	}
+
+	@ExceptionHandler
+	public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException exc) {
+
+		StudentErrorResponse error = new StudentErrorResponse();
+
+		error.setStatus(HttpStatus.NOT_FOUND.value());
+		error.setMessage(exc.getMessage());
+		error.setTimeStamp(System.currentTimeMillis());
+
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	 }
+
+// ### 8. Spring REST - Global Exception Handling Overview
+
+	@ExceptionHandler
+	public ResponseEntity<StudentErrorResponse> handleException(Exception exc) {
+
+		StudentErrorResponse error = new StudentErrorResponse();
+
+		error.setStatus(HttpStatus.BAD_REQUEST.value());
+		error.setMessage(exc.getMessage());
+		error.setTimeStamp(System.currentTimeMillis());
+
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+```
+
 ### 7. Spring REST - Exception Handling - Adding Generic Exception Handler
+
+Nhap id la STring
 
 ### 8. Spring REST - Global Exception Handling Overview
 
 ### 9. Spring REST - Global Exception Handling with @ControllerAdvice
+
+pdf
+Create class:
+
+```java
+package com.luv2code.springdemo.rest;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class StudentRestExceptionHandler {
+
+	// add exception handling code here
+
+	// Add an exception handler using @ExceptionHandler
+
+	@ExceptionHandler
+	public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException exc) {
+
+		// create a StudentErrorResponse
+
+		StudentErrorResponse error = new StudentErrorResponse();
+
+		error.setStatus(HttpStatus.NOT_FOUND.value());
+		error.setMessage(exc.getMessage());
+		error.setTimeStamp(System.currentTimeMillis());
+
+		// return ResponseEntity
+
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
+
+	// add another exception handler ... to catch any exception (catch all)
+
+	@ExceptionHandler
+	public ResponseEntity<StudentErrorResponse> handleException(Exception exc) {
+
+		// create a StudentErrorResponse
+		StudentErrorResponse error = new StudentErrorResponse();
+
+		error.setStatus(HttpStatus.BAD_REQUEST.value());
+		error.setMessage(exc.getMessage());
+		error.setTimeStamp(System.currentTimeMillis());
+
+		// return ResponseEntity
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+
+}
+
+```
 
 ## 62. Spring REST - API Design Best Practices
 
@@ -10297,31 +10464,477 @@ index.jsp
 
 ### 1. Spring REST - CRUD Database Real-Time Project - Overview
 
+http://luv2code.com/spring-crm-rest-demo
+
 ### 2. Spring REST - Import Maven Project
 
 ### 3. Spring REST - Maven POM file and All Java Config (no xml)
 
+pom.xml
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.luv2code.springdemo</groupId>
+	<artifactId>spring-crm-rest</artifactId>
+	<version>1.0.0</version>
+	<packaging>war</packaging>
+
+	<properties>
+		<springframework.version>5.0.6.RELEASE</springframework.version>
+		<hibernate.version>5.4.1.Final</hibernate.version>
+		<mysql.connector.version>5.1.45</mysql.connector.version>
+		<c3po.version>0.9.5.2</c3po.version>
+
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<!-- Add Jackson for JSON converters -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.5</version>
+		</dependency>
+
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<!-- MySQL -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.connector.version}</version>
+		</dependency>
+
+		<!-- C3PO -->
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>${c3po.version}</version>
+		</dependency>
+
+		<!-- Servlet+JSP+JSTL -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
+		<!-- to compensate for java 9+ not including jaxb -->
+		<dependency>
+		    <groupId>javax.xml.bind</groupId>
+		    <artifactId>jaxb-api</artifactId>
+		    <version>2.3.0</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+
+		<finalName>spring-crm-rest</finalName>
+
+		<plugins>
+
+			<!-- Builds a Web Application Archive (WAR) file from the project output
+				and its dependencies. -->
+			<plugin>
+				<!-- Add Maven coordinates (GAV) for: maven-war-plugin -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.0</version>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>
+
+
+```
+
 ### 4. Spring REST - Project Service and DAO
 
+```java
+package com.luv2code.springdemo.config;
+
+import java.beans.PropertyVetoException;
+import java.util.Properties;
+import java.util.logging.Logger;
+
+import javax.sql.DataSource;
+
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
+@Configuration
+@EnableWebMvc
+@EnableTransactionManagement
+@ComponentScan("com.luv2code.springdemo")
+@PropertySource({ "classpath:persistence-mysql.properties" })
+public class DemoAppConfig implements WebMvcConfigurer {
+
+	@Autowired
+	private Environment env;
+
+	private Logger logger = Logger.getLogger(getClass().getName());
+
+	@Bean
+	public DataSource myDataSource() {
+
+		// create connection pool
+		ComboPooledDataSource myDataSource = new ComboPooledDataSource();
+
+		// set the jdbc driver
+		try {
+			myDataSource.setDriverClass("com.mysql.jdbc.Driver");
+		}
+		catch (PropertyVetoException exc) {
+			throw new RuntimeException(exc);
+		}
+
+		// for sanity's sake, let's log url and user ... just to make sure we are reading the data
+		logger.info("jdbc.url=" + env.getProperty("jdbc.url"));
+		logger.info("jdbc.user=" + env.getProperty("jdbc.user"));
+
+		// set database connection props
+		myDataSource.setJdbcUrl(env.getProperty("jdbc.url"));
+		myDataSource.setUser(env.getProperty("jdbc.user"));
+		myDataSource.setPassword(env.getProperty("jdbc.password"));
+
+		// set connection pool props
+		myDataSource.setInitialPoolSize(getIntProperty("connection.pool.initialPoolSize"));
+		myDataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
+		myDataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));
+		myDataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
+
+		return myDataSource;
+	}
+
+	private Properties getHibernateProperties() {
+
+		// set hibernate properties
+		Properties props = new Properties();
+
+		props.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
+		props.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+
+		return props;
+	}
+
+
+	// need a helper method
+	// read environment property and convert to int
+
+	private int getIntProperty(String propName) {
+
+		String propVal = env.getProperty(propName);
+
+		// now convert to int
+		int intPropVal = Integer.parseInt(propVal);
+
+		return intPropVal;
+	}
+
+	@Bean
+	public LocalSessionFactoryBean sessionFactory(){
+
+		// create session factorys
+		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+
+		// set the properties
+		sessionFactory.setDataSource(myDataSource());
+		sessionFactory.setPackagesToScan(env.getProperty("hibernate.packagesToScan"));
+		sessionFactory.setHibernateProperties(getHibernateProperties());
+
+		return sessionFactory;
+	}
+
+	@Bean
+	@Autowired
+	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
+
+		// setup transaction manager based on session factory
+		HibernateTransactionManager txManager = new HibernateTransactionManager();
+		txManager.setSessionFactory(sessionFactory);
+
+		return txManager;
+	}
+
+}
+
+```
+
+DAO
+Run server
+
 ### 5. Spring REST - Create Database Tables
+
+02-customer-tracker.sql
 
 ## 64. Spring REST - CRUD Database Real-Time Project - Get Customers
 
 ### 1. Spring REST - CRUD Database Real-Time Project - Get Customers Overview
 
+```java
+package com.luv2code.springdemo.rest;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.luv2code.springdemo.entity.Customer;
+import com.luv2code.springdemo.service.CustomerService;
+
+@RestController
+@RequestMapping("/api")
+public class CustomerRestController {
+
+	// autowire the CustomerService
+	@Autowired
+	private CustomerService customerService;
+
+	// add mapping for GET /customers
+	@GetMapping("/customers")
+	public List<Customer> getCustomers() {
+
+		return customerService.getCustomers();
+
+	}
+
+
+}
+
+```
+
 ### 2. Spring REST - CRUD Database Real-Time Project - Create REST Controller
 
 ### 3. Spring REST - CRUD Database Real-Time Project - Testing in Postman
 
+index.jsp
+
+```html
+<a href="${pageContext.request.contextPath}/api/customers">Get All Customers</a>
+```
+
 ### 4. Spring REST - CRUD Database Real-Time Project - Get Single Customer Overview
 
+Controller
+
+```java
+// add mapping for GET /customers/{customerId}
+
+	@GetMapping("/customers/{customerId}")
+	public Customer getCustomer(@PathVariable int customerId) {
+
+		Customer theCustomer = customerService.getCustomer(customerId);
+
+		return theCustomer;
+	}
+```
+
 ### 5. Spring REST - CRUD Database Real-Time Project - Get Single Customer - Testing
+
+=> id is not exist
 
 ## 65. Spring REST - CRUD Database Real-Time Project - Exception Handling
 
 ### 1. Spring REST - CRUD Database Real-Time Project - Exception Handling - Responses
 
+```java
+package com.luv2code.springdemo.rest;
+
+public class CustomerErrorResponse {
+
+	private int status;
+	private String message;
+	private long timeStamp;
+
+	public CustomerErrorResponse() {
+
+	}
+
+	public CustomerErrorResponse(int status, String message, long timeStamp) {
+		this.status = status;
+		this.message = message;
+		this.timeStamp = timeStamp;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public long getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(long timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
+}
+
+```
+
 ### 2. Spring REST - CRUD Database Real-Time Project - Exception Handling - Refactor
+
+![](../../root/img/2020-02-10-20-36-24.png)
+
+```java
+package com.luv2code.springdemo.rest;
+
+public class CustomerNotFoundException extends RuntimeException {
+
+	public CustomerNotFoundException() {
+	}
+
+	public CustomerNotFoundException(String message) {
+		super(message);
+	}
+
+	public CustomerNotFoundException(Throwable cause) {
+		super(cause);
+	}
+
+	public CustomerNotFoundException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public CustomerNotFoundException(String message, Throwable cause, boolean enableSuppression,
+			boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+	}
+
+}
+
+```
+
+Controller
+
+```java
+@GetMapping("/customers/{customerId}")
+	public Customer getCustomer(@PathVariable int customerId) {
+
+		Customer theCustomer = customerService.getCustomer(customerId);
+
+		if (theCustomer == null) {
+			throw new CustomerNotFoundException("Customer id not found - " + customerId);
+		}
+
+		return theCustomer;
+	}
+```
+
+Handler
+
+```java
+package com.luv2code.springdemo.rest;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class CustomerRestExceptionHandler {
+
+	// Add an exception handler for CustomerNotFoundException
+
+	@ExceptionHandler
+	public ResponseEntity<CustomerErrorResponse> handleException(CustomerNotFoundException exc) {
+
+		// create CustomerErrorResponse
+
+		CustomerErrorResponse error = new CustomerErrorResponse(
+											HttpStatus.NOT_FOUND.value(),
+											exc.getMessage(),
+											System.currentTimeMillis());
+
+		// return ResponseEntity
+
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
+
+
+	// Add another exception handler ... to catch any exception (catch all)
+
+	@ExceptionHandler
+	public ResponseEntity<CustomerErrorResponse> handleException(Exception exc) {
+
+		// create CustomerErrorResponse
+
+		CustomerErrorResponse error = new CustomerErrorResponse(
+											HttpStatus.BAD_REQUEST.value(),
+											exc.getMessage(),
+											System.currentTimeMillis());
+
+		// return ResponseEntity
+
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+
+}
+
+```
 
 ### 3. Spring REST - CRUD Database Real-Time Project - Exception Handling - Annotation
 
@@ -10333,7 +10946,40 @@ index.jsp
 
 ### 2. Spring REST - CRUD Database Real-Time Project - Add Customer - Coding
 
+```java
+
+	@PostMapping("/customers")
+	public Customer addCustomer(@RequestBody Customer theCustomer) {
+
+		// also just in case the pass an id in JSON ... set id to 0
+		// this is force a save of new item ... instead of update
+
+		theCustomer.setId(0);
+
+		customerService.saveCustomer(theCustomer);
+
+		return theCustomer;
+	}
+```
+
+DAO
+
+```java
+	@Override
+	public void saveCustomer(Customer theCustomer) {
+
+		// get current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+
+		// save/upate the customer ... finally LOL
+		currentSession.saveOrUpdate(theCustomer);
+
+	}
+```
+
 ### 3. Spring REST - CRUD Database Real-Time Project - Add Customer - Testing
+
+Tai POSTMAN json dat ten bien theo nhu ten bien trong java: firstName
 
 ## 67. Spring REST - CRUD Database Real-Time Project - Update Customer
 
@@ -10341,11 +10987,42 @@ index.jsp
 
 ### 2. Spring REST - CRUD Database Real-Time Project - Update Customer - Coding
 
+```java
+// add mapping for PUT /customers - update existing customer
+
+	@PutMapping("/customers")
+	public Customer updateCustomer(@RequestBody Customer theCustomer) {
+
+		customerService.saveCustomer(theCustomer);
+
+		return theCustomer;
+
+	}
+```
+
 ## 68. Spring REST - CRUD Database Real-Time Project - Delete Customer
 
 ### 1. Spring REST - CRUD Database Real-Time Project - Delete Customer - Overview
 
 ### 2. Spring REST - CRUD Database Real-Time Project - Delete Customer - Coding
+
+```java
+@DeleteMapping("/customers/{customerId}")
+	public String deleteCustomer(@PathVariable int customerId) {
+
+		Customer tempCustomer = customerService.getCustomer(customerId);
+
+		// throw exception if null
+
+		if (tempCustomer == null) {
+			throw new CustomerNotFoundException("Customer id not found - " + customerId);
+		}
+
+		customerService.deleteCustomer(customerId);
+
+		return "Deleted customer id - " + customerId;
+	}
+```
 
 ### 3. Spring REST - CRUD Database Real-Time Project - Delete Customer - Testing
 
@@ -10355,25 +11032,11 @@ index.jsp
 
 ### 1.1 crm-web-app-rest-client-demo.pdf.pdf
 
+http://www.luv2code.com/downloads/udemy-spring-hibernate/spring-rest/adding-spring-security-to-crm-rest-api.pdf
+
 ### 2. Bonus Lecture Securing REST API Endpoints.html
 
 ### 2.1 adding-spring-security-to-crm-rest-api.pdf.pdf
-
-## 7. Spring Configuration with Java Annotations - Inversion of Control
-
-### 1. Annotations Overview - Component Scanning
-
-### 2. Annotations Project Setup
-
-### 3. Explicit Component Names - Write Some Code - Part 1
-
-### 4. Explicit Component Names - Write Some Code - Part 2
-
-### 5. Default Component Names - Overview
-
-### 6. Default Component Names - Write Some Code
-
-### 7. Practice Activity #4 - Inversion of Control with Annotations.html
 
 ## 70. Spring Boot - Overview
 
@@ -10381,7 +11044,37 @@ index.jsp
 
 ### 2. Spring Boot - Creating a Project with Spring Boot Initializr
 
+Avoid SNAPSHOT version
+![](../../root/img/2020-02-10-22-08-21.png)
+
+![](../../root/img/2020-02-10-22-10-10.png)
+
 ### 3. Spring Boot - Developing a REST API Controller with Spring Boot
+
+```java
+package com.luv2code.springboot.demo.mycoolapp.rest;
+
+import java.time.LocalDateTime;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class FunRestController {
+
+	// expose "/" that return "Hello World"
+
+	@GetMapping("/")
+	public String sayHello() {
+		return "Hello World! Time on server is " + LocalDateTime.now();
+	}
+
+}
+
+```
+
+Run as/ Java Application
 
 ### 4. Spring Boot - Exploring the Spring Boot Project Structure - Part 1
 
@@ -10395,9 +11088,41 @@ index.jsp
 
 ### 1. Spring Boot - Dev Tools
 
+```xml
+<!-- ADD SUPPORT FOR AUTOMATIC RELOADING -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+```
+
+Controller
+
+```java
+@GetMapping("/workout")
+	public String getDailyWorkout() {
+		return "Run a hard 5k!";
+	}
+
+	@GetMapping("/fortune")
+	public String getDailyFortune() {
+		return "Today is your lucky day.";
+	}
+```
+
 ### 2. Spring Boot - Spring Boot Actuator - Overview
 
+```xml
+<!-- ADD SUPPORT FOR SPRING BOOT ACTUATOR -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+```
+
 ### 3. Spring Boot - Spring Boot Actuator - Accessing Actuator Endpoints
+
+xem lai
 
 ### 4. Spring Boot - Spring Boot Actuator - Applying Security to Actuator Endpoints
 
@@ -10405,17 +11130,104 @@ index.jsp
 
 ### 1. Spring Boot - Running Spring Boot Apps from the Command Line - Overview
 
+![](../../root/img/2020-02-11-00-22-39.png)  
+Jar is created in target sub-directory
+
+`java -jar abc.jar`
+
+![](../../root/img/2020-02-11-00-25-51.png)
+
 ### 2. Spring Boot - Running Spring Boot Apps from the Command Line - Coding
 
 ## 73. Spring Boot - Application Properties
 
 ### 1. Spring Boot - Injecting Custom Application Properties
 
+Create a controller get to test return value from String is true
+luv2code.com/spring-boot-employee-sql-script
+
 ### 2. Spring Boot - Configuring the Spring Boot Server
 
 ## 74. Spring Boot - Build a REST CRUD API with Hibernate - Real-Time Project
 
 ### 1. Spring Boot - REST CRUD Real-Time Project Overview and Database Set Up
+
+![](../../root/img/2020-02-11-00-40-14.png)
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.luv2code.springboot</groupId>
+	<artifactId>cruddemo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>24-spring-data-rest-cruddemo</name>
+	<description>Demo project for Spring Boot</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.0.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- Add dependency for Spring Data REST -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>
+
+```
 
 ### 10. Spring Boot - REST Controller Methods to Update and Delete an Employee
 
