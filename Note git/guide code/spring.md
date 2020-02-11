@@ -567,7 +567,6 @@
 		- [2. Spring Boot - Configuring the Spring Boot Server](#2-spring-boot---configuring-the-spring-boot-server)
 	- [74. Spring Boot - Build a REST CRUD API with Hibernate - Real-Time Project](#74-spring-boot---build-a-rest-crud-api-with-hibernate---real-time-project)
 		- [1. Spring Boot - REST CRUD Real-Time Project Overview and Database Set Up](#1-spring-boot---rest-crud-real-time-project-overview-and-database-set-up)
-		- [10. Spring Boot - REST Controller Methods to Update and Delete an Employee](#10-spring-boot---rest-controller-methods-to-update-and-delete-an-employee)
 		- [2. Spring Boot - Create Project with Spring Initializr](#2-spring-boot---create-project-with-spring-initializr)
 		- [3. Spring Boot - Integrating Hibernate and JPA](#3-spring-boot---integrating-hibernate-and-jpa)
 		- [4. Spring Boot - Configuring the Spring Boot Data Source](#4-spring-boot---configuring-the-spring-boot-data-source)
@@ -576,6 +575,7 @@
 		- [7. Spring Boot - Additional CRUD Methods for DAO](#7-spring-boot---additional-crud-methods-for-dao)
 		- [8. Spring Boot - Refactoring the Code to use a Service Layer](#8-spring-boot---refactoring-the-code-to-use-a-service-layer)
 		- [9. Spring Boot - REST Controller Methods to Find and Add Employee](#9-spring-boot---rest-controller-methods-to-find-and-add-employee)
+		- [10. Spring Boot - REST Controller Methods to Update and Delete an Employee](#10-spring-boot---rest-controller-methods-to-update-and-delete-an-employee)
 	- [75. Spring Boot - Build a REST CRUD API with JPA - Real-Time Project](#75-spring-boot---build-a-rest-crud-api-with-jpa---real-time-project)
 		- [1. Spring Boot - REST JPA Overview](#1-spring-boot---rest-jpa-overview)
 		- [2. Spring Boot - Creating JPA DAO Implementation for REST API](#2-spring-boot---creating-jpa-dao-implementation-for-rest-api)
@@ -596,26 +596,6 @@
 		- [1. Spring Boot - Thymeleaf - Build HTML Tables - Overview](#1-spring-boot---thymeleaf---build-html-tables---overview)
 		- [2. Spring Boot - Thymeleaf - Build HTML Tables - Write Some Code](#2-spring-boot---thymeleaf---build-html-tables---write-some-code)
 		- [3. Spring Boot - Thymeleaf - Add Bootstrap CSS](#3-spring-boot---thymeleaf---add-bootstrap-css)
-	- [8. Spring Configuration with Java Annotations - Dependency Injection](#8-spring-configuration-with-java-annotations---dependency-injection-1)
-		- [1. Constructor Injection - Overview](#1-constructor-injection---overview-1)
-		- [10. Field Injection - Write Some Code](#10-field-injection---write-some-code)
-		- [11. Which Injection Type Should You Use](#11-which-injection-type-should-you-use)
-		- [12. Qualifiers for Dependency Injection - Overview](#12-qualifiers-for-dependency-injection---overview-1)
-		- [13. Qualifiers for Dependency Injection - Write Some Code - Part 1](#13-qualifiers-for-dependency-injection---write-some-code---part-1-1)
-		- [14. Qualifiers for Dependency Injection - Write Some Code - Part 2](#14-qualifiers-for-dependency-injection---write-some-code---part-2-1)
-		- [15. Annotations - Default Bean Names - The Special Case.html](#15-annotations---default-bean-names---the-special-casehtml)
-		- [16. Using @Qualifier with Constructors.html](#16-using-qualifier-with-constructorshtml)
-		- [17. FAQ How to inject properties file using Java annotations.html](#17-faq-how-to-inject-properties-file-using-java-annotationshtml)
-		- [18. Practice Activity #5 - Dependency Injection with Annotations.html](#18-practice-activity-5---dependency-injection-with-annotationshtml)
-		- [2. Autowiring FAQ What if there are Multiple Implementations.html](#2-autowiring-faq-what-if-there-are-multiple-implementationshtml)
-		- [3. Constructor Injection - Write Some Code - Part 1](#3-constructor-injection---write-some-code---part-1)
-		- [4. Constructor Injection - Write Some Code - Part 2](#4-constructor-injection---write-some-code---part-2)
-		- [5. FAQ Constructor Injection - Autowired Optional.html](#5-faq-constructor-injection---autowired-optionalhtml)
-		- [5.1 Constructor Injection - Autowired.html](#51-constructor-injection---autowiredhtml)
-		- [6. Setter Injection - Overview](#6-setter-injection---overview)
-		- [7. Setter Injection - Write Some Code](#7-setter-injection---write-some-code)
-		- [8. Method Injection](#8-method-injection)
-		- [9. Field Injection - Overview](#9-field-injection---overview)
 	- [80. Spring Boot - Thymeleaf - CRUD Database Real-Time Project](#80-spring-boot---thymeleaf---crud-database-real-time-project)
 		- [1. Spring Boot - Thymeleaf - CRUD Database Project - Get Employees - Part 1](#1-spring-boot---thymeleaf---crud-database-project---get-employees---part-1)
 		- [2. Spring Boot - Thymeleaf - CRUD Database Project - Get Employees - Part 2](#2-spring-boot---thymeleaf---crud-database-project---get-employees---part-2)
@@ -634,17 +614,6 @@
 	- [83. Bonus Spring Boot Deployments on Tomcat](#83-bonus-spring-boot-deployments-on-tomcat)
 		- [1. Deploying Spring Boot WAR file with JSP to Tomcat.html](#1-deploying-spring-boot-war-file-with-jsp-to-tomcathtml)
 		- [2. Deploy Spring Boot WAR file with Thymeleaf to Tomcat.html](#2-deploy-spring-boot-war-file-with-thymeleaf-to-tomcathtml)
-	- [9. Spring Configuration with Java Annotations - Bean Scopes and Lifecycle Methods](#9-spring-configuration-with-java-annotations---bean-scopes-and-lifecycle-methods-1)
-		- [1. @Scope Annotation - Overview](#1-scope-annotation---overview-1)
-		- [2. @Scope Annotation - Write Some Code](#2-scope-annotation---write-some-code-1)
-		- [3. Bean Lifecycle Method Annotations - Overview](#3-bean-lifecycle-method-annotations---overview-1)
-		- [4. Special Note about @PostConstruct and @PreDestroy Method Signatures.html](#4-special-note-about-postconstruct-and-predestroy-method-signatureshtml)
-		- [5. HEADS UP - FOR JAVA 9 USERS - @PostConstruct and @PreDestroy.html](#5-heads-up---for-java-9-users---postconstruct-and-predestroyhtml)
-		- [6. Bean Lifecycle Method Annotations - Write Some Code](#6-bean-lifecycle-method-annotations---write-some-code)
-		- [7. Special Note about Destroy Lifecycle and Prototype Scope.html](#7-special-note-about-destroy-lifecycle-and-prototype-scopehtml)
-		- [8. Practice Activity #6 - Bean Scopes with Annotations.html](#8-practice-activity-6---bean-scopes-with-annotationshtml)
-	- [69. Spring REST - Bonus Lecture - Securing REST API Endpoints with Spring Security](#69-spring-rest---bonus-lecture---securing-rest-api-endpoints-with-spring-security)
-		- [1. Bonus Lecture Securing REST API Endpoints.html](#1-bonus-lecture-securing-rest-api-endpointshtml)
 
 ---
 
@@ -11229,29 +11198,445 @@ luv2code.com/spring-boot-employee-sql-script
 
 ```
 
-### 10. Spring Boot - REST Controller Methods to Update and Delete an Employee
-
 ### 2. Spring Boot - Create Project with Spring Initializr
 
 ### 3. Spring Boot - Integrating Hibernate and JPA
 
 ### 4. Spring Boot - Configuring the Spring Boot Data Source
 
+application.properties
+
+```properties
+#
+# JDBC properties
+#
+spring.datasource.url=jdbc:mysql://localhost:3306/employee_directory
+spring.datasource.username=springstudent
+spring.datasource.password=springstudent
+
+```
+
+Entity
+
+```java
+package com.luv2code.springboot.cruddemo.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="employee")
+public class Employee {
+
+	// define fields
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
+	private int id;
+
+	@Column(name="first_name")
+	private String firstName;
+
+	@Column(name="last_name")
+	private String lastName;
+
+	@Column(name="email")
+	private String email;
+
+
+	// define constructors
+
+	public Employee() {
+
+	}
+
+	public Employee(String firstName, String lastName, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
+
+	// define getter/setter
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	// define tostring
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+	}
+
+}
+
+```
+
 ### 5. Spring Boot - Developing the DAO Interface and Implementation
+
+DAO
+
+```java
+public interface EmployeeDAO {
+
+	public List<Employee> findAll();
+
+	public Employee findById(int theId);
+
+	public void save(Employee theEmployee);
+
+	public void deleteById(int theId);
+
+}
+```
+
+```java
+package com.luv2code.springboot.cruddemo.dao;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.luv2code.springboot.cruddemo.entity.Employee;
+
+@Repository
+public class EmployeeDAOHibernateImpl implements EmployeeDAO {
+
+	// define field for entitymanager
+	private EntityManager entityManager;
+
+	// set up constructor injection
+	@Autowired
+	public EmployeeDAOHibernateImpl(EntityManager theEntityManager) {
+		entityManager = theEntityManager;
+	}
+
+
+	@Override
+	public List<Employee> findAll() {
+
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		// create a query
+		Query<Employee> theQuery =
+				currentSession.createQuery("from Employee", Employee.class);
+
+		// execute query and get result list
+		List<Employee> employees = theQuery.getResultList();
+
+		// return the results
+		return employees;
+	}
+
+
+	@Override
+	public Employee findById(int theId) {
+
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		// get the employee
+		Employee theEmployee =
+				currentSession.get(Employee.class, theId);
+
+		// return the employee
+		return theEmployee;
+	}
+
+
+	@Override
+	public void save(Employee theEmployee) {
+
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		// save employee
+		currentSession.saveOrUpdate(theEmployee);
+	}
+
+
+	@Override
+	public void deleteById(int theId) {
+
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		// delete object with primary key
+		Query theQuery =
+				currentSession.createQuery(
+						"delete from Employee where id=:employeeId");
+		theQuery.setParameter("employeeId", theId);
+
+		theQuery.executeUpdate();
+	}
+
+}
+
+
+
+```
 
 ### 6. Spring Boot - Creating REST Controller Methods
 
+```java
+
+@RestController
+@RequestMapping("/api")
+public class EmployeeRestController {
+
+	private EmployeeService employeeService;
+
+	@Autowired
+	public EmployeeRestController(EmployeeService theEmployeeService) {
+		employeeService = theEmployeeService;
+	}
+
+	// expose "/employees" and return list of employees
+	@GetMapping("/employees")
+	public List<Employee> findAll() {
+		return employeeService.findAll();
+	}
+```
+
+Run application
+
 ### 7. Spring Boot - Additional CRUD Methods for DAO
+
+update DAO
 
 ### 8. Spring Boot - Refactoring the Code to use a Service Layer
 
+```java
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+
+	private EmployeeDAO employeeDAO;
+
+	@Autowired
+	public EmployeeServiceImpl(@Qualifier("employeeDAOJpaImpl") EmployeeDAO theEmployeeDAO) {
+		employeeDAO = theEmployeeDAO;
+	}
+
+	@Override
+	@Transactional
+	public List<Employee> findAll() {
+		return employeeDAO.findAll();
+	}
+
+	@Override
+	@Transactional
+	public Employee findById(int theId) {
+		return employeeDAO.findById(theId);
+	}
+
+	@Override
+	@Transactional
+	public void save(Employee theEmployee) {
+		employeeDAO.save(theEmployee);
+	}
+
+	@Override
+	@Transactional
+	public void deleteById(int theId) {
+		employeeDAO.deleteById(theId);
+	}
+
+}
+```
+
 ### 9. Spring Boot - REST Controller Methods to Find and Add Employee
+
+### 10. Spring Boot - REST Controller Methods to Update and Delete an Employee
+
+```java
+// add mapping for GET /employees/{employeeId}
+
+	@GetMapping("/employees/{employeeId}")
+	public Employee getEmployee(@PathVariable int employeeId) {
+
+		Employee theEmployee = employeeService.findById(employeeId);
+
+		if (theEmployee == null) {
+			throw new RuntimeException("Employee id not found - " + employeeId);
+		}
+
+		return theEmployee;
+	}
+
+	// add mapping for POST /employees - add new employee
+
+	@PostMapping("/employees")
+	public Employee addEmployee(@RequestBody Employee theEmployee) {
+
+		// also just in case they pass an id in JSON ... set id to 0
+		// this is to force a save of new item ... instead of update
+
+		theEmployee.setId(0);
+
+		employeeService.save(theEmployee);
+
+		return theEmployee;
+	}
+
+	// add mapping for PUT /employees - update existing employee
+
+	@PutMapping("/employees")
+	public Employee updateEmployee(@RequestBody Employee theEmployee) {
+
+		employeeService.save(theEmployee);
+
+		return theEmployee;
+	}
+
+	// add mapping for DELETE /employees/{employeeId} - delete employee
+
+	@DeleteMapping("/employees/{employeeId}")
+	public String deleteEmployee(@PathVariable int employeeId) {
+
+		Employee tempEmployee = employeeService.findById(employeeId);
+
+		// throw exception if null
+
+		if (tempEmployee == null) {
+			throw new RuntimeException("Employee id not found - " + employeeId);
+		}
+
+		employeeService.deleteById(employeeId);
+
+		return "Deleted employee id - " + employeeId;
+	}
+```
 
 ## 75. Spring Boot - Build a REST CRUD API with JPA - Real-Time Project
 
 ### 1. Spring Boot - REST JPA Overview
 
+```java
+package com.luv2code.springboot.cruddemo.dao;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.luv2code.springboot.cruddemo.entity.Employee;
+
+@Repository
+public class EmployeeDAOJpaImpl implements EmployeeDAO {
+
+	private EntityManager entityManager;
+
+	@Autowired
+	public EmployeeDAOJpaImpl(EntityManager theEntityManager) {
+		entityManager = theEntityManager;
+	}
+
+	@Override
+	public List<Employee> findAll() {
+
+		// create a query
+		Query theQuery =
+				entityManager.createQuery("from Employee");
+
+		// execute query and get result list
+		List<Employee> employees = theQuery.getResultList();
+
+		// return the results
+		return employees;
+	}
+
+	@Override
+	public Employee findById(int theId) {
+
+		// get employee
+		Employee theEmployee =
+				entityManager.find(Employee.class, theId);
+
+		// return employee
+		return theEmployee;
+	}
+
+	@Override
+	public void save(Employee theEmployee) {
+
+		// save or update the employee
+		Employee dbEmployee = entityManager.merge(theEmployee);
+
+		// update with id from db ... so we can get generated id for save/insert
+		theEmployee.setId(dbEmployee.getId());
+
+	}
+
+	@Override
+	public void deleteById(int theId) {
+
+		// delete object with primary key
+		Query theQuery = entityManager.createQuery(
+							"delete from Employee where id=:employeeId");
+
+		theQuery.setParameter("employeeId", theId);
+
+		theQuery.executeUpdate();
+	}
+
+}
+
+```
+
 ### 2. Spring Boot - Creating JPA DAO Implementation for REST API
+
+Fix
+
+```java
+@Autowired
+	public EmployeeServiceImpl(@Qualifier("employeeDAOJpaImpl") EmployeeDAO theEmployeeDAO) {
+		employeeDAO = theEmployeeDAO;
+	}
+```
 
 ### 3. Spring Boot - Testing the REST API with JPA DAO Implementation
 
@@ -11261,13 +11646,212 @@ luv2code.com/spring-boot-employee-sql-script
 
 ### 2. Spring Boot - Creating Spring Data JPA Repository
 
+```java
+package com.luv2code.springboot.cruddemo.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.luv2code.springboot.cruddemo.entity.Employee;
+
+public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
+
+	// that's it ... no need to write any code LOL!
+
+}
+
+```
+
 ### 3. Spring Boot - Testing the REST API with Spring Data JPA Repository
+
+```java
+package com.luv2code.springboot.cruddemo.rest;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.luv2code.springboot.cruddemo.entity.Employee;
+import com.luv2code.springboot.cruddemo.service.EmployeeService;
+
+@RestController
+@RequestMapping("/api")
+public class EmployeeRestController {
+
+	private EmployeeService employeeService;
+
+	@Autowired
+	public EmployeeRestController(EmployeeService theEmployeeService) {
+		employeeService = theEmployeeService;
+	}
+
+	// expose "/employees" and return list of employees
+	@GetMapping("/employees")
+	public List<Employee> findAll() {
+		return employeeService.findAll();
+	}
+
+	// add mapping for GET /employees/{employeeId}
+
+	@GetMapping("/employees/{employeeId}")
+	public Employee getEmployee(@PathVariable int employeeId) {
+
+		Employee theEmployee = employeeService.findById(employeeId);
+
+		if (theEmployee == null) {
+			throw new RuntimeException("Employee id not found - " + employeeId);
+		}
+
+		return theEmployee;
+	}
+
+	// add mapping for POST /employees - add new employee
+
+	@PostMapping("/employees")
+	public Employee addEmployee(@RequestBody Employee theEmployee) {
+
+		// also just in case they pass an id in JSON ... set id to 0
+		// this is to force a save of new item ... instead of update
+
+		theEmployee.setId(0);
+
+		employeeService.save(theEmployee);
+
+		return theEmployee;
+	}
+
+	// add mapping for PUT /employees - update existing employee
+
+	@PutMapping("/employees")
+	public Employee updateEmployee(@RequestBody Employee theEmployee) {
+
+		employeeService.save(theEmployee);
+
+		return theEmployee;
+	}
+
+	// add mapping for DELETE /employees/{employeeId} - delete employee
+
+	@DeleteMapping("/employees/{employeeId}")
+	public String deleteEmployee(@PathVariable int employeeId) {
+
+		Employee tempEmployee = employeeService.findById(employeeId);
+
+		// throw exception if null
+
+		if (tempEmployee == null) {
+			throw new RuntimeException("Employee id not found - " + employeeId);
+		}
+
+		employeeService.deleteById(employeeId);
+
+		return "Deleted employee id - " + employeeId;
+	}
+
+}
+
+
+```
+
+Service
+
+```java
+package com.luv2code.springboot.cruddemo.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.luv2code.springboot.cruddemo.dao.EmployeeRepository;
+import com.luv2code.springboot.cruddemo.entity.Employee;
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+
+	private EmployeeRepository employeeRepository;
+
+	@Autowired
+	public EmployeeServiceImpl(EmployeeRepository theEmployeeRepository) {
+		employeeRepository = theEmployeeRepository;
+	}
+
+	@Override
+	public List<Employee> findAll() {
+		return employeeRepository.findAll();
+	}
+
+	@Override
+	public Employee findById(int theId) {
+		Optional<Employee> result = employeeRepository.findById(theId);
+
+		Employee theEmployee = null;
+
+		if (result.isPresent()) {
+			theEmployee = result.get();
+		}
+		else {
+			// we didn't find the employee
+			throw new RuntimeException("Did not find employee id - " + theId);
+		}
+
+		return theEmployee;
+	}
+
+	@Override
+	public void save(Employee theEmployee) {
+		employeeRepository.save(theEmployee);
+	}
+
+	@Override
+	public void deleteById(int theId) {
+		employeeRepository.deleteById(theId);
+	}
+
+}
+
+
+
+```
+
+https://community.oracle.com/docs/DOC-991686
+
+Optional
+http://www.luv2code.com/java-optional-tutorial
 
 ## 77. Spring Boot - Spring Data REST - Real-Time Project
 
 ### 1. Spring Boot - Spring Data REST Overview
 
+pom.xml
+
+```xml
+<!-- Add dependency for Spring Data REST -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+```
+
 ### 2. Spring Boot - Spring Data REST - Creating a REST API
+
+Remove controller and service
+
+```properties
+
+# Spring Data REST properties
+#
+spring.data.rest.base-path=/magic-api
+spring.data.rest.default-page-size=20
+```
 
 ### 3. Spring Boot - Spring Data REST - Configuration, Pagination and Sorting
 
@@ -11277,67 +11861,313 @@ luv2code.com/spring-boot-employee-sql-script
 
 ### 2. Spring Boot - Thymeleaf Helloworld - Create a Thymeleaf App
 
+![](../../root/img/2020-02-11-21-32-05.png)
+
+Controller
+
+```java
+
+@Controller
+public class DemoController {
+
+	// create a mapping for "/hello"
+
+	@GetMapping("/hello")
+	public String sayHello(Model theModel) {
+
+		theModel.addAttribute("theDate", new java.util.Date());
+
+		return "helloworld";
+	}
+}
+```
+
+helloworld.html
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Thymeleaf Demo</title>
+  </head>
+
+  <body>
+    <p th:text="'Time on the server is ' + ${theDate}" />
+  </body>
+</html>
+```
+
 ### 3. Spring Boot - Thymeleaf Helloworld - Apply CSS Stylesheets
+
+create folder static in resource
+
+helloworld.html
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Thymeleaf Demo</title>
+
+    <!-- reference CSS file -->
+    <link rel="stylesheet" th:href="@{/css/demo.css}" />
+  </head>
+</html>
+```
 
 ## 79. Spring Boot - Thymeleaf - Build HTML Tables
 
 ### 1. Spring Boot - Thymeleaf - Build HTML Tables - Overview
 
+Create controller
+
+```java
+package com.luv2code.springboot.thymeleafdemo.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.luv2code.springboot.thymeleafdemo.model.Employee;
+
+@Controller
+@RequestMapping("/employees")
+public class EmployeeController {
+
+	// load employee data
+
+	private List<Employee> theEmployees;
+
+	@PostConstruct
+	private void loadData() {
+
+		// create employees
+		Employee emp1 = new Employee(1, "Leslie", "Andrews", "leslie@luv2code.com");
+		Employee emp2 = new Employee(2, "Emma", "Baumgarten", "emma@luv2code.com");
+		Employee emp3 = new Employee(3, "Avani", "Gupta", "avani@luv2code.com");
+
+		// create the list
+		theEmployees = new ArrayList<>();
+
+		// add to the list
+		theEmployees.add(emp1);
+		theEmployees.add(emp2);
+		theEmployees.add(emp3);
+
+	}
+
+	// add mapping for "/list"
+
+	@GetMapping("/list")
+	public String listEmployees(Model theModel) {
+
+		// add to the spring model
+		theModel.addAttribute("employees", theEmployees);
+
+		return "list-employees";
+	}
+}
+
+```
+
 ### 2. Spring Boot - Thymeleaf - Build HTML Tables - Write Some Code
 
+![](../../root/img/2020-02-11-21-40-44.png)
+list-employees.html
+
+```html
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
+
+    <title>Employee Directory</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <h3>Employee Directory</h3>
+      <hr />
+
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="tempEmployee : ${employees}">
+            <td th:text="${tempEmployee.firstName}" />
+            <td th:text="${tempEmployee.lastName}" />
+            <td th:text="${tempEmployee.email}" />
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
+```
+
 ### 3. Spring Boot - Thymeleaf - Add Bootstrap CSS
-
-## 8. Spring Configuration with Java Annotations - Dependency Injection
-
-### 1. Constructor Injection - Overview
-
-### 10. Field Injection - Write Some Code
-
-### 11. Which Injection Type Should You Use
-
-### 12. Qualifiers for Dependency Injection - Overview
-
-### 13. Qualifiers for Dependency Injection - Write Some Code - Part 1
-
-### 14. Qualifiers for Dependency Injection - Write Some Code - Part 2
-
-### 15. Annotations - Default Bean Names - The Special Case.html
-
-### 16. Using @Qualifier with Constructors.html
-
-### 17. FAQ How to inject properties file using Java annotations.html
-
-### 18. Practice Activity #5 - Dependency Injection with Annotations.html
-
-### 2. Autowiring FAQ What if there are Multiple Implementations.html
-
-### 3. Constructor Injection - Write Some Code - Part 1
-
-### 4. Constructor Injection - Write Some Code - Part 2
-
-### 5. FAQ Constructor Injection - Autowired Optional.html
-
-### 5.1 Constructor Injection - Autowired.html
-
-### 6. Setter Injection - Overview
-
-### 7. Setter Injection - Write Some Code
-
-### 8. Method Injection
-
-### 9. Field Injection - Overview
 
 ## 80. Spring Boot - Thymeleaf - CRUD Database Real-Time Project
 
 ### 1. Spring Boot - Thymeleaf - CRUD Database Project - Get Employees - Part 1
 
+pom.xml
+
+![](../../root/img/2020-02-11-21-42-43.png)
+
+Maven update project
+
 ### 2. Spring Boot - Thymeleaf - CRUD Database Project - Get Employees - Part 2
 
+add file index.html
+
+```html
+<meta http-equiv="refresh" content="0; URL='employees/list'" />
+```
+
+![](../../root/img/2020-02-11-21-47-02.png)
+
 ### 3. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Add Employee - Part 1
+
+list-employees.html
+
+```html
+<!-- Add a button -->
+<a th:href="@{/employees/showFormForAdd}" class="btn btn-primary btn-sm mb-3">
+  Add Employee
+</a>
+```
+
+Controller
+
+```java
+
+	@GetMapping("/showFormForAdd")
+	public String showFormForAdd(Model theModel) {
+
+		// create model attribute to bind form data
+		Employee theEmployee = new Employee();
+
+		theModel.addAttribute("employee", theEmployee);
+
+		return "employees/employee-form";
+	}
+
+	@PostMapping("/save")
+	public String saveEmployee(@ModelAttribute("employee") Employee theEmployee) {
+
+		// save the employee
+		employeeService.save(theEmployee);
+
+		// use a redirect to prevent duplicate submissions
+		return "redirect:/employees/list";
+	}
+```
+
+form
+
+```html
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
+
+    <title>Save Employee</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <h3>Employee Directory</h3>
+      <hr />
+
+      <p class="h4 mb-4">Save Employee</p>
+
+      <form
+        action="#"
+        th:action="@{/employees/save}"
+        th:object="${employee}"
+        method="POST"
+      >
+        <input
+          type="text"
+          th:field="*{firstName}"
+          class="form-control mb-4 col-4"
+          placeholder="First name"
+        />
+
+        <input
+          type="text"
+          th:field="*{lastName}"
+          class="form-control mb-4 col-4"
+          placeholder="Last name"
+        />
+
+        <input
+          type="text"
+          th:field="*{email}"
+          class="form-control mb-4 col-4"
+          placeholder="Email"
+        />
+
+        <button type="submit" class="btn btn-info col-2">Save</button>
+      </form>
+
+      <hr />
+      <a th:href="@{/employees/list}">Back to Employees List</a>
+    </div>
+  </body>
+</html>
+```
 
 ### 4. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Add Employee - Part 2
 
 ### 5. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Add Employee - Part 3
+
+![](../../root/img/2020-02-11-22-05-04.png)
+
+![](../../root/img/2020-02-11-22-05-49.png)
+
+![](../../root/img/2020-02-11-22-06-40.png)
+
+Get list sort by last name
 
 ### 6. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Update Employee - 1
 
@@ -11361,26 +12191,314 @@ luv2code.com/spring-boot-employee-sql-script
 
 ### 1. Deploying Spring Boot WAR file with JSP to Tomcat.html
 
+Deploy Spring Boot apps with JSP to Tomcat
+
+You can deploy a Spring Boot application using JSP to Tomcat. In this scenario, we will create a WAR file and deploy the WAR to the Tomcat server running externally. This is known as a traditional deployment.
+
+High-level steps
+
+1. Update main Spring Boot application
+
+2. Update Maven POM file
+
+3. Update application.properties
+
+4. Move JSP view files to WEB-INF/view
+
+5. Create WAR file
+
+6. Deploy to Tomcat
+
+Spring Boot Reference Manual
+
+For full details on this process, see the Spring Boot Reference Manual: Section 92.1 Creating a Deployable WAR file
+
+Working Example
+
+I have a full working project. You can download this app and perform test deployments to Tomcat
+
+Download: deploy-spring-boot-and-jsp-on-tomcat.zip
+
+This app is a very simple helloworld example that exposes a "/test" request mapping
+
+```java
+
+package org.demo.bootjsp.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class HelloWorldController {
+
+    @RequestMapping("/test")
+    public String sayHello() {
+        return "hello";
+    }
+
+}
+
+```
+
+and a simple JSP page: hello.jsp
+
+    <html><body>
+
+    <p>
+    Hello World! Time is <%= new java.util.Date() %>
+    </p>
+
+    <p>
+    We are running on  <%= application.getServerInfo() %>!!!
+    </p>
+
+    </body></html>
+
+---
+
+Detailed steps
+
+1. Update main Spring Boot application
+
+In your main Spring Boot application, you need to
+
+a. extend the SpringBootServletInitializer
+
+b. override the configure(...) method
+
+Your code should look like this
+
+package org.demo.bootjsp;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+@SpringBootApplication
+public class DemowebApplication extends SpringBootServletInitializer {
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+    	return application.sources(DemowebApplication.class);
+    }
+
+    public static void main(String[] args) {
+    	SpringApplication.run(DemowebApplication.class, args);
+    }
+
+}
+
+2. Update Maven POM file
+
+Update your POM.xml to use WAR packaging
+
+<packaging>war</packaging>
+
+In POM.xml, add dependency to be able to compile JSPs
+
+```xml
+<dependency>
+	<groupId>org.apache.tomcat.embed</groupId>
+	<artifactId>tomcat-embed-jasper</artifactId>
+</dependency>
+
+
+Make sure the Tomcat embedded does not interfere with external Tomcat server
+
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-tomcat</artifactId>
+	<scope>provided</scope>
+</dependency>
+
+```
+
+3. Update application.properties
+
+In your application.properties file, you should have
+
+spring.mvc.view.prefix=/WEB-INF/view/
+spring.mvc.view.suffix=.jsp
+
+4. Move JSP view files to WEB-INF/view
+
+Move your JSP view pages should to src/main/webapp/WEB-INF/view
+
+5. Create WAR file
+
+Create the WAR file with the command: mvn clean package
+
+This will generate a WAR file in your project directory: target/bootjspdemo.war
+
+6. In Eclipse, stop all servers you may have running
+
+7) Outside of Eclipse, run your Tomcat server
+
+8. Copy your WAR file to the <<tomcat-install-dir>>/webapps directory
+
+Wait for about 15-30 seconds for Tomcat to deploy your app. You will know your app is deployed when you see a new folder created based on your WAR file name. In our example, you will see a new directory named: bootjspdemo
+
+9. In a web browser, access your app at: http://localhost:8080/bootjspdemo/test
+
+Replace <<bootjspdemo>> with the name of your WAR file if you are using a different app
+
+If everything is successful, you will see your application's web page.
+
+Congratulations! You deployed a Spring Boot WAR file with JSP on to a Tomcat server :-)
+
 ### 2. Deploy Spring Boot WAR file with Thymeleaf to Tomcat.html
 
-## 9. Spring Configuration with Java Annotations - Bean Scopes and Lifecycle Methods
+Deploy Spring Boot apps with Thymeleaf to Tomcat
 
-### 1. @Scope Annotation - Overview
+You can deploy a Spring Boot application as a WAR file to Tomcat. In this scenario, we will use Thymeleaf as the view template.
 
-### 2. @Scope Annotation - Write Some Code
+We will create a WAR file and deploy the WAR to the Tomcat server. This is known as a traditional deployment.
 
-### 3. Bean Lifecycle Method Annotations - Overview
+High-level steps
 
-### 4. Special Note about @PostConstruct and @PreDestroy Method Signatures.html
+1. Update main Spring Boot application
 
-### 5. HEADS UP - FOR JAVA 9 USERS - @PostConstruct and @PreDestroy.html
+2. Update Maven POM file
 
-### 6. Bean Lifecycle Method Annotations - Write Some Code
+3. Create WAR file
 
-### 7. Special Note about Destroy Lifecycle and Prototype Scope.html
+4. Deploy to Tomcat
 
-### 8. Practice Activity #6 - Bean Scopes with Annotations.html
+Spring Boot Reference Manual
 
-## 69. Spring REST - Bonus Lecture - Securing REST API Endpoints with Spring Security
+For full details on this process, see the Spring Boot Reference Manual: Section 92.1 Creating a Deployable WAR file
 
-### 1. Bonus Lecture Securing REST API Endpoints.html
+Working Example
+
+I have a full working project. You can download this app and perform test deployments to Tomcat
+
+Download: deploy-spring-boot-war-with-thymeleaf-on-tomcat.zip
+
+This app is a very simple helloworld example that exposes a "/test" request mapping
+
+```java
+package com.luv2code.deploydemo.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class HelloWorldController {
+
+    @RequestMapping("/test")
+    public String sayHello() {
+        return "hello";
+    }
+
+}
+
+```
+
+and a simple Thymeleaf page: hello.html
+
+```html
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <h3>Hello World from Thymeleaf!</h3>
+
+    <p>
+      We are running on
+      <span th:text="${#servletContext.getServerInfo()}"></span>!!!
+    </p>
+  </body>
+</html>
+```
+
+---
+
+Detailed steps
+
+1. Update main Spring Boot application
+
+In your main Spring Boot application, you need to
+
+a. extend the SpringBootServletInitializer
+
+b. override the configure(...) method
+
+Your code should look like this
+
+```java
+package com.luv2code.deploydemo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+@SpringBootApplication
+public class DeploydemoApplication extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(DeploydemoApplication.class);
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(DeploydemoApplication.class, args);
+	}
+
+}
+
+
+```
+
+2. Update Maven POM file
+
+Update your POM.xml to use WAR packaging
+
+`<packaging>war</packaging>`
+
+The WAR packaging should appear just after your Maven coordinates (group, artifact, version)
+
+```xml
+	<groupId>com.luv2code</groupId>
+	<artifactId>deploydemo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+```
+
+Make sure the Tomcat embedded does not interfere with external Tomcat server
+
+```xml
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-tomcat</artifactId>
+	<scope>provided</scope>
+</dependency>
+
+```
+
+3. Create WAR file
+
+Create the WAR file with the command: mvn clean package
+
+This will generate a WAR file in your project directory: target/deploydemo.war
+
+4. In Eclipse, stop all servers you may have running
+
+5) Outside of Eclipse, run your Tomcat server
+
+6. Copy your WAR file to the <<tomcat-install-dir>>/webapps directory
+
+Wait for about 15-30 seconds for Tomcat to deploy your app. You will know your app is deployed when you see a new folder created based on your WAR file name. In our example, you will see a new directory named: deploydemo
+
+7. In a web browser, access your app at: http://localhost:8080/deploydemo/test
+
+Replace <<deploydemo>> with the name of your WAR file if you are using a different app
+
+If everything is successful, you will see your application's web page.
+
+Congratulations! You deployed a Spring Boot WAR file with Thymeleaf on a Tomcat server :-)
+
+https://javarevisited.blogspot.com/2018/01/how-to-learn-spring-core-spring-mvc-boot-security-framework.html?fbclid=IwAR0KXQailiYXXnZCbz9bou9zwNo7Uj0I4vYOx4Ky54feC5Pe-LOH65_1biQ#ixzz6CgkUHlve
+
+https://dev.to/javinpaul/10-data-structure-algorithms-sql-and-java-courses-to-crack-any-programming-job-interview-11f6?fbclid=IwAR1nM3H3pA_XfD82M4v8z23zWlTAc5B6Yfzp15SWaxiPZiAVb2RfXPNQ0Dk
