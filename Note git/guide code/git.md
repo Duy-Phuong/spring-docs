@@ -78,3 +78,7 @@ https://www.geeksforgeeks.org/clone-method-in-java-2/
 https://techmaster.vn/posts/34068/co-che-cua-hashmap
 https://www.tutorialandexample.com/reactjs-tutorial/
 https://www.programiz.com/python-programming/variables-constants-literals
+
+## git
+
+https://www.gitignore.io/

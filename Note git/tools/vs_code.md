@@ -1,4 +1,5 @@
 ## File setting
+
 ```js
 {
   // Controls if the editor should automatically format the line after typing
@@ -30,10 +31,14 @@
   "editor.renderWhitespace": "all"
 }
 ```
+
 ## Key map vs code
-* CTRL SHIFT P
-* CTRL P: Find file
+
+- CTRL SHIFT P
+- CTRL P: Find file
 
 ![images](./images/1.png)
 
+## git
 
+https://www.gitignore.io/
