@@ -12502,3 +12502,11 @@ Congratulations! You deployed a Spring Boot WAR file with Thymeleaf on a Tomcat 
 https://javarevisited.blogspot.com/2018/01/how-to-learn-spring-core-spring-mvc-boot-security-framework.html?fbclid=IwAR0KXQailiYXXnZCbz9bou9zwNo7Uj0I4vYOx4Ky54feC5Pe-LOH65_1biQ#ixzz6CgkUHlve
 
 https://dev.to/javinpaul/10-data-structure-algorithms-sql-and-java-courses-to-crack-any-programming-job-interview-11f6?fbclid=IwAR1nM3H3pA_XfD82M4v8z23zWlTAc5B6Yfzp15SWaxiPZiAVb2RfXPNQ0Dk
+
+https://techtalk.vn/mot-so-tool-huu-ich-danh-cho-web-developer-co-the-ban-chua-biet-phan-1.html?fbclid=IwAR1ofIu2geSQ1AyI9JZ7Aefi7t0wJnKQa8MMFk3w3yKo5PoS7EQHpBNT5VA
+
+https://freebiesglobal.com/free-37-udemy-courses-with-coupons-java8-python-premiere-pro-2020-angular-7-blockchain-social-media-machine-learning-etc?fbclid=IwAR03_0BRrBTofduYZLvVpCSsRRrarY2jZ57E6p8M4i-7vJ5oyjftfepvUhk
+
+https://javarevisited.blogspot.com/2019/04/10-free-angular-and-react-courses-for.html?fbclid=IwAR2wdV7QafhAQZdMTmwSwjwRlFlsPEcwEfbTuhjzHzh313r3wx268LTR5WM#ixzz6AmQ8n92T
+
+https://smartybro.com/2020/01/25/react-redux-vue-js-2/?fbclid=IwAR2F5gsP7PskRKIiw7_IJ9G7u-ToPnWS87rRaIYnNLp_ejqyomjJQ3WqKqw
