@@ -2466,13 +2466,11 @@ Here's a full example that reads CSS, JavaScript and images.
 ​       **href="${pageContext.request.contextPath}/resources/css/my-test.css">**
 
     <script src="${pageContext.request.contextPath}/resources/js/simple-test.js"></script>
-
 </head>
 
 <body>
 
 <h2>Spring MVC Demo - Home Page</h2>
-
 <a href="showForm">Plain Hello World</a>
 
 <br><br>
@@ -3459,6 +3457,18 @@ Source: https://docs.spring.io/spring/docs/current/spring-framework-reference/we
 
 ### 10. Update Confirmation Page
 
+```html
+<body>
+
+The customer is confirmed: ${customer.firstName} ${customer.lastName}
+
+<br><br>
+
+Free passes: ${customer.freePasses}
+
+</body>
+```
+
 ### 11. Test the Validation Rule for Required Fields
 
 TH space cung cho pass
@@ -3500,6 +3510,8 @@ If not, then plenty of free tutorials available
 
 Kiểu dữ liệu khi validate phải là object và có đầy đủ get set
 
+Nếu để kiểu int thay vì Integer sẽ bị lỗi
+
 ### 5. How to make Integer Field Required freePasses
 
 ```java
@@ -3515,7 +3527,7 @@ Kiểu dữ liệu khi validate phải là object và có đầy đủ get set
 pdf
 tao folder resource/
 Tao file messages.properties
-typeMismatch.customer.freePasses=Invalid number
+`typeMismatch.customer.freePasses=Invalid number`
 errorType.Class.field
 
 ### 7. How to Handle String input for Integer Fields - Configure Resource Bundle
@@ -3735,9 +3747,21 @@ Custom validation returns boolean value for pass/fail (true/false)
 
 Create custom validation rule
 a. Create @CourseCode annotation
-b. Create CourseCodeConstraintValidator
+b. Create CourseCodeConstraintValidator provide custom validate failure
+
+payload
 
 ```java
+package com.luv2code.springdemo.mvc.validation;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import javax.validation.Constraint;
+import javax.validation.Payload;
+
 @Constraint(validatedBy = CourseCodeConstraintValidator.class)
 @Target( { ElementType.METHOD, ElementType.FIELD } )
 @Retention(RetentionPolicy.RUNTIME)
@@ -3745,44 +3769,51 @@ public @interface CourseCode {
 
 	// define default course code
 	public String value() default "LUV";
-
+	
 	// define default error message
 	public String message() default "must start with LUV";
-
+	
 	// define default groups
 	public Class<?>[] groups() default {};
-
+	
 	// define default payloads
 	public Class<? extends Payload>[] payload() default {};
 }
 
+
 ---
-public class CourseCodeConstraintValidator
-	implements ConstraintValidator<CourseCode, String> { // String is type of data validate against
+package com.luv2code.springdemo.mvc.validation;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+public class CourseCodeConstraintValidator 
+	implements ConstraintValidator<CourseCode, String> {
 
 	private String coursePrefix;
-
+	
 	@Override
 	public void initialize(CourseCode theCourseCode) {
 		coursePrefix = theCourseCode.value();
 	}
 
 	@Override
-	public boolean isValid(String theCode,
+	public boolean isValid(String theCode, 
 						ConstraintValidatorContext theConstraintValidatorContext) {
 
 		boolean result;
-
+		
 		if (theCode != null) {
 			result = theCode.startsWith(coursePrefix);
 		}
 		else {
 			result = true;
 		}
-
+		
 		return result;
 	}
 }
+
 // can add additional error msg in theConstraintValidatorContext
 ```
 
@@ -3907,7 +3938,12 @@ In order to run the examples in this course, you will need have Java 8 installed
 Vao trang chu Mysql de tai mysql community server
 mysql-installer-community-8.0.16.0
 chi tiet xem file word
-Installing the MySQL Database on Mac.html
+
+**Installing the MySQL Database on Mac.html**
+
+**Official MySQL Installation instructions**
+
+http://dev.mysql.com/doc/refman/5.7/en/osx-installation.html
 
 ### 4. Setting Up Database Table
 
@@ -4072,23 +4108,24 @@ public class Student {
 
 ### 5. HEADS UP - JAVA 9 USERS - Eclipse Generate toString() fails.html
 
-### JUST A HEADS UP - FOR JAVA 9, 10 and 11 USERS
+**JUST A HEADS UP - FOR JAVA 9, 10 and 11 USERS**
 
-If you are using Java 9, 10 or 11, then you will encounter an error when you run your Hibernate program.
+**If you are using Java 9, 10 or 11, then you will encounter an error when you run your Hibernate program.**
 
-These are the steps to resolve it. Come back to the lecture if you hit the error.
+**These are the steps to resolve it. Come back to the lecture if you hit the error.**
 
----
+\----
 
-Error: Exception in thread "main" java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException
+***Error: Exception in thread "main" java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException\***
 
-This happens because of Java 9 and higher.
+This happens because of Java 9 and higher. 
 
 Java 9 and higher has removed java.xml.bind from its default classpath. That's why we get the class not found exception. We have to explicitly add JAR files to the build path.
 
----
+\---
 
-Solution
+***Solution
+***
 
 For Java 9 and higher, you need to additional JAR files.
 
@@ -4099,40 +4136,40 @@ jaxb-api-2.3.0.jar
 jaxb-core-2.3.0.jar
 jaxb-impl-2.3.0.jar
 
----
+\---
 
-1. Download the files using links below:
+\1. Download the files using links below:
+
+[javax.activation-1.2.0.jar](http://search.maven.org/remotecontent?filepath=com/sun/activation/javax.activation/1.2.0/javax.activation-1.2.0.jar)
+
+[jaxb-api-2.3.0.jar](http://search.maven.org/remotecontent?filepath=javax/xml/bind/jaxb-api/2.3.0/jaxb-api-2.3.0.jar)
+
+[jaxb-core-2.3.0.jar](http://search.maven.org/remotecontent?filepath=com/sun/xml/bind/jaxb-core/2.3.0/jaxb-core-2.3.0.jar)
+
+[jaxb-impl-2.3.0.jar](http://search.maven.org/remotecontent?filepath=com/sun/xml/bind/jaxb-impl/2.3.0/jaxb-impl-2.3.0.jar)
+
+\---
+
+\2. Copy the JAR files to the **lib** folder of your project
 
 javax.activation-1.2.0.jar
-
-jaxb-api-2.3.0.jar
-
-jaxb-core-2.3.0.jar
-
-jaxb-impl-2.3.0.jar
-
----
-
-2. Copy the JAR files to the lib folder of your project
-
-javax.activation-1.2.0.jar
 jaxb-api-2.3.0.jar
 jaxb-core-2.3.0.jar
 jaxb-impl-2.3.0.jar
 
----
+\---
 
 Use the following steps to add the JAR files to your Java Build Path.
 
-3. Right-click your project, select Properties
+\3. Right-click your project, select **Properties**
 
-4. On left-hand side, click Java Build Path
+\4. On left-hand side, click **Java Build Path**
 
-5. In top-center of dialog, click Libraries
+\5. In top-center of dialog, click **Libraries**
 
-6. Click Classpath and then Click Add JARs ...
+\6. Click **Classpath** and then **Click Add JARs ...**
 
-7. Navigate to the JAR files <your-project>/lib
+\7. Navigate to the JAR files **/lib**
 
 Select the files:
 javax.activation-1.2.0.jar
@@ -4140,60 +4177,56 @@ jaxb-api-2.3.0.jar
 jaxb-core-2.3.0.jar
 jaxb-impl-2.3.0.jar
 
-8. Click OK then click Apply and Close
+\8. Click OK then click Apply and Close
 
 Eclipse will perform a rebuild of your project and it will resolve the related build/runtime errors.
 
+
+
 ====
 
-Error: import of the javax.persistance.GenerationType saying its not accessible
+**Error: import of the javax.persistance.GenerationType saying its not accessible
+**
+
+
+
+
+
+
 
 You may still encounter problems for "import of the javax.persistance.GenerationType saying its not accessible"
 
 To resolve this, apply the following steps
 
-1. Right Click on the Project -> Properties - > Java Build Path.
+\1. Right Click on the Project -> Properties - > Java Build Path.
 
-2. Follow the steps as showed in the images below.
+\2. Follow the steps as showed in the images below.
 
-3. In Module Properties -> Select All in Available modules and move to Explicitly included modules.
+\3. In Module Properties -> Select All in Available modules and move to Explicitly included modules.
 
-4. Project->Clean... and Rebuild the Project and try again.
+\4. Project->Clean... and Rebuild the Project and try again.
+
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/raw/2018-03-02_16-59-25-65464dfb91c3680f9ce0ac396bddc261.png)
+
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/raw/2018-03-02_16-59-33-a0e465e0b358c3b472a73ce48b1b13bf.png)
 
 ====
 
 Note, if you are using Maven then you can add this to your POM file
 
-```xml
-<dependency>
-   <groupId>javax.xml.bind</groupId>
-   <artifactId>jaxb-api</artifactId>
-   <version>2.2.8</version>
-</dependency>
+<dependency>   <groupId>javax.xml.bind</groupId>   <artifactId>jaxb-api</artifactId>   <version>2.2.8</version></dependency><dependency>   <groupId>com.sun.xml.bind</groupId>   <artifactId>jaxb-core</artifactId>   <version>2.2.8</version></dependency><dependency>   <groupId>com.sun.xml.bind</groupId>   <artifactId>jaxb-impl</artifactId>   <version>2.2.8</version></dependency>
 
 <dependency>
-   <groupId>com.sun.xml.bind</groupId>
-   <artifactId>jaxb-core</artifactId>
-   <version>2.2.8</version>
+  <groupId>com.sun.activation</groupId>
+  <artifactId>javax.activation</artifactId>
+  <version>1.2.0</version>
 </dependency>
 
-<dependency>
-   <groupId>com.sun.xml.bind</groupId>
-   <artifactId>jaxb-impl</artifactId>
-   <version>2.2.8</version>
-</dependency>
-
-<dependency>
-   <groupId>com.sun.activation</groupId>
-   <artifactId>javax.activation</artifactId>
-   <version>1.2.0</version>
-</dependency>
-
-```
+\---
 
 ---
 
-file html
+
 
 ### HEADS UP - JAVA 9 USERS - Eclipse Generate toString() fails
 
@@ -4225,6 +4258,84 @@ As a work around, you will need to manually write the code for toString(). You c
 
 ### 6. Hibernate Annotations - Part 2
 
+```java
+package com.luv2code.hibernate.demo.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="student")
+public class Student {
+
+   @Id
+   @GeneratedValue(strategy=GenerationType.IDENTITY)
+   @Column(name="id")
+   private int id;
+   
+   @Column(name="first_name")
+   private String firstName;
+   
+   @Column(name="last_name")
+   private String lastName;
+   
+   @Column(name="email")
+   private String email;
+   
+   public Student() {
+      
+   }
+
+   public Student(String firstName, String lastName, String email) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.email = email;
+   }
+
+   public int getId() {
+      return id;
+   }
+
+   public void setId(int id) {
+      this.id = id;
+   }
+
+   public String getFirstName() {
+      return firstName;
+   }
+
+   public void setFirstName(String firstName) {
+      this.firstName = firstName;
+   }
+
+   public String getLastName() {
+      return lastName;
+   }
+
+   public void setLastName(String lastName) {
+      this.lastName = lastName;
+   }
+
+   public String getEmail() {
+      return email;
+   }
+
+   public void setEmail(String email) {
+      this.email = email;
+   }
+
+   @Override
+   public String toString() {
+      return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+   }
+   
+}
+```
+
 ### 7. FAQ Why we are using JPA Annotation instead of Hibernate.html
 
 ### FAQ: Why we are using JPA Annotation instead of Hibernate ?
@@ -4245,6 +4356,8 @@ The Hibernate team recommends the use of JPA annotations as a best practice.
 
 ### 1. Creating and Saving Java Objects - Part 1
 
+![image-20200213000213889](/spring.assets/image-20200213000213889.png)
+
 **SessionFactory**
 Reads the hibernate config file
 Creates Session objects
@@ -4264,7 +4377,56 @@ https://o7planning.org/vi/10201/huong-dan-lap-trinh-java-hibernate-cho-nguoi-moi
 
 ### 2. Creating and Saving Java Objects - Part 2
 
+```java
+package com.luv2code.hibernate.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Student;
+
+public class CreateStudentDemo {
+
+   public static void main(String[] args) {
+
+      // create session factory
+      SessionFactory factory = new Configuration()
+                        .configure("hibernate.cfg.xml")
+                        .addAnnotatedClass(Student.class)
+                        .buildSessionFactory();
+      
+      // create session
+      Session session = factory.getCurrentSession();
+      
+      try {        
+         // create a student object
+         System.out.println("Creating new student object...");
+         Student tempStudent = new Student("Paul", "Doe", "paul@luv2code.com");
+         
+         // start a transaction
+         session.beginTransaction();
+         
+         // save the student object
+         System.out.println("Saving the student...");
+         session.save(tempStudent);
+         
+         // commit transaction
+         session.getTransaction().commit();
+         
+         System.out.println("Done!");
+      }
+      finally {
+         factory.close();
+      }
+   }
+
+}
+```
+
 ### 3. Primary Keys - Overview
+
+![image-20200213000310144](/spring.assets/image-20200213000310144.png)
 
 ID Generation Strategies
 **GenerationType.AUTO**:
@@ -4277,9 +4439,9 @@ database table to ensure uniqueness
 ### 5. Primary Keys - Changing the Starting Index
 
 Bat dau tu 200:
-ALERT TABLE hb.student AUTO_INCREMENT=200
+`ALERT TABLE hb.student AUTO_INCREMENT=200`
 Cách reset
-Truncate hn.student
+`Truncate hn.student`	
 
 2. Reading Objects with Hibernate
    Sửa file config thành để chạy được:
@@ -4463,15 +4625,16 @@ session.createQuery("from Student").getResultList()
 
 ### 10. Querying Objects with Hibernate - Write Some Code - Part 2
 
-### 11. FAQ How To View Hibernate SQL Parameter Values.html
+### 11. FAQ How To View Hibernate SQL Parameter Values.html (LOG4J)
 
 FAQ: How To View Hibernate SQL Parameter Values
 
-Question:
+**Question:**
 
-I see hibernate printing out the query parameters as ? in the console.
+*I see hibernate printing out the query parameters as ? in the console.
 Is it possible to printout the value that was actually queried on the
 database. Asking as this would help in the debugging purpose.
+*
 
 Answer:
 
@@ -4483,61 +4646,83 @@ However, for debugging your application, you want to see the actual parameter va
 
 You can view the actual parameters by viewing the low-level trace of the Hibernate logs. This is not set up by default. However, we can add log4j to allow us to see these low-level logs.
 
-Here is an overview of the process:
 
-1. Add log4j to your project classpath
 
-2. Add log4j.properties to your “src” directory
+#### **Here is an overview of the process:**
 
-Here are the detailed steps:
+\1. Add log4j to your project classpath 
 
-1. Add log4j to your project classpath
+\2. Add log4j.properties to your “src” directory
+
+
+
+#### **Here are the detailed steps:**
+
+**1. Add log4j to your project classpath**
 
 1a. Download log4j v1.2.17 from this link: – http://central.maven.org/maven2/log4j/log4j/1.2.17/log4j-1.2.17.jar
 
 1b. Copy this file to your project’s lib directory
 
-1c. Right-click your Eclipse project and select Properties
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/2016-10-06_12-43-18-43665fab7523d5393142fa06db76c540/image1.png)
 
-1d. Select Build Path > Libraries > Add JARS…
 
-1e. Select the log4j-1.2.17.jar file from the lib directory
 
-2. Add log4j.properties to your “src” directory
+1c. Right-click your Eclipse project and select **Properties**
+
+1d. Select **Build Path > Libraries > Add JARS…**
+
+1e. Select the **log4j-1.2.17.jar** file from the **lib** directory
+
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/2016-10-06_12-43-33-16c189ccb8a5d926415b9fcaa99995c2/image2.png)
+
+
+
+**2. Add log4j.properties to your “src” directory**
 
 2a. Copy the text from below
 
+```
 # Root logger option
-
 log4j.rootLogger=DEBUG, stdout
 
 # Redirect log messages to console
-
 log4j.appender.stdout=org.apache.log4j.ConsoleAppender
 log4j.appender.stdout.Target=System.out
 log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
 log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
 
 log4j.logger.org.hibernate=TRACE
+```
+
 2b. Save this file as "log4j.properties" in your “src” directory
+
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/2016-10-06_12-44-00-feca336a1d4990fe31e1612c44da03bd/image3.png)
+
+
 
 Note: This file has an important setting:
 
+```
 log4j.logger.org.hibernate=TRACE
+```
 
 This allows you see a low-level trace of Hibernate and this allows you see the real SQL parameter values.
 
 Now run your application. You will see a lot of low-level TRACE logs in the Eclipse Console window.
 
-Right-click in the Eclipse Console window and select Find/Replace…
+Right-click in the Eclipse Console window and select **Find/Replace…**
 
-Search for: binding parameter
+Search for: **binding parameter
+**
 
-or search for: extracted value
+or search for: **extracted value**
 
 (the search string changes depending on which version of Hibernate you are using)
 
 You will see the logs with the real parameter values. Congrats!
+
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/2016-10-06_12-44-20-3b68464e433153ad29cb254bb1f7f136/image4.png)
 
 ### 12. Updating Objects with Hibernate - Overview
 
@@ -4676,6 +4861,292 @@ public class DeleteStudentDemo {
 ### 16. Practice Activity #8 - Hibernate Development.html
 
 ### 17. FAQ How to read Dates with Hibernate.html
+
+**FAQ: Handling Dates with Hibernate**
+
+How can I read date strings from the command-line and store them as dates in the database?
+
+**Answer:**
+
+You can make use of a combination of Java's date formatting class and Hibernate annotations.
+
+Sample output:
+
+Student [id=50, firstName=Paul, lastName=Doe, email=paul@luv2code.com, dateOfBirth=null]
+Student [id=51, firstName=Daffy, lastName=Duck, email=daffy@luv2code.com, dateOfBirth=null]
+Student [id=52, firstName=Paul, lastName=Doe, email=paul@luv.com, dateOfBirth=31/12/1998]
+
+**Development Process Overview**
+
+\1. Alter database table for student
+\2. Add a date utils class for parsing and formatting dates
+\3. Add date field to Student class
+\4. Add toString method to Student class
+\5. Update CreateStudentDemo
+
+\----
+
+**Detailed steps**
+
+*1. Alter database table for student*
+
+We need to alter the database table to add a new column for "date_of_birth".
+
+Run the following SQL in your MySQL Workbench tool.
+
+```
+ALTER TABLE `hb_student_tracker`.`student` 
+ADD COLUMN `date_of_birth` DATETIME NULL AFTER `last_name`;
+```
+
+\--
+
+*2. Add a date utils class for parsing and formatting dates*
+
+We need to add a DateUtils class to handle parsing and formatting dates. The source code is here. The class should be placed in the package: com.luv2code.hibernate.demo.
+
+The date formatter uses special symbols for formatting/parsing.
+
+\- dd: day in month (number)
+\- MM: month in year (number)
+\- yyyy: year
+
+See this link for details: https://docs.oracle.com/javase/tutorial/i18n/format/simpleDateFormat.html
+
+```java
+package com.luv2code.hibernate.demo;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class DateUtils {
+    
+    // The date formatter
+    // - dd:   day in month (number)
+    // - MM:   month in year (number)
+    // - yyyy: year
+    //
+    // See this link for details: https://docs.oracle.com/javase/tutorial/i18n/format/simpleDateFormat.html
+    //
+    //
+    private static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    
+    // read a date string and parse/convert to a date
+    public static Date parseDate(String dateStr) throws ParseException {
+        Date theDate = formatter.parse(dateStr);
+        
+        return theDate;        
+    }
+    
+    // read a date and format/convert to a string
+    public static String formatDate(Date theDate) {
+        
+        String result = null;
+        
+        if (theDate != null) {
+            result = formatter.format(theDate);
+        }
+        
+        return result;
+    }
+}
+```
+
+\---
+
+*3. Add date field to Student class*
+
+We need to add a date field to the Student class. We map this field to the database column, "date_of_birth". Also, we make use of the @Temporal annotation. This is a Java annotation for storing dates.
+
+```
+    @Column(name="date_of_birth")
+    @Temporal(TemporalType.DATE)    
+    private Date dateOfBirth;
+```
+
+Here's the full source code.
+
+\---
+
+```java
+package com.luv2code.hibernate.demo.entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.luv2code.hibernate.demo.DateUtils;
+
+@Entity
+@Table(name="student")
+public class Student {
+   
+   @Id
+   @Column(name="id")
+   private int id;
+   
+   @Column(name="first_name")
+   private String firstName;
+   
+   @Column(name="last_name")
+   private String lastName;
+   
+   @Column(name="email")
+   private String email;
+   
+   @Column(name="date_of_birth")
+   @Temporal(TemporalType.DATE)   
+   private Date dateOfBirth;
+   
+   public Student() {
+     
+   }
+
+   public Student( String firstName, String lastName, String email, Date theDateOfBirth) {
+     
+     this.firstName = firstName;
+     this.lastName = lastName;
+     this.email = email;
+     this.dateOfBirth = theDateOfBirth;
+     
+   }
+
+   public int getId() {
+     return id;
+   }
+
+   public void setId(int id) {
+     this.id = id;
+   }
+
+   public String getFirstName() {
+     return firstName;
+   }
+
+   public void setFirstName(String firstName) {
+     this.firstName = firstName;
+   }
+
+   public String getLastName() {
+     return lastName;
+   }
+
+   public void setLastName(String lastName) {
+     this.lastName = lastName;
+   }
+
+   public String getEmail() {
+     return email;
+   }
+
+   public void setEmail(String email) {
+     this.email = email;
+   }
+
+   public Date getDateOfBirth() {
+     return dateOfBirth;
+   }
+
+   public void setDateOfBirth(Date dateOfBirth) {
+     this.dateOfBirth = dateOfBirth;
+   }
+
+   @Override
+   public String toString() {
+     return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+         \+ ", dateOfBirth=" + DateUtils.formatDate(dateOfBirth) + "]";
+   }
+     
+}
+```
+
+
+
+\---
+
+*4. Add toString method to Student class*
+
+We will make an update to the toString method in our Student class. It will use the formatter from our DateUtils.class. This code is already included in Student.java from the previous step. I'm just highlighting it here for clarity.
+
+```
+        return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+                + ", dateOfBirth=" + DateUtils.formatDate(dateOfBirth) + "]";
+```
+
+Note the use of DateUtils above.
+
+\---
+
+*5. Update CreateStudentDemo*
+
+Now for the grand finale. In the main program, read the date as a String and parse/convert it to a date. Here's the snippet of code.
+
+```
+            String theDateOfBirthStr = "31/12/1998";
+            Date theDateOfBirth = DateUtils.parseDate(theDateOfBirthStr);
+            
+            Student temoStudent = new Student("Paully", "Doe", "paul@luv.com", theDateOfBirth);
+```
+
+Here's the full code:
+
+```java
+package com.luv2code.hibernate.demo;
+
+import java.text.ParseException;
+import java.util.Date;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import com.luv2code.hibernate.demo.entity.Student;
+
+public class CreateStudentDemo {
+
+    public static void main(String[] args) {
+        
+        // create session factory
+        SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Student.class)
+                .buildSessionFactory();
+
+        // create a session
+        Session session = factory.getCurrentSession();
+
+        try {
+            // create a student object
+            System.out.println("creating a new student object ...");
+
+            String theDateOfBirthStr = "31/12/1998";
+
+            Date theDateOfBirth = DateUtils.parseDate(theDateOfBirthStr);
+
+            Student temoStudent = new Student("Paully", "Doe", "paul@luv.com", theDateOfBirth);
+
+            // start transaction
+            session.beginTransaction();
+
+            // save the student object
+            System.out.println("Saving the student ...");
+            session.save(temoStudent);
+
+            // commit transaction
+            session.getTransaction().commit();
+
+            System.out.println("Success!");
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        } finally {
+            factory.close();
+        }
+    }
+    
+}
+```
 
 ## 22. Hibernate Advanced Mappings
 
