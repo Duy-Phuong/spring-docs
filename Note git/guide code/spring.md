@@ -1,6 +1,5 @@
 [TOC]
 
-
 ---
 
 # Spring & Hibernate for Beginners (includes Spring Boot)
@@ -70,7 +69,7 @@ You Must Have the Java Development Kit (JDK) Installed
    http://www.luv2code.com/install-java
 
 Nhấn New để tạo mới một biến môi trường có tên JAVA_HOME.
-![](../../root/img/2019-11-10-22-57-32.png)    
+![](../../root/img/2019-11-10-22-57-32.png)
 
 ![](../../root/img/2019-11-10-23-17-16.png)
 
@@ -78,7 +77,7 @@ Nhập vào đường dẫn tới thư mục JDK.
 • Variable name: JAVA_HOME
 • Variable value: C:\DevPrograms\Java\jdk1.8.0_45
 
-![](../../root/img/2019-11-10-23-47-53.png)  
+![](../../root/img/2019-11-10-23-47-53.png)
 
 ![](../../root/img/2019-11-10-23-48-29.png)
 
@@ -138,9 +137,9 @@ Tạo project java bình thường, sau đó tạo thư mục lib trong java pro
 
 The approach of outsourcing the construction and management of objects.
 
-App should be configurable
-• Easily change the coach for another sport
-• Hockey, Cricket, Tennis, Gymnastics etc
+- App should be configurable
+- Easily change the coach for another sport:
+  Hockey, Cricket, Tennis, Gymnastics etc
 
 ```java
     public static void main(String[] args) {
@@ -371,6 +370,108 @@ Injecting Literal Values
 2. Create a constructor in your class for injections
 3. Configure the dependency injection in Spring config file
 
+```java
+public class HappyFortuneService implements FortuneService {
+
+	@Override
+	public String getFortune() {
+		return "Today is your lucky day!";
+	}
+
+}
+```
+
+```java
+package com.luv2code.springdemo;
+
+public class BaseballCoach implements Coach {
+
+	// define a private field for the dependency
+	private FortuneService fortuneService;
+
+	// define a constructor for dependency injection
+	public BaseballCoach(FortuneService theFortuneService) {
+		fortuneService = theFortuneService;
+	}
+
+	@Override
+	public String getDailyWorkout() {
+		return "Spend 30 minutes on batting practice";
+	}
+
+	@Override
+	public String getDailyFortune() {
+		// use my fortuneService to get a fortune
+		return fortuneService.getFortune();
+	}
+}
+```
+
+applicationContext.xml
+
+```java
+ <!-- define the dependency -->
+    <bean id="myFortuneService"
+    		class="com.luv2code.springdemo.HappyFortuneService">
+    	</bean>
+
+ 	<bean id="myCoach"
+ 		class="com.luv2code.springdemo.TrackCoach">
+
+ 		<!-- set up constructor injection -->
+ 		<constructor-arg ref="myFortuneService" />
+ 	</bean>
+```
+
+```java
+public class HelloSpringApp {
+
+	public static void main(String[] args) {
+
+		// load the spring configuration file
+		ClassPathXmlApplicationContext context =
+				new ClassPathXmlApplicationContext("applicationContext.xml");
+
+		// retrieve bean from spring container
+		Coach theCoach = context.getBean("myCoach", Coach.class);
+
+		// call methods on the bean
+		System.out.println(theCoach.getDailyWorkout());
+
+		// let's call our new method for fortunes
+		System.out.println(theCoach.getDailyFortune());
+
+		// close the context
+		context.close();
+	}
+
+}
+```
+
+applicationContext.xml
+
+```java
+<!-- define the dependency -->
+    <bean id="myFortuneService"
+    		class="com.luv2code.springdemo.HappyFortuneService">
+    	</bean>
+
+ 	<bean id="myCoach"
+ 		class="com.luv2code.springdemo.TrackCoach">
+
+ 		<!-- set up constructor injection -->
+ 		<constructor-arg ref="myFortuneService" />
+ 	</bean>
+
+    <bean id="myCricketCoach"
+        class="com.luv2code.springdemo.CricketCoach">
+
+        <!-- set up setter injection -->
+        <property name="fortuneService" ref="myFortuneService" />
+
+    </bean>
+```
+
 #### FAQ: What is the purpose for the no arg constructor?
 
 Question:
@@ -387,12 +488,85 @@ Since you have defined a constructor in class code, compiler didn’t create def
 1. Create setter method(s) in your class for injections( must create no-arg constructor)
 2. Configure the dependency injection in Spring config file
 
+```java
+package com.luv2code.springdemo;
+
+public class CricketCoach implements Coach {
+
+	private FortuneService fortuneService;
+
+	// create a no-arg constructor
+	public CricketCoach() {
+		System.out.println("CricketCoach: inside no-arg constructor");
+	}
+
+	// our setter method
+	public void setFortuneService(FortuneService fortuneService) {
+		System.out.println("CricketCoach: inside setter method - setFortuneService");
+		this.fortuneService = fortuneService;
+	}
+
+	@Override
+	public String getDailyWorkout() {
+		return "Practice fast bowling for 15 minutes";
+	}
+
+	@Override
+	public String getDailyFortune() {
+		return fortuneService.getFortune();
+	}
+
+}
+
+```
+
+```java
+public class SetterDemoApp {
+
+	public static void main(String[] args) {
+
+		// load the spring configuration file
+		ClassPathXmlApplicationContext context =
+				new ClassPathXmlApplicationContext("applicationContext.xml");
+
+		// retrieve bean from spring container
+		CricketCoach theCoach = context.getBean("myCricketCoach", CricketCoach.class);
+
+		// call methods on the bean
+		// ... let's come back to this ...
+		System.out.println(theCoach.getDailyWorkout());
+
+		System.out.println(theCoach.getDailyFortune());
+
+		// close the context
+		context.close();
+	}
+
+}
+```
+
 #### Injecting Literal Values Development Process
 
 1. Create setter method(s) in your class for injections
 2. Configure the injection in Spring config file
 
 Tao ham setter de khi khai bao trong file config no se tu dong goi
+
+xml
+
+```xml
+<bean id="myCricketCoach"
+        class="com.luv2code.springdemo.CricketCoach">
+
+        <!-- set up setter injection -->
+        <property name="fortuneService" ref="myFortuneService" />
+
+        <!-- inject literal values -->
+        <property name="emailAddress" value="thebestcoach@luv2code.com" />
+        <property name="team" value="Sunrisers Hyderabad" />
+
+    </bean>
+```
 
 #### Question:
 
@@ -443,6 +617,40 @@ The bottom line is it depends on how you retrieve the object and assign it ... t
 1. Create Properties File in src
 2. Load Properties File in Spring config file
 3. Reference values from Properties File
+
+```xml
+<!-- load the properties file: sport.properties -->
+	<context:property-placeholder location="classpath:sport.properties"/>
+
+    <!-- Define your beans here -->
+    
+    <!-- define the dependency -->
+    <bean id="myFortuneService"
+    		class="com.luv2code.springdemo.HappyFortuneService">
+    	</bean>
+
+ 	<bean id="myCoach"
+ 		class="com.luv2code.springdemo.TrackCoach">
+
+ 		<!-- set up constructor injection -->
+ 		<constructor-arg ref="myFortuneService" />
+ 	</bean>
+
+    <bean id="myCricketCoach"
+    		class="com.luv2code.springdemo.CricketCoach">
+    
+    	<!-- set up setter injection -->
+    	<property name="fortuneService" ref="myFortuneService" />
+    
+    	<!-- inject literal values -->
+    	<property name="emailAddress" value="${foo.email}" />
+    	<property name="team" value="${foo.team}" />
+
+   	</bean>
+```
+
+
+
 
 #### Practice Activity #2 - Dependency Injection with XML Configuration
 
@@ -511,7 +719,7 @@ Automatically register the beans in the Spring container
 
 @Component(“beanID”)
 
-applicationContext
+applicationContext.xml
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -524,12 +732,13 @@ applicationContext
     http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- add entry to enable component scanning -->
-
+	
 	<context:component-scan base-package="com.luv2code.springdemo" />
 
 </beans>
-
 ```
+
+
 
 solution-code-spring-annotation-explicit-component-names
 
@@ -548,8 +757,8 @@ public class TennisCoach implements Coach {
 	}
 
 }
-
 ```
+
 
 Demo
 
@@ -561,25 +770,23 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class AnnotationDemoApp {
 
 	public static void main(String[] args) {
-
+	
 		// read spring config file
 		ClassPathXmlApplicationContext context =
 				new ClassPathXmlApplicationContext("applicationContext.xml");
-
+	
 		// get the bean from spring container
 		Coach theCoach = context.getBean("thatSillyCoach", Coach.class);
-
+	
 		// call a method on the bean
 		System.out.println(theCoach.getDailyWorkout());
-
+	
 		// close the context
 		context.close();
-
+	
 	}
 
 }
-
-
 
 ```
 
@@ -682,7 +889,7 @@ Chon 1 cai va SD thong nhat trong project
 Nho them annotation @Component
 Bean id phai trung voi Class name
 
-```java
+​```java
 @Autowired
 @Qualifier("happyFortuneService")
 private FortuneService fortuneService;
@@ -2221,7 +2428,7 @@ Add getter method
 2.  Reference the data in your form
 
         Favorite Language:
-    
+        
         <form:radiobuttons path="favoriteLanguage" items="${student.favoriteLanguageOptions}"  />
 
 Source code is available here:
