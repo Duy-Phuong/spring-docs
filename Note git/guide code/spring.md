@@ -5162,6 +5162,8 @@ Xem pdf
 
 pdf sql create table
 
+![image-20200213003302796](/spring.assets/image-20200213003302796.png)
+
 ### 2. @OneToOne - Overview - Part 2
 
 ```java
