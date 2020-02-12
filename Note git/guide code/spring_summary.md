@@ -17,11 +17,7 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
 
 ### 1. Spring Configuration with Java Code (no xml) - Overview
 
-### 10. Injecting Values from Properties File - Write Some Code - Part 2
 
-### 11. FAQ Problems with Injecting Values - Value not returning from \${foo.email}.html
-
-### 12. Practice Activity #7 - IoC and DI with Java Configuration.html
 
 ### 2. Spring Configuration with Java Code (no xml) - Write Some Code
 
@@ -38,7 +34,11 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
 ### 8. Injecting Values from Properties File - Overview
 
 ### 9. Injecting Values from Properties File - Write Some Code - Part 1
+### 10. Injecting Values from Properties File - Write Some Code - Part 2
 
+### 11. FAQ Problems with Injecting Values - Value not returning from \${foo.email}.html
+
+### 12. Practice Activity #7 - IoC and DI with Java Configuration.html
 ## 11. Spring MVC - Building Spring Web Apps
 
 ### 1. Spring MVC Overview

@@ -1,3 +1,7 @@
+---
+typora-root-url: ./
+---
+
 [TOC]
 
 ---
@@ -889,7 +893,7 @@ Chon 1 cai va SD thong nhat trong project
 Nho them annotation @Component
 Bean id phai trung voi Class name
 
-​```java
+```java
 @Autowired
 @Qualifier("happyFortuneService")
 private FortuneService fortuneService;
@@ -898,6 +902,12 @@ private FortuneService fortuneService;
 ### 13. Qualifiers for Dependency Injection - Write Some Code - Part 1
 
 ### 14. Qualifiers for Dependency Injection - Write Some Code - Part 2
+
+```java
+@Autowired
+@Qualifier("randomFortuneService")
+private FortuneService fortuneService;
+```
 
 #### Annotations - Default Bean Names ... and the Special Case
 
@@ -939,7 +949,7 @@ Hope this helps. Happy Coding! :-)
 
 **XEM THEM HTML**
 
-16. Using @Qualifier with Constructors
+### 16. Using @Qualifier with Constructors
 
 **@Qualifier** is a nice feature, but it is tricky when used with Constructors.
 
@@ -1039,8 +1049,7 @@ Add the following lines:
 ```xml
     <context:property-placeholder location="classpath:sport.properties"/>
 
-This should appear just after the <context:component-scan .../> line
-
+This should appear just after the <context:component-scan .../> 
 ```
 
 3. Inject the properties values into your Swim Coach: SwimCoach.java
@@ -1153,42 +1162,95 @@ Configure the Spring container with Java code
 solution-code-spring-java-config
 SportConfig
 
-#### 3. Heads Up - Add Logging Messages in Spring 5.1 - All Java Config Version
+```java
+package com.luv2code.springdemo;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan("com.luv2code.springdemo")
+public class SportConfig {
+   
+}
+```
+
+Main
+
+```java
+package com.luv2code.springdemo;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class JavaConfigDemoApp {
+
+   public static void main(String[] args) {
+
+      // read spring config java class
+      AnnotationConfigApplicationContext context = 
+            new AnnotationConfigApplicationContext(SportConfig.class);
+      
+      // get the bean from spring container
+      Coach theCoach = context.getBean("tennisCoach", Coach.class);
+      
+      // call a method on the bean
+      System.out.println(theCoach.getDailyWorkout());
+            
+      // call method to get the daily fortune
+      System.out.println(theCoach.getDailyFortune());
+               
+      // close the context
+      context.close();
+      
+   }
+
+}
+```
+
+### 3. Heads Up - Add Logging Messages in Spring 5.1 - All Java Config Version
 
 **The Problem**
 
 In Spring 5.1, the Spring Development team changed the logging levels internally. As a result, by default you will no longer see the red logging messages at the INFO level. This is different than in the videos.
 
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/raw/2018-10-13_12-33-25-2c04a69837ae489361d0d8a4e1fdcc0d.png)
+
 **The Solution**
 
 If you would like to configure your app to show similar logging messages as in the video, you can make the following updates. Note, you will not see the EXACT same messages, since the Spring team periodically changes the text of the internal logging messages. However, this should give you some additional logging data.
 
-Overview of the steps
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/raw/2018-10-13_12-33-35-4542861e2b5965d7a623b68fceb8c0a5.png)
 
-0. Create a logging properties file
+**Overview of the steps**
 
-1. Create a configuration class to configure the parent logger and console handler
+\0. Create a logging properties file
 
-Detailed Steps
+\1. Create a configuration class to configure the parent logger and console handler
 
-**0. Create a logging properties file**
+
+
+**Detailed Steps**
+
+*0. Create a logging properties file*
 
 This properties file will define the logging levels for the application. The props file sets the logger level to FINE. For more detailed logging info, you can set the logging level to level to FINEST. You can read more about the logging levels at http://www.vogella.com/tutorials/Logging/article.html
 
-File: src/mylogger.properties
+***File: src/mylogger.properties\***
 
+```
 root.logger.level=FINE
 printed.logger.level=FINE
+```
 
----
+\---
 
-**1. Create a configuration class to configure the parent logger and console handler**
+*1. Create a configuration class to configure the parent logger and console handler*
 
 This class will set the parent logger level for the application context. It will also set the logging level for console handler. The logging levels are loaded from the configuration file using the @PropertySource annotation. The fields are injected using the @Value annotation. This class also has a @PostConstruct method to handle the actual configuration.
 
-File: MyLoggerConfig.java
+***File: MyLoggerConfig.java\***
 
-```java
+```
 package com.luv2code.springdemo;
 
 import java.util.logging.ConsoleHandler;
@@ -1212,14 +1274,14 @@ public class MyLoggerConfig {
 
 	@Value("${printed.logger.level}")
 	private String printedLoggerLevel;
-
+	
 	@PostConstruct
 	public void initLogger() {
 
 		// parse levels
 		Level rootLevel = Level.parse(rootLoggerLevel);
 		Level printedLevel = Level.parse(printedLoggerLevel);
-
+		
 		// get logger for app context
 		Logger applicationContextLogger = Logger.getLogger(AnnotationConfigApplicationContext.class.getName());
 
@@ -1228,33 +1290,101 @@ public class MyLoggerConfig {
 
 		// set root logging level
 		loggerParent.setLevel(rootLevel);
-
+		
 		// set up console handler
 		ConsoleHandler consoleHandler = new ConsoleHandler();
 		consoleHandler.setLevel(printedLevel);
 		consoleHandler.setFormatter(new SimpleFormatter());
-
+		
 		// add handler to the logger
 		loggerParent.addHandler(consoleHandler);
 	}
-
+	
 }
-
 ```
 
----
+\---
 
 Source code is available at the following link
 
 https://gist.github.com/darbyluv2code/a49009fe1f92f95a30d2d5f7ac987ce5
 
----
+\---
 
 Once you make these updates, then you will be able to see additional logging data. :-)
 
+### Defining Spring Beans with Java Code (no xml) - Write Some Code - Part 1.mp4
+
+Create class SadFortuneService and SwimCoach
+
+```java
+package com.luv2code.springdemo;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+// @ComponentScan("com.luv2code.springdemo")
+public class SportConfig {
+   
+   // define bean for our sad fortune service
+   @Bean
+   public FortuneService sadFortuneService() {
+      return new SadFortuneService();
+   }
+   
+   // define bean for our swim coach AND inject dependency
+   @Bean
+   public Coach swimCoach() {
+      SwimCoach mySwimCoach = new SwimCoach(sadFortuneService());
+      
+      return mySwimCoach;
+   }
+   
+}
+```
+
+Main
+
+```java
+public class SwimJavaConfigDemoApp {
+
+   public static void main(String[] args) {
+
+      // read spring config java class
+      AnnotationConfigApplicationContext context = 
+            new AnnotationConfigApplicationContext(SportConfig.class);
+      
+      // get the bean from spring container
+      Coach theCoach = context.getBean("swimCoach", Coach.class);
+      
+      // call a method on the bean
+      System.out.println(theCoach.getDailyWorkout());
+            
+      // call method to get the daily fortune
+      System.out.println(theCoach.getDailyFortune());
+         
+      // close the context
+      context.close();
+      
+   }
+
+}
+```
+
+### Defining Spring Beans with Java Code (no xml) - Write Some Code - Part 2.mp4
+
+
+
 Question:
 
-#### During All Java Configuration, how does the @Bean annotation work in the background?
+### During All Java Configuration, how does the @Bean annotation work in the background?
+
+**Question:**
+
+During All Java Configuration, how does the @Bean annotation work in the background?
+
+
 
 **Answer**
 
@@ -1262,46 +1392,67 @@ This is an advanced concept. But I'll walk through the code line-by-line.
 
 For this code:
 
-```java
-@Bean
-public Coach swimCoach() {
- SwimCoach mySwimCoach = new SwimCoach();
- return mySwimCoach;
-}
-
+```
+  @Bean 
+  public Coach swimCoach() {   
+   SwimCoach mySwimCoach = new SwimCoach();   
+   return mySwimCoach; 
+  }
 ```
 
 At a high-level, Spring creates a bean component manually. By default the scope is singleton. So any request for a "swimCoach" bean, will get the same instance of the bean since singleton is the default scope.
 
+
+
 However, let's break it down line-by-line
 
-**@Bean**
+```
+@Bean
+```
+
+
 
 The @Bean annotation tells Spring that we are creating a bean component manually. We didn't specify a scope so the default scope is singleton.
 
-**public Coach swimCoach(){**
+```
+ public Coach swimCoach(){
+```
+
 This specifies that the bean will bean id of "swimCoach". The method name determines the bean id. The return type is the Coach interface. This is useful for dependency injection. This can help Spring find any dependencies that implement the Coach interface.
 
 The @Bean annotation will intercept any requests for "swimCoach" bean. Since we didn't specify a scope, the bean scope is singleton. As a result, it will give the same instance of the bean for any requests.
 
-SwimCoach mySwimCoach = new SwimCoach();
+
+
+```
+ SwimCoach mySwimCoach = new SwimCoach();
+```
+
 This code will create a new instance of the SwimCoach.
 
-return mySwimCoach;
+
+
+```
+ return mySwimCoach;
+```
+
 This code returns an instance of the swimCoach.
 
----
+\----
+
+
 
 Now let's step back and look at the method in it's entirety.
 
-```java
-@Bean
-public Coach swimCoach() {
- SwimCoach mySwimCoach = new SwimCoach();
- return mySwimCoach;
-}
-
 ```
+ @Bean 
+ public Coach swimCoach() {   
+   SwimCoach mySwimCoach = new SwimCoach();   
+   return mySwimCoach; 
+ }
+```
+
+
 
 It is important to note that this method has the @Bean annotation. The annotation will intercept ALL calls to the method "swimCoach()". Since no scope is specified the @Bean annotation uses singleton scope. Behind the scenes, during the @Bean interception, it will check in memory of the Spring container (applicationContext) and see if this given bean has already been created.
 
@@ -1311,9 +1462,14 @@ The next time this method is called, the @Bean annotation will check in memory o
 
 The code for
 
-SwimCoach mySwimCoach = new SwimCoach();
-return mySwimCoach;
+```
+ SwimCoach mySwimCoach = new SwimCoach(); 
+ return mySwimCoach;
+```
+
 is not executed for subsequent requests to the method public Coach swimCoach() . This code is only executed once during the initial bean creation since it is singleton scope.
+
+
 
 That explains how @Bean annotation works for the swimCoach example.
 
@@ -1323,61 +1479,166 @@ Now let's take it one step further.
 
 Here's your other question
 
-> > Please explain in detail whats happening behind the scene for this statement.
+***>> Please explain in detail whats happening behind the scene for this statement.\***
 
+```
 return new SwimCoach(sadFortuneService())
+```
+
+
 
 The code for this question is slightly different. It is injecting a dependency.
 
 In this example, we are creating a SwimCoach and injecting the sadFortuneService().
 
-```java
+```
          // define bean for our sad fortune service
         @Bean
         public FortuneService sadFortuneService() {
             return new SadFortuneService();
         }
-
+        
         // define bean for our swim coach AND inject dependency
         @Bean
         public Coach swimCoach() {
             SwimCoach mySwimCoach = new SwimCoach(sadFortuneService());
-
+            
             return mySwimCoach;
         }
-
 ```
+
+
 
 Using the same information presented earlier
 
 The code
 
+```
         // define bean for our sad fortune service
         @Bean
         public FortuneService sadFortuneService() {
             return new SadFortuneService();
         }
+```
+
+
 
 In the code above, we define a bean for the sad fortune service. Since the bean scope is not specified, it defaults to singleton.
 
 Any calls for sadFortuneService, the @Bean annotation intercepts the call and checks to see if an instance has been created. First time through, no instance is created so the code executes as desired. For subsequent calls, the singleton has been created so @Bean will immediately return with the singleton instance.
 
+
+
 Now to the main code based on your question.
 
+```
 return new SwimCoach(sadFortuneService())
+```
+
 This code creates an instance of SwimCoach. Note the call to the method sadFortuneService(). We are calling the annotated method above. The @Bean will intercept and return a singleton instance of sadFortuneService. The sadFortuneService is then injected into the swim coach instance.
+
+
 
 This is effectively dependency injection. It is accomplished using all Java configuration (no xml).
 
----
+\---
 
 This concludes the line-by-line discussion of the source code. All of the behind the scenes work.
 
 I hope this clears your doubt. :-)
 
+### 8. Injecting Values from Properties File - Overview
+
+```java
+package com.luv2code.springdemo;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+
+@Configuration
+// @ComponentScan("com.luv2code.springdemo")
+@PropertySource("classpath:sport.properties")
+public class SportConfig {
+   
+   // add support to resolve ${...} properties
+   //
+   // NOTE: THIS IS ONLY REQUIRED FOR OLD VERSIONS OF SPRING: v4.2 and lower
+   //
+   // This is NOT required if using Spring v4.3+
+   //
+   @Bean
+   public static PropertySourcesPlaceholderConfigurer
+               propertySourcesPlaceHolderConfigurer() {
+      
+      return new PropertySourcesPlaceholderConfigurer();
+   }
+   
+   // define bean for our sad fortune service
+   @Bean
+   public FortuneService sadFortuneService() {
+      return new SadFortuneService();
+   }
+   
+   // define bean for our swim coach AND inject dependency
+   @Bean
+   public Coach swimCoach() {
+      SwimCoach mySwimCoach = new SwimCoach(sadFortuneService());
+      
+      return mySwimCoach;
+   }
+   
+}
+```
+
+```java
+package com.luv2code.springdemo;
+
+import org.springframework.beans.factory.annotation.Value;
+
+public class SwimCoach implements Coach {
+
+   private FortuneService fortuneService;
+
+   @Value("${foo.email}")
+   private String email;
+   
+   @Value("${foo.team}")
+   private String team;
+   
+   public SwimCoach(FortuneService theFortuneService) {
+      fortuneService = theFortuneService;
+   }
+   
+   @Override
+   public String getDailyWorkout() {
+      return "Swim 1000 meters as a warm up.";
+   }
+
+   @Override
+   public String getDailyFortune() {
+      return fortuneService.getFortune();
+   }
+
+   public String getEmail() {
+      return email;
+   }
+
+   public String getTeam() {
+      return team;
+   }  
+
+}
+```
+
+### 9. Injecting Values from Properties File - Write Some Code - Part 1
+
 ### 10. Injecting Values from Properties File - Write Some Code - Part 2
 
-### FAQ: Problems with Injecting Values - Value not returning from \${foo.email}
+### 11. FAQ Problems with Injecting Values - Value not returning from \${foo.email}.html
+
+FAQ: Problems with Injecting Values - Value not returning from \${foo.email}
 
 Question
 
@@ -1446,7 +1707,7 @@ Let me know if that clears it up.
 
 :-)
 
-### 4. Defining Spring Beans with Java Code (no xml) - Overview
+### 12. Practice Activity #7 - IoC and DI with Java Configuration.html
 
 Trong file SportConfig, ten method trung voi bean ID
 
@@ -1464,6 +1725,8 @@ http://luv2code.com/spring-mvc-docs =>
 https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html
 
 ### 1. Spring MVC Overview
+
+Lợi ích của spring mvc
 
 ### 2. Spring MVC - Behind the Scenes
 
@@ -1523,6 +1786,8 @@ web.xml
 </web-app>
 
 ----------------------------------
+spring-mvc-demo-servlet.xml
+
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -1567,9 +1832,9 @@ Copy thêm 2 file jstl():
 Copy 2 file xml vao WEB-INF
 Question:
 
-#### 8. How to configure the Spring Dispatcher Servlet using all Java Code (no xml)?
+### 8. How to configure the Spring Dispatcher Servlet using all Java Code (no xml)?
 
-Answer:
+### Answer:
 
 Good question!
 
@@ -1702,9 +1967,254 @@ solution-code-spring-mvc-create-home-controller-and-view
 
 ### 4. FAQ HELP! My Spring MVC Controller is not working. What to do.html
 
+**JUST A HEADS UP ...
+**
+
+**IN THE VIDEOS YOUR SPRING MVC CONTROLLER CODE MAY NOT WORK**
+
+**THIS IS AN ECLIPSE CACHING BUG**
+
+**IF YOUR CONTROLLER DOESN'T WORK THEN TRY THE STEPS BELOW**
+
+\----
+**Question:** HELP! My Spring MVC Controller is not working. What to do?
+
+**Answer:**
+
+***Debug Tip #0: Make sure you are accessing the correct URL\***
+
+You need to access the correct URL, localhost:8080/spring-mvc-demo/
+
+Note: Do not attempt to run the JSP files directly. This will not work due to MVC.
+
+\---
+
+***Debug Tip #1: Make Sure your Package Names is consistent\***
+
+The Spring configuration file used in the videos expects for your controller to be in the package:
+
+***package com.luv2code.springdemo.mvc;\***
+
+*Make sure your controller is this package.*
+
+
+
+***----\***
+
+***Debug Tip #2: Reimport Project into Eclipse\***
+
+Sometimes the Eclipse project settings can become corrupted. One possible solution is to remove the Eclipse project and reimport into Eclipse.
+
+Here are the steps.
+
+\1. Remove the project from Eclipse.
+
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/raw/2019-04-24_18-10-41-e4fbcdca01be5015a5539d8022316177.png)
+
+\2. Open the project in file system and remove the files/ folders except src and WebContent.
+
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/raw/2019-04-24_18-11-36-4d781785457b89850d9a1a8a504bdc70.png)
+
+
+
+\3. Open the project in Eclipse again using **File > Import ... > General > Existing Projects into Workspace**
+
+\4. Check the project properties(Right click on the project and click on Properties),
+
+\5. Check the Java Build Path, Java Compiler and Project Facets and make sure that the Java version is same in all the windows.
+
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/raw/2019-04-24_18-19-58-3097ea0d7e5c38a1c7e6a4629c23bf66.png)
+
+
+
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/raw/2019-04-24_18-20-30-7d3b0a50431ffe48c3c1137d540ed7d8.png)
+
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/raw/2019-04-24_18-20-45-f32ed8ad41f448ec0072738229879d72.png)
+
+\5. Build the project and try again.
+
+***----\***
+
+***
+Debug Tip #3: Clear Tomcat Cache
+\***This is normally a caching issue with the cache.
+
+Here are some steps to clear the Eclipse cache and Tomcat cache.
+
+\1. In the Server's tab in Eclipse, Stop the Tomcat server
+
+\2. Right-click the server and select "Clean..."
+
+\3. Right-click the server again and select "Clean Tomcat Work Directory..."
+
+\---
+
+\4. In the Eclipse, select the top-level menu option, Project > Clean ...
+
+\5. Be sure your project is selected and click Ok
+
+\6. Restart Eclipse
+
+Retest your application. If you continue to have problems try Debug Tip #2
+
+
+
+\---
+
+***Debug Tip #4: Import the Project in  a new workspace\***
+
+\1. Copy your project to a new directory on your computer like, c:\foobar
+
+\2. In Eclipse, open a new workspace: Create a new workspace in Eclipse: File > Switch Workspace > Other ... > give any name
+
+\3. In Eclipse, import the project
+
+3a. Use File > Import > General > Existing Projects into Workspace
+
+3b. Browse to directory: c:\foobar
+
+\4. In your new workspace, add a reference to the Tomcat server
+
+\5. Test your app in the new workspace
+
+\---
+
+If you still have problems, then post your code to the classroom discussion forum.
+
+Be sure to include the following files:
+\- spring-mvc-demo-servlet.xml
+\- your controller .java
+\- your view page .jsp
+
 ### 5. FAQ HELP! - Can't Start Tomcat - Ports are in Use!.html
 
+**Can't Start Tomcat - Ports are in Use**
+
+You may have a problem starting Tomcat. You may see this ugly error message about ports in use.
+
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/2016-09-16_17-54-38-d8e914f7a8f5d9ac131cba4bb32d0f27/tomcat-ports-blocked.png)
+
+
+
+**Solution**
+
+You can use the troubleshooting tips below.
+
+***Troubleshooting Tip #1\***
+
+\1. Exit Eclipse
+
+\2. Open a web web browser and visit, http://localhost:8080
+
+\3. If you see a "Tomcat" web page then that means Tomcat is running as a Windows service. To stop Tomcat running as a Windows services, open your Windows Control Panel. Find the service "Apache Tomcat" and stop it.
+
+\4. If you don't see a "Tomcat" web page, then stop the appropriate process displayed.
+
+
+
+\--
+***Troubleshooting Tip #2 - GUI Option\***
+
+Steps to free port which is already used to run Tomcat server in Eclipse
+
+\1. On MS Windows, select *Start > All Programs > Accessories > System Tools >Resource Monitor*
+
+\2. Expand the **Network Tab**
+
+\3. Move to the section for **Listening Ports**
+
+\4. Look in the Port column and scroll to find entry for port 8080
+
+\5. Select the given process and delete/kill the process
+
+\6. Return back to Eclipse and start the Tomcat Server, it should start up now.
+
+
+
+\---
+
+***Troubleshooting Tip #3 - Command-Line Option\***
+
+Steps to free port which is already used to run Tomcat server in Eclipse
+
+For example , suppose 8080 port is used , we need to make free 8080 to run tomcat
+
+
+
+Step 1: (open the CMD command)
+
+C:\Users\username>`netstat -o -n -a | findstr 0.0:8080`
+
+TCP  0.0.0.0:3000   0.0.0.0:0       LISTENING    3116
+
+Now , we can see that LISTENING port is 3116 for 8080 ,
+
+We need to kill 3116 now
+
+
+
+Step 2:
+
+C:\Users\username>`taskkill /F /PID 3116`
+
+
+
+Step 3: Return back to Eclipse and start the Tomcat Server, it should start up now.
+
+
+
+====
+
+**Mac/Linux SOLUTION**
+
+Step 0: Exit Eclipse
+
+Step 1: Open a terminal window
+
+
+
+Step 2: Enter the following command to find the process id
+
+```
+lsof -i :8080
+```
+
+This will give output of the application that is running on port 8080
+
+
+
+Step 3: Enter the following command to kill the process
+
+```
+kill $(lsof -t -i :8080) 
+```
+
+
+
+Step 4: Return back to Eclipse and start the Tomcat Server, it should start up now.
+
 ### 6. FAQ How Does Component Scan Work - Your Package Names are Different!.html
+
+How Does Component Scan Work - Your Package Names are Different!
+
+**Question**
+
+How does component scan work in this example? You have different package names.
+
+You listed the component scan package as: com.luv2code.springdemo
+
+But the our MVC controllers are defined in com.luv2code.springdemo.mvc
+
+**Answer**
+For the Spring attribute:  base-package="com.luv2code.springdemo"
+
+Spring will recursively scan for components starting at the base package: "com.luv2code.springdemo"
+
+When I say "recursive", it means that Spring will start at the base package and scan all sub packages.
+
+The package com.luv2code.springdemo.mvc is a sub package because of naming structure, just like folders on a file system.
+
+As a result, it will be included in the scan.
 
 ### 7. Reading HTML Form Data - Overview
 
