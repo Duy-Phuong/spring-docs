@@ -2954,7 +2954,55 @@ The student is confirmed: ${student.firstName} ${student.lastName}
 Co 2 cach:
 
 - Lay data static in jsp file (`<form:options value="" label=""></form:options>`)
+
+![image-20200212224733077](/spring.assets/image-20200212224733077.png)
+
 - Lay data tu HashMap
+
+student-form
+
+```html
+<form:form action="processForm" modelAttribute="student">
+
+   First name: <form:input path="firstName" />
+   
+   <br><br>
+
+   Last name: <form:input path="lastName" />
+   
+   <br><br>
+
+   Country:
+   
+   <form:select path="country">
+   
+      <form:options items="${student.countryOptions}" />
+      
+   </form:select>
+         
+   <br><br>
+
+   <input type="submit" value="Submit" />
+
+</form:form>
+```
+
+class Student
+
+```java
+public Student() {
+   
+   // populate country options: used ISO country code
+   countryOptions = new LinkedHashMap<>();
+   
+   countryOptions.put("BR", "Brazil");
+   countryOptions.put("FR", "France");
+   countryOptions.put("DE", "Germany");
+   countryOptions.put("IN", "India");
+   countryOptions.put("US", "United States of America");     
+
+}
+```
 
 ### 9. FAQ Use properties file to load country options.html
 
@@ -3063,9 +3111,48 @@ You can download entire code from here:
 
 `<form:radiobutton path="favoriteLanguage" value="Java" />`
 
+```java
+Favorite Language:
+
+Java <form:radiobutton path="favoriteLanguage" value="Java" />
+C# <form:radiobutton path="favoriteLanguage" value="C#" />
+PHP <form:radiobutton path="favoriteLanguage" value="PHP" />
+Ruby <form:radiobutton path="favoriteLanguage" value="Ruby" />
+```
+
+student-confirmation 
+
+```html
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+   <title>Student Confirmation</title>
+</head>
+
+<body>
+
+The student is confirmed: ${student.firstName} ${student.lastName}
+
+<br><br>
+
+Country: ${student.country}
+
+<br><br>
+
+Favorite Language: ${student.favoriteLanguage}
+
+</body>
+
+</html>
+```
+
 ### 12. FAQ How to populate radiobuttons with items from Java class.html
 
-#### FAQ: How to populate radiobuttons with items from Java class like we did with selectlist?
+FAQ: How to populate radiobuttons with items from Java class like we did with selectlist?
 
 You can follow a similar approach that we used for the drop-down list.
 
@@ -3108,9 +3195,33 @@ Source code is available here:
 
 - https://gist.github.com/darbyluv2code/debb69b1bf8010d84d50e0542e809ffb
 
-### 5. Checkboxes - Overview
+### 15. Checkboxes - Overview
 
 TH Chon nhieu checkbox
+
+```html
+Operating Systems:
+
+Linux <form:checkbox path="operatingSystems" value="Linux" />
+Mac OS <form:checkbox path="operatingSystems" value="Mac OS" />
+MS Windows <form:checkbox path="operatingSystems" value="MS Window" />
+
+<br><br>
+```
+
+display 
+
+```html
+Operating Systems:
+
+<ul>
+   <c:forEach var="temp" items="${student.operatingSystems}">
+
+      <li> ${temp} </li>
+
+   </c:forEach>
+</ul>
+```
 
 ## 15. Spring MVC Form Validation - Applying Built-In Validation Rules
 
@@ -3126,7 +3237,69 @@ http://hibernate.org/validator/
 
 Copy all file jar cua hibernate tu trong folder lib va lib/required/
 
+![image-20200212225749382](/spring.assets/image-20200212225749382.png)
+
+
+
 ### 4. Checking for Required Fields Overview
+
+CustomerController
+
+```java
+package com.luv2code.springdemo.mvc;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/customer")
+public class CustomerController {
+
+   // add an initbinder ... to convert trim input strings
+   // remove leading and trailing whitespace
+   // resolve issue for our validation
+   
+   @InitBinder
+   public void initBinder(WebDataBinder dataBinder) {
+      
+      StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+      
+      dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+   }
+   
+   
+   @RequestMapping("/showForm")
+   public String showForm(Model theModel) {
+      
+      theModel.addAttribute("customer", new Customer());
+      
+      return "customer-form";
+   }
+   
+   @RequestMapping("/processForm")
+   public String processForm(
+         @Valid @ModelAttribute("customer") Customer theCustomer,
+         BindingResult theBindingResult) {
+      
+      System.out.println("Last name: |" + theCustomer.getLastName() + "|");
+      
+      if (theBindingResult.hasErrors()) {
+         return "customer-form";
+      }
+      else {
+         return "customer-confirmation";
+      }
+   }
+}
+```
 
 customer-form
 
