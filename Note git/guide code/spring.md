@@ -2953,7 +2953,7 @@ Co 2 cach:
 
 - Lay data static in jsp file (`<form:options value="" label=""></form:options>`)
 
-![image-20200212224733077](/spring.assets/image-20200212224733077.png)
+![image-20200212224733077](./spring.assets/image-20200212224733077.png)
 
 - Lay data tu HashMap
 
@@ -3235,7 +3235,7 @@ http://hibernate.org/validator/
 
 Copy all file jar cua hibernate tu trong folder lib va lib/required/
 
-![image-20200212225749382](/spring.assets/image-20200212225749382.png)
+![image-20200212225749382](./spring.assets/image-20200212225749382.png)
 
 
 
@@ -4356,7 +4356,7 @@ The Hibernate team recommends the use of JPA annotations as a best practice.
 
 ### 1. Creating and Saving Java Objects - Part 1
 
-![image-20200213000213889](/spring.assets/image-20200213000213889.png)
+![image-20200213000213889](./spring.assets/image-20200213000213889.png)
 
 **SessionFactory**
 Reads the hibernate config file
@@ -4426,7 +4426,7 @@ public class CreateStudentDemo {
 
 ### 3. Primary Keys - Overview
 
-![image-20200213000310144](/spring.assets/image-20200213000310144.png)
+![image-20200213000310144](./spring.assets/image-20200213000310144.png)
 
 ID Generation Strategies
 **GenerationType.AUTO**:
@@ -5162,7 +5162,7 @@ Xem pdf
 
 pdf sql create table
 
-![image-20200213003302796](/spring.assets/image-20200213003302796.png)
+![image-20200213003302796](./spring.assets/image-20200213003302796.png)
 
 ### 2. @OneToOne - Overview - Part 2
 
