@@ -12,6 +12,8 @@ Tài liệu
 
 https://viblo.asia/p/tim-hieu-giao-thuc-tcp-va-udp-jvEla11xlkw?fbclid=IwAR3exaDe33LbNGDRF-8OOKfLj7s7ZyNTPC8ClJxpvgtS9RfR6J415pmdjQQ
 
+https://viblo.asia/p/dependency-inversion-inversion-of-control-and-dependency-injection-qzakzNYBkyO
+
 ## Session và cookie:
 
 Điểm giống nhau
@@ -136,6 +138,8 @@ Xác định người dùng với cookies
   - Khi      trình duyệt gửi bất cứ request nào đến server thì nó sẽ gửi luôn thông      tin của cookies đó lên server và server đó sẽ sử dụng thông tin đó để xác      thực người dùng này
 
 ## Sử dụng Session hay Cookies?
+
+https://topdev.vn/blog/session-la-gi-cookie-la-gi/
 
 - Sử     dụng Session hoặc Cookie là tuỳ vào lựa chọn của Lập trình viên, tuy nhiên     Session thường được ưa chuộng hơn Cookie vì một số lý do sau:
 
@@ -817,13 +821,13 @@ https://www.java67.com/2019/04/how-to-remove-duplicates-from-unsorted-array-in-j
 
  
 
- 
+ Mảng và dslk
 
 Reverse an array
 
 https://www.java67.com/2016/10/3-ways-to-reverse-array-in-java-coding-interview-question.html
 
- 
+ https://o7planning.org/vi/10319/access-modifier-trong-java
 
 Reverse a linked list
 
@@ -843,7 +847,9 @@ https://javarevisited.blogspot.com/2017/09/java-8-sorting-hashmap-by-values-in.h
 
  
 
- 
+ Sha và base64
+
+
 
 10 sự khác biệt giữa stringbuffer và stringbuilder trong java
 
