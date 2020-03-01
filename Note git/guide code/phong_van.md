@@ -314,7 +314,9 @@ Hạn chế dùng bảng tạm, dùng join nếu có
 
  
 
- 
+ ### Kiểu dữ liệu java:
+
+https://o7planning.org/vi/11571/cac-kieu-du-lieu-trong-java
 
 ## Linked list
 
@@ -781,7 +783,7 @@ binary search
 
 https://javarevisited.blogspot.com/2017/04/recursive-binary-search-algorithm-in-java-example.html
 
-Linear search
+### Linear search
 
 https://www.java67.com/2016/10/how-to-implement-linear-search-in-java.html
 
@@ -823,7 +825,7 @@ https://www.java67.com/2019/04/how-to-remove-duplicates-from-unsorted-array-in-j
 
  Mảng và dslk
 
-Reverse an array
+### Reverse an array
 
 https://www.java67.com/2016/10/3-ways-to-reverse-array-in-java-coding-interview-question.html
 
@@ -857,7 +859,7 @@ https://javarevisited.blogspot.com/2017/09/java-8-sorting-hashmap-by-values-in.h
 
  
 
-NoSQL và SQL:
+### NoSQL và SQL:
 
 https://viblo.asia/p/nhung-diem-khac-biet-giua-sql-va-nosql-gGJ59b4rKX2
 
@@ -877,15 +879,41 @@ https://topdev.vn/blog/javascript-vuot-qua-cac-bai-phong-van-javascript/?fbclid=
 
 https://viblo.asia/p/tim-hieu-ve-hooks-trong-react-p3-m68Z07g2KkG?fbclid=IwAR2zq7MEfttB7VsFS0LBY-gHG2JKPUYTm78mPzzGVDb3uIS0ZNg_EPxHad4
 
- 
+ index
 
- 
+count 1 in sql
 
- 
+### SOLID
 
- 
+https://toidicodedao.com/2015/03/24/solid-la-gi-ap-dung-cac-nguyen-ly-solid-de-tro-thanh-lap-trinh-vien-code-cung/
 
- 
+ https://viblo.asia/p/spring-mvc-framework-tutorial-part-1-DbmvmQMVvAg
+
+https://viblo.asia/p/dependency-inversion-inversion-of-control-and-dependency-injection-qzakzNYBkyO
+
+### Hook react
+
+ https://viblo.asia/p/tim-hieu-ve-hooks-trong-react-p3-m68Z07g2KkG?fbclid=IwAR2zq7MEfttB7VsFS0LBY-gHG2JKPUYTm78mPzzGVDb3uIS0ZNg_EPxHad4
+
+https://viblo.asia/p/tim-hieu-ve-hooks-trong-react-Ljy5VzGG5ra
+
+ ### Design Pattern
+
+https://sourcemaking.com/design_patterns
+
+ https://javarevisited.blogspot.com/2017/03/how-to-find-largest-and-smallest-number.html?fbclid=IwAR0MutCfJApnyTtB8VTVI9fPJ0-Ra3JJoVJl5QcKvNZJDWf3j-jLYz6IQIc#ixzz6CgpaQfDt
+
+https://viblo.asia/p/functional-programming-trong-javascript-voi-lodashfp-naQZRD3v5vx?fbclid=IwAR34hKnEUpNkDMdUixHW10_AFMPEuA6W3f8GAfU8uJjJ8fCZ0hEFfH1EMsM
+
+https://www.udemy.com/course/git-expert-4-hours/?LSNPUBID=JVFxdTr9V80&ranEAID=JVFxdTr9V80&ranMID=39197&ranSiteID=JVFxdTr9V80-8puDy.n2m9OwLHt5q.lJ.Q
+
+https://javarevisited.blogspot.com/2016/12/how-to-count-number-of-leaf-nodes-in-java-recursive-iterative-algorithm.html?fbclid=IwAR1P1bJJrTVQi6jESO7DC7IEkJFKxv26zZkV1aThJpOpXMZRl4pb4wXgviQ#ixzz6CgpSSCRw
+
+Js
+
+https://www.youtube.com/watch?v=qUccVA11dOY&fbclid=IwAR1mdYP50rtUDG_z-u1LNVmfsoB3iXILFwJEw0XD_CW57zK6N77heE3ICUg
+
+
 
  
 
