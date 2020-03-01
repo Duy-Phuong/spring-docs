@@ -82,3 +82,111 @@ https://www.programiz.com/python-programming/variables-constants-literals
 ## git
 
 https://www.gitignore.io/
+
+### ancestry: Parents
+
+```shell
+HEAD^
+aksjhd566^
+# commit trước đó
+HEAD~1
+# Grandparents
+HEAD^^
+git show HEAD^^
+HEAD~2
+# Great parents
+HEAD~3
+...
+```
+
+![image-20200301100910457](./git.assets/image-20200301100910457.png)
+
+git show id: show những thay đổi chi tiết ở lần commit đó, id chỉ cần nhập những số đầu tiên là nó sẽ hiểu, muốn xem parent của nó chỉ cần thêm ^
+
+### log
+
+```shell
+git log -3
+git log
+
+# format
+git log --pretty=format:"%ar, %an, %s"
+
+#filter
+git log --since=2020-02-03
+# q to exit 
+git log --until=2020-02-03
+
+git log --author="Abc"
+# SEARCH commit
+git log --grep="Abc"
+```
+
+![image-20200301124641839](./git.assets/image-20200301124641839.png)  
+
+![image-20200301125312327](./git.assets/image-20200301125312327.png)  
+
+### Branch
+
+```shell
+# list all
+git branch
+# Create new branch
+git branch abc
+# switch
+git checkout branch-name
+
+# create and switch
+git checkout -b branch-name
+
+```
+
+![image-20200301130642207](./git.assets/image-20200301130642207.png)  
+
+![image-20200301130714770](./git.assets/image-20200301130714770.png)  
+
+compare branches
+
+```shell
+git diff master..Abc
+## cái cũ muốn so sánh sẽ nằm trước vd master
+git diff --color-words master..Abc
+
+# rename
+git help branch
+# trên nhánh cần rename
+git branch -m new-name
+
+# delete
+# phai checkout về master
+git branch -d name
+```
+
+### Reset branch
+
+Soft
+
+![image-20200301134600589](./git.assets/image-20200301134600589.png)  
+
+
+
+git checkout -b new old
+
+commit A => commit B
+
+git reset --soft HEAD^ : trở về commit A
+
+git reset --soft commit-b-ID : trở về commit B
+
+git log --oneline -3
+
+Mixed
+
+![image-20200301134639507](./git.assets/image-20200301134639507.png)  
+
+
+
+Hard
+
+![image-20200301134709383](./git.assets/image-20200301134709383.png)  
+
