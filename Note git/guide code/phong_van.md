@@ -1,4 +1,8 @@
-​                                   
+​                          
+
+[TOC]
+
+​         
 
 Tài liệu
 
@@ -15,6 +19,8 @@ https://viblo.asia/p/tim-hieu-giao-thuc-tcp-va-udp-jvEla11xlkw?fbclid=IwAR3exaDe
 https://viblo.asia/p/dependency-inversion-inversion-of-control-and-dependency-injection-qzakzNYBkyO
 
 ## Session và cookie:
+
+https://viblo.asia/p/so-sanh-localstorage-sessionstorage-va-cookies-Ljy5VQQklra?fbclid=IwAR00qUwge8cHE9ZSlFzJ5ob7Tu3f9ZKsy74JxHvPVQK5EpIPhUhdKjXtZhI
 
 Điểm giống nhau
 
@@ -913,9 +919,25 @@ Js
 
 https://www.youtube.com/watch?v=qUccVA11dOY&fbclid=IwAR1mdYP50rtUDG_z-u1LNVmfsoB3iXILFwJEw0XD_CW57zK6N77heE3ICUg
 
+Khoa hoc react drive:
 
+https://drive.google.com/drive/folders/1c-0bNo0uvSuRNC9-K96fnDfK8-R8DyOj?fbclid=IwAR2Hpy23Qgn2egYDm2f-SDNC7nKkFoD9pwOkhx7ZJKecul88YyQ9-629eS4
 
- 
+rxjs
+
+https://dev.to/andrejnaumovski/async-actions-in-redux-with-rxjs-and-redux-observable-efg?fbclid=IwAR3KmIpLpB0W5dhjSyxmAKGnMIUWxCbb-pPqJ4q2y7xQWRQtG2xC1TtaV1I
+
+# Matx React Redux Material Design Admin Dashboard Template
+
+ https://morioh.com/p/9a6b8f23d764?fbclid=IwAR3V-w0Ng74YTwu28cyHLOraPVRNU8IG2QltpBcI8WFFnhPkeBDyX9Hrq0k
+
+# 6 Essential VSCode Extensions for Angular Developers
+
+https://morioh.com/p/0e54a8cff696?f=5c21fb01c16e2556b555ab32&fbclid=IwAR1tLahRJAwhvtvYCPIR7C0SYFjqCjJUXJ1Oh72jkvoDnV5uskR71YVDsYA
+
+CORS
+
+https://viblo.asia/p/cors-la-gi-cors-voi-nodejs-Qbq5QyyL5D8?fbclid=IwAR3dbxdAMlb4KC4DNgkACZCoXbyDjeJn9nPipVTpzV8j5qDb-nsBoHRGS_4
 
  
 

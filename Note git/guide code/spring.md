@@ -1,10 +1,10 @@
 ---
-typora-root-url: ./
+F:\programing\document\java\spring-hiberante
 ---
 
 [TOC]
 
------ 
+-----
 
 - [Spring & Hibernate for Beginners (includes Spring Boot)](#spring--hibernate-for-beginners-includes-spring-boot)
 	- [Tai lieu](#tai-lieu)
@@ -671,7 +671,7 @@ https://github.com/spring-projects/spring-framework/wiki/What%27s-New-in-Spring-
 
 - Added new reactive programming framework: Spring WebFlux
 
-### 4. Spring Core Framework - Part 1
+### 4. Spring Core Framework - Part 1 
 
 Core container:
 
@@ -780,7 +780,7 @@ The approach of outsourcing the construction and management of objects.
     }
 ```
 
-F:\Backup\DISK\D\Docs\spring-hiberante\spring-hibernate-source-code-v26
+F:\programing\document\java\spring-hiberante\spring-hibernate-source-code-v26
 
 ### 4. Spring Inversion of Control - Overview
 
@@ -807,6 +807,44 @@ Spring container is generically known as ApplicationContext
 1. Configure your Spring Beans
 2. Create a Spring Container
 3. Retrieve Beans from Spring Container
+
+F:\Source\spring worksapce
+
+1
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<!-- Define your beans here -->
+
+	<!-- define the dependency -->
+	<!-- <bean id="myFortuneService" class="com.luv2code.springdemo.HappyFortuneService"> 
+		</bean> -->
+
+	<bean id="myCoach" class="com.luv2code.springdemo.TrackCoach">
+	</bean>
+
+	<!-- <bean id="myCoach" class="com.luv2code.springdemo.BaseballCoach"> </bean> -->
+	<bean id="myLoggerConfig"
+		class="com.luv2code.springdemo.MyLoggerConfig"
+		init-method="initLogger">
+		<property name="rootLoggerLevel" value="FINE" />
+		<property name="printedLoggerLevel" value="FINE" />
+	</bean>
+</beans>
+
+
+```
+
+2
 
 ```java
         // load the spring configuration file
@@ -1075,6 +1113,8 @@ public class HelloSpringApp {
 }
 ```
 
+**Setter Injection**
+
 applicationContext.xml
 
 ```java
@@ -1296,10 +1336,30 @@ Spring Container creates only one instance of the bean, by default
 **Explicitly Specify Bean Scope and type - pdf**
 singleton and prototype
 
+![image-20200402133103647](./spring.assets/image-20200402133103647.png)
+
 ### 2. Bean Lifecycle
 
 1. Define your methods for init and destroy
 2. Configure the method names in Spring config file
+
+```xml
+<!-- define the dependency -->
+    <bean id="myFortuneService"
+    		class="com.luv2code.springdemo.HappyFortuneService">
+    	</bean>
+    
+ 	<bean id="myCoach"
+ 		class="com.luv2code.springdemo.TrackCoach"
+ 		init-method="doMyStartupStuff"
+ 		destroy-method="doMyCleanupStuffYoYo">	
+ 		
+ 		<!-- set up constructor injection -->
+ 		<constructor-arg ref="myFortuneService" />
+ 	</bean>
+```
+
+
 
 #### Special Note about init and destroy Method Signatures
 

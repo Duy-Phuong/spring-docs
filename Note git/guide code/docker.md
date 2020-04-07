@@ -1,6 +1,6 @@
+# How to Install Docker on Ubuntu?
 
-
-
+https://morioh.com/p/ac53e9609def?fbclid=IwAR0Xs-cuzWglUGCnAJusrgV8foCTl7BJrmBEcQvym18UqQPDeph1e7CGOOo
 
 https://viblo.asia/p/streaming-videos-server-su-dung-nginx-rtmp-va-hls-maGK7q4Llj2?fbclid=IwAR1XsysEQ9rJWUX3rvu45e-pIk2RuRw4ybxojN499ILPVMt-uBuGX-1ZbXU
 
@@ -160,3 +160,6 @@ https://github.com/arun-gupta/docker-for-java
 
 ![image-20200301082606048](./docker.assets/image-20200301082606048.png)  
 
+# Build and Deploy a Spring Boot App on Kubernetes
+
+https://www.youtube.com/watch?v=EZolJ4lNiYc&feature=youtu.be&fbclid=IwAR1-EPox3mhW-rEh9VwI9HGz2OwTxMgDTZclBy2PBHila9OOZIL_plkSzqg
