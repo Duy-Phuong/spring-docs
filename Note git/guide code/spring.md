@@ -633,6 +633,51 @@ F:\programing\document\java\spring-hiberante
 
 ## Tai lieu
 
+Downloading the Source Code and PDF Files
+
+**Download Source Code:**
+
+This only includes the source files, no JAR files. You will need to add JAR files separately on your own. You have two options for downloading the code.
+
+*Option 1: Download zip file*
+
+File: [**spring-and-hibernate-for-beginners-master.zip**](https://github.com/darbyluv2code/spring-and-hibernate-for-beginners/archive/master.zip)
+
+*Option 2: Download using git command-line*
+
+You also have the option to download source code using git command-line.
+
+```
+git clone https://github.com/darbyluv2code/spring-and-hibernate-for-beginners.git
+```
+
+
+
+Note: Option 1 and Option 2 both has links to the exact same code. You only need to choose one of the options.
+
+
+\---
+
+**Download PDF Files**
+
+All slides which are shown during the course are available also as a reference and can be downloaded here:
+
+http://www.luv2code.com/download-spring-hibernate-pdfs
+
+
+
+\---
+
+**Download FAQ Notes PDF Files**
+
+The course also includes a collection of FAQ Notes. These are available for download as PDFs:
+
+http://www.luv2code.com/download-spring-hibernate-faq-notes
+
+---
+
+
+
 Download Source Code:
 
 This only includes the source files, no JAR files. You will need to add JAR files separately on your own.
@@ -718,20 +763,27 @@ Check: java -version
 
 ### 2. Installing Tomcat
 
-Install apache: https://tomcat.apache.org/
-![](../../root/img/2019-11-11-00-27-24.png)
+Install apache: https://tomcat.apache.org/  
+
+![](../../root/img/2019-11-11-00-27-24.png)  
 Chọn version Tomcat9/ Chọn 32-bit/64-bit Windows Service Installer
-Sau đó cài đặt Apache : an next/ Chon type of Install la **FULL** /
-![](../../root/img/2019-11-11-00-29-57.png)
+Sau đó cài đặt Apache : an next/ Chon type of Install la **FULL** /  
+
+![](../../root/img/2019-11-11-00-29-57.png)  
 Lưu ý : phải chọn full, và nhập tên và pass cho admin
-admin - admin
+admin - admin  
+
 ![](../../root/img/2019-11-11-00-30-44.png)
-Bỏ chọn Show Readme và click Finish
-![](../../root/img/2019-11-11-00-07-20.png)
-Verify install bằng cách vào link: http://localhost:8080/
+Bỏ chọn Show Readme và click Finish  
+
+![](../../root/img/2019-11-11-00-07-20.png)  
+
+Verify install bằng cách vào link: http://localhost:8080/  
+
 ![](../../root/img/2019-11-11-00-26-04.png)
 **Image**
-![](../../root/img/2019-11-11-00-12-17.png)
+![](../../root/img/2019-11-11-00-12-17.png)  
+
 Vào windows gõ service: tomcat => stop
 ![](../../root/img/2019-11-11-00-25-07.png)
 Install eclipse: chọn download packages => eclipse for Java EE
@@ -753,9 +805,18 @@ Thêm thủ công vào:
 http://www.luv2code.com/downloadspring =>
 http://repo.spring.io/release/org/springframework/spring/
 chọn version release ở dưới cùng rồi chọn **spring-framework-5.1.8.RELEASE-dist.zip** để tải
-Tạo project java bình thường, sau đó tạo thư mục lib trong java project rồi copy tất các các thư viện trong lib đã tải paste vào
+Tạo project java bình thường, sau đó tạo thư mục lib trong java project rồi copy tất các các thư viện trong lib đã tải paste vào  
+
+![image-20200518101454215](spring.assets/image-20200518101454215.png)  
+
+
+
 **Rightclick/ properties/ Java build path/ libraries/ classpath/** ấn add jar rồi chon đến thư mục lib trong project mà ta vừa tạo chọn hết tất cả các file
-![](../../root/img/2019-11-11-00-43-58.png)  
+
+![image-20200518101621766](spring.assets/image-20200518101621766.png)  
+
+
+
 **Nếu đúng sẽ xuất hiện Referenced libraries:**
 
 ## 4. Spring Inversion of Control - XML Configuration
@@ -808,7 +869,7 @@ Spring container is generically known as ApplicationContext
 2. Create a Spring Container
 3. Retrieve Beans from Spring Container
 
-F:\Source\spring worksapce
+
 
 1
 
@@ -860,6 +921,10 @@ F:\Source\spring worksapce
 		// close the context
 		context.close();
 ```
+
+![image-20200518103925979](spring.assets/image-20200518103925979.png)  
+
+
 
 #### FAQ: What is a Spring Bean?
 
@@ -1114,6 +1179,74 @@ public class HelloSpringApp {
 ```
 
 **Setter Injection**
+
+CricketCoach.java
+
+```java
+package com.luv2code.springdemo;
+
+public class CricketCoach implements Coach {
+
+	private FortuneService fortuneService;	
+	
+	// create a no-arg constructor
+	public CricketCoach() {
+		System.out.println("CricketCoach: inside no-arg constructor");
+	}
+	
+	// our setter method
+	public void setFortuneService(FortuneService fortuneService) {
+		System.out.println("CricketCoach: inside setter method - setFortuneService");
+		this.fortuneService = fortuneService;
+	}
+
+	@Override
+	public String getDailyWorkout() {
+		return "Practice fast bowling for 15 minutes";
+	}
+
+	@Override
+	public String getDailyFortune() {
+		return fortuneService.getFortune();
+	}
+
+}
+
+```
+
+SetterDemoApp.java
+
+```java
+package com.luv2code.springdemo;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class SetterDemoApp {
+
+	public static void main(String[] args) {
+
+		// load the spring configuration file
+		ClassPathXmlApplicationContext context = 
+				new ClassPathXmlApplicationContext("applicationContext.xml");
+		
+		// retrieve bean from spring container
+		CricketCoach theCoach = context.getBean("myCricketCoach", CricketCoach.class);
+		
+		// call methods on the bean
+		// ... let's come back to this ...
+		System.out.println(theCoach.getDailyWorkout());
+		
+		System.out.println(theCoach.getDailyFortune());
+						
+		// close the context
+		context.close();
+	}
+
+}
+
+```
+
+
 
 applicationContext.xml
 
@@ -1933,7 +2066,7 @@ This class will set the parent logger level for the application context. It will
 
 ***File: MyLoggerConfig.java\***
 
-```
+```java
 package com.luv2code.springdemo;
 
 import java.util.logging.ConsoleHandler;

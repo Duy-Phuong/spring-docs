@@ -729,3 +729,515 @@ reduce => import functools
 ### 072 Division and Grouping the Results
 
 ### 073 Setting the Search Parameters
+
+
+
+---
+
+# The Complete Python 3 Course Go from Beginner to Advanced
+
+## Cài đặt:
+
+python
+
+Tải python về sau đó vào environment variables/ system var… / rồi vào windows gõ python/ open file location => new Path: link vừa copy
+
+ 
+
+C:\Users\phuong\AppData\Local\Programs\Python\Python37\
+
+C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe
+
+ ![image-20200517082826028](python.assets/image-20200517082826028.png)
+
+​                               
+
+ 
+
+Có thể click vào add path cho nhanh
+
+Kiểm tra: $ python –version
+
+jupyter
+
+Python A-Z™ Python For Data Science With Real Exercises!
+
+https://pymi.vn/blog/jupyter-notebook/
+
+Install anaconda cho windows
+
+Vào command line gõ: jupyter notebook
+
+## Kiến thức :
+
+Kiểu dữ liệu : dùng hàm type(a) để kiểm tra kiểu dữ liệu của biến a là gì
+
+A, b, c = ‘1’, 2, True 
+
+\# biến tương ứng với giá trị được gán
+
+A = b = c = 1
+
+A = 1
+
+B = ‘str’
+
+A = B
+
+type(a) # <str>
+
+Trong python các block được hiểu bằng cách thụt vào 1 khoảng
+
+Cách clear màn hình cmd:
+
+import os
+
+clear = lambda: os.system(‘cls’)
+
+clear
+
+‘’’
+
+Comment
+
+‘’’
+
+String:
+
+Str[0]
+
+Str[-3]
+
+Str[2:5]
+
+A = 2 * ‘con’
+
+print(a) #concon
+
+ 
+
+format method :
+
+print(‘Today i had a {0} and {1}’.format(3, ‘cup’))
+
+print(‘prices: {x}’.format(x=3.0))
+
+\# có thể sd kết hợp lại
+
+print(‘{:<20}’.format(‘text’))
+
+print(‘{:>20}’.format(‘text’)) # chèn thêm khoảng trắng ở bên trái
+
+print(‘{:b}’.format(21)) => binary 
+
+ 
+
+ 
+
+Toán tử: and or not > < ==
+
+Condition(python k có switch):
+
+**if** condition1 :
+ indentedStatementBlockForTrueCondition1
+ **elif** condition2 :
+ indentedStatementBlockForFirstTrueCondition2
+ **elif** condition3 :
+ indentedStatementBlockForFirstTrueCondition3
+ **elif** condition4 :
+ indentedStatementBlockForFirstTrueCondition4
+ **else**:
+ indentedStatementBlockForEachConditionFalse
+
+Loop(có thể SD while như for)
+
+**for** iterating_var in sequence:
+   statements(s)
+
+range(start:stop:step)
+
+break
+
+continue
+
+for I in range(0:10):
+
+  print(i) # 0 -> 9
+
+Hàm:
+
+**def** functionname(param, param2,..):
+ statements(s)
+
+ 
+
+\# default params
+
+def func(a, c = 2)
+
+ 
+
+\# lambda function
+
+F = lambda x, y: x + y
+
+F = lambda a : lambda b: lambda c: a + b + c
+
+F(2)(3)(0)
+
+Từ khóa pass ngầm hiểu là k làm gì cả
+
+Exception:
+
+try: 
+
+except Exception as e:
+
+except IOError:
+
+finally:
+
+ 
+
+\# throw
+
+If 1==2:
+
+   raise ValueError(‘’)
+
+Example:
+
+def Test(a, b):
+
+   assert a > b, ‘err’
+
+try: 
+
+   Test(2, 1)
+
+except AssetionError as e:
+
+   
+
+ 
+
+Data input: 
+
+Age = input(‘input: ’)
+
+ 
+
+File:
+
+File = open(‘filename.txt’, ‘r’)
+
+File.read() # đọc hết
+
+File.read(4) # đọc 4 ký tự
+
+File.tell() # vt con trỏ hiện tại
+
+File.seek(5) # move con trỏ
+
+File.close()
+
+ 
+
+Kiểu dữ liệu:
+
+Tuple: không thay đổi được, nằm trong dấu (), truy cập thông qua chỉ số
+
+Có thể SD toán tử += để nối thêm tuples
+
+Tup += ((1,‘a’),)
+
+Các hàm: min(x), max, len
+
+List: có thể sử dụng hàm append để thêm phần tử, pop để lấy phần tử trên cùng nếu k chỉ ra vt, len(list), 
+
+Dictionary: có thể sử dụng số như 1 key vd: a_dic[0]
+
+Shallow copy
+
+Set : chứa các phần tử duy nhất
+
+| # hợp
+
+^ # giao
+
+\- # hiệu
+
+Modules
+
+import file
+
+file.isPrime(3)
+
+ 
+
+cách 2 : import file as f
+
+cách 3 : form file import isPrime
+
+isPrime(3)
+
+ 
+
+in ra list hàm: print(dir(file))
+
+Package: có file ___init__.py thì xem như là 1 package
+
+Import copy
+
+Dic = copy.deepcopy(dic1) # k ảnh hưởng
+
+Class
+
+**class** myclass([parentclass]):
+ assignments
+ **def** __init__(self):
+ statements
+ **def** method():
+ statements
+ **def** method2():
+ statements
+
+ 
+
+__init__ là hàm khởi tạo
+
+__del__ là hàm hủy
+
+__bien : là biến private, truy cập ở ngoài sẽ gây exception
+
+class Animal():
+
+  name = 'Amy'
+
+  noise = "Grunt"
+
+  size = "Large"
+
+  color = "Brown"
+
+  hair = 'Covers body'
+
+  def get_color(self, abc):
+
+​    return self.color + " " + abc
+
+  @property
+
+  def make_noise(self):
+
+​    return self.noise
+
+ 
+
+dog = Animal()
+
+print(dog.get_color("red"))
+
+ 
+
+print(dog.make_noise)
+
+Tính kế thừa
+
+ 
+
+The Complete Python 3 Course Go from Beginner to Advanced!\15 Data Visualization + nummy: nâng cao
+
+ 
+
+Regular expression in python:
+
+Import re
+
+match = re.search(‘pp’, ‘The content pp’)
+
+print(match)
+
+print(match.re.pattern) # pp
+
+print(match.string) # chuỗi tìm kiếm
+
+print(match.start()) # vt bd khớp vd 8
+
+\# cách 2
+
+regex = re.compile(‘pp’)
+
+print(regex.search(‘pp in pp..’).start()) # 0 
+
+print(regex.findall(‘pp in pp..’)) # [‘pp’,’pp’]
+
+print(re.match(‘pp’, ‘pp in pp..’)) # pp nếu match đầu
+
+còn tiếp…
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+# 30 Days of Python Unlock your Python Potential
+
+## Source
+
+joincfe.com/github
+
+https://github.com/codingforentrepreneurs
+
+search: https://github.com/codingforentrepreneurs/30-Days-of-Python
+
+Python, Angular 4, Django: joincfe.com/github - joincfe.com/youtube -joincfe.com/suggest 
+
+https://www.codingforentrepreneurs.com/projects/#setup https://www.codingforentrepreneurs.com/suggest https://www.youtube.com/user/CodingEntrepreneurs/playlists
+
+Trong cmd gõ … để viết tiếp ở dòng khác
+
+Python send email & csv
+
+Smtplib: xem sau
+
+021 Day 13 - Using External Template Files with Context Data in Python
+
+\hi\this\ois\a\file.txt => window path
+
+** means format a string base on dictionaries
+
+CSV:
+
+import csv
+
+with open("data.csv", "w+") as csvfile:
+
+  writer = csv.writer(csvfile)
+
+  writer.writerow(["Col 1", "Col 2"])
+
+  writer.writerow(["Data 1", "Data 2"])
+
+ 
+
+with open("data.csv", "r") as csvfile:
+
+  reader = csv.reader(csvfile)
+
+  for row in reader:
+
+​    print(row)
+
+https://github.com/codingforentrepreneurs/30-Days-of-Python/blob/master/PythonCheatSheet.md
+
+Edit csv: day 16
+
+import shutil
+
+from tempfile import NamedTemporaryFile
+
+ 
+
+def edit_data(edit_id=None, email=None, amount=None, sent=None):
+
+  filename = "data.csv"
+
+  temp_file = NamedTemporaryFile(delete=False)
+
+ 
+
+  with open(filename, "rb") as csvfile, temp_file:
+
+​    reader = csv.DictReader(csvfile)
+
+​     fieldnames = ['id', 'name', 'email', 'amount', 'sent', 'date']
+
+​    writer = csv.DictWriter(temp_file, fieldnames=fieldnames)
+
+​    writer.writeheader()
+
+​    for row in reader:
+
+​      \#print(row['id'] == 4)
+
+​      if edit_id is not None:
+
+​        if int(row['id']) == int(edit_id):
+
+​          row['amount'] = amount
+
+​          row['sent'] = sent
+
+​      elif email is not None and edit_id is None:
+
+​        if str(row['email']) == str(email):
+
+​          row['amount'] = amount
+
+​          row['sent'] = sent
+
+​      else:
+
+​        pass
+
+​      writer.writerow(row)
+
+​    
+
+​    shutil.move(temp_file.name, filename)
+
+​    return True
+
+  return False
+
+ 
+
+ 
+
+\#edit_data(8, 9992.32, "")
+
+edit_data(email='hello@teamcfe.com', amount=99.99, sent='')
+
+Read data from csv: day 17 read_data()
+
+Day 18: Để chạy lệnh python hungry phải có hàm file main trước
+
+Đối với file được import vào module phải có:
+
+\#file_item_path = os.path.join(os.getcwd(), "data.csv")
+
+file_item_path = os.path.join(os.path.dirname(__file__), "data.csv")
+
+run: python hungry --user_id 10
+
+python hungry -id 3
+
+python hungry view -id 3
+
+python hungry message -id 3
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Web Scraping with Python 3 Python Requests BeautifulSoup
+
+Text Messaging (SMSMMS) with Python Twilio
+
+Twitter API python
+
+Read Email Inbox using Python Gmail
