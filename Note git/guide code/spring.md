@@ -3080,7 +3080,7 @@ main-menu
 </html>
 ```
 
-form
+helloworld-form
 
 ```html
 <form action="processForm" method="GET">
@@ -3115,26 +3115,6 @@ Student name: ${param.studentName}
 ### 8. Reading HTML Form Data - Write Some Code - Part 1
 
 ### 9. Reading HTML Form Data - Write Some Code - Part 2
-
-process Form
-
-```
-<!DOCTYPE html>
-<html>
-
-<body>
-
-Hello World of Spring!
-
-<br><br>
-
-Student name: ${param.studentName}
-
-</body>
-
-</html>
-
-```
 
 ### 10. Reading HTML Form Data - Write Some Code - Part 3
 
@@ -3808,7 +3788,7 @@ public Student() {
    
    // populate country options: used ISO country code
    countryOptions = new LinkedHashMap<>();
-   
+    
    countryOptions.put("BR", "Brazil");
    countryOptions.put("FR", "France");
    countryOptions.put("DE", "Germany");
@@ -4265,6 +4245,8 @@ Source: https://docs.spring.io/spring/docs/current/spring-framework-reference/we
 
 ### 6. Add Validation Rule to Customer Class
 
+solution-code-spring-mvc-validation-required-fields
+
 ### 7. Display Validation Error Messages on HTML Form
 
 ### 8. Perform Validation in Controller Class - Part 1
@@ -4351,13 +4333,7 @@ errorType.Class.field
 Vao file xml
 
 ```xml
-Load resource messsage
-    <bean id="messageSource"
-          class="org.springframework.context.support.ResourceBundleMessageSource">
-
-        <property name="basenames" value="resources/messages" />
-
-    </bean>
+ 
 ```
 
 ### 8. How to Handle String input for Integer Fields - Deep Dive
@@ -4631,6 +4607,9 @@ public class CourseCodeConstraintValidator
 }
 
 // can add additional error msg in theConstraintValidatorContext
+
+@CourseCode(value="TOPS", message="must start with TOPS")
+	private String courseCode;
 ```
 
 ### 5. Developing the ConstraintValidator
@@ -4788,6 +4767,9 @@ To Do List
 https://hibernate.org/orm/
 Tải version 5.4
 Copy tất cả file trong \hibernate-release-5.4.6.Final\lib\required
+
+![image-20200519152408286](spring.assets/image-20200519152408286.png)  
+
 Tải jdbc connector: https://dev.mysql.com/downloads/connector/j/5.1.html
 Rồi copy 1 file jar đó vào eclipse
 
@@ -5255,7 +5237,10 @@ database table to ensure uniqueness
 ### 5. Primary Keys - Changing the Starting Index
 
 Bat dau tu 200:
-`ALERT TABLE hb.student AUTO_INCREMENT=200`
+`ALERT TABLE hb.student AUTO_INCREMENT=200`  
+
+![image-20200519161357080](spring.assets/image-20200519161357080.png)
+
 Cách reset
 `Truncate hn.student`	
 
@@ -5775,7 +5760,7 @@ public class DateUtils {
 
 We need to add a date field to the Student class. We map this field to the database column, "date_of_birth". Also, we make use of the @Temporal annotation. This is a Java annotation for storing dates.
 
-```
+```java
     @Column(name="date_of_birth")
     @Temporal(TemporalType.DATE)    
     private Date dateOfBirth;
@@ -5903,7 +5888,7 @@ Note the use of DateUtils above.
 
 Now for the grand finale. In the main program, read the date as a String and parse/convert it to a date. Here's the snippet of code.
 
-```
+```java
             String theDateOfBirthStr = "31/12/1998";
             Date theDateOfBirth = DateUtils.parseDate(theDateOfBirthStr);
             
@@ -5977,6 +5962,44 @@ Xem pdf
 ### 1. @OneToOne - Overview - Part 1
 
 pdf sql create table
+
+```sql
+DROP SCHEMA IF EXISTS `hb-01-one-to-one-uni`;
+
+CREATE SCHEMA `hb-01-one-to-one-uni`;
+
+use `hb-01-one-to-one-uni`;
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS `instructor_detail`;
+
+CREATE TABLE `instructor_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `youtube_channel` varchar(128) DEFAULT NULL,
+  `hobby` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+
+DROP TABLE IF EXISTS `instructor`;
+
+CREATE TABLE `instructor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(45) DEFAULT NULL,
+  `last_name` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `instructor_detail_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_DETAIL_idx` (`instructor_detail_id`),
+  CONSTRAINT `FK_DETAIL` FOREIGN KEY (`instructor_detail_id`) REFERENCES `instructor_detail` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+```
+
+
 
 ![image-20200213003302796](./spring.assets/image-20200213003302796.png)
 
@@ -6124,6 +6147,8 @@ hb-01-0ne-to-one-uni
 ### 5. @OneToOne - Write Some Code - Prep Work
 
 Xem file word
+
+![image-20200519201605236](spring.assets/image-20200519201605236.png)
 
 ### 6. @OneToOne - Write Some Code - Create InstructorDetail class
 
@@ -6275,6 +6300,8 @@ public class DeleteDemo {
 ### 11. @OneToOne - Bi-Directional Overview
 
 pdf
+
+Ban đầu CASCADE TYPE là ALL
 
 ```java
 package com.luv2code.hibernate.demo.entity;
@@ -6444,6 +6471,8 @@ public class GetInstructorDetailDemo {
 ```
 
 ### 13. @OneToOne - Bi-Directional - Develop Main App
+
+Khi delete để all sẽ xóa hết 
 
 ```java
 package com.luv2code.hibernate.demo;
