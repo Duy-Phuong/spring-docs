@@ -1272,6 +1272,8 @@ applicationContext.xml
     </bean>
 ```
 
+![image-20200521225302056](spring.assets/image-20200521225302056.png)  
+
 #### FAQ: What is the purpose for the no arg constructor?
 
 Question:
@@ -1344,6 +1346,8 @@ public class SetterDemoApp {
 
 }
 ```
+
+![image-20200521225414128](spring.assets/image-20200521225414128.png)
 
 #### Injecting Literal Values Development Process
 
@@ -7148,6 +7152,10 @@ public class EagerLazyDemo {
 
 Debug moi thay duoc khi co get ra no moi query
 
+![image-20200519230157555](spring.assets/image-20200519230157555.png)  
+
+![image-20200519230248607](spring.assets/image-20200519230248607.png)  
+
 ### 5. Eager vs Lazy Loading - Coding - Closing the Session
 
 Dat `session.close();` truoc getCourse => exception
@@ -8977,18 +8985,20 @@ a. Edit the file: CustomerController.java
 
 b. Add the new mapping and method
 
-    @GetMapping("/search")
-    public String searchCustomers(@RequestParam("theSearchName") String theSearchName,
-                                    Model theModel) {
-    
-        // search customers from the service
-        List<Customer> theCustomers = customerService.searchCustomers(theSearchName);
-    
-        // add the customers to the model
-        theModel.addAttribute("customers", theCustomers);
-    
-        return "list-customers";
-    }
+```java
+@GetMapping("/search")
+public String searchCustomers(@RequestParam("theSearchName") String theSearchName,
+                                Model theModel) {
+
+    // search customers from the service
+    List<Customer> theCustomers = customerService.searchCustomers(theSearchName);
+
+    // add the customers to the model
+    theModel.addAttribute("customers", theCustomers);
+
+    return "list-customers";
+}
+```
 
 c. You may have syntax errors on the customerService, but we'll resolve that in the next section.
 
@@ -9008,12 +9018,14 @@ c. Edit the file: CustomerServiceImpl.java
 
 d. Add the method:
 
-    @Override
-    @Transactional
-    public List<Customer> searchCustomers(String theSearchName) {
-    
-        return customerDAO.searchCustomers(theSearchName);
-    }
+```java
+@Override
+@Transactional
+public List<Customer> searchCustomers(String theSearchName) {
+
+    return customerDAO.searchCustomers(theSearchName);
+}
+```
 
 e. You may have syntax errors on the customerDAO, but we'll resolve that in the next section.
 
@@ -9033,36 +9045,38 @@ c. Edit the file: CustomerDAOImpl.java
 
 d. Add the method:
 
-    @Override
-    public List<Customer> searchCustomers(String theSearchName) {
-    
-        // get the current hibernate session
-        Session currentSession = sessionFactory.getCurrentSession();
-    
-        Query theQuery = null;
-    
-        //
-        // only search by name if theSearchName is not empty
-        //
-        if (theSearchName != null && theSearchName.trim().length() > 0) {
-    
-            // search for firstName or lastName ... case insensitive
-            theQuery =currentSession.createQuery("from Customer where lower(firstName) like :theName or lower(lastName) like :theName", Customer.class);
-            theQuery.setParameter("theName", "%" + theSearchName.toLowerCase() + "%");
-    
-        }
-        else {
-            // theSearchName is empty ... so just get all customers
-            theQuery =currentSession.createQuery("from Customer", Customer.class);
-        }
-    
-        // execute query and get result list
-        List<Customer> customers = theQuery.getResultList();
-    
-        // return the results
-        return customers;
-    
+```java
+@Override
+public List<Customer> searchCustomers(String theSearchName) {
+
+    // get the current hibernate session
+    Session currentSession = sessionFactory.getCurrentSession();
+
+    Query theQuery = null;
+
+    //
+    // only search by name if theSearchName is not empty
+    //
+    if (theSearchName != null && theSearchName.trim().length() > 0) {
+
+        // search for firstName or lastName ... case insensitive
+        theQuery =currentSession.createQuery("from Customer where lower(firstName) like :theName or lower(lastName) like :theName", Customer.class);
+        theQuery.setParameter("theName", "%" + theSearchName.toLowerCase() + "%");
+
     }
+    else {
+        // theSearchName is empty ... so just get all customers
+        theQuery =currentSession.createQuery("from Customer", Customer.class);
+    }
+
+    // execute query and get result list
+    List<Customer> customers = theQuery.getResultList();
+
+    // return the results
+    return customers;
+
+}
+```
 
 In this method, we need to check "theSearchName", this is the user input. We need to make sure it is not empty. If it is not empty then we will use it in the search query. If it is empty, then we'll just ignore it and simply return all of the customers.
 
@@ -9105,6 +9119,8 @@ http://luv2code.com/download-aspectjweaver
 
 https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
 Sau đó vào buildpath add
+
+![image-20200520101157390](spring.assets/image-20200520101157390.png)
 
 ### 3. AOP @Before Advice - Write Some Code
 
@@ -9489,9 +9505,13 @@ public class LuvAopExpressions {
 
 ### 3. AOP Ordering Aspects - Write Some Code - Part 2
 
+![image-20200520105001301](spring.assets/image-20200520105001301.png)
+
 ## 40. AOP JoinPoints
 
 ### 1. AOP Read Method Arguments with JoinPoints - Overview
+
+![image-20200520105111393](spring.assets/image-20200520105111393.png)
 
 ### 2. AOP Read Method Arguments with JoinPoints - Write Some Code
 
@@ -9681,43 +9701,11 @@ public class MyDemoLoggingAspect {
 
 	}
 
-
-	@Before("com.luv2code.aopdemo.aspect.LuvAopExpressions.forDaoPackageNoGetterSetter()")
-	public void beforeAddAccountAdvice(JoinPoint theJoinPoint) {
-
-		System.out.println("\n=====>>> Executing @Before advice on method");
-
-		// display the method signature
-		MethodSignature methodSig = (MethodSignature) theJoinPoint.getSignature();
-
-		System.out.println("Method: " + methodSig);
-
-		// display method arguments
-
-		// get args
-		Object[] args = theJoinPoint.getArgs();
-
-		// loop thru args
-		for (Object tempArg : args) {
-			System.out.println(tempArg);
-
-			if (tempArg instanceof Account) {
-
-				// downcast and print Account specific stuff
-				Account theAccount = (Account) tempArg;
-
-				System.out.println("account name: " + theAccount.getName());
-				System.out.println("account level: " + theAccount.getLevel());
-
-			}
-		}
-
-	}
-
-}
 ```
 
 ### 4. AOP @AfterReturning - Write Some Code - Part 2
+
+![image-20200520121324456](spring.assets/image-20200520121324456.png)
 
 ### 5. AOP @AfterReturning - Modifying Data - Write Some Code
 
@@ -9750,6 +9738,12 @@ AfterThrowingDemoApp
 ```
 
 ### 2. AOP @AfterThrowing - Write Some Code
+
+![image-20200520124152881](spring.assets/image-20200520124152881.png)  
+
+![image-20200520124221046](spring.assets/image-20200520124221046.png)  
+
+
 
 ```java
 public class MyDemoLoggingAspect {
@@ -9788,6 +9782,14 @@ public class MyDemoLoggingAspect {
 	}
 
 ```
+
+![image-20200520140103023](spring.assets/image-20200520140103023.png)  
+
+![image-20200520140132897](spring.assets/image-20200520140132897.png)  
+
+![image-20200520140219124](spring.assets/image-20200520140219124.png)  
+
+
 
 ## 44. AOP @Around Advice Type
 
@@ -9828,6 +9830,8 @@ public class TrafficFortuneService {
 
 ```
 
+MyDemoLoggingAspect
+
 ```java
 @Around("execution(* com.luv2code.aopdemo.service.*.getFortune(..))")
 	public Object aroundGetFortune(
@@ -9854,9 +9858,17 @@ public class TrafficFortuneService {
 	}
 ```
 
+![image-20200520141910399](spring.assets/image-20200520141910399.png)  
+
+
+
 ### 3. AOP @Around - Write Some Code - Part 2
 
 ```java
+// read spring config java class
+		AnnotationConfigApplicationContext context =
+				new AnnotationConfigApplicationContext(DemoConfig.class);
+
 // get the bean from spring container
 		TrafficFortuneService theFortuneService =
 				context.getBean("trafficFortuneService", TrafficFortuneService.class);
@@ -9875,7 +9887,13 @@ public class TrafficFortuneService {
 		context.close();
 ```
 
+![image-20200520141944007](spring.assets/image-20200520141944007.png)  
+
+
+
 ### 4. AOP @Around Advice - Resolve Order Issue
+
+![image-20200520142434667](spring.assets/image-20200520142434667.png)
 
 Using Logger to print
 
@@ -9920,6 +9938,8 @@ public class AroundWithLoggerDemoApp {
 					Logger.getLogger(AroundWithLoggerDemoApp.class.getName());
 ```
 
+![image-20200520142602851](spring.assets/image-20200520142602851.png)
+
 ### 5. AOP @Around Advice - Handling Exceptions - Overview
 
 ### 6. AOP @Around Advice - Handling Exceptions - Write Some Code
@@ -9962,6 +9982,10 @@ public class AroundWithLoggerDemoApp {
 	}
 ```
 
+![image-20200520142937052](spring.assets/image-20200520142937052.png)  
+
+
+
 ### 7. AOP @Around Advice - Rethrowing Exceptions
 
 ```java
@@ -10001,12 +10025,53 @@ public class AroundWithLoggerDemoApp {
 	}
 ```
 
+![image-20200520143128289](spring.assets/image-20200520143128289.png)  
+
 ## 45. AOP Add AOP Logging to Spring MVC App - Real-Time Project
 
 ### 1. AOP AOP and Spring MVC App - Overview
 
 Right click/ Properties/ Web project settings
 chang Url to: web-custom-tracker-aop
+
+![image-20200520143444935](spring.assets/image-20200520143444935.png)  
+
+
+
+![image-20200520143324073](spring.assets/image-20200520143324073.png)  
+
+![image-20200520143350083](spring.assets/image-20200520143350083.png)  
+
+![image-20200520143412912](spring.assets/image-20200520143412912.png)  
+
+xml
+
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+       // add
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+                        // add
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- Add AspectJ autoproxy support for AOP -->
+	<aop:aspectj-autoproxy />
+```
+
+
 
 ### 2. AOP AOP and Spring MVC App - Write Some Code - Create Aspect
 
@@ -10090,7 +10155,11 @@ public class CRMLoggingAspect {
 
 ### 3. AOP AOP and Spring MVC App - Write Some Code - Add @Before Advice
 
+![image-20200520144357074](spring.assets/image-20200520144357074.png)
+
 ### 4. AOP AOP and Spring MVC App - Write Some Code - Add @AfterReturning Advice
+
+![image-20200520144245959](spring.assets/image-20200520144245959.png)
 
 ## 46. Maven Crash Course
 
@@ -10262,7 +10331,102 @@ Import maven project error => fix add : File WORD
 
 ### 5. Spring Security - Project Downloads and Setup
 
+![image-20200521143359071](spring.assets/image-20200521143359071.png)  
+
 ### 6. Spring Security - Maven Configuration
+
+Khi import vào sẽ bị lỗi 
+
+pom.xml
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.luv2code</groupId>
+	<artifactId>spring-security-demo</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+
+	<name>spring-security-demo</name>
+
+	<properties>
+		<springframework.version>5.0.2.RELEASE</springframework.version>
+
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+
+		<!-- Spring MVC support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<!-- Servlet, JSP and JSTL support -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- to compensate for java 9+ not including jaxb -->
+		<dependency>
+		    <groupId>javax.xml.bind</groupId>
+		    <artifactId>jaxb-api</artifactId>
+		    <version>2.3.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<!-- TO DO: Add support for Maven WAR Plugin -->
+	<build>
+		<finalName>spring-security-demo</finalName>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+				    <groupId>org.apache.maven.plugins</groupId>
+				    <artifactId>maven-war-plugin</artifactId>
+				    <version>3.2.0</version>					
+				</plugin>						
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>
+
+```
+
+
+
+Nên cần thêm maven plugin
+
+![image-20200521150155478](spring.assets/image-20200521150155478.png)  
+
+Xong rồi update maven project
 
 ### 7. FAQ Maven can't find a class but I have it in pom.xml.html
 
@@ -10399,6 +10563,8 @@ public class DemoController {
 ### 11. Spring Security - Run the App
 
 add file demo.jsp
+
+![image-20200521151708115](spring.assets/image-20200521151708115.png)
 
 ### 12. Spring Security - Add Spring Security Maven Dependencies
 
@@ -10684,6 +10850,10 @@ Later in the course we'll store user accounts in the database using encryption. 
 In the following video, when you see a deprecation warning for, User.withDefaultPasswordEncoder() you can safely ignore it: because we are only using it for demo purposes.
 
 ### 18. Spring Security - Create Security Config
+
+jsp
+
+![image-20200521151708115](spring.assets/image-20200521151708115.png)
 
 ## 48. Spring Security - Adding Custom Login Form
 
@@ -11729,9 +11899,33 @@ www.jsomplaceholder.typicode.com
 
 ### 4. Spring REST - Creating a Spring REST Controller - Overview 2
 
+config
+
+## REST SPRING
+
+![img](spring.assets/image-1589968592909.png)
+
+
+
+![img](spring.assets/image-1589968593277.png)
+
+
+
+![img](spring.assets/image-1589968593278.png)
+
+Edit jdk
+
+Change url
+
+![img](spring.assets/image.png)
+
+
+
 ### 5. Spring REST - REST Controller Demo - Set Up Maven Project
 
 luv2code.com/spring-rest-demo
+
+![image-20200520163802534](spring.assets/image-20200520163802534.png)
 
 solution-code-spring-rest-demo-hello-world
 pom.xml
@@ -11903,6 +12097,8 @@ Create jsp file in src/main/webapp
 
 ```
 
+![image-20200520163615207](spring.assets/image-20200520163615207.png)
+
 ## 59. Spring REST - Retrieve POJOs as JSON
 
 ### 1. Spring REST - Retrieve POJOs as JSON - Overview
@@ -11946,6 +12142,8 @@ public class StudentRestController {
 ### 3. Spring REST - Retrieve POJOs as JSON - Create REST Controller
 
 ### 4. Spring REST - Retrieve POJOs as JSON - Test REST Controller
+
+![image-20200520170551354](spring.assets/image-20200520170551354.png)
 
 index.jsp
 
@@ -12045,7 +12243,7 @@ public class StudentErrorResponse {
 		this.message = message;
 		this.timeStamp = timeStamp;
 	}
-	// get setƯ
+	// get set
 ```
 
 ### 4. Spring REST - Exception Handling - Update REST Service to throw Exception
@@ -12124,7 +12322,9 @@ public class StudentNotFoundException extends RuntimeException {
 
 ### 7. Spring REST - Exception Handling - Adding Generic Exception Handler
 
-Nhap id la STring
+Nhap id la String lỗi 
+
+![image-20200520175456680](spring.assets/image-20200520175456680.png)
 
 ### 8. Spring REST - Global Exception Handling Overview
 
@@ -12187,6 +12387,8 @@ public class StudentRestExceptionHandler {
 ## 62. Spring REST - API Design Best Practices
 
 ### 1. Spring REST - API Design Best Practices
+
+![image-20200520175702169](spring.assets/image-20200520175702169.png)
 
 ### 2. Spring REST - API Design of Real-Time Projects (PayPal, Github and SalesForce)
 
@@ -12854,6 +13056,12 @@ Controller
 
 xem lai
 
+![image-20200520231338524](spring.assets/image-20200520231338524.png)  
+
+![image-20200520231412155](spring.assets/image-20200520231412155.png)  
+
+![image-20200520231429946](spring.assets/image-20200520231429946.png)
+
 ### 4. Spring Boot - Spring Boot Actuator - Applying Security to Actuator Endpoints
 
 ## 72. Spring Boot - Running Spring Boot Apps from the Command Line
@@ -12878,11 +13086,51 @@ luv2code.com/spring-boot-employee-sql-script
 
 ### 2. Spring Boot - Configuring the Spring Boot Server
 
+![image-20200520235223391](spring.assets/image-20200520235223391.png)
+
 ## 74. Spring Boot - Build a REST CRUD API with Hibernate - Real-Time Project
 
 ### 1. Spring Boot - REST CRUD Real-Time Project Overview and Database Set Up
 
-![](../../root/img/2020-02-11-00-40-14.png)
+![](../../root/img/2020-02-11-00-40-14.png)  
+
+![image-20200521010647659](spring.assets/image-20200521010647659.png)  
+
+```sql
+CREATE DATABASE  IF NOT EXISTS `employee_directory`;
+USE `employee_directory`;
+
+--
+-- Table structure for table `employee`
+--
+
+DROP TABLE IF EXISTS `employee`;
+
+CREATE TABLE `employee` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(45) DEFAULT NULL,
+  `last_name` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+--
+-- Data for table `employee`
+--
+
+INSERT INTO `employee` VALUES 
+	(1,'Leslie','Andrews','leslie@luv2code.com'),
+	(2,'Emma','Baumgarten','emma@luv2code.com'),
+	(3,'Avani','Gupta','avani@luv2code.com'),
+	(4,'Yuri','Petrov','yuri@luv2code.com'),
+	(5,'Juan','Vega','juan@luv2code.com');
+
+
+```
+
+![image-20200521010930455](spring.assets/image-20200521010930455.png)  
+
+
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -13076,6 +13324,7 @@ public interface EmployeeDAO {
 
 	public List<Employee> findAll();
 
+    // part 7 add
 	public Employee findById(int theId);
 
 	public void save(Employee theEmployee);
@@ -13130,50 +13379,6 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 	}
 
 
-	@Override
-	public Employee findById(int theId) {
-
-		// get the current hibernate session
-		Session currentSession = entityManager.unwrap(Session.class);
-
-		// get the employee
-		Employee theEmployee =
-				currentSession.get(Employee.class, theId);
-
-		// return the employee
-		return theEmployee;
-	}
-
-
-	@Override
-	public void save(Employee theEmployee) {
-
-		// get the current hibernate session
-		Session currentSession = entityManager.unwrap(Session.class);
-
-		// save employee
-		currentSession.saveOrUpdate(theEmployee);
-	}
-
-
-	@Override
-	public void deleteById(int theId) {
-
-		// get the current hibernate session
-		Session currentSession = entityManager.unwrap(Session.class);
-
-		// delete object with primary key
-		Query theQuery =
-				currentSession.createQuery(
-						"delete from Employee where id=:employeeId");
-		theQuery.setParameter("employeeId", theId);
-
-		theQuery.executeUpdate();
-	}
-
-}
-
-
 
 ```
 
@@ -13205,20 +13410,77 @@ Run application
 
 update DAO
 
+```java
+
+	@Override
+	public Employee findById(int theId) {
+
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		// get the employee
+		Employee theEmployee =
+				currentSession.get(Employee.class, theId);
+		
+		// return the employee
+		return theEmployee;
+	}
+
+
+	@Override
+	public void save(Employee theEmployee) {
+
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		// save employee
+		currentSession.saveOrUpdate(theEmployee);
+	}
+
+
+	@Override
+	public void deleteById(int theId) {
+		
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+				
+		// delete object with primary key
+		Query theQuery = 
+				currentSession.createQuery(
+						"delete from Employee where id=:employeeId");
+		theQuery.setParameter("employeeId", theId);
+		
+		theQuery.executeUpdate();
+	}
+```
+
+
+
 ### 8. Spring Boot - Refactoring the Code to use a Service Layer
 
 ```java
+
+package com.luv2code.springboot.cruddemo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.luv2code.springboot.cruddemo.dao.EmployeeDAO;
+import com.luv2code.springboot.cruddemo.entity.Employee;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
 	private EmployeeDAO employeeDAO;
-
+	
 	@Autowired
-	public EmployeeServiceImpl(@Qualifier("employeeDAOJpaImpl") EmployeeDAO theEmployeeDAO) {
+	public EmployeeServiceImpl(EmployeeDAO theEmployeeDAO) {
 		employeeDAO = theEmployeeDAO;
 	}
-
+	
 	@Override
 	@Transactional
 	public List<Employee> findAll() {
@@ -13244,6 +13506,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 }
+
+
 ```
 
 ### 9. Spring Boot - REST Controller Methods to Find and Add Employee
@@ -13407,6 +13671,12 @@ Fix
 
 ### 2. Spring Boot - Creating Spring Data JPA Repository
 
+Tại service xóa @Transactional
+
+![image-20200521091725671](spring.assets/image-20200521091725671.png)  
+
+
+
 ```java
 package com.luv2code.springboot.cruddemo.dao;
 
@@ -13421,6 +13691,30 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 }
 
 ```
+
+Service
+
+```java
+@Override
+	public Employee findById(int theId) {
+		Optional<Employee> result = employeeRepository.findById(theId);
+		
+		Employee theEmployee = null;
+		
+		if (result.isPresent()) {
+			theEmployee = result.get();
+		}
+		else {
+			// we didn't find the employee
+			throw new RuntimeException("Did not find employee id - " + theId);
+		}
+		
+		return theEmployee;
+	}
+```
+
+![image-20200521092501155](spring.assets/image-20200521092501155.png)
+
 
 ### 3. Spring Boot - Testing the REST API with Spring Data JPA Repository
 
@@ -13938,15 +14232,288 @@ Get list sort by last name
 
 ### 6. More Thymeleaf coming.html
 
+## Bonus Lecture - Security - Login/Logout with Spring Boot and Thymeleaf
+
+**Spring Security - Login/Logout with Spring Boot and Thymeleaf**
+
+
+
+FAQ: Can you provide a code example of performing Spring Security login/logout with Spring Boot and Thymeleaf?
+
+
+
+Answer:
+
+Yes, here are code examples of Spring Security login/logout. I've extended the Employee Directory example with Spring Security.
+
+![img](spring.assets/2019-09-30_01-18-53-359fe3d74c82240e5c44ba47824d3d13.png)
+
+![img](spring.assets/2019-09-30_01-19-04-6e189492f36363979de5add9f67feea9.png)
+
+
+
+**Source Code**
+
+Two versions of the source are available.
+
+Version 1: In-Memory Authentication
+
+[bonus-thymeleafdemo-employees-security-with-in-memory-authentication.zip](https://drive.google.com/open?id=1ga5TC3DhGJA98dGRpuGrxuo6jTu_542A)
+
+
+
+Version 2: JDBC Authentication with Encrypted Passwords
+
+[bonus-thymeleafdemo-employees-security-with-jdbc-authentication.zip](https://drive.google.com/open?id=1d84g3Dj3Vks7aTe23M--l2k7LT6cgJO0)
+
+
+
+Each project has a README.txt file. View this file for a high-level discussion of the source code.
+
+
+
+Enjoy :-)
+
+
+
+Bonus Lecture - Security - User Registration with Spring Boot and Thymeleaf
+
+**Spring Security - Custom User Registration with Spring Boot and Thymeleaf**
+
+
+
+FAQ: Can you provide an example of user registration with Spring Boot and Thymeleaf? Also, how can we add support for additional fields such as email etc. Can we also store the information in the database using Hibernate?
+
+
+
+Answer:
+
+Yes, I have a code example for this scenario. Here's a screenshot of the registration form.
+
+![img](spring.assets/2019-09-30_01-37-01-37b6f7fa00ab0c1db7bf63a6ba2db623.png)
+
+
+
+**Source Code:**
+
+[**bonus-code-spring-security-user-registration-custom-user-details-thymeleaf-spring-boot.zip**](https://drive.google.com/open?id=1PL4litXj8-fuzKSYqO9btBlhP0-iG6p9)
+
+
+
+The project includes a README.txt file. See this file for a high-level discussion of the code.
+
+This code is also based on a previous bonus lecture from the Security section. Please see this lecture for full details: [Spring Security - User Registration](https://www.udemy.com/course/spring-hibernate-tutorial/learn/lecture/9552122).
+
+
+
+Enjoy!
+
+
+
+
+
 ## 81. Summary
 
 ### 1. Thank You and Please Leave a Rating for the Course
 
 ### 2. Direct Links to My Java Courses.html
 
+Direct Links to My Java Courses
+
+**DIRECT LINKS TO MY JAVA COURSES**
+
+
+
+[**Full Stack: Angular and Spring Boot**](https://www.udemy.com/course/full-stack-angular-spring-boot-tutorial/?referralCode=2264F90C65A86316BB6B)
+
+![img](spring.assets/2020-02-23_00-42-08-ad878b5b437699b8676f4e8822dd60bd.png)
+
+
+
+[**Hibernate: Advanced Development Techniques**](https://www.udemy.com/course/hibernate-tutorial-advanced/?referralCode=6FB9E2BA9AF54A4C9E69)
+
+![img](spring.assets/2020-02-23_00-43-12-fbaa112455b8c2be0a836b2531cbdf32.png)
+
+
+
+[**Deploy Java Spring Apps Online to Amazon Cloud (AWS)**](https://www.udemy.com/course/deploy-java-spring-apps-online/?referralCode=8657A7587B731C9A2BFD)
+
+![img](spring.assets/2019-06-03_15-14-35-c1e6d2e2f71748024ad39cbfbe4845df.png)
+
+
+
+[**JSP and Servlets for Beginners**](https://www.udemy.com/course/jsp-tutorial/?referralCode=6027B0CEC877AB05F5A2)
+
+![img](spring.assets/jsp-servlet-tutorial-thumbnail-2017-small.png)
+
+
+
+
+
+[**Java Server Faces (JSF) for Beginners**](https://www.udemy.com/course/jsf-tutorial/?referralCode=CE9890BB044B1AA40810)
+
+![img](spring.assets/jsf-for-beginners-thumbnail-final-jan-2017-small.png)
+
 ## 82. Appendix
 
 ### 1. FAQ Spring Student Questions.html
+
+FAQ: Spring Student Questions
+
+
+
+**Congrats for finishing the course.**
+
+A frequently asked question is "Where to go from here?" A lot of developers want to further their knowledge by learning advanced Spring topics and practicing projects.
+
+I've compiled a list of resources that you can use to get more information on Spring advanced features. Enjoy!
+
+**Spring Boot and Angular**
+
+\- [https://github.com/dsyer/spring-boot-angular
+](http://websystique.com/springmvc/spring-4-mvc-angularjs-crud-application-using-ngresource/)
+
+**Spring MVC and File Upload**
+
+-[ https://spring.io/guides/gs/uploading-files/](https://spring.io/guides/gs/uploading-files/)
+
+**Spring RESTful web services**
+
+\- https://spring.io/guides/gs/rest-service/
+
+**Spring Security for Web Apps**
+
+\- https://spring.io/guides/gs/securing-web/
+
+**Spring and Facebook**
+
+\- https://spring.io/guides/gs/accessing-facebook/
+
+**Spring and Twitter**
+
+\- https://spring.io/guides/gs/accessing-twitter/
+
+--- **Build a Basic CRUD App with Angular and Spring Boot**
+
+https://developer.okta.com/blog/2017/12/04/basic-crud-angular-and-spring-boot
+
+=====
+
+**FAQ: I would like to see examples of real-world projects that use Spring**
+
+**Answer:**
+
+Here are some sample Spring projects you can look at.
+
+They are of moderate size complexity
+
+**Project Sagan** 
+
+This is a real-world app that powers the Spring.io website. It is in production and used by thousands of users each day.
+
+You can get information about the project and get source code here: - https://github.com/spring-io/sagan/wiki
+
+​     \---
+
+**Spring Petstore Example**
+
+This is an example project for the classic PetClinic / PetStore example. https://github.com/spring-projects/spring-petclinic
+
+\---
+
+**E-Commerce Product - Broadleaf**
+
+https://www.broadleafcommerce.com/
+
+The Broadleaf product is based on Spring and Hibernate. You can get details on their framework and source code at the link below
+
+https://www.broadleafcommerce.com/framework
+
+\---
+
+**OpenSource Projects Using Spring**
+
+Access real-world projects that make use of Spring code - http://www.programcreek.com/2012/08/open-source-projects-that-use-spring-framework/
+
+\---
+
+Finally there are some other instructors here on Udemy that created courses on Spring ecommerce, angular etc. Be sure to check the reviews
+and perform your own research on those courses. I am not involved in any of those other courses. I just wanted to pass information along :-)
+
+=====
+
+**FAQ: How to Host my Java apps Online?**
+
+\---
+
+Here's a free guide that walks you through the steps:
+
+***The Ultimate Guide to Hosting a Java Web App with Amazon Web Services (AWS)\*** http://coderscampus.com/ultimate-guide-hosting-java-web-app-amazon-web-services-aws/
+
+=====
+
+**Student Question** I want a solution for hiding customer id in URL. Maybe,change request from GET to POST?
+
+\-----
+
+**Solution**
+
+In the files below, look for modified code. Simply search for the text "luv2code: UPDATES".
+
+Here's the basic approach.
+
+For the links, change the table to use forms. There is a form for each row of data. The form would be setup to POST the data. Each row would have a unique button with the ID embedded. Apply special CSS to make the Submit button look like a hypertext link.
+
+The controller request mappings will now support @PostMapping. This is for /showFormForUpdate and /delete
+
+\---
+
+**Notes about the solution.**
+
+Using the POST method does not add security. It simply "hides" the request data. But any web user can still easily see the data. All they have to do is use Chrome Dev Tools or FireFox Firebug. So, using POST is only giving you "security by obscurity" which is weak if you have highly sensitive data.
+
+If you have highly sensitive data then you should use SSL encryption on your server and make use of Spring Security to protect sensitve web URLs in your app.
+
+\---
+
+Having the customer ID in the URL is not a problem. The GET approach is a standard practice that is used in the industry. However the solution was provided based on student's request.
+
+In our example, the ID is for customers ... but this could easily be a product ID. The important thing is the customer ID is not sensitive data.
+
+If you check the major ecommerce sites like Amazon or Best Buy, the product ID is heavily used in the URL.
+
+The URLs below are live URLs on production ecommerce systems that use product ID in the URL.
+
+Amazon
+\- https://www.amazon.com/dp/B01DFKC2SO
+
+BestBuy
+\- http://www.bestbuy.com/site/amazon-echo-dot/5578864.p?skuId=5578864
+
+\---
+
+**Solution Source Code
+**
+
+\- https://gist.github.com/darbyluv2code/df856411a3e0c926a4654660045acda4
+
+======
+
+**FAQ: Which more secure? GET or POST?**
+
+Note, simply using the POST method does not add secure encryption. The data is still sent in the clear without any protection or encryption.
+
+See this link:
+
+***Is either GET or POST more secure than the other?\***
+
+https://stackoverflow.com/questions/198462/is-either-get-or-post-more-secure-than-the-other
+
+\--- 
+
+You can use SSL for enterprise-grade network security and encryption.
+
+Here's a tutorial on Tomcat SSL: https://www.mulesoft.com/tcat/tomcat-ssl
 
 ## 83. Bonus Spring Boot Deployments on Tomcat
 
