@@ -12121,6 +12121,8 @@ http://www.luv2code.com/bonus-spring-crm-with-security
 
 ### 1. Spring REST - JSON Overview
 
+![image-20200522205605204](spring.assets/image-20200522205605204.png)
+
 ### 2. Spring REST - JSON Data Binding with Jackson - Overview 1
 
 pom.xml
@@ -13291,6 +13293,28 @@ Tai POSTMAN json dat ten bien theo nhu ten bien trong java: firstName
 
 http://www.luv2code.com/downloads/udemy-spring-hibernate/spring-rest/adding-spring-security-to-crm-rest-api.pdf
 
+Bonus Lecture: Creating a REST Client with Spring
+
+**Bonus: Creating a REST Client with Spring**
+
+We previously created a CRM web app using JSP. Wouldn’t it be great if we could have the CRM web app leverage the CRM REST API for data?
+
+![img](spring.assets/2019-05-19_01-40-44-429ae00194ea570ff9d8bef64ef83750.png)
+
+We cover this functionality in the following PDF document.
+
+PDF: http://www.luv2code.com/crm-web-app-rest-client-demo-pdf
+
+
+
+Also the full source code is available for download
+
+Source Code: http://www.luv2code.com/crm-web-app-rest-client-demo-code
+
+
+
+Enjoy!!!
+
 ### 2. Bonus Lecture Securing REST API Endpoints.html
 
 ### 2.1 adding-spring-security-to-crm-rest-api.pdf.pdf
@@ -13398,6 +13422,10 @@ Jar is created in target sub-directory
 
 `java -jar abc.jar`
 
+![image-20200522230555482](spring.assets/image-20200522230555482.png)  
+
+
+
 ![](../../root/img/2020-02-11-00-25-51.png)
 
 ### 2. Spring Boot - Running Spring Boot Apps from the Command Line - Coding
@@ -13410,6 +13438,10 @@ Create a controller get to test return value from String is true
 luv2code.com/spring-boot-employee-sql-script
 
 ### 2. Spring Boot - Configuring the Spring Boot Server
+
+![image-20200522230800896](spring.assets/image-20200522230800896.png)  
+
+
 
 ![image-20200520235223391](spring.assets/image-20200520235223391.png)
 
