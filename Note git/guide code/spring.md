@@ -2558,9 +2558,9 @@ https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#m
 ### 4. Download Spring MVC Starter Files.html
 
 In the following videos for Spring MVC, I provide a collection of starter files.
-Download these files from the link below.
-http://www.luv2code.com/downloads/udemy-spring-hibernate/solution-code-spring-mvc-config-files.zip
-You will need these in the following videos.
+Download these files from the link below.  
+http://www.luv2code.com/downloads/udemy-spring-hibernate/solution-code-spring-mvc-config-files.zip  
+You will need these in the following videos.  
 Cheers :-)
 
 ### 5. Spring MVC Configuration - Overview
@@ -2642,10 +2642,65 @@ spring-mvc-demo-servlet.xml
 
 **File/ New/ Dynamic web project/Finish**
 Copy spring jar files vào thư mục WebContent/ WEB-INF/ lib
-Copy thêm 2 file jstl():
+Copy thêm 2 file jstl() + 1 file log:
 
 - javax.servlet.jsp.jstl-1.2.1.jar
 - javax.servlet.jsp.jstl-api-1.2.1
+
+solution-code-spring-mvc-create-home-controller-and-view
+
+![img](spring.assets/image-1590112801229.png)
+
+
+
+![img](spring.assets/image-1590112818235.png)
+
+
+
+![img](spring.assets/image-1590112818247.png)
+
+Sau đó click finish
+
+Copy spring jar files vào thư mục WebContent/ WEB-INF/ lib Copy thêm 2 file jstl():
+
+- javax.servlet.jsp.jstl-1.2.1.jar
+- javax.servlet.jsp.jstl-api-1.2.1
+
+
+
+![img](spring.assets/image-1590112818250.png)
+
+
+
+![img](spring.assets/image-1590112818252.png)
+
+
+
+![img](https://gblobscdn.gitbook.com/assets%2F-M50mbzm6VJA99Q0CdUd%2F-M7eNMLDaQLDjCp4xTGB%2F-M7ePVBC3ld082y15vkG%2Fimage.png?alt=media&token=9b90dcc4-2dba-414d-aa76-056d22a0a485)
+
+
+
+Then create folder view in WEB-INF folder
+
+Config build path => add jar
+
+![img](spring.assets/image-1590112818253.png)
+
+
+
+![img](spring.assets/image-1590112818253.png)
+
+‌
+
+If error run http://luv2code.com/spring-mvc-helps
+
+If error Check the Java Build Path, Java Compiler and Project Facets and make sure that the Java version
+
+![img](spring.assets/image-1590113038482.png)
+
+‌
+
+## FAQ: HELP! My Spring MVC Controller is not working. What to do?
 
 ### 7. Spring MVC Configuration - Config Files
 
@@ -2760,6 +2815,8 @@ let me know if you need anything else.
 ## 12. Spring MVC - Creating Controllers and Views
 
 ### 1. Creating a Spring Home Controller and View – Overview
+
+video 375
 
 **Development Process**
 
@@ -3256,290 +3313,8 @@ Apply the same technique for reading CSS and JavaScript.
 \---
 
 Here's a full example that reads CSS, JavaScript and images.
-
-<!DOCTYPE html> <html>
-
-<head>
-
-   **
-
-​       **href="${pageContext.request.contextPath}/resources/css/my-test.css">**
-
-    <script src="${pageContext.request.contextPath}/resources/js/simple-test.js"></script>
-</head>
-
-<body>
-
-<h2>Spring MVC Demo - Home Page</h2>
-<a href="showForm">Plain Hello World</a>
-
-<br><br>
-
-<img src="${pageContext.request.contextPath}/resources/images/spring-logo.png" />
-
-<br><br>
-
-<input type="button" onclick="doSomeWork()" value="Click Me"/>
-
-</body>
-
-</html>
-
-\---
-
-Source code for this example are available here:
-
-\- https://gist.github.com/darbyluv2code/9a09543a226baeedc04b9a5037ca52ec
-
-### 15. Bonus Deploying To Tomcat using WAR files.html
-
----
-
-JUST A HEADS UP ...
-
-IN THE VIDEOS YOUR SPRING MVC CONTROLLER CODE MAY NOT WORK
-
-THIS IS AN ECLIPSE CACHING BUG
-
-IF YOUR CONTROLLER DOESN'T WORK THEN TRY THE STEPS BELOW
-
----
-
-### Question: HELP! My Spring MVC Controller is not working. What to do?
-
-Answer: **File html have images**!!!!!
-
-Debug Tip #0: Make sure you are accessing the correct URL
-
-You need to access the correct URL, localhost:8080/spring-mvc-demo/
-
-Note: Do not attempt to run the JSP files directly. This will not work due to MVC.
-
----
-
-Debug Tip #1: Make Sure your Package Names is consistent
-
-The Spring configuration file used in the videos expects for your controller to be in the package:
-
-package com.luv2code.springdemo.mvc;
-
-Make sure your controller is this package.
-
----
-
-Debug Tip #2: Reimport Project into Eclipse
-
-Sometimes the Eclipse project settings can become corrupted. One possible solution is to remove the Eclipse project and reimport into Eclipse.
-
-Here are the steps.
-
-1. Remove the project from Eclipse.
-
-2) Open the project in file system and remove the files/ folders except src and WebContent.
-
-3. Open the project in Eclipse again using File > Import ... > General > Existing Projects into Workspace
-
-4. Check the project properties(Right click on the project and click on Properties),
-
-5. Check the Java Build Path, Java Compiler and Project Facets and make sure that the Java version is same in all the windows.
-
-5) Build the project and try again.
-
----
-
-Debug Tip #3: Clear Tomcat Cache
-This is normally a caching issue with the cache.
-
-Here are some steps to clear the Eclipse cache and Tomcat cache.
-
-1. In the Server's tab in Eclipse, Stop the Tomcat server
-
-2. Right-click the server and select "Clean..."
-
-3. Right-click the server again and select "Clean Tomcat Work Directory..."
-
----
-
-4. In the Eclipse, select the top-level menu option, Project > Clean ...
-
-5. Be sure your project is selected and click Ok
-
-6. Restart Eclipse
-
-Retest your application. If you continue to have problems try Debug Tip #2
-
----
-
-Debug Tip #4: Import the Project in a new workspace
-
-1. Copy your project to a new directory on your computer like, c:\foobar
-
-2. In Eclipse, open a new workspace: Create a new workspace in Eclipse: File > Switch Workspace > Other ... > give any name
-
-3. In Eclipse, import the project
-
-3a. Use File > Import > General > Existing Projects into Workspace
-
-3b. Browse to directory: c:\foobar
-
-4. In your new workspace, add a reference to the Tomcat server
-
-5. Test your app in the new workspace
-
----
-
-If you still have problems, then post your code to the classroom discussion forum.
-
-Be sure to include the following files:
-
-- spring-mvc-demo-servlet.xml
-- your controller .java
-- your view page .jsp
-
-### Can't Start Tomcat - Ports are in Use
-
-You may have a problem starting Tomcat. You may see this ugly error message about ports in use.
-
-Solution
-
-You can use the troubleshooting tips below.
-
-Troubleshooting Tip #1
-
-1. Exit Eclipse
-
-2. Open a web web browser and visit, http://localhost:8080
-
-3. If you see a "Tomcat" web page then that means Tomcat is running as a Windows service. To stop Tomcat running as a Windows services, open your Windows Control Panel. Find the service "Apache Tomcat" and stop it.
-
-4. If you don't see a "Tomcat" web page, then stop the appropriate process displayed.
-
---
-Troubleshooting Tip #2 - GUI Option
-
-Steps to free port which is already used to run Tomcat server in Eclipse
-
-1. On MS Windows, select Start > All Programs > Accessories > System Tools >Resource Monitor
-
-2. Expand the Network Tab
-
-3. Move to the section for Listening Ports
-
-4. Look in the Port column and scroll to find entry for port 8080
-
-5. Select the given process and delete/kill the process
-
-6. Return back to Eclipse and start the Tomcat Server, it should start up now.
-
----
-
-Troubleshooting Tip #3 - Command-Line Option
-
-Steps to free port which is already used to run Tomcat server in Eclipse
-
-For example , suppose 8080 port is used , we need to make free 8080 to run tomcat
-
-Step 1: (open the CMD command)
-
-C:\Users\username>netstat -o -n -a | findstr 0.0:8080
-
-TCP 0.0.0.0:3000 0.0.0.0:0 LISTENING 3116
-
-Now , we can see that LISTENING port is 3116 for 8080 ,
-
-We need to kill 3116 now
-
-Step 2:
-
-C:\Users\username>taskkill /F /PID 3116
-
-Step 3: Return back to Eclipse and start the Tomcat Server, it should start up now.
-
-====
-
-Mac/Linux SOLUTION
-
-Step 0: Exit Eclipse
-
-Step 1: Open a terminal window
-
-Step 2: Enter the following command to find the process id
-
-lsof -i :8080
-This will give output of the application that is running on port 8080
-
-Step 3: Enter the following command to kill the process
-
-kill \$(lsof -t -i :8080)
-
-Step 4: Return back to Eclipse and start the Tomcat Server, it should start up now.
-
----
-
-### How Does Component Scan Work - Your Package Names are Different!
-
-Question
-
-How does component scan work in this example? You have different package names.
-
-You listed the component scan package as: com.luv2code.springdemo
-
-But the our MVC controllers are defined in com.luv2code.springdemo.mvc
-
-Answer
-For the Spring attribute: base-package="com.luv2code.springdemo"
-
-Spring will recursively scan for components starting at the base package: "com.luv2code.springdemo"
-
-When I say "recursive", it means that Spring will start at the base package and scan all sub packages.
-
-The package com.luv2code.springdemo.mvc is a sub package because of naming structure, just like folders on a file system.
-
-As a result, it will be included in the scan.
-
----
-
-Question
-
-### How do I use CSS, JavaScript and Images in a Spring MVC Web App?
-
-Answer
-
-Here are the steps on how to access static resources in a Spring MVC. For example, you can use this to access images, css, JavaScript files etc.
-
-Any static resource is processed as a URL Mapping in Spring MVC. You can configure references to static resources in the spring-mvc-demo-servlet.xml.
-
-In my example, I'm going to have the following directory structure:
-
-I chose to put everything in the "resources" directory. But you can use any name for "resources", such as "assets", "foobar" etc. Also, you can give any name that you want for the subdirectories under "resources".
-
----
-
-Step 1: Add the following entry to your Spring MVC configuration file: spring-mvc-demo-servlet.xml
-
-You can place this entry anywhere in your Spring MVC config file.
-
-```xml
-<mvc:resources mapping="/resources/\*\*" location="/resources/"></mvc:resources>
-
-```
-
-Step 2: Now in your view pages, you can access the static files using this syntax:
-
-```java
-<img src="${pageContext.request.contextPath}/resources/images/spring-logo.png">
-
-```
-
-You need to use the JSP expression \${pageContext.request.contextPath} to access the correct root directory for your web application.
-
-Apply the same technique for reading CSS and JavaScript.
-
----
-
-Here's a full example that reads CSS, JavaScript and images.
-
 ```html
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -3570,11 +3345,27 @@ Here's a full example that reads CSS, JavaScript and images.
 </html>
 ```
 
----
+\---
 
 Source code for this example are available here:
 
-- https://gist.github.com/darbyluv2code/9a09543a226baeedc04b9a5037ca52ec
+\- https://gist.github.com/darbyluv2code/9a09543a226baeedc04b9a5037ca52ec
+
+### 15. Bonus Deploying To Tomcat using WAR files.html
+
+---
+
+JUST A HEADS UP ...
+
+IN THE VIDEOS YOUR SPRING MVC CONTROLLER CODE MAY NOT WORK
+
+THIS IS AN ECLIPSE CACHING BUG
+
+IF YOUR CONTROLLER DOESN'T WORK THEN TRY THE STEPS BELOW
+
+---
+
+
 
 ## 13. Spring MVC - Request Params and Request Mappings
 
@@ -4314,6 +4105,8 @@ Kiểu dữ liệu khi validate phải là object và có đầy đủ get set
 
 Nếu để kiểu int thay vì Integer sẽ bị lỗi
 
+![image-20200522095658943](spring.assets/image-20200522095658943.png)
+
 ### 5. How to make Integer Field Required freePasses
 
 ```java
@@ -4334,11 +4127,7 @@ errorType.Class.field
 
 ### 7. How to Handle String input for Integer Fields - Configure Resource Bundle
 
-Vao file xml
-
-```xml
- 
-```
+![image-20200522095445244](spring.assets/image-20200522095445244.png)  
 
 ### 8. How to Handle String input for Integer Fields - Deep Dive
 
@@ -4908,6 +4697,146 @@ public class Student {
 
 ### 4. HEADS UP - FOR JAVA 9 USERS.html
 
+HEADS UP - FOR JAVA 9 USERS
+
+**JUST A HEADS UP - FOR JAVA 9, 10 and 11 USERS**
+
+**If you are using Java 9, 10 or 11, then you will encounter an error when you run your Hibernate program.**
+
+**These are the steps to resolve it. Come back to the lecture if you hit the error.**
+
+\----
+
+***Error: Exception in thread "main" java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException\***
+
+
+
+This happens because of Java 9 and higher. 
+
+Java 9 and higher has removed java.xml.bind from its default classpath. That's why we get the class not found exception. We have to explicitly add JAR files to the build path.
+
+\---
+
+***Solution
+***
+
+For Java 9 and higher, you need to additional JAR files.
+
+You need to download the following JAR files:
+
+javax.activation-1.2.0.jar
+jaxb-api-2.3.0.jar
+jaxb-core-2.3.0.jar
+jaxb-impl-2.3.0.jar
+
+\---
+
+\1. Download the files using links below:
+
+[javax.activation-1.2.0.jar](http://search.maven.org/remotecontent?filepath=com/sun/activation/javax.activation/1.2.0/javax.activation-1.2.0.jar)
+
+[jaxb-api-2.3.0.jar](http://search.maven.org/remotecontent?filepath=javax/xml/bind/jaxb-api/2.3.0/jaxb-api-2.3.0.jar)
+
+[jaxb-core-2.3.0.jar](http://search.maven.org/remotecontent?filepath=com/sun/xml/bind/jaxb-core/2.3.0/jaxb-core-2.3.0.jar)
+
+[jaxb-impl-2.3.0.jar](http://search.maven.org/remotecontent?filepath=com/sun/xml/bind/jaxb-impl/2.3.0/jaxb-impl-2.3.0.jar)
+
+\---
+
+\2. Copy the JAR files to the **lib** folder of your project
+
+javax.activation-1.2.0.jar
+jaxb-api-2.3.0.jar
+jaxb-core-2.3.0.jar
+jaxb-impl-2.3.0.jar
+
+\---
+
+Use the following steps to add the JAR files to your Java Build Path.
+
+\3. Right-click your project, select **Properties**
+
+\4. On left-hand side, click **Java Build Path**
+
+\5. In top-center of dialog, click **Libraries**
+
+\6. Click **Classpath** and then **Click Add JARs ...**
+
+\7. Navigate to the JAR files **/lib**
+
+Select the files:
+javax.activation-1.2.0.jar
+jaxb-api-2.3.0.jar
+jaxb-core-2.3.0.jar
+jaxb-impl-2.3.0.jar
+
+\8. Click OK then click Apply and Close
+
+Eclipse will perform a rebuild of your project and it will resolve the related build/runtime errors.
+
+
+
+====
+
+**Error: import of the javax.persistance.GenerationType saying its not accessible
+**
+
+
+
+
+
+
+
+You may still encounter problems for "import of the javax.persistance.GenerationType saying its not accessible"
+
+To resolve this, apply the following steps
+
+\1. Right Click on the Project -> Properties - > Java Build Path.
+
+\2. Follow the steps as showed in the images below.
+
+\3. In Module Properties -> Select All in Available modules and move to Explicitly included modules.
+
+\4. Project->Clean... and Rebuild the Project and try again.
+
+![img](spring.assets/2018-03-02_16-59-25-65464dfb91c3680f9ce0ac396bddc261.png)
+
+![img](spring.assets/2018-03-02_16-59-33-a0e465e0b358c3b472a73ce48b1b13bf.png)
+
+====
+
+Note, if you are using Maven then you can add this to your POM file
+
+```xml
+<dependency>
+   <groupId>javax.xml.bind</groupId>
+   <artifactId>jaxb-api</artifactId>
+   <version>2.2.8</version>
+</dependency>
+
+<dependency>
+   <groupId>com.sun.xml.bind</groupId>
+   <artifactId>jaxb-core</artifactId>
+   <version>2.2.8</version>
+</dependency>
+
+<dependency>
+   <groupId>com.sun.xml.bind</groupId>
+   <artifactId>jaxb-impl</artifactId>
+   <version>2.2.8</version>
+</dependency>
+
+<dependency>
+   <groupId>com.sun.activation</groupId>
+   <artifactId>javax.activation</artifactId>
+   <version>1.2.0</version>
+</dependency>
+```
+
+
+
+\---
+
 ### 5. HEADS UP - JAVA 9 USERS - Eclipse Generate toString() fails.html
 
 **JUST A HEADS UP - FOR JAVA 9, 10 and 11 USERS**
@@ -5173,8 +5102,8 @@ Retrieved from SessionFactory
 
 Deault name: hibernate.cfg.xml
 Sửa file config thành để chạy được:
-<property name="connection.driver_class">com.mysql.jdbc.Driver
-</property>
+`<property name="connection.driver_class">com.mysql.jdbc.Driver
+</property>`
 https://o7planning.org/vi/10201/huong-dan-lap-trinh-java-hibernate-cho-nguoi-moi-bat-dau#a77418
 
 ### 2. Creating and Saving Java Objects - Part 2
@@ -5699,7 +5628,7 @@ We need to alter the database table to add a new column for "date_of_birth".
 
 Run the following SQL in your MySQL Workbench tool.
 
-```
+```sql
 ALTER TABLE `hb_student_tracker`.`student` 
 ADD COLUMN `date_of_birth` DATETIME NULL AFTER `last_name`;
 ```
@@ -8104,6 +8033,10 @@ run url: http://localhost:8080/web-custom-tracker/TestDbServlet
 
 file word and pdf
 
+copy require trong hibernate và c3p0
+
+![image-20200522143106309](spring.assets/image-20200522143106309.png)
+
 ### 6. Set Up Dev Environment - Part 1
 
 ### 7. HEADS UP - FOR JAVA 9 and higher USERS - Spring MVC CRUD.html
@@ -10181,23 +10114,133 @@ Maven Cheat Sheet
 
 ### 2. Maven Overview - Part 2
 
+![image-20200522152026239](spring.assets/image-20200522152026239.png)  
+
+![image-20200522152133679](spring.assets/image-20200522152133679.png)  
+
+
+
 ### 3. Maven Key Concepts - POM file and Coordinates
 
 - Project meta data
 - Dependencies
 - Plug in
 
+![image-20200522152426078](spring.assets/image-20200522152426078.png)  
+
+![image-20200522152519802](spring.assets/image-20200522152519802.png)
+
 ### 4. Maven - How to Find Dependencies
 
+maven repository
+
 ### 5. Maven Archetypes
+
+![image-20200522152843557](spring.assets/image-20200522152843557.png)  
+
+![image-20200522152902903](spring.assets/image-20200522152902903.png)  
+
+![image-20200522153010497](spring.assets/image-20200522153010497.png)  
+
+![image-20200522153032013](spring.assets/image-20200522153032013.png)   
+
+
 
 ### 6. Maven - Creating a Simple Project - Part 1
 
 ### 7. How to Install the m2eclipse Plugin.html
 
+How to Install the m2eclipse Plugin
+
+**How To Install Maven m2eclipse Plugin***
+*
+
+*Note: Recent releases of Eclipse (Mar, Neon, Oxygen) already have the m2eclipse plugin installed. Only follow these steps if you don't have the plugin installed.*
+
+
+
+
+
+
+
+
+
+
+\1. In Eclipse, select **Help > Install New Software**
+
+This will display the Install dialog
+
+![img](spring.assets/2017-10-11_07-49-06-02937b3f121d6a285d0b1862dc9bb812.png)
+
+
+\2. Click the **"Add..."** button. 
+
+\3. In the dialog, enter the following from the screenshow below:
+
+
+
+![img](spring.assets/2017-10-11_07-49-43-143c4bd82961735dca348678291a9215.png)
+
+
+\4. Wait for a couple of minutes while Eclipse fetches the files
+
+\5. In the dialog, check the box for **"Maven Integration for Eclipse"**
+
+![img](spring.assets/2017-10-11_07-49-55-061bcf09ca933979bf28520afaf005c4.png)
+
+
+\6. Click Next
+
+\7. It will show a dialog to review components, Click **Next**
+
+\8. Accept the License Agreement, Click **Finish**
+
+\9. Once installation is complete, restart Eclipse.
+
+\---
+
+**Verify Installation**
+
+
+
+
+
+
+
+
+
+\10. In Eclipse, select **Help > Install New Software**
+
+\11. In bottom right of dialog, you will see a blue link: **What is already installed?**
+
+![img](spring.assets/2017-10-11_07-50-08-3050b33745429c345ba5028a12354cc0.png)
+
+
+\12. Click the link
+
+\13. In the dialog, filter on the text: **m2e**
+
+![img](spring.assets/2017-10-11_07-50-24-a2cd2a539f9cd0670147f5376931cf29.png)
+
+\14. If you see the m2e entries, then the plugin was installed successfully :-)
+
 ### 8. Maven - Creating a Simple Project - Part 2
 
+![image-20200522153617536](spring.assets/image-20200522153617536.png)  
+
+![image-20200522153708220](spring.assets/image-20200522153708220.png)  
+
+![image-20200522153723248](spring.assets/image-20200522153723248.png)  
+
+Update 1.5 => 1.8
+
 ### 9. Maven - Creating a Web App Project
+
+![image-20200522153851479](spring.assets/image-20200522153851479.png)  
+
+Add if error
+
+![image-20200522154006945](spring.assets/image-20200522154006945.png)
 
 ### 10. Maven - Repositories Overview
 
@@ -10335,7 +10378,7 @@ Import maven project error => fix add : File WORD
 
 ### 6. Spring Security - Maven Configuration
 
-Khi import vào sẽ bị lỗi 
+Khi import vào sẽ bị lỗi fix bằng cách Add support for Maven WAR Plugin
 
 pom.xml
 
@@ -10562,13 +10605,111 @@ public class DemoController {
 
 ### 11. Spring Security - Run the App
 
-add file demo.jsp
+add file home.jsp
 
 ![image-20200521151708115](spring.assets/image-20200521151708115.png)
 
 ### 12. Spring Security - Add Spring Security Maven Dependencies
 
 solution-code-spring-security-demo-02-basic-security
+
+pom.xml
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.luv2code</groupId>
+	<artifactId>spring-security-demo</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+
+	<name>spring-security-demo</name>
+
+	<properties>
+		<springframework.version>5.0.2.RELEASE</springframework.version>
+		<springsecurity.version>5.0.0.RELEASE</springsecurity.version>
+
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+
+		<!-- Spring MVC support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<!-- Spring Security -->
+		<!-- spring-security-web and spring-security-config -->
+		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>${springsecurity.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>${springsecurity.version}</version>
+		</dependency>	
+		
+		<!-- Servlet, JSP and JSTL support -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<!-- TO DO: Add support for Maven WAR Plugin -->
+
+	<build>
+		<finalName>spring-security-demo</finalName>
+	
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<!-- Add Maven coordinates (GAV) for: maven-war-plugin -->
+				    <groupId>org.apache.maven.plugins</groupId>
+				    <artifactId>maven-war-plugin</artifactId>
+				    <version>3.2.0</version>					
+				</plugin>						
+			</plugins>
+		</pluginManagement>
+	</build>
+
+
+</project>
+
+```
+
+
 
 ### 13. Spring Security - Latest Version.html
 
@@ -10779,6 +10920,8 @@ If you want to use the latest version, update your Maven POM file to use the com
 
 ### 15. Spring Security - Basic Security (Users, Passwords and Roles)
 
+![image-20200522162953633](spring.assets/image-20200522162953633.png)
+
 - Step 1
 
 ```java
@@ -10827,6 +10970,9 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
 ```
 
+![image-20200522163243505](spring.assets/image-20200522163243505.png)
+
+
 ### 16. Spring Security - Create Security Initializer
 
 ### 17. HEADS UP - New Spring Security 5.0.2 - Deprecated method.html
@@ -10835,7 +10981,7 @@ HEADS UP: New Spring Security 5.0.2 - deprecated method
 
 The Spring Security team released Spring Security 5.0.2 on 20 Feb 2018.
 
-They deprecated the method: User.withDefaultPasswordEncoder()
+They deprecated the method: `User.withDefaultPasswordEncoder()`
 
 We use this for the in-memory authentication section of the course.
 
@@ -10870,7 +11016,16 @@ Change Context root
 ### 2. Spring Security - Dev and Testing with New Private Window
 
 solution-code-spring-security-demo-03-custom-login-form
-![](../../root/img/2020-02-05-21-42-08.png)
+
+![](../../root/img/2020-02-05-21-42-08.png)  
+
+Khi chỉnh sửa nội dung file jsp ấn reload user vẫn log in
+
+![image-20200522164944831](spring.assets/image-20200522164944831.png)  
+
+![image-20200522165055495](spring.assets/image-20200522165055495.png)  
+
+
 
 Because user login is based on web browser session
 
@@ -11036,6 +11191,10 @@ Login fail cannot show error msg
 ### 1. Spring Security - Bootstrap CSS Login Form
 
 http://luv2code.com/bootstrap-login-template
+
+![image-20200522171039006](spring.assets/image-20200522171039006.png)  
+
+
 
 ### 2. Spring Security - Bootstrap CSS Login Form - Adding Form
 
@@ -11228,7 +11387,17 @@ F12
 
 ### 3. Spring Security - Manually Adding CSRF Tokens
 
-fancy
+
+
+F12 to check
+
+![image-20200522171943489](spring.assets/image-20200522171943489.png)  
+
+![image-20200522172106777](spring.assets/image-20200522172106777.png)  
+
+=> error 403
+
+fancy-login.jsp
 
 ```ts
 <!-- I'm manually adding tokens ... Bro! -->
@@ -11237,8 +11406,6 @@ fancy
 							   name="${_csrf.parameterName}"
 							   value="${_csrf.token}" />
 ```
-
-F12 to check
 
 ## 52. Spring Security - User Roles
 
@@ -11556,6 +11723,8 @@ Neu su truc tiep tren URL cung se bi access denied
 
 table phai giong va enable = 1 => user can log in
 
+![image-20200522185806901](spring.assets/image-20200522185806901.png)
+
 ### 2. Spring Security JDBC - Overview - DataSource Configuration
 
 http://luv2code.com/spring-security-demo-db-plaintext-starter
@@ -11752,11 +11921,43 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
 ### 11. Spring Security JDBC - Coding - Test the App
 
+![image-20200522190004325](spring.assets/image-20200522190004325.png)  
+
+
+
 ## 55. Spring Security - Password Encryption
 
 ### 1. Spring Security - Password Encryption - Bcrypt Overview
 
 ### 1.1 Detailed bcrypt algorithm analysis.html
+
+bcrypt Additional Resources
+
+**bcrypt Additional Resources**
+
+
+
+*---
+*
+
+*Why you should use bcrypt to hash passwords
+*
+
+[www.luv2code.com/why-bcrypt](http://www.luv2code.com/why-bcrypt)
+
+*---
+*
+
+*Detailed bcrypt algorithm analysis
+*
+
+[www.luv2code.com/bcrypt-wiki-page](http://www.luv2code.com/bcrypt-wiki-page)
+
+*---
+*
+
+*Password hashing - Best Practices
+*[www.luv2code.com/password-hashing-best-practices](http://www.luv2code.com/password-hashing-best-practices)
 
 ### 1.2 Why you should use bcrypt to hash password.html
 
@@ -11768,15 +11969,139 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
 ### 3. Spring Security - Password Encryption - Spring Configuration
 
-### 4. Spring Security - Password Encryption - Setting up Database Schema
+### 4. Spring Security - Password Encryption - Setting up   Database Schema
+
+![image-20200522191555552](spring.assets/image-20200522191555552.png)  
+
+![image-20200522191711244](spring.assets/image-20200522191711244.png)  
+
+
 
 ### 5. Spring Security - Password Encryption - Bcrypt Configuration
 
 ### 6. Spring Security - Password Encryption - Testing Passwords
 
+![image-20200522191817730](spring.assets/image-20200522191817730.png)   
+
+![image-20200522191839382](spring.assets/image-20200522191839382.png)  
+
+
+
 ### 7. Bonus Lecture Spring Security - User Registration.html
 
+Bonus Lecture: Spring Security - User Registration
+
+This FAQ includes two questions
+
+\1. How to add a user registration form?
+
+\2. How to select user roles using drop-down list?
+
+\----
+
+**Spring Security - User Registration Form with Custom Database Tables**
+
+*Question:*
+
+I want to add registration module into spring security login demo application. How should I do this? I want to access registration page from Login page through hyperlink and after submit data into database.
+
+*Answer*
+
+I have a document that covers this. It performs user registration with custom user details with Spring Security using Hibernate. Custom user details include: user name, password, first name, last name and email. You can feel free to extend it with additional custom fields. Demo includes Hibernate, database support, encrypted passwords. The code uses Maven, all Java config (no xml) Hibernate configuration
+
+PDF
+
+http://www.luv2code.com/bonus-spring-security-user-registration-custom-user
+
+Source Code
+
+http://www.luv2code.com/spring-security-user-registration-custom-user-code
+
+\---
+
+**Spring Security and Thymeleaf**
+
+*Question:*
+
+How would we convert spring-security-user-registration-custom-user-code to use Thymeleaf instead of JSP?
+
+*Answer*
+
+Here is the source code for this:
+
+\- Non-Spring Boot version: [**bonus-code-spring-security-user-registration-custom-user-details-thymeleaf.zip**](https://drive.google.com/open?id=1ul2Wt9Z0fRyDgKTnII30CZIzvmk55bgJ)
+
+\- Spring Boot version: [**bonus-code-spring-security-user-registration-custom-user-details-thymeleaf-spring-boot.zip**](https://drive.google.com/open?id=1PL4litXj8-fuzKSYqO9btBlhP0-iG6p9)
+
+
+
+Here are some rough notes on the Thymeleaf version:
+
+\- For docs on Spring MVC and Thymeleaf integration, [see this link](https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html)
+
+\- For docs on Spring Security and Thymeleaf integration, [see this link](https://www.thymeleaf.org/doc/articles/springsecurity.html)
+
+A couple of high-level changes
+
+*1. Add the Thymeleaf pom entries*
+
+```xml
+<!-- Thymeleaf core support -->
+<dependency>
+	<groupId>org.thymeleaf</groupId>
+	<artifactId>thymeleaf-spring5</artifactId>
+	<version>3.0.11.RELEASE</version>
+</dependency>
+ 
+<!-- Thymeleaf security support -->
+<dependency>
+	<groupId>org.thymeleaf.extras</groupId>
+	<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+	<version>3.0.4.RELEASE</version>
+</dependency>
+```
+
+
+
+*2. Configure Thymeleaf engine and resolvers.*
+
+See code example in: DemoAppConfig.java
+
+
+
+*3. Create Thymeleaf views*
+
+See code examples in: webapp/WEB-INF/views
+
+\---
+
+**Spring Security - Select User Roles using Drop-Down List**
+
+*Question*
+
+In the Spring Security Registration example, what if I don't want to set Role default as Employee? Instead I want to take roles from user through registration page using dropdown list. Then I want to store role data in role table and user data in user table. How can I achieve this?
+
+*Answer*
+
+I have a solution that covers this scenario. This includes PDF description and source code.
+
+PDF
+
+http://www.luv2code.com/spring-security-multi-role-pdf
+
+Source Code
+
+http://www.luv2code.com/spring-security-multi-role
+
 ### 8. Bonus Lecture Adding Spring Security to CRM App.html
+
+Bonus Lecture: Adding Spring Security to CRM App
+
+#### Bonus Lecture: Adding Spring Security to CRM App
+
+Download at the link below
+
+http://www.luv2code.com/bonus-spring-crm-with-security
 
 ### 1.1 Why you should use bcrypt to hash password.html
 
