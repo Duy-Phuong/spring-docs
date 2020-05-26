@@ -13,6 +13,15 @@ public class PracticeSort {
         }
     }
 
+
+    void selectionSort(int arr[]) {
+        int n = arr.length;
+        for (int i = 0; i < n; i++){
+            int min = arr[i];
+
+        }
+    }
+
     /* Prints the array */
     void printArray(int arr[])
     {
