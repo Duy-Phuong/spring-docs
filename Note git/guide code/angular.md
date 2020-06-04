@@ -565,6 +565,8 @@ Angular JS
 Angular 2
 Angular 8
 
+![image-20200523221350884](angular.assets/image-20200523221350884.png)
+
 ### 4. CLI Deep Dive & Troubleshooting.html
 
 In the next lecture, we're going to build our first little app!
@@ -595,14 +597,14 @@ Go to nodejs.org and download the latest version - uninstall (all) installed ver
 
 Updating npm:
 
-Run [sudo] npm install -g npm (sudo is only required on Mac/ Linux)
+Run `[sudo] npm install -g npm` (sudo is only required on Mac/ Linux)
 
 Updating the CLI
 
 ```js
 [sudo] npm uninstall -g angular-cli @angular/cli
 
-npm cache clean
+npm cache verify
 
 [sudo] npm install -g @angular/cli
 
@@ -610,11 +612,11 @@ npm cache clean
 
 Here are some common issues & solutions:
 
-Creation of a new project takes forever (longer than 3 minutes)
-That happens on Windows from time to time => Try running the command line as administrator
+- Creation of a new project takes forever (longer than 3 minutes)
+  That happens on Windows from time to time => Try running the command line as administrator
 
-You get an EADDR error (Address already in use)
-You might already have another ng serve process running - make sure to quit that or use
+- You get an EADDR error (Address already in use)
+  You might already have another ng serve process running - make sure to quit that or use
 
 ```ts
 ng serve --port ANOTHERPORT
@@ -623,8 +625,8 @@ ng serve --port ANOTHERPORT
 
 to serve your project on a new port
 
-My changes are not reflected in the browser (App is not compiling)
-Check if the window running ng serve displays an error. If that's not the case, make sure you're using the latest CLI version and try restarting your CLI
+- My changes are not reflected in the browser (App is not compiling)
+  Check if the window running ng serve displays an error. If that's not the case, make sure you're using the latest CLI version and try restarting your CLI
 
 ### 5. Project Setup and First App
 
@@ -669,14 +671,14 @@ npm install -g @angular/cli@latest
 I followed below steps for resolution for this issue in Windows 10:
 
 First make sure you have installed Angular CLI . You can use below to install same.
-npm install -g @angular/cli@latest
+`npm install -g @angular/cli@latest`
 
 Make sure that AppData is visible and navigate to path below.
-C:\Users\rkota\AppData\Roaming\npm
+`C:\Users\rkota\AppData\Roaming\npm`
 
 Same path can be found by running below too:
 
-npm config get prefix
+`npm config get prefix`
 
 Add the above path i.e. " C:\Users\rkota\AppData\Roaming\npm" in Environment variable PATH and make sure it got added by running path in command prompt.
 Close command prompt and now try to run below:
@@ -722,6 +724,17 @@ export class AppModule {}
 
 ### 6. Editing the First App
 
+app.component.html
+
+```html
+
+<input type="text" [(ngModel)]="name">
+<p>{{ name }}</p>
+
+```
+
+
+
 ### 7. The Course Structure
 
 ![img](../root/img/2019-11-16-12-15-30.png)
@@ -729,6 +742,8 @@ export class AppModule {}
 ### 9. What is TypeScript
 
 TypeScript is compile to JS
+
+![image-20200523223602000](angular.assets/image-20200523223602000.png)
 
 ### 10. A Basic Project Setup using Bootstrap for Styling
 
@@ -738,7 +753,8 @@ Npm install --save bootstrap@3
 ```
 
 => install locally
-Tại file angular.json sửa lại :
+
+![image-20200523223802291](angular.assets/image-20200523223802291.png)Tại file angular.json sửa lại :
 
 ```js
 "styles": [
@@ -751,8 +767,12 @@ Tại file angular.json sửa lại :
 ### 11. Where to find the Course Source Code.html
 
 In the next lecture, we set up the course project. For that, we'll install the Bootstrap CSS Framework.
-In this course, we use version 3 of the framework, install it via npm install --save bootstrap@3 => The @3 is important!
-Additionally, when using a project created with Angular CLI 6+ (check via ng -v ), you'll have an angular.json file instead of an .angular-cli.json file. In that file, you still need to add Bootstrap to the styles[] array as shown in the next video, but the path should be node_modules/bootstrap/dist/css/bootstrap.min.css , NOT ../node_modules/bootstrap/dist/css/bootstrap.min.css . The leading ../ must not be included.
+In this course, we use version 3 of the framework, install it via `npm install --save bootstrap@3` => The @3 is important!  
+Additionally, when using a project created with Angular CLI 6+ (check via ng -v ), you'll have an angular.json file instead of an .angular-cli.json file.   
+
+In that file, you still need to add Bootstrap to the styles[] array as shown in the next video, but the path should be `node_modules/bootstrap/dist/css/bootstrap.min.css` , NOT `../node_modules/bootstrap/dist/css/bootstrap.min.css` .   
+
+The leading ../ must not be included.
 Also see this lecture - I do show the complete setup process there: https://www.udemy.com/the-complete-guide-to-angular-2/learn/v4/t/lecture/6655614/
 
 app.components.html
@@ -793,7 +813,7 @@ export class AppComponent {
 }
 ```
 
-app.module.ts
+app.module.ts thêm FormsModule vì nếu  k có [(ngModel)] sẽ báo lỗi
 
 ```ts
 import { BrowserModule } from "@angular/platform-browser";
@@ -4493,7 +4513,7 @@ shopping-list
 export class ShoppingListService {
   // add
   ingredientsChanged = new Subject<Ingredient[]>();
-  ```
+```
  thay hết emit => next
 
 shopping-list.component.ts
