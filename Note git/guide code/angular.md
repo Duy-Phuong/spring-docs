@@ -1,12 +1,12 @@
 MUC LUC
-https://www.academind.com/learn/javascript/understanding-rxjs/
-http://phocode.com/javascript/
-https://freetuts.net/template-trong-angular-4-1330.html
-xuanthulap.com
-https://www.youtube.com/channel/UCSJbGtTlrDami-tDGPUV9-w/playlists
-      acdemind.com
+https://www.academind.com/learn/javascript/understanding-rxjs/  
+http://phocode.com/javascript/  
+https://freetuts.net/template-trong-angular-4-1330.html  
+xuanthulap.com  
+https://www.youtube.com/channel/UCSJbGtTlrDami-tDGPUV9-w/playlists  
+      acdemind.com  
 
-C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Source_All/python/Test/readfile.py
+C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Source_All/python/Test/readfile.py  
 ======== name dir ========
 
 ---
@@ -571,9 +571,9 @@ Angular 8
 
 In the next lecture, we're going to build our first little app!
 
-If the CLI prompts you to **answer some questions** (some versions do that), you can simply hit ENTER for all questions. This will accept the default settings which are fine for this course.
+If the CLI prompts you to **answer some questions** (some versions do that), you can simply hit ENTER for all questions. This will accept the default settings which are fine for this course.  
 
-The CLI generates a different welcome screen than you're going to see in my video though. No worries, you'll still be able to follow along without issues! Just make sure to code along so that your code equals mine - Angular itself didn't change a bit :)
+The CLI generates a different welcome screen than you're going to see in my video though. No worries, you'll still be able to follow along without issues! Just make sure to code along so that your code equals mine - Angular itself didn't change a bit :)  
 
 Depending on the CLI version you're using, you might also need to add the FormsModule to the imports[] array in your app.module.ts file (add it if you don't see it there). You might not fully understand what that all means but we're going to cover that in this course, no worries.
 
@@ -626,13 +626,21 @@ ng serve --port ANOTHERPORT
 to serve your project on a new port
 
 - My changes are not reflected in the browser (App is not compiling)
-  Check if the window running ng serve displays an error. If that's not the case, make sure you're using the latest CLI version and try restarting your CLI
+  Check if the window running `ng serve` displays an error. If that's not the case, make sure you're using the latest CLI version and try restarting your CLI
 
 ### 5. Project Setup and First App
 
-https://angular.io/guide/setup-local
-To install the Angular CLI:
-https://github.com/angular/angular-cli/wiki
+Node.js Download
+
+At the moment, the Node webpage (nodejs.org) which we're going to use in the next lecture looks different.  
+
+This will only be the case temporarily (as you can tell if you visit the page) but in the meantime, since you're going to need to download NodeJS from the site, here's the download link: https://nodejs.org/en/download/  
+
+We'll need that in the next lecture.
+
+https://angular.io/guide/setup-local  
+To install the Angular CLI:  
+https://github.com/angular/angular-cli/wiki  
 
 ```js
 node -v
@@ -668,6 +676,8 @@ npm install -g @angular/cli@latest
 
 ```
 
+![image-20200605142459873](angular.assets/image-20200605142459873.png)  
+
 I followed below steps for resolution for this issue in Windows 10:
 
 First make sure you have installed Angular CLI . You can use below to install same.
@@ -684,7 +694,11 @@ Add the above path i.e. " C:\Users\rkota\AppData\Roaming\npm" in Environment var
 Close command prompt and now try to run below:
 ng --version
 
-you will be able to see CLI version.
+you will be able to see CLI version.  
+
+![image-20200605141651197](angular.assets/image-20200605141651197.png)  
+
+![image-20200605141709194](angular.assets/image-20200605141709194.png)  
 
 ---
 
@@ -730,6 +744,23 @@ app.component.html
 
 <input type="text" [(ngModel)]="name">
 <p>{{ name }}</p>
+
+```
+
+app.component.ts
+
+```js
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+    // add
+  name = 'Max';
+}
 
 ```
 
