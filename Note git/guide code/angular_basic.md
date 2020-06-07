@@ -2,9 +2,95 @@
 
 ---
 
-### Angular – Giới thiệu
+- [Angular – Giới thiệu](#angular--giới-thiệu)
+  - [Cau truc thu muc](#cau-truc-thu-muc)
+  - [Mục đích của từng thư mục, tập tin trong thư mục src này mình có thể liệt kê như sau:](#mục-đích-của-từng-thư-mục-tập-tin-trong-thư-mục-src-này-mình-có-thể-liệt-kê-như-sau)
+  - [Setting](#setting)
+  - [Cài TypeScript](#cài-typescript)
+  - [Cài Angular CLI](#cài-angular-cli)
+  - [Typescript](#typescript)
+  - [Các kiểu dữ liệu cơ bản](#các-kiểu-dữ-liệu-cơ-bản)
+  - [Class](#class)
+  - [Phương thức](#phương-thức)
+  - [Phương thức khởi tạo](#phương-thức-khởi-tạo)
+  - [Kế thừa](#kế-thừa)
+  - [Fat Arrow Function](#fat-arrow-function)
+  - [Angular – Kiến trúc](#angular--kiến-trúc)
+  - [Module](#module)
+  - [Component](#component)
+  - [Template](#template)
+  - [Metadata](#metadata)
+  - [Data Binding](#data-binding)
+  - [Directive](#directive)
+  - [Service](#service)
+  - [Dependency injection](#dependency-injection)
+  - [Angular – Cấu trúc của một ứng dụng Angular](#angular--cấu-trúc-của-một-ứng-dụng-angular)
+  - [Angular – Root Module](#angular--root-module)
+  - [Imports](#imports)
+  - [Declarations](#declarations)
+  - [Bootstrap](#bootstrap)
+  - [Khởi động ứng dụng](#khởi-động-ứng-dụng)
+  - [Angular – Hiển thị dữ liệu](#angular--hiển-thị-dữ-liệu)
+  - [Tạo project Angular](#tạo-project-angular)
+  - [Trích xuất dữ liệu và hiển thị](#trích-xuất-dữ-liệu-và-hiển-thị)
+  - [Duyệt dữ liệu với \*ngFor](#duyệt-dữ-liệu-với-ngfor)
+  - [Biểu thức điều kiện](#biểu-thức-điều-kiện)
+  - [Angular – Tạo Component](#angular--tạo-component)
+  - [Tạo component](#tạo-component)
+  - [Cấu trúc của component](#cấu-trúc-của-component)
+  - [Angular – Xử lý sự kiện](#angular--xử-lý-sự-kiện)
+  - [Bắt sự kiện](#bắt-sự-kiện)
+  - [Lấy dữ liệu từ sự kiện từ đối tượng \$event](#lấy-dữ-liệu-từ-sự-kiện-từ-đối-tượng-event)
+  - [Lấy dữ liệu trong template](#lấy-dữ-liệu-trong-template)
+  - [Lọc sự kiện](#lọc-sự-kiện)
+  - [Angular – Liên kết dữ liệu với Form](#angular--liên-kết-dữ-liệu-với-form)
+  - [Tạo form](#tạo-form)
+  - [Liên kết dữ liệu với form](#liên-kết-dữ-liệu-với-form)
+  - [Angular – Theo dõi trạng thái form với ngModel](#angular--theo-dõi-trạng-thái-form-với-ngmodel)
+  - [Trạng thái](#trạng-thái)
+  - [Submit form](#submit-form)
+  - [Angular – Template – Phần 1](#angular--template--phần-1)
+  - [HTML](#html)
+  - [Biểu thức](#biểu-thức)
+  - [Ngữ cảnh của biểu thức](#ngữ-cảnh-của-biểu-thức)
+  - [Câu lệnh](#câu-lệnh)
+  - [Ngữ cảnh của câu lệnh](#ngữ-cảnh-của-câu-lệnh)
+  - [Cú pháp kết nối dữ liệu](#cú-pháp-kết-nối-dữ-liệu)
+  - [Angular – Template – Phần 2](#angular--template--phần-2)
+  - [Bắt thuộc tính […]](#bắt-thuộc-tính-)
+  - [Bắt sự kiện (…)](#bắt-sự-kiện-)
+  - [Bắt dữ liệu 2 chiều [(…)]](#bắt-dữ-liệu-2-chiều-)
+  - [Angular – Template – Phần 3](#angular--template--phần-3)
+  - [Biến template (#var)](#biến-template-var)
+  - [Thuộc tính @Input và @Output](#thuộc-tính-input-và-output)
+  - [Angular – Directive – Phần 1](#angular--directive--phần-1)
+  - [Attribute directive](#attribute-directive)
+  - [NgClass](#ngclass)
+  - [NgStyle](#ngstyle)
+  - [NgModel](#ngmodel)
+  - [Angular – Directive – Phần 2](#angular--directive--phần-2)
+  - [Structural directive](#structural-directive)
+  - [ngIf](#ngif)
+  - [Sử dụng template trong if else](#sử-dụng-template-trong-if-else)
+  - [ngFor](#ngfor)
+  - [ngSwitch](#ngswitch)
+  - [Angular – Service và Dependency Injection](#angular--service-và-dependency-injection)
+  - [Angular – Routing](#angular--routing)
+  - [Tham số URL](#tham-số-url)
+  - [Angular – HTTP](#angular--http)
+  - [Tạo web server API](#tạo-web-server-api)
+  - [Truy vấn API](#truy-vấn-api)
+- [Angular 4 nghiep UIT](#angular-4-nghiep-uit)
+  - [Các câu lệnh thường sử dụng trong Angular CLI](#các-câu-lệnh-thường-sử-dụng-trong-angular-cli)
+  - [Component](#component-1)
+  - [Component to view](#component-to-view)
+  - [View to Component](#view-to-component)
+  - [Two way binding](#two-way-binding)
+  - [Structural Directive : \*ngIf](#structural-directive--ngif)
 
-#### Cau truc thu muc
+## Angular – Giới thiệu
+
+### Cau truc thu muc
 
 | Tập tin / Thư mục  | Mục đích                                                                                                                      |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -23,7 +109,7 @@
 
 ---
 
-#### Mục đích của từng thư mục, tập tin trong thư mục src này mình có thể liệt kê như sau:
+### Mục đích của từng thư mục, tập tin trong thư mục src này mình có thể liệt kê như sau:
 
 | Tập tin / Thư mục | Mục đích                                                                                                                                                                     |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -44,7 +130,7 @@ https://phocode.com/javascript/lap-trinh-web-voi-angularjs-2/angular-vi-du/
 
 ### Setting
 
-#### Cài TypeScript
+### Cài TypeScript
 
 Sau đó bạn mở Command Prompt (cmd) trên Windows ra và gõ lệnh npm install -g typescript để node cài đặt gói typescript.
 
@@ -55,7 +141,7 @@ C:\>npm install -g typescript
 
 Ở đây phiên bản typescript của mình là phiên bản 2.1.4
 
-#### Cài Angular CLI
+### Cài Angular CLI
 
 Bản thân Angular chỉ là một thư viện Javascript mở rộng dành cho Node.js chứ không phải một ứng dụng hoàn toàn, tuy nhiên nhóm phát triển Angular đã viết thêm gói Angular CLI là một chương trình dòng lệnh để hỗ trợ chúng ta tạo project, thêm file, xóa file, khởi động project… một cách dễ dàng.
 
@@ -159,7 +245,7 @@ Hello Pho
 
 ```
 
-#### Các kiểu dữ liệu cơ bản
+### Các kiểu dữ liệu cơ bản
 
 Các kiểu dữ liệu thường dùng là string, number, boolean, array, enum, any, void.
 
@@ -227,7 +313,7 @@ a : object = {}
 
 ---
 
-#### Class
+### Class
 
 Đề khai báo một lớp thì chúng ta dùng từ khóa class.
 
@@ -254,7 +340,7 @@ class Product {
 }
 ```
 
-#### Phương thức
+### Phương thức
 
 Phương thức là các hàm của riêng một đối tượng.
 
@@ -290,7 +376,7 @@ class Product {
 }
 ```
 
-#### Phương thức khởi tạo
+### Phương thức khởi tạo
 
 Phương thức khởi tạo là phương thức sẽ được gọi khi chúng ta tạo một đối tượng bằng từ khóa new. Trong TypeScript thì phương thức khởi tạo luôn có tên là constructor(), có thể nhận vào tham số nhưng không thể có giá trị trả về.
 
@@ -326,7 +412,7 @@ var p: Product = new Product(
 );
 ```
 
-#### Kế thừa
+### Kế thừa
 
 Kế thừa là một trong những tính năng quan trọng của lập trình hướng đối tượng, cho phép coder tái sử dụng code.
 
@@ -376,7 +462,7 @@ console.log(b.getName(), b.getDescription(), b.getPrice());
 
 Lớp kế thừa có thể sử dụng các thuộc tính và phương thức của lớp cha, và có thể có thuộc tính và phương thức của riêng nó.
 
-#### Fat Arrow Function
+### Fat Arrow Function
 
 Mình không biết gọi là gì, trong TypeScript bạn có thể dùng từ khóa => để tạo nhanh một hàm thay vì phải viết từ khóa function như trong ES5.
 
@@ -422,7 +508,7 @@ var html = `
 
 Một ứng dụng Angular được xây dựng từ 8 thành phần sau đây: **Module, Component, Template, Metadata, Data Binding, Directive, Service, Dependency Injection.**
 
-#### Module
+### Module
 
 Mỗi ứng dụng Angular được gọi là một module và bản thân Angular có riêng một module dùng để quản lý các module khác có tên là Root Module hay NgModule. Root Module thường được đặt tên là AppModule, ngoài root ra thì tùy ứng dụng mà sẽ có thêm các module khác, chúng ta sẽ tìm hiểu về root module trong bài sau.
 
@@ -457,7 +543,7 @@ import { AppModule } from './app.module';
 platformBrowserDynamic().bootstrapModule(AppModule);
 ```
 
-#### Component
+### Component
 
 Component có chức năng điều khiển việc hiển thị, tức là điều khiển View, vậy bạn có thể hình dung Component chính là một Controller trong mô hình MVC…v.v Ví dụ một đoạn code component:
 
@@ -478,7 +564,7 @@ export class HeroListComponent implements OnInit {
 }
 ```
 
-#### Template
+### Template
 
 Template là một đoạn code HTML để component dựa vào đó mà hiển thị trên màn hình. Ví dụ:
 
@@ -495,7 +581,7 @@ Template là một đoạn code HTML để component dựa vào đó mà hiển 
 
 Ngoài các thẻ HTML thông thường như <h2>, <p> thì còn có những thẻ và thuộc tính đặc biệt như \*ngFor, {{hero.name}}, (click), [hero] và <hero-detail>, đây là cú pháp template của Angular.
 
-#### Metadata
+### Metadata
 
 Metadata (siêu dữ liệu) là những thông tin giúp Angular xử lý các lớp.
 
@@ -515,7 +601,7 @@ export class HeroListComponent implements OnInit {
 
 Trong đó @Component là từ khóa bắt đầu định nghĩa metadata, phần định nghĩa lớp ngay sau phần metadata này là lớp component của metadata trên. Bên trong chúng ta khai báo một số thông tin cho Angular như moduleId, selector, templateUrl, providers. Chúng ta sẽ tìm hiểu về chúng sau.
 
-#### Data Binding
+### Data Binding
 
 Data Binding tức là lấy dữ liệu từ model/controller đổ vào view. Trong đoạn code ví dụ về template trên có những dòng data binding như sau:
 
@@ -531,7 +617,7 @@ Data binding trong Angular là 2 chiều, tức là chúng ta có thể nhập d
 <input [(ngModel)]="hero.name" />
 ```
 
-#### Directive
+### Directive
 
 Directive (chỉ thị) là một lớp và có phần khai báo metadata là @Directive. Thường thì directive sẽ nằm trong một element – hay thẻ của HTML giống như một thuộc tính bình thường.
 
@@ -554,7 +640,7 @@ Trong đoạn code trên thì *ngFor và *ngIf là các structural directive.
 
 Trong đoạn code trên thì ngModel là một attribute directive.
 
-#### Service
+### Service
 
 Service là các lớp có khả năng thực hiện một số chức năng thường dùng, nói đơn giản thì chúng giống như thư viện vậy. Một số service phổ biến là: logging service, data service, message bus, tax calculator, application configuration.
 
@@ -574,7 +660,7 @@ export class Logger {
 }
 ```
 
-#### Dependency injection
+### Dependency injection
 
 Dependency là các lớp/module/service được dùng thêm, Dependency injection là khả năng cho phép tạo các đối tượng lớp có đầy đủ các lớp/module/service được dùng thêm đó. Chẳng hạn như chúng ta có phương thức constructor() như sau:
 
@@ -711,7 +797,7 @@ Từ khóa @NgModule báo cho Angular biết đây là một class module trong 
 
   Chúng ta sẽ lần lượt tìm hiểu 3 tham số trên.
 
-#### Imports
+### Imports
 
 Module là tính năng cho phép Angular tách các thành phần có chung quan hệ với nhau thành các đơn vị độc lập. Rất nhiều tính năng trong Angular được tổ chức thành các module. Chẳng hạn như dịch vụ HTTP trong Angular được gói thành HttpModule. Tính năng router thì ở trong RouterModule. Chúng ta cũng có thể viết module riêng.
 
@@ -721,7 +807,7 @@ Angular là một web framework, ứng dụng sẽ được chạy trên trình 
 
 Chỉ có các lớp NgModule mới được khai báo trong mảng imports.
 
-#### Declarations
+### Declarations
 
 Chúng ta khai báo cho Angular biết các lớp component thuộc về AppModule trong mảng declarations, bất cứ khi nào chúng ta tạo ra một component mới thì chúng ta khai báo trong mảng này.
 
@@ -731,7 +817,7 @@ Chúng ta sẽ tìm hiểu về 2 loại lớp là directive và pipe trong các
 
 _Chỉ có 3 loại lớp có thể khai báo trong mảng declarations là component, directive và pipe._
 
-#### Bootstrap
+### Bootstrap
 
 Ứng dụng được khởi động thông qua lớp AppModule. Khi khởi động Angular sẽ tạo ra các đối tượng được khai báo trong mảng bootstrap và lưu vào trình duyệt.
 
@@ -739,7 +825,7 @@ Mỗi đối tượng được tạo ra đó sẽ nằm riêng biệt với nhau
 
 Nhưng thông thường thì chúng ta chỉ khai báo một lớp trong mảng bootstrap thôi, và thường thì chúng ta đặt tên là AppComponent.
 
-#### Khởi động ứng dụng
+### Khởi động ứng dụng
 
 Có rất nhiều cách để khởi động ứng dụng.
 
@@ -761,7 +847,7 @@ Chúng ta khởi động bằng cách gọi phương thức platformBrowserDynam
 
 ### Angular – Hiển thị dữ liệu
 
-#### Tạo project Angular
+### Tạo project Angular
 
 Chúng ta tạo một project bằng cách lấy bộ code mẫu từ trang Github của Angular về như trong bài Cài đặt đã hướng dẫn, đầu tiên bạn mở Command Prompt (cmd) lên, sau đó gõ lệnh sau:
 
@@ -799,7 +885,7 @@ C:\Project\displaying_data>rd e2e /s /q
 
 ```
 
-#### Trích xuất dữ liệu và hiển thị
+### Trích xuất dữ liệu và hiển thị
 
 Ở đây chúng ta sẽ khai báo biến trong lớp component và hiển thị lên màn hình.
 
@@ -858,7 +944,7 @@ Sau đó bạn có thể chạy lệnh npm start để chạy project rồi.
 
 Khi chúng ta chạy lệnh npm start, npm sẽ khởi động project từ file main.ts, đoạn code trong này sẽ tạo đối tượng từ lớp AppModule trong file app.module.ts, trong lớp AppModule này lại tham chiếu đến lớp AppComponent mà chúng ta vừa sửa ở trên.
 
-#### Duyệt dữ liệu với \*ngFor
+### Duyệt dữ liệu với \*ngFor
 
 Chúng ta dùng chỉ thị \*ngFor để thực hiện việc duyệt các kiểu dữ liệu danh sách (như mảng). Ví dụ chúng ta sửa lại file app.component.ts như sau:
 
@@ -891,7 +977,7 @@ Trong lớp AppComponent chúng ta có một mảng là idols, thuộc tính myI
 
 Trong tham số template, chúng ta duyệt mảng idols và hiển thị trong thẻ <ul></ul>. Ở đây chúng ta dùng thuộc tính \*ngFor="let idol of idols" để thực hiện việc duyệt mảng.
 
-#### Biểu thức điều kiện
+### Biểu thức điều kiện
 
 Chúng ta dùng chỉ thị \*ngIf để thực hiện biểu thức điều kiến, ví dụ chúng ta sửa lại đoạn code app.component.ts như sau:
 
@@ -928,7 +1014,7 @@ Theo sau \*ngIf là một câu lệnh so sánh hay bất cứ một biểu thứ
 
 Trong phần này chúng ta sẽ tìm hiểu cách tạo một Component.
 
-#### Tạo component
+### Tạo component
 
 Chúng ta đã biết Component là một lớp và có phần khai báo @Component ở trước phần định nghĩa lớp đó, khi tạo một project Angular thì một module có thể có nhiều component dùng hiển thị các chức năng khác nhau.
 
@@ -993,7 +1079,7 @@ export class AppModule {}
 
 Chúng ta chỉ cần thêm dòng import và khai báo trong mảng **declarations** là xong.
 
-#### Cấu trúc của component
+### Cấu trúc của component
 
 new-cmp.component.ts
 
@@ -1022,7 +1108,7 @@ https://freetuts.net/tim-hieu-ve-component-trong-angular-4-1301.html
 
 Khi người dùng tương tác với trang web thì sẽ phát sinh sự kiện, những sự kiện thường thấy nhất là click chuột, gõ phím, tải trang web…v.v Đây là các sự kiện DOM (DOM Event), chúng ta có thể lắng nghe các sự kiện đó và tương tác lại với người dùng.
 
-#### Bắt sự kiện
+### Bắt sự kiện
 
 Trong Javascript ES5 thì chúng ta viết code bắt sự kiện như sau:
 
@@ -1064,7 +1150,7 @@ export class AppComponent {
 
 Rất đơn giản, chúng ta khai báo trong lớp AppComponent một thuộc tính là message, và khi click thì phương thức onClick() sẽ được gọi, trong đó chúng ta gán thuộc tính message giá trị là “Clicked”. Giá trị của thuộc tính này sẽ được hiển thị trên template.
 
-#### Lấy dữ liệu từ sự kiện từ đối tượng \$event
+### Lấy dữ liệu từ sự kiện từ đối tượng \$event
 
 Có một số sự kiện sẽ mang theo cả dữ liệu, chẳng hạn như click chuột thì có thể lấy được tọa độ chuột, bấm phím thì lấy được kí tự phím vừa bấm… v.v Chúng ta có thể lấy được các dữ liệu đó.
 
@@ -1118,7 +1204,7 @@ export class AppComponent {
 Ở đây chúng ta chỉ rõ kiểu dữ liệu của \$event là KeyboardEvent, tức là sự kiện từ bàn phím. Bạn có thể xem danh sách các kiểu dữ liệu sự kiện DOM ở đây.
 https://developer.mozilla.org/en-US/docs/Web/API/Event
 
-#### Lấy dữ liệu trong template
+### Lấy dữ liệu trong template
 
 Thay vì khai báo phương thức cho sự kiện, chúng ta có thể tham chiếu đến dữ liệu của sự kiện đó ngay trong template như sau:
 
@@ -1139,7 +1225,7 @@ export class AppComponent {}
 
 Để làm việc này thì chúng ta khai báo tên biến cho template, bằng cách ghi tên kèm với dấu #, ở đây chúng ta khai báo là #box. Ở phần bắt sự kiện chúng ta điền vào là 0, và chúng ta có thể dùng tên biến template đó để lấy giá trị của chính thẻ đó mà không cần phải dùng tới phương thức.
 
-#### Lọc sự kiện
+### Lọc sự kiện
 
 Đôi khi chúng ta chỉ cần muốn bắt một giá trị cụ thể, chẳng hạn như phím Enter, chúng ta có thể bắt giá trị đó thông qua thuộc tính \$event.keyCode. Ví dụ:
 
@@ -1171,7 +1257,7 @@ export class AppComponent {
 
 Angular cho phép chúng ta kết nối dữ liệu từ form tới các đối tượng trong class.
 
-#### Tạo form
+### Tạo form
 
 Để ví dụ thì đầu tiên chúng ta sẽ tạo một form trước đã, ở đây chúng ta sẽ tạo form điền những thông tin thông thường của mô hình khách hàng.
 
@@ -1348,7 +1434,7 @@ export class AppModule {}
 
 Bây giờ chúng ta có thể chạy project và trang web sẽ có giao diện form như thế này:
 
-#### Liên kết dữ liệu với form
+### Liên kết dữ liệu với form
 
 Chúng ta có thể liên kết các trường trong form với một thuộc tính nào đó trong lớp component tương ứng.
 
@@ -1437,7 +1523,7 @@ Trong bài trước chúng ta đã tìm hiểu qua cách liên kết dữ liệu
 
 Mỗi khi có sự thay đổi trên các phần tử trong form, ngModel sẽ đổi tên class của các phần tử đó, cụ thể:
 
-#### Trạng thái
+### Trạng thái
 
 | column0                                 | column1          | column2           |
 | --------------------------------------- | ---------------- | ----------------- |
@@ -1580,7 +1666,7 @@ Lý do ở đây chúng ta gán #cus_class là ngModel là vì mỗi chỉ thị
 
 Ở đoạn code trên chúng ta quy định thẻ `<div></div>` mới có được hiển thị hay không thông qua thuộc tính hidden, và chúng ta gắn giá trị của biến template vào thuộc tính hidden này.
 
-#### Submit form
+### Submit form
 
 Form hiện tại của chúng ta chưa thực hiện chức năng submit, để có thể submit được thì chúng ta sử dụng chỉ thị ngSubmit, chúng ta sửa lại file customer-form.component.html như sau:
 
@@ -1654,7 +1740,7 @@ Trong các bài trước chúng ta đã làm việc qua với cú pháp của te
 
 Hệ thống template chịu trách nhiệm việc hiển thị nội dung lên trang web, trong các web framework phổ biến khác như Django, Ruby on Rails… v.v cũng có hệ thống template tương tự như của Angular.
 
-#### HTML
+### HTML
 
 Ngôn ngữ chính của template là HTML, nhưng không phải các phần tử (hay các thẻ) đều hợp lệ với Angular, điển hình là thẻ `<script>`, với Angular thì `<script>` sẽ bị bỏ qua, không được biên dịch vì lý do bảo mật.
 
@@ -1679,7 +1765,7 @@ Angular sẽ lấy giá trị của thuộc tính trong lớp component rồi ch
 
 Chúng ta cũng có thể thực hiện tính toán trong này.
 
-#### Biểu thức
+### Biểu thức
 
 Biểu thức ở đây là các phép tính cộng, trừ, nhân, chia, gán, so sánh…v.v
 
@@ -1694,7 +1780,7 @@ Nhưng không phải tất cả đều có thể dùng được:
 
 _Không thể sử dụng toán tử bit OR (ký hiệu |) và toán tử AND (ký hiệu &)_
 
-#### Ngữ cảnh của biểu thức
+### Ngữ cảnh của biểu thức
 
 Một “ngữ cảnh” nói một cách đơn giản là các đối tượng thực hiện các biểu thức.
 
@@ -1714,7 +1800,7 @@ Không phải tất cả các biến trong biểu thức luôn luôn thuộc v�
 
 Chúng ta không thể dùng các đối tượng toàn cục của Javascript hay Node.js…v.v như console.log, Math.max, window, document… trong biểu thức được.
 
-#### Câu lệnh
+### Câu lệnh
 
 Các câu lệnh là các đoạn code thực hiện một công việc gì đó để phản hồi lại các sự kiện. Ví dụ:
 
@@ -1724,7 +1810,7 @@ Các câu lệnh là các đoạn code thực hiện một công việc gì đó
 
 Trong đoạn code trên thì createCustomer() chính là một câu lệnh trả lời lại sự kiện (click).
 
-#### Ngữ cảnh của câu lệnh
+### Ngữ cảnh của câu lệnh
 
 Cũng tương tự như ngữ cảnh của biểu thức, ngữ cảnh của câu lệnh cũng là một đối tượng của lớp component đã tạo ra template đó. Chẳng hạn như trong đoạn code trên thì câu lệnh createCustomer() có thể có ngữ cảnh là đối tượng của một lớp AppComponent nào đó.
 
@@ -1738,7 +1824,7 @@ Câu lệnh gọi hàm có thể nhận vào tham số là các biến biểu th
 
 Và cũng tương tự như ngữ cảnh của biểu thức, chúng ta không thể gọi những đối tượng toàn cục như window, document, console.log, Math.max…v.v
 
-#### Cú pháp kết nối dữ liệu
+### Cú pháp kết nối dữ liệu
 
 Đây là các cú pháp dùng để kết nối dữ liệu qua lại giữa lớp component và template, hỗ trợ việc đọc ghi dữ liệu một cách dễ dàng, **chiều kết nối có thể là 1 chiều hoặc 2 chiều**, tức là chỉ có thể đọc dữ liệu từ lớp component ra template hoặc ngược lại hoặc cả hai. Việc chúng ta cần làm là ghi cú pháp ra và Angular sẽ lo nốt phần bên dưới.
 
@@ -1758,7 +1844,7 @@ Loại (hay target) là tên các sự kiện, lớp, thuộc tính… và đư�
 
 Trong phần này chúng ta tiếp tục tìm hiểu về template trong Angular.
 
-#### Bắt thuộc tính […]
+### Bắt thuộc tính […]
 
 Bắt thuộc tính ở đây là chúng ta gán thuộc tính của một element/thẻ cho một biểu thức của template. Khi bắt thuộc tính thì chúng ta bọc tên thuộc tính trong cặp thẻ ngoặc vuông [].
 
@@ -1791,8 +1877,7 @@ Nếu element có phát sinh sự kiện thì chúng ta có thể bắt sự ki�
 Ngoài việc bọc tên thuộc tính trong cặp dấu ngoặc vuông [], thì chúng ta có thể nối vào đầu tên thuộc tính tiền tố bind-, ví dụ 2 đoạn code dưới đây là giống nhau:
 
 ```html
-<img [src]="customerUrl" />
-<img bind-src="customerUrl" />
+<img [src]="customerUrl" /> <img bind-src="customerUrl" />
 ```
 
 Bạn có thể dùng 1 trong 2 cách trên đều được.
@@ -1800,13 +1885,12 @@ Bạn có thể dùng 1 trong 2 cách trên đều được.
 Cú pháp bắt thuộc tính này cũng giống như cú pháp {{...}} vậy, 2 đoạn code dưới đây là tương đương nhau:
 
 ```html
-<img src="{{customerUrl}}" />
-<img [src]="customerUrl" />
+<img src="{{customerUrl}}" /> <img [src]="customerUrl" />
 ```
 
 Việc dùng cú pháp nào là tùy ở bạn, bạn thấy thích dùng cái gì thì dùng.
 
-#### Bắt sự kiện (…)
+### Bắt sự kiện (…)
 
 Bắt thuộc tính là lấy dữ liệu từ lớp component truyền lên template, bắt sự kiện thì ngược lại là phát sinh dữ liệu từ template và truyền về lớp component.
 
@@ -1839,7 +1923,7 @@ Khi sự kiện xảy ra, Angular sẽ thực thi câu lệnh trong dấu nháy 
 
 https://developer.mozilla.org/en-US/docs/Web/Events
 
-#### Bắt dữ liệu 2 chiều [(…)]
+### Bắt dữ liệu 2 chiều [(…)]
 
 Đây là cú pháp cho phép bạn vừa có thể lấy dữ liệu từ component, vừa có thể chỉnh sửa dữ liệu đó từ template.
 
@@ -1869,7 +1953,7 @@ Lớp AppComponent có một thuộc tính là username. Thuộc tính ngModel c
 
 Trong phần này chúng ta sẽ tìm hiểu về biến template và 2 thuộc tính @Input và @Output.
 
-#### Biến template (#var)
+### Biến template (#var)
 
 Đây là các biến mà chúng ta khai báo cho mỗi element trong một trang web, chúng ta có thể dùng biến này để đọc dữ liệu và gọi phương thức của lớp component hoặc chỉ thị.
 
@@ -1919,15 +2003,14 @@ Chúng ta có thể sử dụng tiền tố **ref-** thay cho kí tự #, tùy b
 <button (click)="callFax(fax.value)">Fax</button>
 ```
 
-#### Thuộc tính @Input và @Output
+### Thuộc tính @Input và @Output
 
 Hai thuộc tính này có tác dụng khai báo các biến và sự kiện dùng trong việc kết nối dữ liệu.
 
 Trong các bài trước chúng ta đã quen với việc kết nối dữ liệu từ thuộc tính và sự kiện của element sang một thuộc tính hoặc phương thức của lớp component, ví dụ:
 
 ```html
-<img [src]="iconUrl" />
-<button (click)="onSave()">Save</button>
+<img [src]="iconUrl" /> <button (click)="onSave()">Save</button>
 ```
 
 Trong đoạn code trên thì src là thuộc tính của element `<img>` và được kết nối tới thuộc tính iconUrl, click là sự kiện của element `<button>` và được kết nối tới phương thức onSave().
@@ -2003,7 +2086,7 @@ Trong phần này chúng ta sẽ tìm hiểu về các Directive (chỉ thị) c
 
 **Directive có 2 loại là structural và attribute.**
 
-#### Attribute directive
+### Attribute directive
 
 Đây là các chỉ thị có tác dụng lắng nghe và thay đổi cách thức hiển thị của các element, thuộc tính… trong HTML. Thông thường chúng cũng được dùng giống như một thuộc tính của một element.
 
@@ -2013,7 +2096,7 @@ Trong phần này chúng ta sẽ tìm hiểu về 3 loại chỉ thị thường
 - NgStyle: thêm/bớt các style
 - NgModel: kết nối dữ liệu 2 chiều, trong bài trước chúng ta đã có tìm hiểu sơ qua
 
-#### NgClass
+### NgClass
 
 Directive này cho phép bạn thêm hoặc bớt các lớp CSS một cách chủ động. Thông thường chúng ta sẽ gán giá trị cho chỉ thị ngClass là một đối tượng lưu dữ liệu theo dạng từ điển, tức là mỗi phần tử là một cặp `<key>:<value>`. Ví dụ:
 
@@ -2042,7 +2125,7 @@ Khi sử dụng ngClass thì chúng ta chỉ cần làm như sau:
 
 Chúng ta kết nối chỉ thị ngClass tới đối tượng currentClasses là được, tất nhiên trước đó chúng ta phải gọi phương thức setCurrentClasses() để thiết lập các phần tử trong đối tượng currentClasses, và element `<div>` sẽ có class là saveable, unchanged và special.
 
-#### NgStyle
+### NgStyle
 
 Chỉ thị ngStyle có chức năng thiết lập style của element bên trong element đó. Tương tự với ngClass, chúng ta cũng thường gán giá trị cho ngStyle là một đối tượng lưu trữ dạng từ điển.
 
@@ -2069,7 +2152,7 @@ Trong đoạn code trên chúng ta có lớp SetStyle, trong này có một đ�
 
 Và chúng ta cũng thiết lập chỉ thị ngStyle cho thuộc tính currentStyles này, tất nhiên là phải gọi phương thức setCurrentStyles() ở đâu đó trước.
 
-#### NgModel
+### NgModel
 
 Chúng ta đã biết là chỉ thị ngModel dùng để kết nối dữ liệu 2 chiều, tức là vừa có thể đọc dữ liệu từ lớp và hiển thị lên template, vừa có thể chỉnh sửa dữ liệu trên template và cập nhật vào lớp đó. Ví dụ:
 
@@ -2102,13 +2185,13 @@ export class AppModule { }
 
 Trong phần này chúng ta tiếp tục tìm hiểu về directive.
 
-#### Structural directive
+### Structural directive
 
 Các chỉ thị thuộc loại structural chịu trách nhiệm điều khiển cách dữ liệu được hiển thị, chẳng hạn như thêm, bớt, chỉnh sửa các element…v.v Ở đây chúng ta chỉ tìm hiểu 3 chỉ thị thường dùng là ngIf, ngFor và ngSwitch.
 
 Nếu bạn để ý thì có thể nhận thấy chức năng của 3 chỉ thị này giống với các câu lệnh if, for, switch trong các ngôn ngữ lập trình.
 
-#### ngIf
+### ngIf
 
 Chỉ thị ngIf cho phép chúng ta thêm hoặc loại bỏ một element ra khỏi trang, chúng ta gán giá trị cho chỉ thị này là một biểu thức nào đó có trả về giá trị true hoặc false, nếu biểu thức trả về true thì element sẽ hiện ra, ngược lại thì không.
 
@@ -2129,7 +2212,7 @@ Thông thường chúng ta dùng ngIf để kiểm tra xem một đối tượng
 <div *ngIf="nullCustomer">Hello, {{customer.name}}</div>
 ```
 
-#### Sử dụng template trong if else
+### Sử dụng template trong if else
 
 ```html
 <p *ngIf="is_available; then true_condition else false_condition">
@@ -2141,7 +2224,7 @@ Thông thường chúng ta dùng ngIf để kiểm tra xem một đối tượng
 
 Một lưu ý nhỏ là điều kiện trong template được ưu tiên hơn so với thẻ cha chứa cấu trúc điều khiển. Nghĩa là nếu is_available = true thì chỉ nội dung bên trong #true_condition được thực thi
 
-#### ngFor
+### ngFor
 
 Đây là chỉ thị lặp, có tác dụng lặp qua một danh sách các phần tử, khi chúng ta có một danh sách các phần tử, muốn hiển thị chúng lên trang web thì chúng ta lặp qua danh sách đó và hiển thị các phần tử theo một khuôn mẫu giống nhau. Ví dụ:
 
@@ -2167,7 +2250,7 @@ Trong ngFor có một thuộc tính tên là index, thuộc tính này lưu tr�
 <div *ngFor="let cus of customers; let i=index">{{i + 1}} : {{cus.name}}</div>
 ```
 
-#### ngSwitch
+### ngSwitch
 
 Chỉ thị ngSwitch cũng tương tự như câu lệnh switch trong Javascript vậy, chỉ thị này có tác dụng hiển thị một element trong một danh sách các element, dựa vào một điều kiện cho trước.
 
@@ -2496,7 +2579,7 @@ export class AppComponent {}
 
 Ở đây chúng ta dùng thuộc tính routerLink của lớp RouterModule, bạn cũng có thể sử dụng thuộc tính href, tuy nhiên chúng ta nên dùng routerLink là để tận dụng tính năng lấy tham số trong URL của lớp này.
 
-#### Tham số URL
+### Tham số URL
 
 Bây giờ chúng ta sẽ định nghĩa URL /detail để hiển thị thông tin chi tiết của các ngôn ngữ lập trình. Đầu tiên chúng ta sửa lại file app.module.ts như sau:
 
@@ -2622,7 +2705,7 @@ Chúng ta gán routerLink là một mảng với 2 phần tử, phần tử đ�
 
 Trong phần này chúng ta sẽ tìm hiểu cách gửi các gói tin đến một web server và nhận dữ liệu trả về từ server đó.
 
-#### Tạo web server API
+### Tạo web server API
 
 Để có thể gửi các truy vấn API thì trước hết chúng ta phải có một web server có các URL mẫu đã, may mắn là trong Angular có sẵn các lớp service có khả năng tạo một web server “mini” chạy cục bộ để chúng ta có thể thử nghiệm tính năng truy vấn API này.
 
@@ -2678,7 +2761,7 @@ PUT – api/languages/{id}: cập nhật theo id
 DELETE – api/languages/{id}: xóa theo id
 Bạn có thể tìm hiểu thêm tại đây: https://github.com/angular/in-memory-web-api
 
-#### Truy vấn API
+### Truy vấn API
 
 Để có thể truy vấn các API này thì chúng ta sử dụng lớp Http có trong Angular.
 
@@ -2955,7 +3038,7 @@ Data binding: Hien thi du lieu
 - view => component
 - 2 chieu
 
-#### Component to view
+### Component to view
 
 **1. Interpolation: {{}}**
 Bien, toan tu 3 ngoi, method
@@ -2996,7 +3079,7 @@ bien kieu: boolean, number, string
   'num';
 ```
 
-#### View to Component
+### View to Component
 
 1. Event binding
 
@@ -3009,7 +3092,7 @@ keyup.enter, dbclick, keyup
 event.target.innerText: ten su kien
 ```
 
-#### Two way binding
+### Two way binding
 
 Phai Import FormsModule o file app.modules.ts
 Cu phap:
@@ -3018,4 +3101,4 @@ Cu phap:
 Luu y: Neu dat trong the form thi can co:
 [ngModelOptions]="{standalone: true}"
 
-#### Structural Directive : \*ngIf
+### Structural Directive : \*ngIf
