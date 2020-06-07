@@ -8,14 +8,14 @@
   - [Setting](#setting)
   - [Cài TypeScript](#cài-typescript)
   - [Cài Angular CLI](#cài-angular-cli)
-  - [Typescript](#typescript)
+- [Typescript](#typescript)
   - [Các kiểu dữ liệu cơ bản](#các-kiểu-dữ-liệu-cơ-bản)
   - [Class](#class)
   - [Phương thức](#phương-thức)
   - [Phương thức khởi tạo](#phương-thức-khởi-tạo)
   - [Kế thừa](#kế-thừa)
   - [Fat Arrow Function](#fat-arrow-function)
-  - [Angular – Kiến trúc](#angular--kiến-trúc)
+- [Angular – Kiến trúc](#angular--kiến-trúc)
   - [Module](#module)
   - [Component](#component)
   - [Template](#template)
@@ -24,60 +24,60 @@
   - [Directive](#directive)
   - [Service](#service)
   - [Dependency injection](#dependency-injection)
-  - [Angular – Cấu trúc của một ứng dụng Angular](#angular--cấu-trúc-của-một-ứng-dụng-angular)
-  - [Angular – Root Module](#angular--root-module)
+- [Angular – Cấu trúc của một ứng dụng Angular](#angular--cấu-trúc-của-một-ứng-dụng-angular)
+- [Angular – Root Module](#angular--root-module)
   - [Imports](#imports)
   - [Declarations](#declarations)
   - [Bootstrap](#bootstrap)
   - [Khởi động ứng dụng](#khởi-động-ứng-dụng)
-  - [Angular – Hiển thị dữ liệu](#angular--hiển-thị-dữ-liệu)
+- [Angular – Hiển thị dữ liệu](#angular--hiển-thị-dữ-liệu)
   - [Tạo project Angular](#tạo-project-angular)
   - [Trích xuất dữ liệu và hiển thị](#trích-xuất-dữ-liệu-và-hiển-thị)
   - [Duyệt dữ liệu với \*ngFor](#duyệt-dữ-liệu-với-ngfor)
   - [Biểu thức điều kiện](#biểu-thức-điều-kiện)
-  - [Angular – Tạo Component](#angular--tạo-component)
+- [Angular – Tạo Component](#angular--tạo-component)
   - [Tạo component](#tạo-component)
   - [Cấu trúc của component](#cấu-trúc-của-component)
-  - [Angular – Xử lý sự kiện](#angular--xử-lý-sự-kiện)
+- [Angular – Xử lý sự kiện](#angular--xử-lý-sự-kiện)
   - [Bắt sự kiện](#bắt-sự-kiện)
   - [Lấy dữ liệu từ sự kiện từ đối tượng \$event](#lấy-dữ-liệu-từ-sự-kiện-từ-đối-tượng-event)
   - [Lấy dữ liệu trong template](#lấy-dữ-liệu-trong-template)
   - [Lọc sự kiện](#lọc-sự-kiện)
-  - [Angular – Liên kết dữ liệu với Form](#angular--liên-kết-dữ-liệu-với-form)
+- [Angular – Liên kết dữ liệu với Form](#angular--liên-kết-dữ-liệu-với-form)
   - [Tạo form](#tạo-form)
   - [Liên kết dữ liệu với form](#liên-kết-dữ-liệu-với-form)
-  - [Angular – Theo dõi trạng thái form với ngModel](#angular--theo-dõi-trạng-thái-form-với-ngmodel)
+- [Angular – Theo dõi trạng thái form với ngModel](#angular--theo-dõi-trạng-thái-form-với-ngmodel)
   - [Trạng thái](#trạng-thái)
   - [Submit form](#submit-form)
-  - [Angular – Template – Phần 1](#angular--template--phần-1)
+- [Angular – Template – Phần 1](#angular--template--phần-1)
   - [HTML](#html)
   - [Biểu thức](#biểu-thức)
   - [Ngữ cảnh của biểu thức](#ngữ-cảnh-của-biểu-thức)
   - [Câu lệnh](#câu-lệnh)
   - [Ngữ cảnh của câu lệnh](#ngữ-cảnh-của-câu-lệnh)
   - [Cú pháp kết nối dữ liệu](#cú-pháp-kết-nối-dữ-liệu)
-  - [Angular – Template – Phần 2](#angular--template--phần-2)
+- [Angular – Template – Phần 2](#angular--template--phần-2)
   - [Bắt thuộc tính […]](#bắt-thuộc-tính-)
   - [Bắt sự kiện (…)](#bắt-sự-kiện-)
   - [Bắt dữ liệu 2 chiều [(…)]](#bắt-dữ-liệu-2-chiều-)
-  - [Angular – Template – Phần 3](#angular--template--phần-3)
+- [Angular – Template – Phần 3](#angular--template--phần-3)
   - [Biến template (#var)](#biến-template-var)
   - [Thuộc tính @Input và @Output](#thuộc-tính-input-và-output)
-  - [Angular – Directive – Phần 1](#angular--directive--phần-1)
+- [Angular – Directive – Phần 1](#angular--directive--phần-1)
   - [Attribute directive](#attribute-directive)
   - [NgClass](#ngclass)
   - [NgStyle](#ngstyle)
   - [NgModel](#ngmodel)
-  - [Angular – Directive – Phần 2](#angular--directive--phần-2)
+- [Angular – Directive – Phần 2](#angular--directive--phần-2)
   - [Structural directive](#structural-directive)
   - [ngIf](#ngif)
   - [Sử dụng template trong if else](#sử-dụng-template-trong-if-else)
   - [ngFor](#ngfor)
   - [ngSwitch](#ngswitch)
-  - [Angular – Service và Dependency Injection](#angular--service-và-dependency-injection)
-  - [Angular – Routing](#angular--routing)
+- [Angular – Service và Dependency Injection](#angular--service-và-dependency-injection)
+- [Angular – Routing](#angular--routing)
   - [Tham số URL](#tham-số-url)
-  - [Angular – HTTP](#angular--http)
+- [Angular – HTTP](#angular--http)
   - [Tạo web server API](#tạo-web-server-api)
   - [Truy vấn API](#truy-vấn-api)
 - [Angular 4 nghiep UIT](#angular-4-nghiep-uit)
@@ -172,7 +172,7 @@ ng serve --open
 
 Angular sẽ khởi động server tại địa chỉ http://localhost:4200
 
-### Typescript
+## Typescript
 
 **TypeScript** là một ngôn ngữ có “họ hàng” với Javascript. Đây là một bản mở rộng của **ECMAScript6** (viết tắt là ES6), ES6 lại là một bản mở rộng của ECMAScript5 (viết tắt là ES5), ES5 chính là Javascript mà chúng ta thường dùng.
 
@@ -504,7 +504,7 @@ var html = `
 
 ---
 
-### Angular – Kiến trúc
+## Angular – Kiến trúc
 
 Một ứng dụng Angular được xây dựng từ 8 thành phần sau đây: **Module, Component, Template, Metadata, Data Binding, Directive, Service, Dependency Injection.**
 
@@ -698,7 +698,7 @@ Hoặc khai báo ở phần @Component:
 
 ---
 
-### Angular – Cấu trúc của một ứng dụng Angular
+## Angular – Cấu trúc của một ứng dụng Angular
 
 Trong thư mục quickstart mà chúng ta đã cài đặt Angular, có một thư mục project mẫu tên là app, trong thư mục này có 3 file .ts như sau:
 
@@ -764,7 +764,7 @@ File main.ts sẽ liên kết toàn bộ các file thành một ứng dụng ho�
 
 ---
 
-### Angular – Root Module
+## Angular – Root Module
 
 Các lớp module có trách nhiệm gắn kết các thành phần lại với nhau, mỗi ứng dụng Angular sẽ có ít nhất một module, trong đó có một module gốc (root) luôn được chạy trước tiên khi chúng ta khởi động ứng dụng, thông thường chúng ta sẽ đặt tên nó là AppModule.
 
@@ -845,7 +845,7 @@ Chúng ta khởi động bằng cách gọi phương thức platformBrowserDynam
 
 ---
 
-### Angular – Hiển thị dữ liệu
+## Angular – Hiển thị dữ liệu
 
 ### Tạo project Angular
 
@@ -1010,7 +1010,7 @@ Theo sau \*ngIf là một câu lệnh so sánh hay bất cứ một biểu thứ
 
 ---
 
-### Angular – Tạo Component
+## Angular – Tạo Component
 
 Trong phần này chúng ta sẽ tìm hiểu cách tạo một Component.
 
@@ -1104,7 +1104,7 @@ https://freetuts.net/tim-hieu-ve-component-trong-angular-4-1301.html
 
 ---
 
-### Angular – Xử lý sự kiện
+## Angular – Xử lý sự kiện
 
 Khi người dùng tương tác với trang web thì sẽ phát sinh sự kiện, những sự kiện thường thấy nhất là click chuột, gõ phím, tải trang web…v.v Đây là các sự kiện DOM (DOM Event), chúng ta có thể lắng nghe các sự kiện đó và tương tác lại với người dùng.
 
@@ -1253,7 +1253,7 @@ export class AppComponent {
 
 ---
 
-### Angular – Liên kết dữ liệu với Form
+## Angular – Liên kết dữ liệu với Form
 
 Angular cho phép chúng ta kết nối dữ liệu từ form tới các đối tượng trong class.
 
@@ -1517,7 +1517,7 @@ src/app/customer-form.component.html
 
 ---
 
-### Angular – Theo dõi trạng thái form với ngModel
+## Angular – Theo dõi trạng thái form với ngModel
 
 Trong bài trước chúng ta đã tìm hiểu qua cách liên kết dữ liệu hai chiều với ngModel, ngModel không những thực hiện chức năng đó mà còn có khả năng kiểm tra trạng thái của các phần tử control trong form, chẳng hạn như nội dung textbox thay đổi, người dùng click vào…v.v
 
@@ -1734,7 +1734,7 @@ Chúng ta gán thuộc tính disabled là biểu thức !customerForm.form.valid
 
 ---
 
-### Angular – Template – Phần 1
+## Angular – Template – Phần 1
 
 Trong các bài trước chúng ta đã làm việc qua với cú pháp của template, trong phần này chúng ta sẽ tìm hiểu kỹ hơn.
 
@@ -1840,7 +1840,7 @@ Loại (hay target) là tên các sự kiện, lớp, thuộc tính… và đư�
 
 ---
 
-### Angular – Template – Phần 2
+## Angular – Template – Phần 2
 
 Trong phần này chúng ta tiếp tục tìm hiểu về template trong Angular.
 
@@ -1949,7 +1949,7 @@ Lớp AppComponent có một thuộc tính là username. Thuộc tính ngModel c
 
 ---
 
-### Angular – Template – Phần 3
+## Angular – Template – Phần 3
 
 Trong phần này chúng ta sẽ tìm hiểu về biến template và 2 thuộc tính @Input và @Output.
 
@@ -2078,7 +2078,7 @@ Chúng ta import lớp CustomerFormComponent, sau đó khai báo selector, rồi
 
 ---
 
-### Angular – Directive – Phần 1
+## Angular – Directive – Phần 1
 
 Trong phần này chúng ta sẽ tìm hiểu về các Directive (chỉ thị) có sẵn trong Angular.
 
@@ -2181,7 +2181,7 @@ export class AppModule { }
 
 ---
 
-### Angular – Directive – Phần 2
+## Angular – Directive – Phần 2
 
 Trong phần này chúng ta tiếp tục tìm hiểu về directive.
 
@@ -2271,7 +2271,7 @@ Trong đoạn code trên, ngSwitch được gán bằng giá trị của thuộc
 
 ---
 
-### Angular – Service và Dependency Injection
+## Angular – Service và Dependency Injection
 
 **Service** (dịch vụ) chẳng qua cũng là một cách giúp cho chúng ta tái sử dụng code mà thôi, chẳng hạn như bạn có một lớp Customer, thì thay vì mỗi lần cần lấy các đối tượng Customer đang có, chúng ta phải viết code để tạo đối tượng, truyền tham số…v.v ở nhiều nơi khác nhau, thì bây giờ chúng ta chỉ cần viết một lớp service làm điều đó luôn cho chúng ta, như vậy việc quản lý code sẽ dễ dàng hơn, chẳng hạn như mỗi lần thay đổi phương thức khởi tạo, thì chúng ta chỉ cần thay đổi code trong lớp service là được, thay vì phải đi sửa lại toàn bộ những dòng code khởi tạo đó.
 
@@ -2443,7 +2443,7 @@ Phương thức getLanguages() sẽ sau khi thực thi xong việc lấy dữ li
 
 ---
 
-### Angular – Routing
+## Angular – Routing
 
 Nếu bạn chưa biết Routing là gì thì có thể giải thích ngắn gọn đây là một tính năng cho phép chúng ta điều hướng các URL tới các hàm/phương thức/lớp/controller nào đó trong ứng dụng, đây là tính năng có trong hầu hết các web framework phổ biến ngày nay.
 
@@ -2701,7 +2701,7 @@ Chúng ta gán routerLink là một mảng với 2 phần tử, phần tử đ�
 
 ---
 
-### Angular – HTTP
+## Angular – HTTP
 
 Trong phần này chúng ta sẽ tìm hiểu cách gửi các gói tin đến một web server và nhận dữ liệu trả về từ server đó.
 
