@@ -1278,6 +1278,10 @@ Use local references to mark else **#condition**
 
 ### 28. Styling Elements Dynamically with ngStyle
 
+![image-20200607210539183](angular.assets/image-20200607210539183.png)  
+
+
+
 Attribute directive
 server.component.html
 
@@ -1327,6 +1331,8 @@ server.component.ts
 <app-server *ngFor="let server of servers"></app-server>
 ```
 
+![image-20200607211342506](angular.assets/image-20200607211342506.png)
+
 ### 31. Practicing Directives.html
 
 ### 32. [OPTIONAL] Assignment Solution
@@ -1362,6 +1368,8 @@ export class AppComponent {
 ```
 
 ### 33. Getting the Index when using ngFor
+
+![image-20200607211813408](angular.assets/image-20200607211813408.png)  
 
 33.1 basics-ngfor-addition.zip
 
@@ -1497,6 +1505,8 @@ Tại file shopping-list.component.html
 </nav>
 ```
 
+![image-20200607222152486](angular.assets/image-20200607222152486.png)  
+
 ### 8. Alternative Non-Collapsable Navigation Bar.html
 
 The way we added it, the Navbar will collapse on smaller screens. Since we didn't implement a Hamburger menu, that means that there's no way of accessing our links on smaller screens.
@@ -1615,6 +1625,8 @@ Tại file recipe-list.component.html sửa lại để đổ data:
 
 Can write src="{{recipe.imagePath}}"
 
+![image-20200607233107824](angular.assets/image-20200607233107824.png)
+
 ### 12. Displaying Recipe Details
 
 recipe-detail.component.html
@@ -1656,6 +1668,8 @@ recipe-detail.component.html
 </div>
 ```
 
+![image-20200608000729831](angular.assets/image-20200608000729831.png)  
+
 ### 13. Working on the ShoppingListComponent
 
 ### 14. Creating an Ingredient Model
@@ -1669,6 +1683,56 @@ export class Ingredient {
 Co the viet gon lai ntn thay vi gan value cho prop da khai bao trong typescripts
 
 ### 15. Creating and Outputting the Shopping List
+
+shopping-list.component.ts
+
+```ts
+import { Component, OnInit } from '@angular/core';
+
+import { Ingredient } from '../shared/ingredient.model';
+
+@Component({
+  selector: 'app-shopping-list',
+  templateUrl: './shopping-list.component.html',
+  styleUrls: ['./shopping-list.component.css']
+})
+export class ShoppingListComponent implements OnInit {
+  ingredients: Ingredient[] = [
+    new Ingredient('Apples', 5),
+    new Ingredient('Tomatoes', 10),
+  ];
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}
+
+```
+
+shopping-list.component.html
+
+```html
+<div class="row">
+  <div class="col-xs-10">
+    <app-shopping-edit></app-shopping-edit>
+    <hr>
+    <ul class="list-group">
+      <a
+        class="list-group-item"
+        style="cursor: pointer"
+        *ngFor="let ingredient of ingredients"
+      >
+        {{ ingredient.name }} ({{ ingredient.amount }})
+      </a>
+    </ul>
+  </div>
+</div>
+
+```
+
+
 
 ### 16. Adding a Shopping List Edit Section
 
@@ -1701,6 +1765,8 @@ shopping-edit
 ```
 
 ### 17. Wrap Up & Next Steps
+
+![image-20200608003510267](angular.assets/image-20200608003510267.png)  
 
 ## 4. Debugging
 
