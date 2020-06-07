@@ -1778,6 +1778,8 @@ Delete the last intem is not work
 => Use chrome
 Vao folder webpack/./src
 
+![image-20200608003733305](angular.assets/image-20200608003733305.png)  
+
 ### 3. Using Augury to Dive into Angular Apps
 
 install Augury extensions
