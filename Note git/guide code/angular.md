@@ -764,6 +764,30 @@ export class AppComponent {
 
 ```
 
+app.module.ts
+
+```js
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule // add
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+```
+
 
 
 ### 7. The Course Structure
@@ -774,18 +798,23 @@ export class AppComponent {
 
 TypeScript is compile to JS
 
-![image-20200523223602000](angular.assets/image-20200523223602000.png)
+![image-20200523223602000](angular.assets/image-20200523223602000.png)  
+
+However, Typescript doesn't run in the browser, so it is compiled to JavaScript in the end.
+
+This compilation is handled by the CLI; one of the reasons why we need the CLI, why we need a project management tool like the CLI.
 
 ### 10. A Basic Project Setup using Bootstrap for Styling
 
 ```ts
 Npm install --save bootstrap@3
-
 ```
 
 => install locally
 
-![image-20200523223802291](angular.assets/image-20200523223802291.png)Tại file angular.json sửa lại :
+![image-20200523223802291](angular.assets/image-20200523223802291.png)
+
+Tại file angular.json sửa lại tại options :
 
 ```js
 "styles": [
@@ -876,12 +905,44 @@ angular.json
 
 ## 2. The Basics
 
+**Run with cmd**
+
+> ```
+> netstat -ano | findstr :PORT_NUMBER
+> ```
+
+(Replace PORT_NUMBER with the port number you want, but keep the colon)
+
+![img](angular.assets/lEpCZ.png)
+
+The area circled in red shows the PID (process identifier). Locate the PID of the process that's using the port you want.
+
+**Step 2:**
+
+Next, run the following command:
+
+> ```
+> taskkill /PID PORT_NUMBER /F
+> ```
+
+(No colon this time)
+
+![img](angular.assets/8k64x.png)
+
 ### 1. Module Introduction
 
 Angular is a js framework, change your DOM(‘html’) at runtime
 Component: divide your application into many components => chia thành các phần có thể tái SD
 
+Xem lại: https://phocode.com/javascript/lap-trinh-web-voi-angularjs-2/angular-typescript-phan-1/
+
 ### 2. How an Angular App gets Loaded and Started
+
+File main.ts sẽ liên kết toàn bộ các file thành một ứng dụng hoàn chỉnh.
+
+![image-20200605163545934](angular.assets/image-20200605163545934.png)  
+
+
 
 ### 4. Creating a New Component
 
@@ -933,7 +994,7 @@ Angular will auto add in app.module.ts
 
 ### 8. Working with Component Templates
 
-Nếu định nghĩa template trong 1 file thì sử dụng dấu `` nếu viết trên nhiều dòng:
+Nếu định nghĩa template trong 1 file thì sử dụng dấu `` nếu viết trên nhiều dòng, dấu '' thì viết chỉ được trên  line:
 
 ```ts
 @Component({
@@ -968,6 +1029,8 @@ export class ServersComponent implements OnInit {
 ```
 
 ### 9. Working with Component Styles
+
+app.component.ts
 
 Change styleUrls => styles
 
@@ -1005,13 +1068,17 @@ app.component.html
 
 ### 12. [OPTIONAL] Assignment Solution
 
+![image-20200607195555001](angular.assets/image-20200607195555001.png)  
+
+
+
 ### 13. What is Databinding
 
 ![](../root/img/2019-11-17-02-20-04.png)
 
 ### 14. String Interpolation
 
-server
+server.component.html
 
 ```html
 <p>{{ 'Server' }} with ID {{ serverId }} is {{ getServerStatus() }}</p>
@@ -1109,9 +1176,9 @@ servers.component.ts
 
 ### 20. Important FormsModule is Required for Two-Way-Binding!.html
 
-Important: For Two-Way-Binding (covered in the next lecture) to work, you need to enable the ngModel directive. This is done by adding the FormsModule to the imports[] array in the AppModule.
+Important: For Two-Way-Binding (covered in the next lecture) to work, you need to enable the `ngModel` directive. This is done by adding the `FormsModule` to the `imports[]` array in the AppModule.
 
-You then also need to add the import from @angular/forms in the app.module.ts file:
+You then also need to add the import from `@angular/forms` in the app.module.ts file:
 
 ```ts
 import { FormsModule } from "@angular/forms";
@@ -1128,11 +1195,17 @@ servers.component.ts
 
 click button => create sever
 
+ngModel được gọi là directive 
+
 ### 22. Combining all Forms of Databinding
 
 ### 23. Practicing Databinding.html
 
 ### 24. [OPTIONAL] Assignment Solution
+
+![image-20200607204305128](angular.assets/image-20200607204305128.png)  
+
+
 
 ```html
 <div class="container">
