@@ -1797,6 +1797,88 @@ ng g c server-element –-spec false
 
 App tạo server và blue print server(khi hiển thị sẽ in nghiêng và có màu khác): get server được tạo ra bởi cockpit và thêm vào list server ở app component
 
+![image-20200608004202825](angular.assets/image-20200608004202825.png)  
+
+cmp-databinding-start
+
+app.component.html
+
+```html
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <p>Add new Servers or blueprints!</p>
+      <label>Server Name</label>
+      <input type="text" class="form-control" [(ngModel)]="newServerName">
+      <label>Server Content</label>
+      <input type="text" class="form-control" [(ngModel)]="newServerContent">
+      <br>
+      <button
+        class="btn btn-primary"
+        (click)="onAddServer()">Add Server</button>
+      <button
+        class="btn btn-primary"
+        (click)="onAddBlueprint()">Add Server Blueprint</button>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-xs-12">
+      <div
+        class="panel panel-default"
+        *ngFor="let element of serverElements">
+        <div class="panel-heading">{{ element.name }}</div>
+        <div class="panel-body">
+          <p>
+            <strong *ngIf="element.type === 'server'" style="color: red">{{ element.content }}</strong>
+            <em *ngIf="element.type === 'blueprint'">{{ element.content }}</em>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+```
+
+app.components.ts
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  serverElements = [];
+  newServerName = '';
+  newServerContent = '';
+
+  onAddServer() {
+    this.serverElements.push({
+      type: 'server',
+      name: this.newServerName,
+      content: this.newServerContent
+    });
+  }
+
+  onAddBlueprint() {
+    this.serverElements.push({
+      type: 'blueprint',
+      name: this.newServerName,
+      content: this.newServerContent
+    });
+  }
+}
+
+```
+
+
+
+  
+
 ### 3. Property & Event Binding Overview
 
 ![](../root/img/2019-11-18-23-49-15.png)
@@ -1807,6 +1889,10 @@ Cách bắt dữ liệu từ Component khác
 server-element.component.ts
 
 ```ts
+import {
+  OnInit,
+  Input
+} from '@angular/core';
 // alias
 @Input('srvElement') element: {type: string, name: string, content: string};
 @Input() name: string;
@@ -1862,7 +1948,7 @@ Tại file cockpit.ts
 
 ```ts
 @Output() serverCreated = new EventEmitter<{serverName: string, serverContent: string}>();
-  @Output('bpCreated') blueprintCreated = new EventEmitter<{serverName: string, serverContent: string}>();
+@Output('bpCreated') blueprintCreated = new EventEmitter<{serverName: string, serverContent: string}>();
 
 onAddServer() {
     this.serverCreated.emit({
@@ -1921,6 +2007,8 @@ export class ServerElementComponent
 - Emulated là default nên bạn không cần add
 - None có nghĩ là không sử dụng View encapsulation => effect all similar tag
 - Native cũng như emaulated…
+
+The other components still will use it, there you still see these attributes but if you now define any styles for this component in the CSS file of this component, they will actually get applied globally and I can demonstrate this by going into this CSS file and if I change the label color and the label is in the cockpit, not in this component, to red, now you will see the label there is overwritten whilst this label of course still has its custom unique attribute, it still is a label in the end and in this server element component, we disable encapsulation. So there our selectors aren't changed by Angular, they don't receive their unique selector, therefore they are enforced => **NONE**
 
 ### 11. Using Local References in Templates
 
@@ -1990,6 +2078,8 @@ If you DON'T access the selected element in ngOnInit (but anywhere else in your 
 
 This is a temporary adjustment which will NOT be required anymore once Angular 9 is released!
 
+If you're using Angular 9, you only need to add `{ static: true }` (if needed) but not `{ static: false }`.
+
 ### 13. Getting Access to the Template & DOM with @ViewChild
 
 ```ts
@@ -2001,16 +2091,22 @@ Nên sử dụng string interpolation hay pro binding thay vì this.serverConten
 
 ### 14. Projecting Content into Components with ng-content
 
-Khi muốn chuyển đoạn html bên dưới từ server-element ra ngoài
+Khi muốn chuyển đoạn html bên dưới từ server-element ra ngoài app.component.html
 
 ```html
-<strong *ngIf="serverElement.type === 'server'" style="color: red"
-  >{{ serverElement.content }}</strong
->
-<em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
+<app-server-element
+        *ngFor="let serverElement of serverElements"
+        [srvElement]="serverElement"
+        [name]="serverElement.name">
+    // add và thay serverElement để đổ data ra
+        <p #contentParagraph>
+          <strong *ngIf="serverElement.type === 'server'" style="color: red">{{ serverElement.content }}</strong>
+          <em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
+        </p>
+      </app-server-element>
 ```
 
-Thay bằng
+Thay bằng tại server-element.component.html
 
 ```html
 <ng-content></ng-content>
@@ -2018,7 +2114,116 @@ Thay bằng
 
 ### 15. Understanding the Component Lifecycle
 
-![img](../root/img/2019-11-19-01-54-30.png)
+![img](../root/img/2019-11-19-01-54-30.png)  
+
+ngOnInit will run after the constructor. Then we have ngDoCheck, that will also run multiple times, actually this method will be executed a lot because this will run whenever change detection runs.
+
+Now change detection simply is the system by which Angular determines whether something changed on the
+
+template of a component or inside of a component I should say, so whether it needs to change something in the template. So whether some property value changed from 1 to 2 let's say and that property is output in the template,
+
+
+well of course Angular needs to re-render that part of the template and ngDoCheck is a hook executed
+
+on every check Angular makes. Now important, on every check, so not just if something changed,
+
+a lot of times ngDoCheck will run because you clicked some button which doesn't change anything
+
+but still it's an event and on events, Angular has to check if something changed because how else would
+
+it know?
+
+server-element.component.ts
+
+```ts
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewEncapsulation,
+  OnChanges,
+  SimpleChanges,
+  DoCheck,
+  AfterContentInit,
+  AfterContentChecked,
+  AfterViewInit,
+  AfterViewChecked,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  ContentChild
+} from '@angular/core';
+
+@Component({
+  selector: 'app-server-element',
+  templateUrl: './server-element.component.html',
+  styleUrls: ['./server-element.component.css'],
+  encapsulation: ViewEncapsulation.Emulated // None, Native
+})
+export class ServerElementComponent implements
+  OnInit,
+  OnChanges,
+  DoCheck,
+  AfterContentInit,
+  AfterContentChecked,
+  AfterViewInit,
+  AfterViewChecked,
+  OnDestroy {
+  @Input('srvElement') element: {type: string, name: string, content: string};
+  @Input() name: string;
+  @ViewChild('heading', {static: true}) header: ElementRef;
+  @ContentChild('contentParagraph', {static: true}) paragraph: ElementRef;
+
+  constructor() {
+    console.log('constructor called!');
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('ngOnChanges called!');
+    console.log(changes);
+  }
+
+  ngOnInit() {
+    console.log('ngOnInit called!');
+    console.log('Text Content: ' + this.header.nativeElement.textContent);
+    console.log('Text Content of paragraph: ' + this.paragraph.nativeElement.textContent);
+  }
+
+  ngDoCheck() {
+    console.log('ngDoCheck called!');
+  }
+
+  ngAfterContentInit() {
+    console.log('ngAfterContentInit called!');
+    console.log('Text Content of paragraph: ' + this.paragraph.nativeElement.textContent);
+  }
+
+  ngAfterContentChecked() {
+    console.log('ngAfterContentChecked called!');
+  }
+
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit called!');
+    console.log('Text Content: ' + this.header.nativeElement.textContent);
+  }
+
+  ngAfterViewChecked() {
+    console.log('ngAfterViewChecked called!');
+  }
+
+  ngOnDestroy() {
+    console.log('ngOnDestroy called!');
+  }
+
+}
+
+```
+
+![image-20200608104558036](angular.assets/image-20200608104558036.png)  
+
+@Input('srvElement') element => in ra khi change
+
+
 
 ### 16. Seeing Lifecycle Hooks in Action
 
@@ -2031,6 +2236,12 @@ onChangeFirst() {
 // O file server
 console.log(changes);
 In change have previous value
+
+
+
+onDestroyFirst() {
+    this.serverElements.splice(0, 1);
+  }
 ```
 
 app.component.html
@@ -2051,7 +2262,43 @@ app.component.html
 ></app-server-element>
 ```
 
+![image-20200608105744127](angular.assets/image-20200608105744127.png)  
+
+DoCheck
+
+![image-20200608105716731](angular.assets/image-20200608105716731.png)
+
+So ngDoCheck as I told you gets called whenever Angular checks for any changes and there are a couple
+
+of triggers which trigger this method and event was called by clicking or a promise gave us back
+
+some data, so a lot of triggers for ngDoCheck.
+
+So that is not something where you want to run amazingly powerful code in because that would cost you a
+
+lot of performance but the fact that change detection runs as often as it does on its own is not a problem
+
+and this can be a great hook if you want to check, if you do need to change something manually because
+
+Angular didn't pick it up or something like that.
+
 Constructor được gọi đầu tiên => change => onInit => do Check => @AfterContentInit
+
+
+
+Now let's call this console log ngAfterContentInit called.
+
+If we do this here, you will see that here it is, there it is called after do check and **it is called only once** because it doesn't get initialized again. Remember, content is the thing we projected into this through ng-content, so this here will be our content in the end.
+
+AfterContentInit
+
+![image-20200608110236459](angular.assets/image-20200608110236459.png)  
+
+![image-20200608110519006](angular.assets/image-20200608110519006.png)  
+
+![image-20200608111158975](angular.assets/image-20200608111158975.png)  
+
+![image-20200608111300216](angular.assets/image-20200608111300216.png)  
 
 ### 17. Lifecycle Hooks and Template Access
 
