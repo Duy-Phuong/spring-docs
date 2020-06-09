@@ -3391,6 +3391,7 @@ import { AccountsService } from "./accounts.service";
   providers: [AccountsService]
 })
 export class AppComponent implements OnInit {
+    // add
   accounts: { name: string; status: string }[] = [];
 
   constructor(private accountsService: AccountsService) {}
@@ -3435,6 +3436,7 @@ export class NewAccountComponent {
   ) {}
 
   onCreateAccount(accountName: string, accountStatus: string) {
+      // add
     this.accountsService.addAccount(accountName, accountStatus);
     // this.loggingService.logStatusChange(accountStatus);
   }
@@ -3454,6 +3456,7 @@ export class AccountComponent {
   ) {}
 
   onSetTo(status: string) {
+      // add
     this.accountsService.updateStatus(this.id, status);
     this.loggingService.logStatusChange(status);
   }
@@ -3463,7 +3466,19 @@ export class AccountComponent {
 ### 6. Understanding the Hierarchical Injector
 
 Service được cung cấp cho 1 component và tất cả các con của nó => the same instance
-![](../root/img/2019-11-21-00-06-50.png)
+![](../root/img/2019-11-21-00-06-50.png)  
+
+If we provide a service there, **the app module** does have a providers array, the same instance and that's important, the same instance of the class, of the service is available in our whole app, in all components, in all
+
+directives, in all other services where we maybe inject the service. Yes, we can inject services into services,  
+
+I'll come back to this. The next level for example would be the app component, there the app component and
+
+all its child components do have the same instance of the service and this is true for any component,
+
+so even if we have a child of the app component, if we provide it on that child, all the children of this
+
+child will have the same instance and the child itself but not the app component.
 
 ### 7. How many Instances of Service Should It Be
 
@@ -3507,7 +3522,7 @@ Thông báo service is injectable or something is can be injected in there => in
 
 ### 9. Using Services for Cross-Component Communication
 
-app.component.html
+app.component.html xóa event add account đi trọng 2 thẻ
 
 ```html
 <app-new-account></app-new-account>
@@ -3552,11 +3567,87 @@ constructor(private loggingService: LoggingService,
 
 ### 11. [OPTIONAL] Assignment Solution
 
+counter.service.ts
+
+```ts
+export class CounterService {
+  activeToInactiveCounter = 0;
+  inactiveToActiveCounter = 0;
+
+  incrementActiveToInactive() {
+    this.activeToInactiveCounter++;
+    console.log('Active to Inactive: ' + this.activeToInactiveCounter);
+  }
+
+  incrementInActiveToActive() {
+    this.inactiveToActiveCounter++;
+    console.log('Inactive to Active: ' + this.inactiveToActiveCounter);
+  }
+}
+
+```
+
+users.service.ts
+
+```ts
+import { Injectable } from '@angular/core';
+
+import { CounterService } from './counter.service';
+
+@Injectable()
+export class UserService {
+  activeUsers = ['Max', 'Anna'];
+  inactiveUsers = ['Chris', 'Manu'];
+
+  constructor(private counterService: CounterService) {}
+
+  setToActive(id: number) {
+    this.activeUsers.push(this.inactiveUsers[id]);
+    this.inactiveUsers.splice(id, 1);
+    this.counterService.incrementInActiveToActive();
+  }
+
+  setToInactive(id: number) {
+    this.inactiveUsers.push(this.activeUsers[id]);
+    this.activeUsers.splice(id, 1);
+    this.counterService.incrementActiveToInactive();
+  }
+}
+
+```
+
+active-users.component
+
+```ts
+
+export class ActiveUsersComponent implements OnInit {
+  users: string[];
+
+    // add
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+      // add
+    this.users = this.userService.activeUsers;
+  }
+
+  onSetToInactive(id: number) {
+    this.userService.setToInactive(id);
+  }
+}
+```
+
+Nhớ khai báo  providers: [UserService] in AppComponent
+
+![image-20200609154044546](angular.assets/image-20200609154044546.png)  
+
+Khai báo CounterService in app.modules
+
 ### 12. Services in Angular 6+.html
 
-If you're using Angular 6+ (check your package.json to find out), you can provide application-wide services in a different way.
+If you're using **Angular 6+** (check your `package.json` to find out), you can provide application-wide services in a different way.
 
-Instead of adding a service class to the providers[] array in AppModule , you can set the following config in @Injectable() :
+Instead of adding a service class to the `providers[]` array in `AppModule` , you can set the following config in `@Injectable()` :
 
 ```ts
 @Injectable({providedIn: 'root'})
@@ -3577,11 +3668,21 @@ export class AppModule { ... }
 
 ```
 
-Using this new syntax is completely optional, the traditional syntax (using providers[] ) will still work. The "new syntax" does offer one advantage though: Services can be loaded lazily by Angular (behind the scenes) and redundant code can be removed automatically. This can lead to a better performance and loading speed - though this really only kicks in for bigger services and apps in general.
+Using this new syntax is **completely optional**, the traditional syntax (using `providers[]` ) will still work. The "new syntax" does offer one advantage though: Services **can be loaded lazily** by Angular (behind the scenes) and redundant code can be removed automatically. This can lead to a better performance and loading speed - though this really only kicks in for bigger services and apps in general.
 
 ## 10. Course Project - Services & Dependency Injection
 
 ### 1. Introduction
+
+Which services do we need?
+
+Let's have a look at our application again, this is the application the way it looks right now.
+
+Now services allow us to centralize tasks, manage data in a central place and so on.
+
+So we probably need a service for both feature areas, we will need a shopping list service and a recipe service. The shopping list service managing our shopping list and we will also access it from the
+
+recipe, from the recipe area because we want to add items to the shopping list from there and well the recipe service, that will be responsible for managing our recipe, managing the data there and so on.
 
 ### 2. Setting up the Services
 
@@ -3748,6 +3849,14 @@ providers: [ShoppingListService],
 
 ```
 
+we can provide it here in the shopping list component and therefore it would also be available in the
+
+shopping edit component but actually later I also want to access it from my recipe section.
+
+That is why I will actually provide it in app module and here, I will add it to this providers array therefore, shopping
+
+list service.
+
 shopping-list.component.ts
 
 ```ts
@@ -3796,7 +3905,7 @@ Vào file shopping-list xóa hàm onIngredientAdded
 ```html
 // Xóa (ingredientAdded)="onIngredientAdded($event)"
 <app-shopping-edit
-  (ingredientAdded)="onIngredientAdded($event)"
+ (ingredientAdded)="onIngredientAdded($event)"
 ></app-shopping-edit>
 ```
 
@@ -3810,6 +3919,7 @@ Vào service tạo
 
 addIngredient(ingredients: Ingredient[]) {
     this.ingredients.push(...ingredients);
+    // add
     this.ingredientsChanged.emit(this.ingredients.slice());
   }
 
@@ -3883,9 +3993,13 @@ recipe-detail.component.html thêm đoạn output ingredients
 </div>
 ```
 
+![image-20200609161303634](angular.assets/image-20200609161303634.png)
+
 ### 8. Passing Ingredients from Recipes to the Shopping List (via a Service)
 
 modify button To shopping list
+
+recipe-detail.component.html
 
 ```html
 <li>
@@ -3955,6 +4069,8 @@ In our app, we got three sections:
 App.module.ts
 
 ```ts
+import { Routes, RouterModule } from '@angular/router';
+
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
   { path: "users", component: UsersComponent },
@@ -4005,6 +4121,28 @@ App.component.html sử dụng routerLink
 
 ### 6. Understanding Navigation Paths
 
+So if we go to servers here, we see the reload page here and if I click it, you'll see we got an error. This
+
+error here occurs because it doesn't find a route which is servers/servers.
+
+Now this error won't occur if on the servers component, I turn this to /servers,
+
+so to an absolute path, it was a relative path. Here
+
+if we now have our console still open and I click reload page, nothing occurs here, nothing, no error occurs
+
+because now it simply navigates to localhost:4200/servers
+
+as you can see down there and if we turn this back to a relative path, the difference was that now
+
+it tries to go /servers/servers.
+
+So with a relative path, it always append the path you specify in the routerLink to the end of your current
+
+path
+
+`routerLink="servers"` là relative path sẽ append thêm vào url
+
 Tại file servers.component.html
 
 ```ts
@@ -4018,7 +4156,7 @@ Khi muon o page servers load lai trang bang cach nam button Reload => error /ser
 
 ### 7. Styling Active Router Links
 
-active is a class
+active is a class css có sẵn
 app.component.html
 
 ```html
@@ -4065,10 +4203,14 @@ export class HomeComponent implements OnInit {
 
 ### 9. Using Relative Paths in Programmatic Navigation
 
+the navigate method doesn't know on which route you are currently on, so to say. The routerLink always knows in which component it sits, in which components template and therefore it knows what the currently loaded route is.
+
+Now you could argue that here we also call this inside the component TypeScript code, so it could determine where it is in but it's just not how it works.
+
 servers.component.html
 
 ```html
-<!--<button class="btn btn-primary" (click)="onReload()">Reload Page</button>-->
+<button class="btn btn-primary" (click)="onReload()">Reload Page</button>
 ```
 
 Servers.component.ts
@@ -4136,12 +4278,21 @@ Khi ở trang này bấm vào sẽ không cập nhật được data, Bởi vì 
 user.component.ts
 
 ```ts
-ngOnInit() {
+import { ActivatedRoute, Params } from '@angular/router';
+
+export class UserComponent implements OnInit, OnDestroy {
+  user: {id: number, name: string};
+  paramsSubscription: Subscription;
+
+  constructor(private route: ActivatedRoute) { }
+
+  ngOnInit() {
     this.user = {
       id: this.route.snapshot.params['id'],
       name: this.route.snapshot.params['name']
     };
-    this.route.params
+      // add
+    this.paramsSubscription = this.route.params
       .subscribe(
         (params: Params) => {
           this.user.id = params['id'];
@@ -4150,12 +4301,41 @@ ngOnInit() {
       );
   }
 
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+  }
+
+}
+
 ```
 
 Observable is an easy way to subscribe to some event may happen in the future, async => should wait
 Param is an observable
 
+Params here is an observable and now observables is something I will come to right after this section
+
+where we will take a closer look.
+
+Basically, observables are a feature added by some other third-party package, not by Angular but heavily
+
+used by Angular which allow you to easily work with asynchronous tasks and this is an asynchronous task because the parameters of your currently loaded route might change at some point in the future if the user clicks this link but you don't know when, you didn't know if and you don't know how long it will take.
+
+So therefore, you can't block your code and wait for this to happen here because it might never happen.
+
+So an observable is an easy way to subscribe to some event which might happen in the future, to then execute
+
+some code when it happens without having to wait for it now and that is what params is. It is such an observable and as the name implies, we can observe it and we
+
+do so by subscribing to it.
+
+So you can call the subscribe method on it and this is still called on params,
+
 ### 13. An Important Note about Route Observables
+
+Well once you left, this component will be destroyed and when you come back, a new one will be created but this subscription here will always live on in memory because it's not closely tied to your component, so if the component is destroyed, the subscription won't. Now it will be here because Angular handles this
+
+destroying of the subscription for you
+
 Must unsubscribe when destroy Component
 ```ts
 // Add
@@ -4218,7 +4398,7 @@ Localhost:4200/servers/5/edit?allowEdit=3#loading
 edit-server.component.ts
 ```ts
 constructor(private serversService: ServersService,
-              private route: ActivatedRoute,
+              private route: ActivatedRoute, // add
               private router: Router) {
   }
 
@@ -4241,7 +4421,10 @@ constructor(private serversService: ServersService,
   }
 
 ```
+You **don't need to unsubscribe** here, Angular will handle it for you just like it did for params but this is how you can now get access to these extra features and how you can make sure that you don't miss
+
 ### 16. Practicing and some Common Gotchas
+
 users.component.html thêm
 ```html
 <a
@@ -4270,7 +4453,7 @@ servers.component.html
 Server.component.ts
 ```ts
   constructor(private serversService: ServersService,
-              private route: ActivatedRoute,
+              private route: ActivatedRoute, // add
               private router: Router) {
   }
 
@@ -4288,7 +4471,7 @@ Server.component.ts
 
 ```
 
-Comment servers.component.html because of error
+Comment servers.component.html because of error khi chưa có id
 ```html
 <!-- <app-server></app-server> -->
 
@@ -4297,7 +4480,9 @@ Comment servers.component.html because of error
 servers.component.html
 ```html
 <div class="col-xs-12 col-sm-4">
+    // add
     <router-outlet></router-outlet>
+    // comment
     <!--<button class="btn btn-primary" (click)="onReload()">Reload Page</button>-->
     <!--<app-edit-server></app-edit-server>-->
     <!--<hr>-->
@@ -4308,8 +4493,9 @@ servers.component.html
 ```ts
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
-  { path: "users", component: UsersComponent },
-  { path: "users/:id/:name", component: UserComponent },
+  { path: 'users', component: UsersComponent, children: [
+    { path: ':id/:name', component: UserComponent }
+  ] },
   { path: "servers", component: ServersComponent, children: [
     { path: ":id", component: ServerComponent },
     { path: ":id/edit", component: EditServerComponent }
@@ -4325,7 +4511,10 @@ users.component.html
   </div>
 
 ```
+![image-20200609222917591](angular.assets/image-20200609222917591.png)
+
 ### 18. Using Query Parameters - Practice
+
 server.component.html
 ```html
 <h5>{{ server.name }}</h5>
