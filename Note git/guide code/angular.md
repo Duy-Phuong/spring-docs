@@ -2302,14 +2302,14 @@ AfterContentInit
 
 ### 17. Lifecycle Hooks and Template Access
 
-server
+server-element.component.html
 Add #heading
 
 ```html
 <div class="panel-heading" #heading>{{ name }}</div>
 ```
 
-server
+server-element.component.ts
 
 ```ts
 @ViewChild('heading', {static: true}) header: ElementRef;
@@ -2333,6 +2333,8 @@ server
 ```
 
 print value of Heading name
+
+![image-20200608112204863](angular.assets/image-20200608112204863.png)
 
 ### 18. @ContentChild() in Angular 8.html
 
@@ -2382,9 +2384,16 @@ server
     console.log('Text Content: ' + this.header.nativeElement.textContent);
     console.log('Text Content of paragraph: ' + this.paragraph.nativeElement.textContent);
   }
+
+ngAfterContentInit() {
+    console.log('ngAfterContentInit called!');
+    console.log('Text Content of paragraph: ' + this.paragraph.nativeElement.textContent);
+  }
 ```
 
 Sau AfterContentInit
+
+![image-20200608112648262](angular.assets/image-20200608112648262.png)
 
 ### 20. Wrap Up
 
@@ -2392,9 +2401,122 @@ Sau AfterContentInit
 
 ### 22. [OPTIONAL] Assignment Solution
 
+app.component.html
+
+```html
+<div class="row">
+    <div class="col-xs-12">
+      <app-game-control (intervalFired)="onIntervalFired($event)"></app-game-control>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <app-odd *ngFor="let oddNumber of oddNumbers" [number]="oddNumber"></app-odd>
+      <app-even *ngFor="let evenNumber of evenNumbers" [number]="evenNumber"></app-even>
+    </div>
+  </div>
+```
+
+app.component.ts
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  oddNumbers: number[] = [];
+  evenNumbers: number[] = [];
+
+  onIntervalFired(firedNumber: number) {
+    if (firedNumber % 2 === 0) {
+      this.evenNumbers.push(firedNumber);
+    } else {
+      this.oddNumbers.push(firedNumber);
+    }
+  }
+}
+```
+
+game-control.component.html
+
+```html
+<button class="btn btn-success" (click)="onStartGame()">Start Game</button>
+<button class="btn btn-danger" (click)="onPauseGame()">Pause Game</button>
+
+```
+
+game-control.component.ts
+
+```ts
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-game-control',
+  templateUrl: './game-control.component.html',
+  styleUrls: ['./game-control.component.css']
+})
+export class GameControlComponent implements OnInit {
+  @Output() intervalFired = new EventEmitter<number>();
+  interval;
+  lastNumber = 0;
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+  onStartGame() {
+    this.interval = setInterval(() => {
+      this.intervalFired.emit(this.lastNumber + 1);
+      this.lastNumber++;
+    }, 1000);
+  }
+
+  onPauseGame() {
+    clearInterval(this.interval);
+  }
+
+}
+
+```
+
+even.component.ts
+
+```ts
+import { Component, OnInit, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-even',
+  templateUrl: './even.component.html',
+  styleUrls: ['./even.component.css']
+})
+export class EvenComponent implements OnInit {
+  @Input() number: number;
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}
+
+```
+
+
+
+![image-20200608113613167](angular.assets/image-20200608113613167.png)
+
+
+
 ## 6. Course Project - Components & Databinding
 
 ### 1. Introduction
+
+
 
 ### 2. Adding Navigation with Event Binding and ngIf
 
@@ -2458,6 +2580,10 @@ export class AppComponent {
   }
 }
 ```
+
+![image-20200609082414085](angular.assets/image-20200609082414085.png)  
+
+![image-20200609082426350](angular.assets/image-20200609082426350.png)  
 
 ### 3. Passing Recipe Data with Property Binding
 
@@ -2631,7 +2757,7 @@ shopping-edit.component.html thêm local ref
 ```html
 <div class="col-sm-5 form-group">
   <label for="name">Name</label>
-  <input type="text" id="name" class="form-control" // add #nameInput>
+  <input type="text" id="name" class="form-control" #nameInput> // add #nameInput
 </div>
 <div class="col-sm-2 form-group">
   <label for="amount">Amount</label>
@@ -2700,6 +2826,9 @@ export class AppComponent {
 ```
 
 ```html
+<button
+        class="btn btn-primary"
+        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
 <!--<div *ngIf="!onlyOdd">-->
 <!--<li-->
 <!--class="list-group-item"-->
@@ -2712,6 +2841,10 @@ export class AppComponent {
 ```
 
 ### 3. ngClass and ngStyle Recap
+
+  ![image-20200609094756175](angular.assets/image-20200609094756175.png)
+
+ấn toggle để test
 
 ### 4. Creating a Basic Attribute Directive
 
@@ -2759,7 +2892,19 @@ file html
 
 Nhưng cách trên k tốt - access direct element is not good
 
+
+
+
+
 ### 5. Using the Renderer to build a Better Attribute Directive
+
+This however is not the best way of changing that style because as you might recall from some earlier
+
+lecture in this course, accessing elements directly like this is not a good practice,
+
+you should use a different tool which I'll show you in a second because Angular actually is also able
+
+to render your templates without a DOM and then these properties might not be available.
 
 ```ts
 ng g d better-highlight
@@ -2779,6 +2924,20 @@ ngOnInit() {
 
 Sau đó sửa lại html như phần 4
 
+Now why is it a better approach?
+
+Angular is not limited to running in the browser here, it for example also works with service workers
+
+and these are environments where you might not have access to the DOM.
+
+So if you try to change the DOM as you did here in basic highlight by directly accessing the native
+
+element and the style of this element, you might get an error in some circumstances.
+
+Now to be honest, in most circumstances you probably don't and you probably also know if your app is
+
+going to run in the browser or not, still it is a better practice to use the renderer for DOM access and to use the methods the renderer provides to access the DOM.
+
 ### 6. More about the Renderer.html
 
 In the last lecture, we used the Angular Renderer class to change the style of a HTML element. As explained in that lecture, you should use the Renderer for any DOM manipulations.
@@ -2788,15 +2947,15 @@ https://angular.io/api/core/Renderer2
 
 ### 7. Using HostListener to Listen to Host Events
 
+better-highlight.directive
+
 ```ts
   @HostListener('mouseenter') mouseover(eventData: Event) {
-    // this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'blue');
-    this.backgroundColor = this.highlightColor;
+     this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'blue');
   }
 
   @HostListener('mouseleave') mouseleave(eventData: Event) {
-    // this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'transparent');
-    this.backgroundColor = this.defaultColor;
+    this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'transparent');
   }
 
 ```
@@ -2805,6 +2964,21 @@ https://angular.io/api/core/Renderer2
 
 ```ts
   @HostBinding('style.backgroundColor') backgroundColor: string;
+
+ngOnInit() {
+    // add
+    this.backgroundColor = this.defaultColor;
+  }
+
+  @HostListener('mouseenter') mouseover(eventData: Event) {
+      // add
+    this.backgroundColor = this.highlightColor;
+  }
+
+  @HostListener('mouseleave') mouseleave(eventData: Event) {
+      // add
+    this.backgroundColor = this.defaultColor;
+  }
 
 ```
 
@@ -2831,8 +3005,11 @@ Luu y: dau [], ''
 ### 10. What Happens behind the Scenes on Structural Directives
 
 `*` => strutural directive
-Dấu \* đại diện cho structural directive
-Behind the scene
+Dấu \* đại diện cho structural directive  
+
+Behind the scene thêm ng-template
+
+  
 
 ```html
 <!--<ng-template [ngIf]="!onlyOdd">-->
@@ -2849,6 +3026,8 @@ Behind the scene
 ```
 
 ### 11. Building a Structural Directive
+
+it's just a setter of the property which is a method which gets executed whenever the property changes and it of course changes whenever it changes outside of this directive, so whenever the condition we pass changes or some parameter of this condition. 
 
 ```ts
 ng g d unless
@@ -2959,6 +3138,8 @@ Vào header thêm để show như recipe-detail
 
 thay open = appDropdown
 
+![image-20200609121203623](angular.assets/image-20200609121203623.png)
+
 ### 2. Closing the Dropdown From Anywhere.html
 
 If you want that a dropdown can also be closed by a click anywhere outside (which also means that a click on one dropdown closes any other one, btw.), replace the code of dropdown.directive.ts by this one (placing the listener not on the dropdown, but on the document):
@@ -2988,6 +3169,121 @@ export class DropdownDirective {
 
 ### 2. Why would you Need Services
 
+account.component.html
+
+```html
+<div class="row">
+  <div class="col-xs-12 col-md-8 col-md-offset-2">
+    <h5>{{ account.name }}</h5>
+    <hr>
+    <p>This account is {{ account.status }}</p>
+    <button class="btn btn-default" (click)="onSetTo('active')">Set to 'active'</button>
+    <button class="btn btn-default" (click)="onSetTo('inactive')">Set to 'inactive'</button>
+    <button class="btn btn-default" (click)="onSetTo('unknown')">Set to 'unknown'</button>
+  </div>
+</div>
+
+
+```
+
+account.component.ts
+
+```ts
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-account',
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.css']
+})
+export class AccountComponent {
+  @Input() account: {name: string, status: string};
+  @Input() id: number;
+  @Output() statusChanged = new EventEmitter<{id: number, newStatus: string}>();
+
+
+  onSetTo(status: string) {
+    this.statusChanged.emit({id: this.id, newStatus: status});
+    console.log('A server status changed, new status: ' + status);
+  }
+}
+
+```
+
+app.component.html
+
+```html
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+      <app-new-account (accountAdded)="onAccountAdded($event)"></app-new-account>
+      <hr>
+      <app-account
+        *ngFor="let acc of accounts; let i = index"
+        [account]="acc"
+        [id]="i"
+        (statusChanged)="onStatusChanged($event)"></app-account>
+    </div>
+  </div>
+</div>
+
+```
+
+app.component.ts
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  accounts = [
+    {
+      name: 'Master Account',
+      status: 'active'
+    },
+    {
+      name: 'Testaccount',
+      status: 'inactive'
+    },
+    {
+      name: 'Hidden Account',
+      status: 'unknown'
+    }
+  ];
+
+  onAccountAdded(newAccount: {name: string, status: string}) {
+    this.accounts.push(newAccount);
+  }
+
+  onStatusChanged(updateInfo: {id: number, newStatus: string}) {
+    this.accounts[updateInfo.id].status = updateInfo.newStatus;
+  }
+}
+
+```
+
+new-account.component.ts
+
+```ts
+export class NewAccountComponent {
+  @Output() accountAdded = new EventEmitter<{name: string, status: string}>();
+
+  onCreateAccount(accountName: string, accountStatus: string) {
+    this.accountAdded.emit({
+      name: accountName,
+      status: accountStatus
+    });
+    console.log('A server status changed, new status: ' + accountStatus);
+  }
+}
+```
+
+
+
 App create account and log => not duplicate
 Tạo file logging.service.ts
 
@@ -2999,11 +3295,15 @@ export class LoggingService {
 }
 ```
 
-// sau đó import vào tạo instance bằng new sử dụng bt => cách sai
+// sau đó import vào tạo instance bằng new sử dụng bt => cách sai in angular
+
+![image-20200609122251587](angular.assets/image-20200609122251587.png)  
 
 ### 3. Creating a Logging Service
 
 Inform angular to require an instance => inject an instance to component
+
+new-account.component
 
 ```ts
 // Inject service
@@ -3012,6 +3312,8 @@ Inform angular to require an instance => inject an instance to component
 ```
 
 Khai báo để inform angular how to create
+
+new-account.component
 
 ```ts
 @Component({
@@ -3032,6 +3334,14 @@ onCreateAccount(accountName: string, accountStatus: string) {
 ```
 
 ### 4. Injecting the Logging Service into Components
+
+Well a dependency is something a class of ours will depend on,
+
+for example the new account component depends on the loggingService because we want to call a method
+
+in that service and the dependency injector simply injects this dependency, injects an instance of this
+
+class into our component automatically.
 
 ### 5. Creating a Data Service
 
