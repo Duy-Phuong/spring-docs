@@ -5390,7 +5390,38 @@ The `(featureSelected)="..."`  event listener is a relict of our "old" navigatio
 ## 13. Understanding Observables
 
 ### 1. Module Introduction
-![](../root/img/2019-11-23-15-33-46.png)
+![](../root/img/2019-11-23-15-33-46.png)  
+
+So what is an observable? An **observable** basically can be thought of as a data source.
+
+Now in our Angular project, an observable basically just is an object we import from a third-party package,
+
+RxJS. The observable here is implemented in a way that it follows the observable pattern,
+
+so we have an observable and we have an observer. In between, we have a stream, a timeline
+
+and on this timeline, we can have multiple events emitted by the observable or data packages
+
+you could say emitted by the observable, depending on the data source of that observable of course.
+
+So the observable could emit data because you trigger it to do so, you can do that programmatically,
+
+it could be connected to a button and therefore whenever the button is clicked, an event in a data package
+
+is emitted automatically or as the Angular HTTP service does it, it's connected to a HTTP request.
+
+So when the response returns, the response is emitted as a data package and there are dozens of other data sources too,
+
+we will have a look on where to find more soon.
+
+So as I said, the other part is the **observer**, this actually is your code you could say. It's the subscribe function you saw earlier or at least it has something to do with that.
+
+There, you have **three ways of handling data packages** - you can handle the normal data, you can handle errors or you can handle the completion of the observable because these are the three types of data packages you can receive and in these hooks, in these boxes you could say, your code gets executed.
+
+Angular uses them a lot and actually, observables have one major advantage,
+
+their operators, which I will show later in the section too. Back to this slide,
+
 ### 10. Useful Resources & Links.html
 Useful Resources:
 •	Official Docs: https://rxjs-dev.firebaseapp.com/
@@ -5398,6 +5429,9 @@ Useful Resources:
 •	Updating to RxJS 6: https://academind.com/learn/javascript/rxjs-6-what-changed/
 
 ### 2. Analyzing Angular Observables
+
+![image-20200610140954649](angular.assets/image-20200610140954649.png)  
+
 user.component.ts
 ```ts
 export class UserComponent implements OnInit {
@@ -5414,7 +5448,14 @@ export class UserComponent implements OnInit {
 }
 
 ```
+So that's how this built-in observable works and how you can think about it, params is the observable, it's that stream of data that gives us new values.
+
+Now that's all nice and Angular will heavily use such observables and there you will never need
+
+to create them yourselves, you only subscribe to them, you don't need to create them but to understand them, it certainly doesn't hurt to also create them.
+
 ### 3. Getting Closer to the Core of Observables
+
 Observables nằm trong rxjs
 2.1 obs-01-start.zip.zip
 home.component.ts
@@ -5490,12 +5531,60 @@ ngOnInit() {
   }
 
 ```
+Now what's an **observer**?
+
+Now you heard about the observer in the first video of this module. The observer in the end is a part
+
+that is interested in being informed about new data, about errors or about the observable being completed.
+
+Now our job here is to tell the observer about new data, about an error or about the observable being
+
+completed. Here, we're not responsible for listening because the observer is the listener, here
+
+we get that listening part as an argument and we need to tell it once we're done, once new data is there and so on.
+
 ### 5. Errors & Completion
 
 ### 6. Observables & You!
 
+However, you rarely, very very very rarely build your own observables.
+
+More often, you use observables that come with libraries like Angular, like the route params observable
+
+we already used. Under the hood, that in the end is a custom observable built by the Angular team but
+
+of course you just use it like that.
+
+You rarely build your own ones but still, it's super important to understand how they work under the
+
+hood and in the end, they all work a bit like that.
+
 ### 7. Understanding Operators
-![](../root/img/2019-11-23-16-02-35.png)
+
+
+
+![](../root/img/2019-11-23-16-02-35.png)  
+
+Operators are the magic feature of the RxJS library and they are the thing that really turn observable
+
+into awesome constructs.
+
+If we have an observable and an observer, we of course get data and we listen to that with a subscription,
+
+that is what you learned.
+
+Now however, sometimes you don't need the raw data, You might want to transform it or filter out certain
+
+data points and of course, you could do all of that inside of your subscription or in the function you pass to your
+
+subscription but there's a more elegant way. Instead of setting up that subscription like this, you can use built-in
+
+operators in between.
+
+![image-20200610143554172](angular.assets/image-20200610143554172.png)  
+
+
+
 ```ts
 this.firstObsSubscription = customIntervalObservable.pipe(filter(data
  => {
@@ -5515,6 +5604,19 @@ this.firstObsSubscription = customIntervalObservable.pipe(filter(data
 https://www.academind.com/learn/javascript/understanding-rxjs/
 
 https://www.learnrxjs.io/
+
+You can use them on any observable, like our custom interval observable, by calling a method called **pipe**.
+
+Now every observable has a pipe method, the pipe method is built into RxJS.
+
+Now you can import observables, not from the RxJS package but from rxjs/operators and there
+
+are tons of built-in operators, like the map operator which is one of the operators you'll use more often.
+
+As a side note, if you want to learn more about RxJS and operators and so on, you can visit my home
+
+page, academind.com and there on the Learn Javascript, you'll find a complete series on RxJS which introduces you to RxJS and to operators as well.
+
 ### 8. Subjects
 user.component.html
 ```html
@@ -5535,7 +5637,7 @@ rvice) {
   }
 
   onActivate() {
-    // emit(true)
+    // emit(true) nếu xài EvenEmitter
     this.userService.activatedEmitter.next(true);
   }
 ```
@@ -5546,7 +5648,7 @@ import { Subject } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class UserService {
-  // new EvenEmitter<boolean>();
+  //activatedEmitter = new EvenEmitter<boolean>(); cách cũ
   activatedEmitter = new Subject<boolean>();
 }
 
@@ -5573,17 +5675,44 @@ export class AppComponent implements OnInit, OnDestroy {
 }
 
 ```
+app.component.html
+
+```html
+  <p *ngIf="userActivated">Activated!</p>
+```
+
+This is the old approach with the event emitter and this is an approach you could use but there is a
+
+better one, a more recommended one and that new approach, the better approach uses a subject. Now a subject
+
+is something we import from RxJS, SO you import subject from RxJS, instead of event emitter, you now create a subject here. Other than that, it's pretty similar though, it's a generic type where you define which data will eventually
+
+be emitted, in this case a boolean.
+
+So it's very similar to event emitter thus far.
+
 ![](../root/img/2019-11-23-16-22-39.png)
 => 
 Recommend
 If use @Output not use Subject
+
+You don't use subjects instead of event emitter when you're using @output.
+
+So in a component if you're using @output here with your own event, you still use the
+
+Angular event emitter,you're not using subject there because the subject is not suitable for that,
+
+there you need the Angular event emitter, you only use subjects to communicate across components, through services so through a mechanism where you in the end subscribe to somewhere, like here in the app component.
+
+If you're not subscribing to an event emitter, then it probably is an output,
+
 ### 9. Wrap Up
 
 ## 14. Course Project - Observables
 EventEmitter push new info from A to B
-Vào app.component.ts vaf .html xóa hàm onNavigate
+Vào app.component.ts và .html xóa hàm onNavigate
 
-shopping-list
+shopping-list.service.ts
 ```ts
 export class ShoppingListService {
   // add
@@ -5595,6 +5724,7 @@ shopping-list.component.ts
 ```ts
 export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients: Ingredient[];
+    // add
   private igChangeSub: Subscription;
 
   constructor(private slService: ShoppingListService) {
@@ -5624,19 +5754,38 @@ Xem lai recipes.component.ts xoa vi da add routing in item-recipe
 ### 1. Improving the Reactive Service with Observables (Subjects)
 
 ### 2. Changed the Subscription Name.html
-Don't wonder - I changed the igChangeSub property to just subscription. So if you see that name change in code in future videos, that's why. Other than that, nothing changed!
+Don't wonder - I changed the `igChangeSub` property to just subscription. So if you see that name change in code in future videos, that's why. Other than that, nothing changed!
 ## 15. Handling Forms in Angular Apps
 
 ### 1. Module Introduction
 
 ### 2. Why do we Need Angular's Help
 
+![image-20200610162107124](angular.assets/image-20200610162107124.png)
+
 ### 3. Template-Driven (TD) vs Reactive Approach
-![](../root/img/2019-11-23-21-58-25.png)
+![](../root/img/2019-11-23-21-58-25.png)  
+
+It offers the template driven approach, which is called like this because there, you simply set up your form in the template, in HTML code and Angular will automatically infer the structure of your form, will infer which controls your forms has, which inputs and makes it easy for you to get started quickly.
+
+It also has a more complex approach, the reactive approach.
+
+There, you actually define the structure of the form in TypeScript code, you also set up the HTML code and then you manually connect it which might sound more complicated than it is in the end and therefore, it gives you greater control over it, you can fine tune every little piece about your form.
 
 ### 4. An Example Form
 
+![image-20200610162542106](angular.assets/image-20200610162542106.png)  
+
+
+
 ### 5. TD Creating the Form and Registering the Controls
+
+This will be enough to tell Angular, hey this input is actually a control of my form, so ngModel in the end is a directive made available in the forms module, something I mentioned earlier in the course when we had a look at two-way data binding.
+
+This is key to understand, you can use it to get two-way data binding but it actually is part of a bigger module with more features giving you full control over forms.
+
+Now for this to work, for this to be recognized as a control in your form, we need to give Angular one other piece of information, the name of this control.
+
 Import FormsModule
 ```ts
 import { AppComponent } from './app.component';
@@ -5671,6 +5820,13 @@ ngModel tell angular this is a control, not two-way data binding
 File html
 ngSubmit is directive
 ngForm tell angular please help me can access the form
+
+Now you learned about local references you can place on HTML elements to get access to them,
+
+so we could place #f on the form element and now we could access this form element on the f
+
+reference in our template and we could pass f as an argument to the onSubmit method and print it there.
+
 ```html
       <form (ngSubmit)="onSubmit()" #f="ngForm">
 
@@ -5680,8 +5836,9 @@ Nếu để #f thì phải truyền như tham số vào hàm onSubmit, ghi log r
 
 app.component.ts
 ```ts
-  // step 1
+  // cach 1
   // <form (ngSubmit)="onSubmit(f)" #f>
+
   // onSubmit(f: HTMLFormElement) {   Nếu để #f
   //   console.log(f);
   // }
@@ -5692,10 +5849,30 @@ app.component.ts
   }
 
 ```
+
+![image-20200610164518463](angular.assets/image-20200610164518463.png)  
+
+cách 2 mới in ra được value còn cách 1 print thẳng form ra luôn
+
+
 ### 7. TD Understanding Form State
 dirty, value, valid, controls
+
+**Dirty** for example is **true** because we changed something about that form.
+
+If I reload the page and submit it now, you will see that dirty is false because I didn't type into any
+
+input, so therefore of course dirty is false.
+
+**Disabled** would be true if the form was disabled for some reason, invalid is false because we haven't
+
+added any validators, so it isn't invalid, it is indeed valid.
+
 ### 8. TD Accessing the Form with @ViewChild
 Nếu không truyền tham số vào hàm thì sử dụng @ViewChild => access local ref
+
+Nhưng bên file html phải là `  <form (ngSubmit)="onSubmit()" #f="ngForm">`
+
 ```ts
 
   @ViewChild('f', { static: false }) signupForm: NgForm;
@@ -5715,6 +5892,9 @@ Nếu không truyền tham số vào hàm thì sử dụng @ViewChild => access 
 ### 9. TD Adding Validation to check User Input
 Thêm require, email => nhập giá trị hợp lên ghi log ra console giá trị valid = true và F12 để kiểm tra angular sẽ thêm các class
 email la 1 directive
+
+![image-20200610165635460](angular.assets/image-20200610165635460.png)
+
 ### 10. Built-in Validators & Using HTML5 Validation.html
 Which Validators do ship with Angular? 
 
@@ -5754,8 +5934,15 @@ input.ng-invalid.ng-touched {
 block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
 
 ```
-Thêm local reference #email=”ngModel”
+Thêm local reference `#email=”ngModel”`
 ngModel is a directive
+
+So just like the form directive automatically added by Angular when it detects a form element, the
+
+ngModel directive here also kind of exposes some additional information about the control it creates
+
+for us on the overarching form by accessing ngModel.
+
 ### 13. TD Set Default Values with ngModel Property Binding
 Thêm biến defaultQuestion ở file ts và để ngModel trong dấu [] là prop binding
 ```html
@@ -5794,11 +5981,17 @@ defaultQuestion = 'teacher';
 - No binding: is a control
 - One way binding
 - Two way binding
+
+this is still part of this value object, it just is updated with every keystroke but of course if we submit it, we will get a snapshot of the value at a point of time we hit submit.
+
+So two-way binding is still possible, you can still use ngModel with two-way binding and with that, you saw all three forms. No binding to just tell Angular that an input is a control, one-way binding to give that control a default value and two-way binding to instantly output it or do whatever you want to do with that value.
+
 ### 15. TD Grouping Form Controls
 Sử dụng ngModelGroup để group sau này truy cập ra phải .userData
 userData is local reference
 ```html
- <div
+      <form (ngSubmit)="onSubmit()" #f="ngForm"> 
+		<div
           id="user-data"
           // Add
           ngModelGroup="userData"
@@ -5857,6 +6050,7 @@ userData is local reference
 ```ts
 suggestUserName() {
     const suggestedName = 'Superuser';
+    // sẽ override all
     // this.signupForm.setValue({
     //   userData: {
     //     username: suggestedName,
@@ -5867,7 +6061,7 @@ suggestUserName() {
     //   gender: 'male'
     // });
 
-// cách này k ghi đè giá trị da chon
+// cách này k ghi đè giá trị da chon mà merge
     this.signupForm.form.patchValue({
       userData: {
         username: suggestedName
@@ -5877,6 +6071,9 @@ suggestUserName() {
 
 ```
 ### 18. TD Using Form Data
+
+set ở trong hàm submit vào object user được tạo mới
+
 ```html
 <div class="row" *ngIf="submitted">
     <div class="col-xs-12">
@@ -5901,8 +6098,11 @@ this.signupForm.reset();
 
 ### 22. Reactive Setup
 ```ts
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+
 export class AppComponent implements OnInit {
   genders = ['male', 'female'];
+    // add
   signupForm: FormGroup;
 
 ```
@@ -5946,6 +6146,12 @@ ngOnInit() {
 
 ```
 New FormControl nhận 2 tham số, thứ nhất là giá trị khởi tạo, in form, tham số thứ 2 là single validator, tham số thứ 3 là potential async validator
+
+Now to this FormControl constructor, we can pass a couple of arguments, the first argument is the initial state, the initial value of this control you could say.
+
+The second argument will be a single validator or an array of validators we want to apply to this control,
+
+I'll come back to this. The third argument will be potential asynchronous validators,
 
 ### 24. Reactive Syncing HTML and Form
 Thông báo sử dụng directive formGroup tham chiếu đến signupForm bằng cách thêm vào thẻ form
@@ -6007,7 +6213,10 @@ ngOnInit() {
   }
 
 ```
+![image-20200610184337138](angular.assets/image-20200610184337138.png)
+
 ### 27. Reactive Getting Access to Controls
+
 ```html
           <span
               *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
@@ -6088,6 +6297,7 @@ onAddHobby() {
 ```
 File html: formArrayName="hobbies" connect
 ```html
+// add
 <div formArrayName="hobbies">
           <h4>Your Hobbies</h4>
           <button
@@ -6105,7 +6315,8 @@ File html: formArrayName="hobbies" connect
 
 ### 30. Reactive Creating Custom Validators
 ```ts
-  forbiddenUsernames = ['Chris', 'Anna'];
+// add  
+forbiddenUsernames = ['Chris', 'Anna'];
 
 forbiddenNames(control: FormControl): {[s: string]: boolean} {
     if (this.forbiddenUsernames.indexOf(control.value) !== -1) {
@@ -6118,7 +6329,8 @@ forbiddenNames(control: FormControl): {[s: string]: boolean} {
 this.signupForm = new FormGroup({
       'userData': new FormGroup({
         'username': new FormControl(null, [Validators.required, 
-        // this.forbiddenEmails.bind(this) refers this classthis.forbiddenNames.bind(this)]),
+        // this.forbiddenEmails.bind(this) refers this class
+                                           this.forbiddenNames.bind(this)]),
         'email': new FormControl(null, [Validators.required, Validators.email], 
         
         this.forbiddenEmails)
@@ -6126,15 +6338,30 @@ this.signupForm = new FormGroup({
       'gender': new FormControl('male'),
       'hobbies': new FormArray([])
     });
+// 32  add
+forbiddenEmails(control: FormControl): Promise<any> | Observable<any> {
+    const promise = new Promise<any>((resolve, reject) => {
+      setTimeout(() => {
+        if (control.value === 'test@test.com') {
+          resolve({'emailIsForbidden': true});
+        } else {
+          resolve(null);
+        }
+      }, 1500);
+    });
+    return promise;
+  }
 
 ```
 Phải có bind this nó mới hiểu this trong hàm kia
 [s: string]: boolean => mean: key: value; key is a string
+
 ### 31. Reactive Using Error Codes
 ```html
 <span
               *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
               class="help-block">
+    // add -------
               <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">This name is invalid!</span>
               <span *ngIf="signupForm.get('userData.username').errors['required']">This field is required!</span>
 
@@ -6142,6 +6369,9 @@ Phải có bind this nó mới hiểu this trong hàm kia
 
 ```
 F12/ FormGroup/ controls/ userData/ controls/ username/ error
+
+![image-20200610192405967](angular.assets/image-20200610192405967.png)
+
 ### 32. Reactive Creating a Custom Async Validator
 ```ts
 forbiddenEmails(control: FormControl): Promise<any> | Observable<any> 
@@ -6172,7 +6402,12 @@ ngOnInit() {
     );
 }
 ```
+![image-20200610192935422](angular.assets/image-20200610192935422.png)
+
 ### 34. Reactive Setting and Patching Values
+
+ngOnInit
+
 ```ts
 // intitial
 this.signupForm.setValue({
@@ -6195,6 +6430,8 @@ this.signupForm.setValue({
 có thẻ chỉ rõ field cần reset in oject in reset({}) to don't clear radio button
 
 ```
+![image-20200610193026967](angular.assets/image-20200610193026967.png)
+
 ### 35. Practicing Reactive Forms.html
 
 ### 36. [OPTIONAL] Assignment Solution
@@ -6251,6 +6488,7 @@ ngOnInit() {
 shopping-edit.component.html
 Nhớ khai báo FormModule trước
 Không cần sử dụng local ref như cũ thêm ngForm và name
+
 ```html
 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
       <div class="row">
@@ -6307,6 +6545,7 @@ onSubmit(form: NgForm) {
             <!-- add -->
             required
             pattern="^[1-9]+[0-9]*$"
+    // [pattern]="'^[1-9]+[0-9]*$'"
           >
         </div>
 
@@ -6319,7 +6558,7 @@ shopping-list.component.html thêm event onEditItem
         class="list-group-item"
         style="cursor: pointer"
         *ngFor="let ingredient of ingredients; let i = index"
-        (click)="onEditItem(i)"
+        (click)="onEditItem(i)" // add
       >
         {{ ingredient.name }} ({{ ingredient.amount }})
       </a>
@@ -6327,6 +6566,7 @@ shopping-list.component.html thêm event onEditItem
 ```
 shopping-list.component.ts
 ```ts
+// add
 onEditItem(index: number) {
     this.slService.startedEditing.next(index); // emit event
   }
@@ -6337,7 +6577,8 @@ Thêm   `startedEditing = new Subject<number>();`
 
 shopping-edit.component.ts lắng nghe lấy ra item mà click đổ data vào form
 ```ts
-  @ViewChild('f', { static: false }) slForm: NgForm; // local ref
+// add  
+@ViewChild('f', { static: false }) slForm: NgForm; // local ref
   subscription: Subscription;
   editMode = false;
   editedItemIndex: number;
@@ -6453,6 +6694,8 @@ Nhớ khai báo ReactiveFormModule
 ### 11. Creating the Form For Editing Recipes
 Tạo hàm init
 ```ts
+  recipeForm: FormGroup;
+
 private initForm() {
     let recipeName = '';
     let recipeImagePath = '';
@@ -6683,7 +6926,14 @@ Khai báo service trong module để đảm bảo có 1 instance được tạo 
   providers: [ShoppingListService, RecipeService],
 
 ```
+The issue we encounter here is that we provide our recipe service in the recipes component,
+
+so all the components in this area share the same instance
+
+but if we navigate away to the shopping list area, the recipes component is destroyed and so is the instance
+
 ### 22. Deleting Ingredients and Some Finishing Touches
+
 recipe-edit.component
 ```ts
 onDeleteIngredient(index: number) {
@@ -6715,7 +6965,17 @@ It's like manually creating a loop and calling removeAt() for every item.
 ### 1. Introduction & Why Pipes are Useful
 
 Pipe: Transform output value to out template
+
+This is the main purpose of a pipe, it transforms some output.
+
+Now there are pipes for different types of output and also for synchronous and asynchronous data,
+
+![image-20200610211055008](angular.assets/image-20200610211055008.png)
+
 ### 2. Using Pipes
+
+![image-20200610211120186](angular.assets/image-20200610211120186.png)  
+
 Thay đổi
 ```html
 <strong>{{ server.name | shorten:15 }}</strong> |
@@ -6723,11 +6983,16 @@ Thay đổi
           {{ server.started | date:'fullDate' | uppercase }}
 
 ```
+![image-20200610211222544](angular.assets/image-20200610211222544.png)
+
 ### 3. Parametrizing Pipes
+
 **date:'fullDate'**
 
 https://angular.io/guide/pipes
 https://angular.io/api?query=pipe
+
+https://angular.io/api/common/DatePipe
 
 ### 4. Where to learn more about Pipes
 
@@ -6762,6 +7027,9 @@ declarations: [
 
 ```
 ### 7. Parametrizing a Custom Pipe
+
+`{{ server.name | shorten:15 }}`
+
 Neu nhieu tham so: shorten:15:12
 ### 8. Example Creating a Filter Pipe
 ```html
@@ -6808,7 +7076,10 @@ Must import
           [ngClass]="getStatusClasses(server)">
 
 ```
+![image-20200610212116956](angular.assets/image-20200610212116956.png)
+
 ### 9. Pure and Impure Pipes (or How to fix the Filter Pipe)
+
 Khi thêm mới server khi bam nut ADD, filter sẽ không update nên cần thêm  pure: false nó sẽ tính toán lại khi bất cứ thay đổi nào happen => affect performance NG
 
 ```ts
@@ -6818,7 +7089,16 @@ Khi thêm mới server khi bam nut ADD, filter sẽ không update nên cần th�
 })
 // Update array or object doesn't trigger it
 ```
+You can force this pipe to be updated whenever the data changes by adding a second property to the pipe decorator,
+
+it's called pure and you can set it to false. By default, this is true and doesn't need to be added.
+
+Now if you do this and the app reloads, let's filter for stable servers and add new servers and now you see they get added here too.
+
+The reason simply is that the pipe now gets recalculated whenever data changes and as mentioned before, this can lead to performance issues but might be what you're interested in.
+
 ### 10. Understanding the async Pipe
+
 app.component.ts
 ```ts
 appStatus = new Promise((resolve, reject) => {
@@ -6833,6 +7113,10 @@ appStatus = new Promise((resolve, reject) => {
       <h2>App Status: {{ appStatus | async}}</h2>
 
 ```
+![image-20200610212655495](angular.assets/image-20200610212655495.png)  
+
+Khi nào có nó print
+
 ### 11. Practicing Pipes.html
 
 ## 18. Making Http Requests
@@ -6850,20 +7134,28 @@ https://academind.com/learn/node-js/building-a-restful-api-with/
 ### 3.2 Building a REST API.html
 
 ### 4. The Anatomy of a Http Request
-![](../root/img/2019-11-25-21-27-24.png)
+The most important part about a request of course is the URL you are sending the request to,
+
+that's also called the API endpoint and it is something like yourdomain.com/posts/1
 
 ### 5. Backend (Firebase) Setup
 https://console.firebase.google.com/?pli=1
 
 Create project/ input name ng-complete-guide
-![](../root/img/2019-11-25-21-55-17.png)  
+
+![](../root/img/2019-11-25-21-55-17.png)    
 ![](../root/img/2019-11-25-21-56-23.png)
 
 Vao tab database(It's a complete back-end service)
-![](../root/img/2019-11-25-21-58-49.png)
+
+![](../root/img/2019-11-25-21-58-49.png)  
+
+
 
 Vào mục database/ real time db/ Chọn start in test mode
-![](../root/img/2019-11-25-21-59-14.png)
+
+![](../root/img/2019-11-25-21-59-14.png)  
+
 https://ng-complete-guide-35524.firebaseio.com/
 
 https://console.firebase.google.com/project/ng-complete-guide-35524/database/ng-complete-guide-35524/data
