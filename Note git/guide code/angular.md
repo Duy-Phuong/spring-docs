@@ -4532,6 +4532,7 @@ onEdit() {
 ```
 relativeTo: this.route load đường dẫn hiện tại thêm /edit vào
 edit-server.component.ts
+
 ```ts
 this.route.queryParams
       .subscribe(
@@ -4547,14 +4548,24 @@ edit-server.component.html
 <div *ngIf="allowEdit">
 
 ```
+![image-20200609234204378](angular.assets/image-20200609234204378.png)  
+
+Khi ấn vào edit btn
+
 ### 19. Configuring the Handling of Query Parameters
+
 server.component.ts
 Fix params bị mất khi ấn vào Link ở list server rồi ấn vào button Edit server thêm queryParamsHandling: 'preserve'
 queryParamsHandling : 'merge'
+
+Now query params handling takes a string as a value and this could be merge, to merge our old query params
+
+with any new we might add here. Now we don't add any new ones, so we can simply choose preserve instead and preserve which will overwrite the default behavior which is to simply drop them and make sure that the old ones are kept.
+
 ### 20. Redirecting and Wildcard Routes
 Tạo component page not found để url sai sẽ vào đây
 { path: ":not-found", component: PageNotFoundComponent },
-{ path: "**", relativeTo: 'not-found'  } // phải để cuối cùng
+ { path: '**', redirectTo: '/not-found' } // phải để cuối cùng
 
 ### 21. Important Redirection Path Matching.html
 In our example, we didn't encounter any issues when we tried to redirect the user. But that's not always the case when adding redirections.
@@ -4641,6 +4652,7 @@ imports: [
 ### 24. Protecting Routes with canActivate
 Tạo file auth-guard.service.ts
 we will define that angular will execute this code before a route is loaded
+
 ```ts
 canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean 
@@ -4648,6 +4660,7 @@ canActivate(route: ActivatedRouteSnapshot,
 ```
 return về Observable, run asynchronously
 auth.service.ts
+
 ```ts
 export class AuthService {
   loggedIn = false;
@@ -4676,11 +4689,23 @@ export class AuthService {
 
 Thêm Injectable và constructor
 ```ts
+import {
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  Router,
+  CanActivateChild
+} from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+
+import { AuthService } from './auth.service';
+
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(private authService: AuthService, private router: Router) {}
 
-canActivate(route: ActivatedRouteSnapshot,
+  canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.isAuthenticated()
       .then(
@@ -4688,13 +4713,18 @@ canActivate(route: ActivatedRouteSnapshot,
           if (authenticated) {
             return true;
           } else {
-
-            // return false
             this.router.navigate(['/']);
           }
         }
       );
   }
+
+  canActivateChild(route: ActivatedRouteSnapshot,
+                   state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    return this.canActivate(route, state);
+  }
+}
+
 
 
 ```
@@ -4712,15 +4742,41 @@ Vào app-routing.module  thêm canActivate
   ] },
 
 Nhớ khai báo
+// add
   providers: [ServersService, AuthService, AuthGuard],
 
 ```
 
 Chi co tab server k load, back to home after 800s
 Declare new service in module 
+
+In the last lecture, we added the canActivate guard and it was working fine but it was working for our whole servers path here.
+
+Now we could grab it from here and add it to our child to make sure that only the child are protected,
+
+the children and not our root path but that is not the easiest way because if we add more child items, we have to add canActivate to each of them.
+
+There is another guard we can use, it's pretty similar
+
+to canActivate,
+
+it's called **CanActivateChild**.
+
+So let's implement this interface too,
+
 ### 25. Protecting Child (Nested) Routes with canActivateChild
+
+In the last lecture, we added the canActivate guard and it was working fine but it was working for our whole servers path here.
+
+Now we could grab it from here and add it to our child to make sure that only the child are protected,
+
+the children and not our root path but that is not the easiest way because if we add more child items, we have to add canActivate to each of them.
+
+There is another guard we can use, it's pretty similar to canActivate, it's called CanActivateChild.
+
 Khi bạn đang edit muốn leave page => ask for confirmation
 Implement thêm CanActivateChild 
+
 ```ts
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
@@ -4734,17 +4790,54 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 }
 
 ```
-Thêm canActivateChild: [AuthGuard],
+Thêm `canActivateChild: [AuthGuard]`, rồi comment lại `canActivate: [AuthGuard],`
 khi click vào link child routes ở tab server thì redirect to home page
+
+**So now this is the finegrained control you can implement to protect a whole route and all its child routes**
+
+So with this in place, we should now be able to go to servers, this works but if we try to load a single
+
+server, now we get redirected back because now only the child routes are protected, something I can also prove by trying to go to /1/edit, this also navigates us back.
 
 ### 26. Using a Fake Auth Service
 Vào home tạo btn login và log out
+
+home
+
+```ts
+onLogin() {
+    this.authService.login();
+  }
+
+  onLogout() {
+    this.authService.logout();
+  }
+```
+
+home.html
+
+```html
+<h4>Welcome to Server Manager 4.0</h4>
+<p>Manage your Servers and Users.</p>
+<button class="btn btn-primary" (click)="onLoadServer(1)">Load Server 1</button>
+<button class="btn btn-default" (click)="onLogin()">Login</button>
+<button class="btn btn-default" (click)="onLogout()">Logout</button>
+```
+
+Sau khi log in mới vào tab server được
+
 ### 27. Controlling Navigation with canDeactivate
+
+now I want to focus on the control of whether you are allowed to leave a route or not.
+
+Now we for example are allowed to edit the dev server  and here, if we actually changed something, I want to ask the user if he accidentally clicks back or somewhere else, if you really want to leave or if you maybe forgot to click update server first, so this convenience method of keeping the user from accidentally navigating away.
+
 edit-server.component.ts
 Thêm thuộc tính changesSaved = false;
 ```ts
 onUpdateServer() {
     this.serversService.updateServer(this.server.id, {name: this.serverName, status: this.serverStatus});
+    // add
     this.changesSaved = true;
     this.router.navigate(['../'], {relativeTo: this.route});
   }
@@ -4764,8 +4857,9 @@ export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate>
   canDeactivate(component: CanComponentDeactivate,
                 currentRoute: ActivatedRouteSnapshot,
                 currentState: RouterStateSnapshot,
-                // ?: is optional
+              
                 nextState?: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+      // ?: is optional
     return component.canDeactivate();
   }
 }
@@ -4797,13 +4891,16 @@ canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
     }
   }
 
-// thêm in onInit
+// thêm in onInit get by id
 const id = +this.route.snapshot.params['id'];
     this.server = this.serversService.getServer(id); // thay vì update id = 1
     // Subscribe route params to update the id if params change
 
 ```
+![image-20200610090229308](angular.assets/image-20200610090229308.png)
+
 ### 28. Passing Static Data to a Route
+
 Tạo component error page and declare
 ```ts
 import { Component, OnInit } from '@angular/core';
@@ -4839,6 +4936,12 @@ app-routing.module.ts
 
 ```
 Khai báo ErrorPageComponent
+
+So here, you could then also set it equal to data message, both would work depending on whether it may change or not,
+
+so yes, both should work.
+
+I will comment out the first use case here but again, if it doesn't change, the using the snapshot is absolutely correct or fine.
 
 ### 29. Resolving Dynamic Data with the resolve Guard
 Tạo file server-resolver.service.ts
@@ -4900,7 +5003,26 @@ Sử dụng cho asyn data before component render
 
 ### 30. Understanding Location Strategies
 URL will be parses by the server first not angular =>care about localhost:4200/# and ignore the rest don't return 404 error
-RouterModule.forRoot(appRoutes, {useHash: true})
+`RouterModule.forRoot(appRoutes, {useHash: true})`
+
+the default is false which is why we didn't have to pass it.
+
+If we do this and we save that, let's see what happens.
+
+You out of the box see that now we have this hashtag in our URL and if I click on servers, you see there is this hashtag in between and that's no bug, that belongs here because this is hash mode routing.
+
+What this hashtag will do is, it informs your web server, hey only care about the part in this URL before this hashtag,
+
+so all the parts thereafter will be ignored by your web server.
+
+Therefore this will run even on servers which don't return the index.html file in case of 404 errors 
+
+because they will only care about the part in front of the hashtag.
+
+![image-20200610093847143](angular.assets/image-20200610093847143.png)  
+
+
+
 ### 31. Wrap Up
 
 ## 12. Course Project - Routing
@@ -4938,7 +5060,11 @@ export class AppRoutingModule {
 ```
 
 pathMatch: 'full' nếu không bất kì path nào cũng redirect nên báo lỗi
+
+![image-20200610095808083](angular.assets/image-20200610095808083.png)  
+
 Khai báo module
+
 ```ts
 imports: [
     BrowserModule,
@@ -4969,7 +5095,7 @@ header.component.html
 ```html
 <li routerLinkActive ="active"><a routerLink="/recipes">Recipes</a>
 </li>
-        <li routerLinkActive="active"><a routerLink="/shopping-list">Shopping List</a></li>
+<li routerLinkActive="active"><a routerLink="/shopping-list">Shopping List</a></li>
 
 ```
 header.component.ts sửa thành
@@ -4981,15 +5107,25 @@ import { Component } from '@angular/core';
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {
+  // comment
+  // @Output() featureSelected = new EventEmitter<string>();
+
+  // onSelect(feature: string) {
+  //   this.featureSelected.emit(feature);
+  // }
 }
 
 ```
 
 ### 4. Marking Active Routes
 Thêm routerLinkActive
+
+![image-20200610110625719](angular.assets/image-20200610110625719.png)
+
 ### 5. Fixing Page Reload Issues
 Khi bấm vào list recipe thì page sẽ bị load lại
 Vào file recipe-item.component.html, recipe-detail.component.html, header.component.html xóa `href=#`
+
 ```html
 <a
   style="cursor: pointer;"
@@ -5017,6 +5153,7 @@ Thêm style="cursor: pointer;"
 ```ts
 const appRoutes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
+    // add 
   { path: 'recipes', component: RecipesComponent, children: [
     { path: '', component: RecipeStartComponent },
     { path: 'new', component: RecipeEditComponent },
@@ -5037,6 +5174,7 @@ Nội dung file html
 
 Khai báo RecipeStartComponent trong module
 recipes.component.html
+
 ```html
 <div class="row">
   <div class="col-md-5">
@@ -5048,14 +5186,17 @@ recipes.component.html
 </div>
 
 ```
-now canot run app load detail recepie
-### 8. Configuring Route Parameters
-Remove event select item in recpie-item.component.html
+now cannot run app load detail recipe
+### 8. Configuring Route Paramieters
+Remove event select item in recipe-item.component.html
 recipe-detail.component.ts
+
 ```ts
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   id: number;
+    
+  // xóa  @Input() recipe: Recipe;
 
   constructor(private recipeService: RecipeService,
               private route: ActivatedRoute,
@@ -5076,7 +5217,8 @@ export class RecipeDetailComponent implements OnInit {
 
 ```
 Vào recipe xóa các event không cần thiết
-Service
+recipe.service
+
 ```ts
 getRecipe(index: number) {
     return this.recipes[index];
@@ -5204,6 +5346,14 @@ onEditRecipe() {
 ```
 ### 14. One Note about Route Observables
 
+Now as I explained, you don't need to clean up the subscription here, I just want to bring it to your
+
+attention again.
+
+In other cases where you use your own observables, observables you created and not managed by Angular
+
+therefore, you will need to clean up the subscription.
+
 ### 15. Project Cleanup.html
 There's one thing I forgot to clean up here (will be cleaned up later in the course). Feel free to do the cleanup right now though.
 
@@ -5218,7 +5368,13 @@ Our app.component.html file looks like that:
     </div>
   </div>
 </div>
-The (featureSelected)="..."  event listener is a relict of our "old" navigation approach using ngIf. We no longer need it, so feel free to change this template to:
+
+```
+
+The `(featureSelected)="..."`  event listener is a relict of our "old" navigation approach using ngIf. We no longer need it, so feel free to change this template to:
+
+```html
+
 
 <app-header></app-header>
 <div class="container">
@@ -5230,6 +5386,7 @@ The (featureSelected)="..."  event listener is a relict of our "old" navigation 
 </div>
 
 ```
+
 ## 13. Understanding Observables
 
 ### 1. Module Introduction
