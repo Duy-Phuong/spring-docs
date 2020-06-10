@@ -7163,7 +7163,9 @@ https://console.firebase.google.com/project/ng-complete-guide-35524/database/ng-
 ### 6. Sending a POST Request
 6.1 http-02-post-requests.zip
 ```ts
-  constructor(private http: HttpClient) {}
+import { HttpClient } from '@angular/common/http';
+
+constructor(private http: HttpClient) {}
 
 onCreatePost(postData: { title: string; content: string }) {
     // Send Http request
@@ -7190,6 +7192,10 @@ Import HttpClientModule
 
 ```
 F12 vào tab network để check, hàm post return a Observable 
+
+![image-20200610220312608](angular.assets/image-20200610220312608.png)  
+
+![image-20200610220110766](angular.assets/image-20200610220110766.png)
 
 ### 7. GETting Data
 Fetch data làm như post
@@ -7228,7 +7234,7 @@ private fetchPosts() {
 
 ```
 ### 9. Using Types with the HttpClient
-model
+post.model.ts
 ```ts
 export interface Post {
   title: string;
@@ -7240,6 +7246,14 @@ export interface Post {
 ```ts
 .get<{ [key: string]: Post }> 
 // nghĩa là 1 key có kiểu string sẽ có gtri là Post
+    this.http
+      .get<{ [key: string]: Post }>(
+        'https://ng-complete-guide-c56d3.firebaseio.com/posts.json'
+      )
+      .pipe(
+        map(responseData => {
+            // thêm kiểu dl
+          const postsArray: Post[] = [];
 
 this.http
       .post<{ name: string }>
@@ -7310,8 +7324,9 @@ export class PostsService {
 ----
 
 ```
-//
- lost connection between data from service and template
+
+ lost connection between fetched data from service and template
+
 ### 13. Services & Components Working Together
 ```ts
 constructor(private http: HttpClient, private postsService: 
@@ -7372,7 +7387,9 @@ ngOnInit() {
 ### 16. Using Subjects for Error Handling
 service
 ```ts
+// add
 error = new Subject<string>();
+
   createAndStorePost(title: string, content: string) {
     const postData: Post = { title: title, content: content };
     this.http
@@ -7508,15 +7525,26 @@ deletePosts() {
             // ...
           }
           if (event.type === HttpEventType.Response) {
-            console.log(event.body);
+            console.log(event.body); // in ra null vì body trong event là null
           }
         })
       );
   }
 ```
+![image-20200610223802139](angular.assets/image-20200610223802139.png)
+
 ### 22. Changing the Response Body Type
 
+thay từ json sang text để test rồi revert lại
+
 ### 23. Introducing Interceptors
+
+But let's imagine we want to attach this custom header to all our outgoing requests and a more realistic
+
+scenario would be that you want to authenticate your user and you need to add a certain param or a certain
+
+header to every outgoing request therefore so that the back-end can read that, you don't want to manually configure every request because that is very cumbersome and for that, you can add interceptors.
+
 auth-interceptor.service
 ```ts
 import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/co
@@ -7532,8 +7560,26 @@ export class AuthInterceptorService implements HttpInterceptor {
 
 
 ```
+the first key is the provide key and there, you have to use HTTP_INTERCEPTORS, all capital cases,
+
+that is a type that is imported from @angular/common/http. So import that from this package
+
+and use it here as a value for provide.
+
+This is the token by which this injection can later be identified by Angular, so it will basically
+
+know that all the classes you provide on that token, so by using that identifier, should be treated as HTTP interceptors and should therefore run their intercept method whenever a request leaves the application.
+
+The second key you pass to that object is the use class key where you now point at your interceptor
+
+class you want to add as an interceptor and here, that would be the auth interceptor service
+
+which you of course also need to import.
+
 Chay truoc khi req leave app => send
+
 Khai báo:
+
 ```ts
 providers: [
     {
@@ -7545,7 +7591,27 @@ providers: [
 
 ```
 ### 24. Manipulating Request Objects
+
+However, the request object itself is **immutable**, so you can't set request URL to a new URL, that
+
+will not work and you also get an error here.
+
+Instead if you want to modify the request, you have to create a new one, like modified request sounds
+
+like a fitting name for the constant, where you call request clone and inside of **clone**, you pass in
+
+a Javascript object where you now can overwrite all the core things. You could set a new URL here
+
+or you could add new headers, if you want to keep the old headers by the way, then you simply do that
+
+by using the request headers and calling append or you add new params or whatever you want.
+
 Khi muốn thay đổi request obj 
+
+![image-20200610225106065](angular.assets/image-20200610225106065.png)  
+
+
+
 ```ts
 export class AuthInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
@@ -7559,7 +7625,15 @@ export class AuthInterceptorService implements HttpInterceptor {
 ```
 ### 25. Response Interceptors
 Có thể thay đổi response
-![](../root/img/2019-11-26-01-43-47.png)
+
+![](../root/img/2019-11-26-01-43-47.png)  
+
+Now here again, I'm just doing some logging but as I just mentioned, you could use other operators like
+
+map here and even transform the response, that would be possible.
+
+![image-20200610225315812](angular.assets/image-20200610225315812.png)
+
 ### 26. Multiple Interceptors
 Tạo file logging-intercepter.service.ts
 ```ts
@@ -7601,6 +7675,8 @@ providers: [
     }
   ],
 ```
+![image-20200610225602519](angular.assets/image-20200610225602519.png)
+
 ### 27. Wrap Up
 
 ### 28. Useful Resources & Links.html
@@ -7614,6 +7690,11 @@ Project name: ng-course-recipe-book / real time db
 ### 3. Setting Up the DataStorage Service
 
 ### 4. Storing Recipes
+
+![image-20200610230750447](angular.assets/image-20200610230750447.png)  
+
+![image-20200610230835806](angular.assets/image-20200610230835806.png)  
+
 data-storage.service.ts ở header active 2 button
 ```ts
 import { Injectable } from '@angular/core';
@@ -7682,8 +7763,17 @@ setRecipes(recipes: Recipe[]) {
 
 ### 7. Resolving Data Before Loading
 O page detail an reload => fail
+
+![image-20200610231654060](angular.assets/image-20200610231654060.png)  
+
 boi vi khi k an nut FETCH DATA thi khi data empty o page detail => reload detail => fail
+
+A resolver is essentially some code that runs before a route is loaded to ensure that certain data
+
+the route depends on is there.
+
 recipes-resolver.service
+
 ```ts
 import { Injectable } from '@angular/core';
 import {
@@ -7745,7 +7835,10 @@ fetchRecipes() {
     this.dataStorageService.fetchRecipes().subscribe();
   }
 ```
+The tap operator allows us to execute some code here in place without altering the data that is funneled through that observable.
+
 routing
+
 ```ts
 children: [
       { path: '', component: RecipeStartComponent },
@@ -7765,6 +7858,13 @@ children: [
 ```
 ### 8. Fixing a Bug with the Resolver
 edit not save
+
+It fetches new recipes from the server and that simply overwrites our existing recipes, including our changes to these recipes.
+
+Now the solution is to first check whether we do have recipes and only fetch new ones if we don't.
+
+`if (recipes.length === 0)`
+
 ## 20. Authentication & Route Protection in Angular
 
 ### 1. Module Introduction
