@@ -9662,6 +9662,19 @@ so that store is the single source of truth that manages the entire application 
 
 
 ![](../root/img/2019-12-01-08-57-27.png)
+
+It also embraces RxJS and observables, so all the state is managed as one large observable
+
+you could say and that also can yield certain advantages,
+
+for example you can use all the observable operators to then edit the state you are fetching in the
+
+component where you need it in the way you need it there,
+
+this will not change the store state of course
+
+and it of course also supports TypeScript.
+
 ### 4. Getting Started with Reducers
 ```ts
 Npm install –-save @ngrx/store 
@@ -9694,6 +9707,14 @@ export function shoppingListReducer(state = initialState, action: Action) {
 
 ```
 State is immutable
+
+So the first time this reducer will run, it will receive that initial state for subsequent actions,
+
+so once the state has been initialized for the first time and it will be initialized globally
+
+by NgRx, once it has been initialized, state will always be the previous state only for the first time,
+
+so when NgRx is initializing the application state, it will be our initial state.
 
 ### 5. Adding Logic to the Reducer
 
@@ -9764,7 +9785,7 @@ So now all action will dispatch to reducer
 shopping-list.component.ts
 
 ```ts
-ingredients: Observable<{ ingredients: Ingredient[] }>;
+ingredients: Observable<{ ingredients: Ingredient[] }>; // add
 constructor(
     private slService: ShoppingListService,
     private loggingService: LoggingService,
@@ -9818,7 +9839,18 @@ export function shoppingListReducer(
 }
 
 ```
+we need to add a default case to our switch statement to handle any cases we're not explicitly handling and we're only handling one explicit case here and that's not the action NgRx will dispatch automatically when it starts, it kind of dispatches an initialization action and we need to handle this and we can handle it here with the default case
+
+and there I simply want to return the unchanged state and that will now be the initial state.
+
 ### 9. Dispatching Actions
+
+Now here, NgRx and Angular should also clear the subscription for you
+
+but to be super safe, I would recommend storing this in a subscription property and try clearing it manually
+
+as well just to avoid memory leaks and bugs
+
 shopping-edit.component.ts
 ```ts
 constructor(
@@ -9857,7 +9889,10 @@ export class AddIngredient implements Action {
 }
 
 ```
+![image-20200611210145619](angular.assets/image-20200611210145619.png)
+
 ### 10. Multiple Actions
+
 shopping-list.action.ts
 ```ts
 export class AddIngredients implements Action {
@@ -9915,7 +9950,7 @@ export function shoppingListReducer(
 ```
 recipe-detail.component.ts
 ```ts
-// Nut add all
+// button add all
 onAddToShoppingList() {
     this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients);
   }
@@ -9979,7 +10014,7 @@ shopping-edit.component.ts
       );
 ```
 ### 13. Expanding the State
-shopping-lit.reducer.ts
+shopping-list.reducer.ts
 ```ts
 // Add
 export interface State {
@@ -9990,28 +10025,52 @@ export interface State {
 
 // them nhung sau nay se xoa
 export interface AppState {
-  shoppingList: fromShoppingList.State;
+  shoppingList: State;
 }
 //end
 
-const initialState: State = {
+const initialState: State = { // thêm kiểu là state
   ingredients: [new Ingredient('Apples', 5), new Ingredient('Tomatoes', 10)],
   // Add
   editedIngredient: null,
   editedIngredientIndex: -1
 };
+
+// add action reducer
+	case ShoppingListActions.START_EDIT:
+      return {
+        ...state,
+        editedIngredientIndex: action.payload,
+        editedIngredient: { ...state.ingredients[action.payload] }
+      };
+    case ShoppingListActions.STOP_EDIT:
+      return {
+        ...state,
+        editedIngredient: null,
+        editedIngredientIndex: -1
+      };
 ```
 
 shopping-list.component.ts
 ```ts
+import * as fromShoppingList from './store/shopping-list.reducer';
+
 constructor(
     private loggingService: LoggingService,
-    private store: Store<fromShoppingList.AppState>
+    // remove private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>
+    private store: Store<fromShoppingList.AppState> // add change state
   ) {}
+
+// add
+onEditItem(index: number) {
+    // this.slService.startedEditing.next(index);
+    this.store.dispatch(new ShoppingListActions.StartEdit(index));
+  }
 
 ```
 shopping-edit.component.ts
-Lam tuong tu
+Lam tuong tu thay kiểu cho store
+
 ### 14. Managing More State via NgRx
 shopping-list.actions.ts
 ```ts
@@ -10063,6 +10122,20 @@ onEditItem(index: number) {
 
 shopping-edit.component.ts
 ```ts
+//	ngOnInit() {
+  //   this.subscription = this.slService.startedEditing
+  //     .subscribe(
+  //       (index: number) => {
+  //         this.editedItemIndex = index;
+  //         this.editMode = true;
+  //         this.editedItem = this.slService.getIngredient(index);
+  //         this.slForm.setValue({
+  //           name: this.editedItem.name,
+  //           amount: this.editedItem.amount
+  //         })
+  //       }
+  //     );
+  // }
 ngOnInit() {
   // add
     this.subscription = this.store
@@ -10099,6 +10172,23 @@ onClear() {
     this.subscription.unsubscribe();
     // add
     this.store.dispatch(new ShoppingListActions.StopEdit());
+  }
+
+ onSubmit(form: NgForm) {
+    const value = form.value;
+    const newIngredient = new Ingredient(value.name, value.amount);
+    if (this.editMode) {
+       // add
+      // this.slService.updateIngredient(this.editedItemIndex, newIngredient);
+      this.store.dispatch(
+        new ShoppingListActions.UpdateIngredient(newIngredient)
+      );
+    } else {
+      // this.slService.addIngredient(newIngredient);
+      this.store.dispatch(new ShoppingListActions.AddIngredient(newIngredient));
+    }
+    this.editMode = false;
+    form.reset();
   }
 
 ```
@@ -10174,136 +10264,570 @@ shopping-edit.component.ts
 ```
 
 ### 16. First Summary & Clean Up
-Xoa ShoppingListService
+
+Xoa ShoppingListService cả toàn bộ file
+
 ### 17. One Root State
+
+Create file store/auth-reducer.ts
+
+```ts
+import { User } from '../user.model';
+
+export interface State {
+  user: User;
+}
+
+const initialState: State = {
+  user: null
+};
+
+export function authReducer(state = initialState, action) {
+  return state;
+}
+
+```
+
+app.reducer.ts
+
+```ts
+import { ActionReducerMap } from '@ngrx/store';
+
+import * as fromShoppingList from '../shopping-list/store/shopping-list.reducer';
+import * as fromAuth from '../auth/store/auth.reducer';
+
+export interface AppState {
+  shoppingList: fromShoppingList.State;
+  auth: fromAuth.State;
+}
+
+export const appReducer: ActionReducerMap<AppState> = {
+  shoppingList: fromShoppingList.shoppingListReducer,
+  auth: fromAuth.authReducer
+};
+
+
+```
+
+app.module.ts
+```ts
+import * as fromApp from './store/app.reducer';
+
+@NgModule({
+  declarations: [AppComponent, HeaderComponent],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    StoreModule.forRoot(fromApp.appReducer), // add
+    SharedModule,
+    CoreModule
+  ],
+  bootstrap: [AppComponent]
+  // providers: [LoggingService]
+})
+```
+
+shopping-list.component.ts
+
+```ts
+constructor(
+    private loggingService: LoggingService,
+    private store: Store<fromApp.AppState> // change
+  ) {}
+```
+
+recipe.service.ts
+
+```ts
+constructor(
+    private store: Store<fromApp.AppState> // fix
+  ) {}
+```
+
+
+
+
 
 ### 18. Setting Up Auth Reducer & Actions
 
+auth.actions.ts
+
+```ts
+import { Action } from '@ngrx/store';
+
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+
+export class Login implements Action {
+  readonly type = LOGIN;
+
+  constructor(
+    public payload: {
+      email: string;
+      userId: string;
+      token: string;
+      expirationDate: Date;
+    }
+  ) {}
+}
+
+export class Logout implements Action {
+  readonly type = LOGOUT;
+}
+
+export type AuthActions = Login | Logout;
+
+```
+
+auth.reducer.ts
+
+```ts
+import { User } from '../user.model';
+import * as AuthActions from './auth.actions';
+
+export interface State {
+  user: User;
+}
+
+const initialState: State = {
+  user: null
+};
+
+export function authReducer(
+  state = initialState,
+  action: AuthActions.AuthActions
+) {
+  switch (action.type) {
+    case AuthActions.LOGIN:
+      const user = new User(
+        action.payload.email,
+        action.payload.userId,
+        action.payload.token,
+        action.payload.expirationDate
+      );
+      return {
+        ...state,
+        user: user
+      };
+    case AuthActions.LOGOUT:
+      return {
+        ...state,
+        user: null
+      };
+    default:
+      return state;
+  }
+}
+
+```
+
+
+
+
+
 ### 19. Dispatching Auth Actions
+
+auth.service.ts
+
+```ts
+import * as fromApp from '../store/app.reducer';
+
+constructor(
+    private http: HttpClient,
+    private router: Router,
+    private store: Store<fromApp.AppState> // add
+  ) {}
+
+
+  autoLogin() {
+	....
+    if (loadedUser.token) {
+      // this.user.next(loadedUser);
+        // add
+      this.store.dispatch(
+        new AuthActions.Login({
+          email: loadedUser.email,
+          userId: loadedUser.id,
+          token: loadedUser.token,
+          expirationDate: new Date(userData._tokenExpirationDate)
+        })
+      );
+     // .....
+        
+    logout() {
+        // add
+    // this.user.next(null);
+    this.store.dispatch(new AuthActions.Logout());
+    this.router.navigate(['/auth']);
+    localStorage.removeItem('userData');
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
+  }
+
+```
+
+
+
 
 
 ### 20. Auth Finished (For Now...)
 
+auth-interceptor.service.ts
+
+```ts
+@Injectable()
+export class AuthInterceptorService implements HttpInterceptor {
+  constructor(private authService: AuthService, 
+               // add
+               private store: Store<fromApp.AppState>) {}
+
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    return this.store.select('auth').pipe( // add
+        take(1),
+        // add
+      map(authState => {
+        return authState.user;
+      }),
+```
+
+auth.guard.ts
+
+```ts
+ constructor(
+    private authService: AuthService,
+    private router: Router,
+    private store: Store<fromApp.AppState> // add tưởng tự
+  ) {}
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    router: RouterStateSnapshot
+  ):
+    | boolean
+    | UrlTree
+    | Promise<boolean | UrlTree>
+    | Observable<boolean | UrlTree> {
+    return this.store.select('auth').pipe(
+      take(1),
+      map(authState => { // add
+        return authState.user;
+      }),
+```
+
+header.component.ts
+
+```ts
+ constructor(
+    private dataStorageService: DataStorageService,
+    private authService: AuthService,
+    private store: Store<fromApp.AppState> // add
+  ) {}
+
+  ngOnInit() {
+    this.userSub = this.store
+      .select('auth') // add
+      .pipe(map(authState => authState.user))
+      .subscribe(user => {
+        this.isAuthenticated = !!user;
+        console.log(!user);
+        console.log(!!user);
+      });
+  }
+```
+
+
+
+
+
 ### 21. And Important Note on Actions
+
+Khi ấn delete
+
+![image-20200611231946916](angular.assets/image-20200611231946916.png)  
+
+Vào file reducer in state ra console để xem
+
+it is important that we **return our default state** for this state slice here,
+
+otherwise if we wouldn't do that, if we would return null here or anything like that, we would basically
+
+drop our state here in the auth reducer when something is dispatched in another part of the app.
+
+So that's the first important thing,
+
+the next important thing is that since our dispatched actions reach all reducers, you really have to
+
+ensure that your identifiers here are login across the entire application because these auth related
+
+actions here are not just handled by the auth reducer, they also reach the shopping list reducer.
+
+Now of course, we in this application we have identifiers that don't really interfere,
+
+add ingredient and login are quite different but for bigger applications, it is of course possible that
+
+you have duplicate identifiers across different parts of your app.
+
+Now since they have to be unique for the entire application because actions reach the entire application,
+
+I would recommend a **technique called prefixing**. Now I will convert like this, it's not a must do but it is recommended especially for bigger apps to avoid clashes, now of course any prefix that ensures uniqueness would be fine but here I'll just implement a pattern you'll also find in the official NgRx docs.
+
+auth.action.ts
+
+```ts
+export const LOGIN_START = '[Auth] Login Start';
+export const LOGIN = '[Auth] Login';
+export const LOGIN_FAIL = '[Auth] Login Fail';
+export const LOGOUT = '[Auth] Logout';
+```
+
+shopping-list.actions.ts
+
+```ts
+
+export const ADD_INGREDIENT = '[Shopping List] Add Ingredient';
+export const ADD_INGREDIENTS = '[Shopping List] Add Ingredients';
+export const UPDATE_INGREDIENT = '[Shopping List] Update Ingredient';
+export const DELETE_INGREDIENT = '[Shopping List] Delete Ingredient';
+export const START_EDIT = '[Shopping List] Start Edit';
+export const STOP_EDIT = '[Shopping List] Stop Edit';
+```
+
+
 
 ### 22. Exploring NgRx Effects
 
+
+
+
+
 ### 23. Defining the First Effect
+
+
+
+
 
 ### 24. Effects & Error Handling
 
+
+
 ### 25. Login via NgRx Effects
+
+
 
 ### 26. Managing UI State in NgRx
 
+
+
 ### 27. Finishing the Login Effect
 
+
+
 ### 28. Preparing Other Auth Actions
+
+
 
 ### 29. Adding Signup
 
 
+
 ### 30. Further Auth Effects
+
+
 
 ### 31. Adding Auto-Login with NgRx
 
+
+
 ### 32. Adding Auto-Logout
+
+
 
 ### 33. Finishing the Auth Effects
 
+
+
 ### 34. Using the Store Devtools
+
+
 
 ### 35. The Router Store
 
+
+
 ### 36. Getting Started with NgRx for Recipes
+
+
 
 ### 37. Fetching Recipe Detail Data
 
+
+
 ### 38. Fetching Recipes & Using the Resolver
+
+
 
 ### 39. Fixing the Auth Redirect
 
 
+
 ### 40. Update, Delete and Add Recipes
+
+
 
 ### 41. Storing Recipes via Effects
 
+
+
 ### 42. Cleanup Work
+
+
 
 ### 43. Wrap Up
 
+
+
 ### 44. Useful Resources & Links.html
+
+
 
 ### 45. MUST READ The [LEGACY] Lectures.html
 
+
+
 ### 46. [LEGACY] Module Introduction
+
+
 
 ### 47. [LEGACY] Important Angular 6, RxJS 6 and this section!.html
 
+
+
 ### 48. [LEGACY] State Challenges
+
+
 
 ### 49. [LEGACY] Getting Started with Reducers
 
 
+
 ### 50. [LEGACY] Adding Actions
+
+
 
 ### 51. [LEGACY] Finishing the First Reducer
 
+
+
 ### 52. [LEGACY] Registering the Application Store
+
+
 
 ### 53. [LEGACY] Selecting Data from State
 
+
+
 ### 54. [LEGACY] Dispatch Actions
+
+
 
 ### 55. [LEGACY] More Actions and Adding Ingredients
 
+
+
 ### 56. [LEGACY] Dispatching Update and Deleting Shopping List Actions
+
+
 
 ### 57. [LEGACY] Expanding App State
 
+
+
 ### 58. [LEGACY] Editing the Shopping-List via NgRx
+
+
 
 ### 59. [LEGACY] Managing all Relevant State
 
 
+
 ### 60. [LEGACY] Authentication and Side Effects - Introduction
+
+
 
 ### 61. [LEGACY] Setting up the Auth Store Files
 
+
+
 ### 62. [LEGACY] The Reducer
+
+
 
 ### 63. [LEGACY] Adding Reducer Logic & Actions
 
+
+
 ### 64. [LEGACY] Adjusting the App Module Setup
+
+
 
 ### 65. [LEGACY] Using Authentication
 
+
+
 ### 66. [LEGACY] Dispatch Actions
+
+
 
 ### 67. [LEGACY] Getting State Access in Http Interceptor
 
+
+
 ### 68. [LEGACY] Handling the Auth Token
+
+
 
 ### 69. [LEGACY] Only React to Actions Once via take(1)
 
 
+
 ### 70. [LEGACY] A Closer Look at Effects
+
+
 
 ### 71. [LEGACY] Auth Effects and Actions
 
+
+
 ### 72. [LEGACY] Using NgRx Effects with NgRx = 7.html
+
+
 
 ### 73. [LEGACY] Effects - How they Work
 
+
+
 ### 74. [LEGACY] Adding Auth Signup
+
+
 
 ### 75. [LEGACY] Adding Auth Signin
 
+
+
 ### 76. [LEGACY] Navigation as a Side Effect
+
+
 
 ### 77. [LEGACY] Handling Logout via NgRx
 
+
+
 ### 78. [LEGACY] Additional Fixes
+
+
 
 ### 79. [LEGACY] Redirecting Upon Logout
 
@@ -10311,120 +10835,223 @@ Xoa ShoppingListService
 
 ### 80. [LEGACY] What's Next
 
+
+
 ### 81. [LEGACY] The Router Store Package
+
+
 
 ### 82. [LEGACY] Store Devtools
 
+
+
 ### 83. [LEGACY] Lazy Load and Dynamic Injection
+
+
 
 ### 84. [LEGACY] Adding Recipe Actions
 
+
+
 ### 85. [LEGACY] Adding Recipe Reducers
+
+
 
 ### 86. [LEGACY] Dispatching and Selecting State
 
+
+
 ### 87. [LEGACY] Viewing and Deleting Recipes via NgRx
 
+
+
 ### 88. [LEGACY] Editing and Updating Recipes via NgRx
+
+
 
 ### 89. [LEGACY] Recipes Side Effects - Fetching from Server
 
 
 ### 90. [LEGACY] Recipes Side Effects - Storing Recipes on Server
 
+
+
 ### 91. [LEGACY] Cleaning Up
+
+
 
 ### 92. [LEGACY] Updating to RxJS 6+
 
+
+
 ### 93. [LEGACY] Wrap Up
 
+
+
 ### 94. [LEGACY] Useful Resources & Links.html
+
+
 
 ## 25. Bonus Angular Universal
 
 ### 1. Module Introduction
 
+
+
 ### 2. Important Official Docs & Starting Project.html
+
+
 
 ### 3. Getting Started with Angular Universal
 
+
+
 ### 4. Working on the App Module
+
+
 
 ### 5. Adding a Server-Side Build Workflow
 
+
+
 ### 6. Adding a NodeJS Server
+
+
 
 ### 7. Pre-Rendering the App on the Server
 
+
+
 ### 8. Next Steps
 
+
 ### 9. Angular Universal Gotchas.html
+
+
 
 ## 26. Angular Animations
 
 ### 1. Making Animations Work with Angular 4+.html
 
+
+
 ### 10. Using Keyframes for Animations
+
+
 
 ### 11. Grouping Transitions
 
+
+
 ### 12. Using Animation Callbacks
+
+
 
 ### 2. Introduction
 
+
+
 ### 3. Setting up the Starting Project
+
+
 
 ### 4. Animations Triggers and State
 
+
+
 ### 5. Switching between States
+
+
 
 ### 6. Transitions
 
+
+
 ### 7. Advanced Transitions
+
+
 
 ### 8. Transition Phases
 
+
+
 ### 9. The void State
+
+
 
 ## 27. Adding Offline Capabilities with Service Workers
 
 ### 1. Module Introduction
 
+
+
 ### 2. Adding Service Workers
+
+
 
 ### 3. Caching Assets for Offline Use
 
+
+
 ### 4. Caching Dynamic Assets & URLs
 
+
+
 ### 5. Further Links & Resources.html
+
+
 
 ## 28. A Basic Introduction to Unit Testing in Angular Apps
 
 ### 1. About this Section.html
 
+
+
 ### 10. Isolated vs Non-Isolated Tests
+
+
 
 ### 11. Further Resources & Where to Go Next.html
 
+
+
 ### 2. Introduction
+
+
 
 ### 3. Why Unit Tests
 
+
+
 ### 4. Analyzing the Testing Setup (as created by the CLI)
+
+
 
 ### 5. Running Tests (with the CLI)
 
+
+
 ### 6. Adding a Component and some fitting Tests
+
+
 
 ### 7. Testing Dependencies Components and Services
 
+
+
 ### 8. Simulating Async Tasks
 
+
+
 ### 9. Using fakeAsync and tick
+
+
 
 ## 29. Angular Changes & New Features
 
 ### 1. What's New with Angular 8
+
+
 
 ### 2. What's New & How to Update.html
 
@@ -10432,51 +11059,93 @@ Xoa ShoppingListService
 
 ### 1. Course Roundup
 
+
+
 ### 2. Bonus More Content!.html
 
 ## 31. Custom Project & Workflow Setup
 
 ### 1. Introduction
 
-### 10. Finishing & Using the Development Workflow
 
-### 11. Setting up a Production Workflow
-
-### 12. Adding Types & Fixing Bugs
-
-### 13. Finishing Touches
 
 ### 2. Initializing the Project
 
+
+
 ### 3. Setting up the Basic Project Files
+
+
 
 ### 4. Installing the Core Dependencies
 
+
+
 ### 5. Filling the Project Files with Some Life
+
+
 
 ### 6. index.html & Polyfills
 
+
+
 ### 6. index.html & Polyfills.vtt
+
+
 
 ### 7. Installing Development Dependencies
 
+
+
 ### 8. Setting up a Development Workflow
 
+
+
 ### 9. Updating to Angular 6 + Webpack 4.html
+
+
+
+### 10. Finishing & Using the Development Workflow
+
+
+
+### 11. Setting up a Production Workflow
+
+
+
+### 12. Adding Types & Fixing Bugs
+
+
+
+### 13. Finishing Touches
+
+
 
 ## 32. Bonus TypeScript Introduction (for Angular 2 Usage)
 
 ### 1. Introduction
 
+
+
 ### 2. Using Types
+
+
 
 ### 3. Classes
 
+
+
 ### 4. Interfaces
+
+
 
 ### 5. Generics
 
+
+
 ### 6. Wrap up & Modules
+
+
 
 ### 7. Deep dive into TypeScript.html
 
