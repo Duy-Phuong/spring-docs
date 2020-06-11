@@ -7876,6 +7876,7 @@ Server and client is decouple
 
 RestAPI là stateless vì vậy server không quan tâm đến client nên session không được sử dụng => token: string được mã hóa và giải mã bởi client, token được tạo ra ở server và mã hóa bằng thuật toán chỉ có server biết
 Chỉ có server có thể validate incoming token 
+
 ![](../root/img/2019-11-26-23-19-19.png)
 
 ### 3. Adding the Auth Page
@@ -8001,7 +8002,9 @@ Vao database/ rule/
 ![](../root/img/2019-11-27-00-25-19.png)
 
 Authen... / set up the sign in method
+
 ![](../root/img/2019-11-27-00-37-11.png)
+
 SAVE sau do vao tab USER
 
 ### 7. Make sure you got Recipes in your backend!.html
@@ -8018,10 +8021,18 @@ Xem Endpoint
 ### 9. Sending the Signup Request
 auth-03-signup-request
 Sign up with email / password
-![](../root/img/2019-11-27-00-45-22.png)
+
+![](../root/img/2019-11-27-00-45-22.png)  
 get key from Project setting copy web api key paste vào url
+
 auth.service.ts
+
 ```ts
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+
 interface AuthResponseData {
   kind: string;
   idToken: string;
@@ -8079,12 +8090,24 @@ onSubmit(form: NgForm) {
   }
 ```
 
+![image-20200611083556258](angular.assets/image-20200611083556258.png)  
+
+![image-20200611083619149](angular.assets/image-20200611083619149.png)  
+
+Nếu đăng kí cùng email
+
+![image-20200611083703725](angular.assets/image-20200611083703725.png)    
 
 ### 10. Adding a Loading Spinner & Error Handling Logic
+
 GG: css loading spinner
 https://loading.io/css/
 Vào share tạo folder loading tạo component loading va Khai bao
+
+vào css chỉnh từ #fff thành màu #2102cf
+
 auth.component.html
+
 ```html
   <div class="alert alert-danger" *ngIf="error">
       <p>{{ error }}</p>
@@ -8098,6 +8121,7 @@ auth.component.html
 ### 11. Improving Error Handling
 Xem lại thêm auth-03-signup-request
 Hàm sign up auth.service.ts
+
 ```ts
 signup(email: string, password: string) {
     return this.http
@@ -8137,6 +8161,7 @@ if (this.isLoginMode) {
           this.isLoading = false;
         },
         errorMessage => {
+            // add
           console.log(errorMessage);
           this.error = errorMessage;
           this.isLoading = false;
@@ -8145,7 +8170,10 @@ if (this.isLoginMode) {
     }
 
 ```
+![image-20200611084912077](angular.assets/image-20200611084912077.png)
+
 ### 12. Sending Login Requests
+
 service
 ```ts
   login(email: string, password: string) {
@@ -8159,6 +8187,7 @@ service
         }
       )
       .pipe(
+        // # 13 add
         catchError(this.handleError),
         tap(resData => {
           this.handleAuthentication(
@@ -8179,11 +8208,13 @@ auth.component.ts
     this.isLoading = true;
 
     if (this.isLoginMode) {
+        // add
       authObs = this.authService.login(email, password);
     } else {
       authObs = this.authService.signup(email, password);
     }
 
+// đỡ subcrbe nhiều lần
     authObs.subscribe(
       resData => {
         console.log(resData);
@@ -8219,12 +8250,15 @@ private handleError(errorRes: HttpErrorResponse) {
     return throwError(errorMessage);
   }
 
-  // add
+  // add in login method
   .pipe(
         catchError(this.handleError)
       );
 ```
+![image-20200611090150629](angular.assets/image-20200611090150629.png)  
+
 ### 14. Creating & Storing the User Data
+
 Tạo file user.model
 ```ts
 export class User {
@@ -8309,9 +8343,40 @@ ngOnInit() {
 
 ```
 Hien an button fetch...
+
+```html
+      <li routerLinkActive="active" *ngIf="isAuthenticated">
+          <a routerLink="/recipes">Recipes</a>
+        </li>
+        <li routerLinkActive="active" *ngIf="!isAuthenticated">
+          <a routerLink="/auth">Authenticate</a>
+		
+		<li *ngIf="isAuthenticated">
+          <a style="cursor: pointer;">Logout</a>
+        </li>
+```
+
+![image-20200611092113554](angular.assets/image-20200611092113554.png)
+
 ### 16. Adding the Token to Outgoing Requests
 Khi an FETCH DATA gap loi vi firebase cannot know we have a valid token
+
+This **subject** is a subject to which we can subscribe and we'll get information whenever new data is emitted.
+
+Now actually, there is a different type of subject RxJS offers which is called behavior subject.
+
+Now this is also imported from RxJS and generally, it behaves just like the other subject, which means we can call next, to emit a value and we can subscribe to it to be informed about new values.
+
+The difference is that **behavior subject** also gives subscribers **immediate access to the previously emitted value** even if they haven't subscribed at the point of time that value was emitted.
+
+That means we can get access to be currently active user even if we only subscribe after that user has been emitted.
+
+So this means when we fetch data and we need that token at this point of time, even if the user logged in before that point of time which will have been the case, **we get access to that latest user**.
+
+Now therefore behavior subject also needs to be initialized with a starting value, which in my case will be null here, it has to be a user object and null is a valid replacement because I don't want to start off with a user.
+
 auth.service.ts
+
 ```ts
   user = new BehaviorSubject<User>(null);
   // The difference is that behavior subjects gives subscribers immediate access to the previously emitted value even if they haven't subscribed at the point of time the value was emitted => get lastest user token even if user logged
@@ -8347,7 +8412,12 @@ fetchRecipes() {
     );
   }
 ```
+**Take** is also imported from rxjs/operator and take is called as a function and you simply pass a number to it and I pass one here and what this tells RxJS is that I only want to take one value from that observable and thereafter, it should automatically unsubscribe.
+
+So this manages the subscription for me, gives me the latest user and unsubscribes and I'm not getting future users because I just want to get them on demand when fetch recipes is called, so whenever this code executes.
+
 ### 17. Attaching the Token with an Interceptor
+
 auth-06-logout
 
 Add auth-interceptor.service.ts
@@ -8401,7 +8471,35 @@ providers: [
   ],
 ```
 
-Sau do sua ham fetch data
+Sau do sua ham fetch data về ban đầu
+
+data-storage.service.ts
+
+```ts
+
+  fetchRecipes() {
+    return this.http
+      .get<Recipe[]>(
+        'https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json'
+      )
+      .pipe(
+        map(recipes => {
+          return recipes.map(recipe => {
+            return {
+              ...recipe,
+              ingredients: recipe.ingredients ? recipe.ingredients : []
+            };
+          });
+        }),
+        tap(recipes => {
+          this.recipeService.setRecipes(recipes);
+        })
+      );
+  }
+}
+```
+
+
 
 ### 18. Adding Logout
 auth.service.ts
@@ -8413,13 +8511,34 @@ logout() {
   // Vao header sua them ham logout
 ```
 ### 19. Adding Auto-Login
-When we re load a page the app will be reload => use local storage or cookie
+
+**When we re load a page the app will be reload => use local storage or cookie**
+
+which we have once we reload the page because at the moment when we reload the page we lose all that status because when you reload the page, your Angular application restarts, the old one is basically dumped and since right now, we're managing everything in memory,
+
+remember that we're storing the token in a user model which happens in Javascript only and which therefore
+
+happens in memory, since we manage that all in memory, we'll lose all that state whenever the application restarts because that memory gets cleared automatically,
 
 auth.service.ts
 ```ts
 // handleAuthentication
-// convert to string
-localStorage.setItem('userData', JSON.stringify(user));
+private handleAuthentication(
+    email: string,
+    userId: string,
+    token: string,
+    expiresIn: number
+  ) {
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    const user = new User(email, userId, token, expirationDate);
+    this.user.next(user);
+    this.autoLogout(expiresIn * 1000);
+    // add 
+    // convert to string
+    localStorage.setItem('userData', JSON.stringify(user));
+  }
+
+
 
 //
 autoLogin() {
@@ -8489,18 +8608,33 @@ logout() {
 autoLogout(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
-    }, expirationDuration); // thya expirationDuration  = 2000 de xem khi log in co log out after 2s
+    }, expirationDuration); // thay expirationDuration  = 2000 de xem khi log in co log out after 2s chứ bình thưởng là 3600000
   }
   
 // handleAuthentication
-// add
-this.autoLogout(expiresIn * 1000);
+private handleAuthentication(
+    email: string,
+    userId: string,
+    token: string,
+    expiresIn: number
+  ) {
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    const user = new User(email, userId, token, expirationDate);
+    this.user.next(user);
+    // add
+    this.autoLogout(expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
-// add autoLogin
+  }
 ```
 ### 21. Adding an Auth Guard
+
+Do you remember the routing section? There we had a look at route guards and that is exactly what we need here. A route guard allows us to run logic right before a route is loaded and we can deny access if a certain condition is not met and this is exactly what we need here. For that in the auth folder, let's create a new file and I'll name it auth.guard.ts
+
+Khi chỉnh sửa directly on url => back về home
+
 auth-08-finished
 auth.guard.ts
+
 ```ts
 import {
   CanActivate,
@@ -8534,9 +8668,15 @@ export class AuthGuard implements CanActivate {
         if (isAuth) {
           return true;
         }
+          // cach 2
         return this.router.createUrlTree(['/auth']);
       })
-      // tap(isAuth => {
+// cách 1
+ 	//	map(user => {
+    //    const isAuth = !!user;
+    //    return !!user;
+    //    })
+      //, tap(isAuth => {
       //   if (!isAuth) {
       //     this.router.navigate(['/auth']);
       //   }
@@ -8546,7 +8686,23 @@ export class AuthGuard implements CanActivate {
 }
 
 ```
+
+we essentially set up an ongoing subscription here though. This user subject of course can emit
+
+data more than once and I don't want that here, this can lead to strange side effects if our guard keeps on listening to that subject, instead we want to look inside the user value for one time only and then not care about it anymore unless
+
+we run the guard again and therefore here just as in other places too, we should use take one to make
+
+sure that we always just take the latest user value and then unsubscribe for this guard execution so that
+
+we don't have an ongoing listener to that which we really don't need and therefore here, you need to
+
+import the take operator, the take rxjs/operator and add it here in front of map so that we
+
+don't have an ongoing user subscription.
+
 routing
+
 ```ts
 {
     path: 'recipes',
@@ -8583,6 +8739,26 @@ More on JWT: https://jwt.io
 
 ### 1. Module Introduction
 
+Now what are dynamic components? Dynamic components are essentially components which you create dynamically
+
+at runtime.
+
+So let's say you want to show an alert,
+
+you want to show a modal, some overlay which should only be loaded upon a certain action,
+
+for example you have an error and you want to not show that error box which we're currently showing
+
+in our course project but we want to show an overlay on the entire screen or something like that, that
+
+could be done or could be implemented by using dynamic components. And dynamic components is not a
+
+specific term, not a specific feature provided by Angular but we can simply add components that we load
+
+through our code and that's exactly what we'll do in this module. You will learn how to create such a
+
+component and how to then load it on demand, how to communicate with it and also how to get rid of it.
+
 ### 10. Useful Resources & Links.html
 Useful Resources:
 
@@ -8590,6 +8766,7 @@ Official Docs: https://angular.io/guide/dynamic-component-loader
 ### 2. Adding an Alert Modal Component
 Vào folder share tại component alert
 alert.component.html
+
 ```html
 <div class="backdrop" (click)="onClose()"></div>
 <div class="alert-box">
@@ -8601,7 +8778,13 @@ alert.component.html
 
 ```
 nho khai bao modules
+
+![image-20200611141137611](angular.assets/image-20200611141137611.png)  
+
+
+
 alert.component.ts
+
 ```ts
 @Component({
   selector: 'app-alert',
@@ -8655,8 +8838,34 @@ auth.component.html
     ></app-alert>
 
 ```
+
+auth.component.ts
+```ts
+onHandleError() {
+    this.error = null;
+  }
+```
+
+
 ### 3. Understanding the Different Approaches
-![](../root/img/2019-11-30-01-49-08.png)
+![](../root/img/2019-11-30-01-49-08.png)  
+
+The alternative is that you use something which in the past was named dynamic component loader.
+
+Now this was a helper utility that doesn't exist anymore or that you shouldn't use anymore but in the
+
+end, it's now about a general concept you could say of creating a component in code and then manually
+
+attaching it to the DOM.
+
+So there, you have to control, in your code by yourself, how that component is instantiated, that data is
+
+passed into it and also that it is removed.
+
+So everything ngIf does for you, you have to do on your own there. Still, this approach can be useful,
+
+it also of course allows you to control it entirely from code and you don't have to touch the template.
+
 ### 4. Using ngIf
 auth.component.ts
 ```ts
@@ -8672,14 +8881,17 @@ error: string = null;
   @ViewChild(PlaceholderDirective, { static: false }) alertHost: PlaceholderDirective;
 
   private closeSub: Subscription;
+
 constructor(
     private authService: AuthService,
     private router: Router,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private componentFactoryResolver: ComponentFactoryResolver // add inject 
   ) {}
 
+// add
 private showErrorAlert(message: string) {
-    // const alertCmp = new AlertComponent(); =>ts will fail
+    // const alertCmp = new AlertComponent(); => ts will fail to create component
+    
     // create component for you
     const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
       AlertComponent
@@ -8697,11 +8909,15 @@ private showErrorAlert(message: string) {
   }
 
 // ham onsubmit
-errorMessage => {
+onSubmit(form: NgForm) {
+    // .....
+    
+	errorMessage => {
         console.log(errorMessage);
         this.error = errorMessage;
-        // Add
+        // Add start
         this.showErrorAlert(errorMessage);
+        // add end
         this.isLoading = false;
       }
 ```
@@ -8724,9 +8940,28 @@ auth.component.html
 ```html
 <ng-template appPlaceholder></ng-template>
 ```
+![image-20200611143217725](angular.assets/image-20200611143217725.png)
+
 ### 7. Understanding entryComponents
+
 Meet strange error
-module
+
+If you're not getting this error or if it just works for you then this is the case because you are using
+
+angular 9 or higher.
+
+This is simply a tiny changed it was made behind the scenes of angular sort of general syntax since
+
+on didn't change what I showed you works and all angular versions but in angular 9 or higher.
+
+There was a behind the scenes change which makes this work out of the box which of course is great but
+
+if you are getting this error which is also not unlikely because not everyone is using the latest version
+
+well then here's why we get it.
+
+app.module
+
 ```ts
  bootstrap: [AppComponent],
  // declare without routing and selector
@@ -8743,6 +8978,30 @@ ngOnDestroy() {
     }
   }
 ```
+There is a property we haven't worked with thus far and Data's entry components entry components also
+
+is an array and it's an array of components types but only of components that will eventually need to
+
+be created without a selector or the root content being used.
+
+So whenever a component is created by selector or you use it with the root configuration you don't need
+
+to add it here which is why.
+
+Thus far we haven't the added anything to entry components for alert components differently.
+
+If you're in a project with angular 9 or higher you can omit entry components by default because they're
+
+angular under the hood uses a different rendering engine. Its name is Ivy and there.
+
+It works differently under the hood so the Iverson text doesn't change.
+
+The only difference is that you can omit entry components.
+
+You don't have to specifying a day or two isn't a problem. You will never make an error.
+
+If you do specify entry components just in some cases you could omit it.
+
 ### 8. Data Binding & Event Binding
 
 ### 9. Wrap Up
@@ -8796,6 +9055,20 @@ imports: [
 
 ```
 CommonModule fix lỗi cho ngIf, ngfor
+
+So to be able to use ngFor in the recipes module, besides the router module, we probably also need
+
+the browser module.
+
+However, this is now just a special case and the only special case. The browser module must only be used
+
+once and that is in the app module because it does more than just add ngIf and ngFor, it does
+
+some general application start up work that only has to run once. Instead of the browser module,
+
+use the common module in all other places, in all other modules where you want to get access to ngIf and
+
+ngFor.
 
 ### 5. Splitting Modules Correctly
 
@@ -8856,7 +9129,18 @@ imports: [
 
 ```
 ### 7. Component Declarations
-Because using routing recipe internal so you can remove it
+Because using routing recipe internal so **you can remove it**
+
+The other important thing I wanted to highlight is that now that we manage the loading of our components,
+
+here with recipes routing, we do define which component should be loaded for which route, there is no reason
+
+to still export all these recipe components because we're now only using them internally in the recipes
+
+module. We're using them either embedded into other components here or by loading them through the recipes routing
+
+module, both is part of this file. So there is no reason to export the recipe components anymore 
+
 ```ts
 exports: [
     RecipesComponent,
@@ -8876,13 +9160,18 @@ exports: [
     RouterModule.forChild([
       { path: 'shopping-list', component: ShoppingListComponent },
     ]),
-    SharedModule // add next
+    SharedModule // add next nếu bt thì commonmodule and form module là ok
   ]
 })
 export class ShoppingListModule {}
 // Sau do vao AppModule khai bao
 ```
 ### 9. Understanding Shared Modules
+
+![image-20200611155248204](angular.assets/image-20200611155248204.png)  
+
+
+
 shared.module.ts
 ```ts
 import { NgModule } from '@angular/core';
@@ -8913,7 +9202,37 @@ import { DropdownDirective } from './dropdown.directive';
 export class SharedModule {}
 
 ```
-use in app.modules.ts
+use in app.modules.ts xóa những cái đã được định nghĩa trong share
+
+```ts
+@NgModule({
+  declarations: [AppComponent, HeaderComponent, AuthComponent],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    RecipesModule,
+    ShoppingListModule,
+    SharedModule
+  ],
+  providers: [
+    ShoppingListService,
+    RecipeService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
+
+
+
 ### 10. Understanding the Core Module
 ![](../root/img/2019-11-30-22-56-11.png)
 Nen sử dụng @Injectable({ providedIn: 'root' }) thay vì khai báo trong 
@@ -8942,7 +9261,7 @@ app.module.ts
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule, // phan sau xoa
     HttpClientModule,
     AppRoutingModule,
     RecipesModule,
@@ -8952,7 +9271,18 @@ app.module.ts
     CoreModule
   ],
 ```
+The core module is basically there to make the app module a bit leaner, let's say in the app module, we
+
+have the app component and here we are providing two services.
+
+Well then we can use a core module to move these services out of the app module into the core module
+
+which then in turn is added back to the app module.
+
+The alternative to that would of course be to use provided in in @injectable on the services which
+
 ### 11. Adding an Auth Feature Module
+
 auth.module.ts
 
 ```ts
@@ -8969,9 +9299,12 @@ export class AuthModule {}
 
 ```
 ### 12. Understanding Lazy Loading
-![](../root/img/2019-11-30-23-10-48.png)
-Chỉ load những gì mình cần root route content, xóa url ở file con
-Khi reload F12 o tab network a bunch of files were downloaded
+![](../root/img/2019-11-30-23-10-48.png)  
+
+Chỉ load những gì mình cần root route content, xóa url ở file con  
+Khi reload F12 o tab network a bunch of files were downloaded  
+
+![image-20200611160535656](angular.assets/image-20200611160535656.png)
 
 ---
 recipes-routing.module.ts
@@ -8987,6 +9320,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
   // Add
   { path: 'recipes', loadChildren: './recipes/recipes.module#RecipesModule' },
+  // add in 15
   {
     path: 'shopping-list',
     loadChildren: './shopping-list/shopping-list.module#ShoppingListModule'
@@ -9053,8 +9387,10 @@ instead of
 Why would you use this syntax? In the future, it'll replace the "string-only" approach (i.e. the first alternative mentioned here). It also will give you better IDE support.
 
 ### 15. More Lazy Loading
-shopping list
+shopping-list.module.ts
+
 Add and delete path in file module.ts
+
 ```ts
 @NgModule({
   declarations: [ShoppingListComponent, ShoppingEditComponent],
@@ -9070,8 +9406,20 @@ Add and delete path in file module.ts
 export class ShoppingListModule {}
 ```
 app.module.ts
-Xoa ShoppingListModule 
+Xoa ShoppingListModule, AuthModule 
+
+![image-20200611163345520](angular.assets/image-20200611163345520.png)  
+
 ### 16. Preloading Lazy-Loaded Code
+
+Now the downside of that of course is that this is downloaded and parsed
+
+just when we need it, leading to a very tiny delay in our application. We might not see that here because
+
+the module is small and the internet connection is fast but the bigger the module and the slower the internet connection or for example if you temporarily have
+
+no internet connection, the longer that delay will be and therefore, we can actually tell Angular to preload lazy loaded modules to avoid this delay.
+
 Avoid delay because internet...
 app-routing
 ```ts
@@ -9085,14 +9433,19 @@ app-routing
 
 ```
 
+But with preload all modules imported and set here as a preloading strategy, you're telling Angular generally we're using lazy loading, so it will not put all that code into one bundle, it will split it as we saw it but it will preload the bundles as soon as possible, so when we are on the auth page, it will already preload recipes and shopping list so that these code bundles are already available when we need them.
+
+![image-20200611164044210](angular.assets/image-20200611164044210.png)
+
 ### 17. Modules & Services
+
 ![](../root/img/2019-11-30-23-56-50.png)
 ### 18. Loading Services Differently
 Tạo file logging.service.ts
 ```ts
 import { Injectable } from '@angular/core';
 
-// @Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: 'root' })
 export class LoggingService {
   lastlog: string;
 
@@ -9115,13 +9468,35 @@ ngOnInit() {
   // add in shopping-list.component.ts
 
 ```
+
 Khi chay in lastlog dau la undefined va cai sau o shopping list co value => same instance when use Injectable
+
+![image-20200611164543754](angular.assets/image-20200611164543754.png)  
+
 ---
-Thêm   ` providers: [LoggingService]` ở app.module and core.module để test => same instance when use Injectable
+Thêm   ` providers: [LoggingService]` ở app.module or core.module để test => same instance when use Injectable
 File shopping list module thì khác instance with lazy khi khai bao o app.module va shopping-list.module => undefined all
+
+![image-20200611164814137](angular.assets/image-20200611164814137.png)  
+
+We're using a separate instance in our application in general for the service provided in app module
+
+but since the shopping list module brings its own instance by providing the logging service again here,
+
+the shopping list module and all the components in there use a separate instance of the logging
+
+service, they don't use the application-wide available instance, they use their own instance created
+
+by that child injector.
+
 shared.module : eager loading  => undefined all
 
 ### 19. Ahead-of-Time Compilation
+
+So before we deploy our built angular app onto a server and that is ahead of time where is this just
+
+in time compilation.
+
 ![](../root/img/2019-12-01-00-23-02.png)
 
 recipe-edit
@@ -9132,12 +9507,33 @@ get ingredientsControls() {
   }
 
 ```
+```html
+<div
+            class="row"
+            *ngFor="let ingredientCtrl of ingredientsControls; let i = index"
+            [formGroupName]="i"
+            style="margin-top: 10px;"
+          >
+```
+
+
+
 Vào folder dist sau khi build
+
 ```ts
 Ng build --prod 
 // build to few file to deloy
 ```
+We want to have a good development experience with rich error messages and so on but as soon as we're
+
+preparing ourselves for production and for building our angular app for production to then upload it
+
+on a server we want to optimize our code as much as possible and shrink it to a small of a bunch less
+
+possible. And we do that with a command you'll also see in the deployment section I quit.
+
 ### 21. Useful Resources & Links.html
+
 Useful Resources & Links
 Useful Resources:
 
@@ -9197,12 +9593,73 @@ State is app is loading state => wait fetch data
 application state => affect all app
 
 ![](../root/img/2019-12-01-08-31-14.png)  
+
+State is not just data like stored exercises or recipes, state could also be things like "this app is currently
+
+waiting for some data to be fetched", so the app is in a loading state, it's showing a spinner maybe.
+
+So basically, any data, any information that controls what should be visible on the screen, that is state.
+
 ![](../root/img/2019-12-01-08-41-12.png)  
-![](../root/img/2019-12-01-08-42-43.png)
+![](../root/img/2019-12-01-08-42-43.png)  
+
+Well we already have a remedy to that and that is rxjs, at least partly. RxJS already allows
+
+us to create a streamlined state management experience. With RxJS and there specifically with
+
+subjects, we can react to user events in the user interface or to application events like some data fetching
+
+finishing, we can react to such a state changing event, so to an event where we want to update some
+
+data or some information in our app by using observables or as I said, subjects and we can emit or next a
+
+new data piece there and maybe use operators to even transform data in the way we want it and then
+
+listen to such state changes in other parts of the application where we need it to then update the UI
+
+and we're doing this already as well.
+
+If I dive back into the code and back into the recipes service, there indeed, recipes are managed
+
+with the help of these recipes changed subject here.
+
 ### 3. What is NgRx
+
+This RxJS driven approach has some issues as I outlined, to be precise you could still have an
+
+app where state can be updated from anywhere because you maybe failed to set up a clear flow of data.
+
+Your state might also possibly be mutable, which means that whilst you might have only a couple of places
+
+where your state is intended to change, your code in there might not force you to state the old data
+
+by overwriting it with new data and that is what I would recommend doing though because otherwise Angular
+
+sometimes doesn't pick up some changes to your state because of the reference type nature of objects
+
+and arrays in Javascript, where if you only change a property of an object, the overall object didn't
+
+change and therefore such a state change might not get picked up.
+
+And in addition, handling side effects and that means things like HTTP requests,
+
+it's unclear where this should happen - should you write the code for sending them in a component? Should
+
+you do it in a service?
+
 ![](../root/img/2019-12-01-08-47-22.png)  
 Redux là 1 js obj lớn gồm all data, central store  
 Reducer là js func that get current state which stored in a store, copy in and change the copy return a copy of old state 
+
+**Redux** is a state management pattern, it's also a library that helps you implement that pattern into any application.
+
+The idea behind Redux, so behind that approach for managing state and always keep in mind, state is just data or information in your app, so the idea behind managing that state with Redux is that you **have one central store in your entire application that holds your application state**, so think of that as a large Javascript object that contains all the data the different parts of your application need, of course kind of categorized in properties that might then hold nested objects but in the end that's the idea, have one large data store. Your different parts of the application, services and components, can still interact with each other but they receive their state from that store,
+
+so that store is the single source of truth that manages the entire application state.
+
+![image-20200611182807494](angular.assets/image-20200611182807494.png)
+
+
 
 ![](../root/img/2019-12-01-08-57-27.png)
 ### 4. Getting Started with Reducers
