@@ -10599,49 +10599,759 @@ export const STOP_EDIT = '[Shopping List] Stop Edit';
 
 ### 22. Exploring NgRx Effects
 
+`npm install --save @ngrx/effects`
 
+but here I think it is good, especially for learning about NgRx
 
+if we move as much as possible into the NgRx world and therefore if we use @ngrx/effects for managing
 
+our HTTP requests and local storage access.
+
+ Side effects are basically parts in your code where you run some logic that of course is important for your application,
+
+otherwise you wouldn't do it but that's not so important for the immediate update of the current state.
+
+So for example here, this HTTP request, of course the result of that matters,
+
+it decides whether we did successfully create a new user or not but for this process, where we start the sign-up process, this is not important.
+
+So we could basically split this up into two actions - start sign-up and sign-up
+
+success for example or even three actions, start sign-up, sign-up success and sign-up error.
 
 ### 23. Defining the First Effect
 
+auth.effects.ts
 
+```ts
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Actions, ofType, Effect } from '@ngrx/effects';
+import { switchMap, catchError, map, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+
+import * as AuthActions from './auth.actions';
+
+export interface AuthResponseData {
+  kind: string;
+  idToken: string;
+  email: string;
+  refreshToken: string;
+  expiresIn: string;
+  localId: string;
+  registered?: boolean;
+}
+
+@Injectable()
+export class AuthEffects {
+  @Effect()
+  authLogin = this.actions$.pipe(
+    ofType(AuthActions.LOGIN_START),
+    switchMap((authData: AuthActions.LoginStart) => {
+      return this.http
+        .post<AuthResponseData>(
+          'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=' +
+            environment.firebaseAPIKey,
+          {
+            email: authData.payload.email,
+            password: authData.payload.password,
+            returnSecureToken: true
+          }
+        )
+        # 24
+        // returning a new action simply means that we have to return a new observable.
+        .pipe(
+          map(resData => {
+            const expirationDate = new Date(
+              new Date().getTime() + +resData.expiresIn * 1000
+            );
+            return new AuthActions.Login({
+              email: resData.email,
+              userId: resData.localId,
+              token: resData.idToken,
+              expirationDate: expirationDate
+            });
+          }),
+          catchError(errorRes => {
+            let errorMessage = 'An unknown error occurred!';
+            if (!errorRes.error || !errorRes.error.error) {
+              return of(new AuthActions.LoginFail(errorMessage));
+            }
+            switch (errorRes.error.error.message) {
+              case 'EMAIL_EXISTS':
+                errorMessage = 'This email exists already';
+                break;
+              case 'EMAIL_NOT_FOUND':
+                errorMessage = 'This email does not exist.';
+                break;
+              case 'INVALID_PASSWORD':
+                errorMessage = 'This password is not correct.';
+                break;
+            }
+            return of(new AuthActions.LoginFail(errorMessage));
+          })
+        );
+    })
+  );
+
+  constructor(
+    private actions$: Actions,
+    private http: HttpClient,
+    private router: Router
+  ) {}
+}
+
+```
+
+Now what is actions? **Actions** is one big observable that will give you access to all dispatched actions
+
+so that you can react to them, you just react differently than in the reducer because in the reducer,
+
+you of course also get access to all dispatched actions as you learned, here in the effect class, in the
+
+auth effects class, the idea now is that you don't change any state but that you can execute any other code that should
+
+happen when such an action is dispatched and that you then can simply dispatch a new action
+
+once that code, which also may be asynchronous, is done.
+
+`authLogin = this.actions$.pipe`
+
+Now don't call subscribe here, @ngrx/effects will subscribe for you, just call **pipe** instead and what
+
+you need to pipe here is now a special RxJS operator which is not part of RxJS but which
+
+is provided by @ngrx/effects, it's the ofType operator. **ofType** simply allows you to define a filter
+
+for which types of effects you want to continue in this observable pipe you're creating, in this observable
+
+stream here because you can have multiple effects by adding multiple properties to your class here
+
+and you can simply define different types of effects that you want to handle in each chain.
+
+So here for example, we could handle the login effect or to be precise, the login action since we're basically
+
+reacting to all dispatched actions here and this is a filter to allow us to define for which exact actions
+
+we want to continue in this chain and now I need more actions.
+
+Thus far, we only had login and logout but now since we actually want to send the HTTP request
+
+here from inside our auth effect, we need a new identifier which could be login start and the value here could be auth login start.
+
+in auth type, we can then refer to auth actions login start here and what this says is only continue in
+
+this observable chain if the action that we're reacting to here is of type login start, all other actions
+
+will not trigger this effect here, only login start will
+
+and you could add multiple actions here by the way if you want to run the same code for different actions.
 
 
 
 ### 24. Effects & Error Handling
 
+we need to create a new action class here in the auth actions file, the login start class which also implements action,
 
+auth.actions.ts
+
+```ts
+
+export class LoginStart implements Action {
+  readonly type = LOGIN_START;
+
+  constructor(public payload: { email: string; password: string }) {}
+}
+
+export class LoginFail implements Action {
+  readonly type = LOGIN_FAIL;
+
+  constructor(public payload: string) {}
+}
+```
+
+we can go back to the auth effects and now add another rxjs/operator as a second step.
+
+First step is that we're **filtering**, next step now can be a **switchMap** which allows us, which is imported from rxjs/operators, which allows us to **create a new observable** by taking another observable's data.
+
+So here we get our auth data and we know since we're filtering for the login start action, that the type
+
+of this will be auth actions login start, now referring to the class.
+
+So this is our type of data and in switchMap, we now can return a new observable and the new observable
+
+I want to return here of course uses the Angular HTTP client to send our login request,
+
+so just what we previously did in the login function in our service.
+
+It's important to understand that **an observable completes whenever an error is thrown**,
+
+therefore in the auth service, whenever this here yields an error, catch error kicks in and this code never
+
+executes and this entire observable dies, which is no problem because when we call login again, a new
+
+observable is created.
+
+Now it's a bit differently for effects, effects here this is an ongoing observable stream,
+
+this **must never die**, at least not as long as our application is running and therefore, if we would catch
+
+an error here by adding catch error here as a next step after switchMap, which we could do because switch
+
+map returns an HTTP observable and this could certainly throw an error, if we add the catch error like
+
+this or even if we don't
+
+add it, if this throws an error, this entire observable stream will die which means that **trying to login**
+
+**again will simply not work** because this here will never react to another dispatched login start event
+
+because this entire observable is dead and therefore, errors have to be handled on a different level.
+
+**of:** I also once use auth to create a new observable.
 
 ### 25. Login via NgRx Effects
+
+```ts
+@Injectable() // add
+export class AuthEffects 
+```
+
+be injected itself so it doesn't need to be provided but it needs @injectable so that things can be
+
+injected into this class and we are injecting actions and the HttpClient, otherwise we would get errors,
+
+app.module.ts
+
+```ts
+import { AuthEffects } from './auth/store/auth.effects';
+
+@NgModule({
+  declarations: [AppComponent, HeaderComponent],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([AuthEffects]), // add
+    SharedModule,
+    CoreModule
+  ],
+  bootstrap: [AppComponent]
+  // providers: [LoggingService]
+})
+export class AppModule {}
+
+```
+
+auth.component.ts
+
+```ts
+    constructor(
+    private authService: AuthService,
+    private router: Router,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private store: Store<fromApp.AppState> // add
+  ) {}
+
+
+// trong hàm onSUbmit 
+if (this.isLoginMode) {
+      // authObs = this.authService.login(email, password);
+      this.store.dispatch(
+          // add
+        new AuthActions.LoginStart({ email: email, password: password })
+      );
+    } else {
+      authObs = this.authService.signup(email, password);
+    }
+// comment lại vì k sd nữa nếu k run sẽ lỗi
+// authObs.subscribe(
+    //   resData => {
+    //     console.log(resData);
+    //     this.isLoading = false;
+    //     this.router.navigate(['/recipes']);
+    //   },
+    //   errorMessage => {
+    //     console.log(errorMessage);
+    //     this.error = errorMessage;
+    //     this.showErrorAlert(errorMessage);
+    //     this.isLoading = false;
+    //   }
+    // );
+```
+
+![image-20200612092154764](angular.assets/image-20200612092154764.png)  
 
 
 
 ### 26. Managing UI State in NgRx
 
+handle error
 
+auth.reducer.ts
+
+```ts
+case AuthActions.LOGIN_FAIL:
+      return {
+        ...state,
+        user: null,
+        authError: action.payload,
+        loading: false
+      };
+```
+
+auth.component.ts
+
+```ts
+// add
+ngOnInit() {
+    this.store.select('auth').subscribe(authState => {
+      this.isLoading = authState.loading;
+      this.error = authState.authError;
+        // # 27
+      if (this.error) {
+        this.showErrorAlert(this.error);
+      }
+    });
+  }
+```
+
+auth.effects.ts
+
+```ts
+Effect({ dispatch: false })
+  authSuccess = this.actions$.pipe(
+    ofType(AuthActions.LOGIN),
+    tap(() => {
+      this.router.navigate(['/']);
+    })
+  );
+```
+
+I mentioned that typically, your effects do that, they typically return an observable which holds a new
+
+effect which should be dispatched,
+
+this effect doesn't and to let NgRx effect know about that and avoid errors, you have to pass an object
+
+to your @effect decorator where you set dispatch to false
+
+and this lets @ngrx/effects know that this is an effect which will actually not yield a dispatchable action at the end and then you can do that just like this.
 
 ### 27. Finishing the Login Effect
+
+```ts
+catchError(errorRes => {
+            let errorMessage = 'An unknown error occurred!';
+            if (!errorRes.error || !errorRes.error.error) {
+              return of(new AuthActions.LoginFail(errorMessage));
+            }
+            switch (errorRes.error.error.message) {
+              case 'EMAIL_EXISTS':
+                errorMessage = 'This email exists already';
+                break;
+              case 'EMAIL_NOT_FOUND':
+                errorMessage = 'This email does not exist.';
+                break;
+              case 'INVALID_PASSWORD':
+                errorMessage = 'This password is not correct.';
+                break;
+            }
+            return of(new AuthActions.LoginFail(errorMessage));
+          })
+```
 
 
 
 ### 28. Preparing Other Auth Actions
 
+auth.actions.ts
+```ts
+export const AUTHENTICATE_SUCCESS = '[Auth] Login';
+export const AUTHENTICATE_FAIL = '[Auth] Login Fail';
+export const SIGNUP_START = '[Auth] Signup Start';
+
+
+export class AuthenticateSuccess implements Action {
+  readonly type = AUTHENTICATE_SUCCESS;
+
+  constructor(
+    public payload: {
+      email: string;
+      userId: string;
+      token: string;
+      expirationDate: Date;
+    }
+  ) {}
+}
+
+
+export class AuthenticateFail implements Action {
+  readonly type = AUTHENTICATE_FAIL;
+
+  constructor(public payload: string) {}
+}
+
+export class SignupStart implements Action {
+  readonly type = SIGNUP_START;
+
+  constructor(public payload: { email: string; password: string }) {}
+}
+
+```
+
+auth.effects.ts
+```ts
+// thay LOGIN bằng AUTHENTICATE_SUCCESS và return new AuthActions.AuthenticateSuccess
+
+
+```
 
 
 ### 29. Adding Signup
 
+auth.effects.ts
 
+```ts
+// add
+@Injectable()
+export class AuthEffects {
+  @Effect()
+  authSignup = this.actions$.pipe(
+    ofType(AuthActions.SIGNUP_START),
+    switchMap((signupAction: AuthActions.SignupStart) => {
+      return this.http
+        .post<AuthResponseData>(
+          'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=' +
+            environment.firebaseAPIKey,
+          {
+            email: signupAction.payload.email,
+            password: signupAction.payload.password,
+            returnSecureToken: true
+          }
+        )
+        .pipe(
+          map(resData => {
+            return handleAuthentication(
+              +resData.expiresIn,
+              resData.email,
+              resData.localId,
+              resData.idToken
+            );
+          }),
+          catchError(errorRes => {
+            return handleError(errorRes);
+          })
+        );
+    })
+  );
+  
+  
+  const handleAuthentication = (
+  expiresIn: number,
+  email: string,
+  userId: string,
+  token: string
+) => {
+  const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+      // add 31 start
+  const user = new User(email, userId, token, expirationDate);
+  localStorage.setItem('userData', JSON.stringify(user));
+      // add 31 end
+  return new AuthActions.AuthenticateSuccess({
+    email: email,
+    userId: userId,
+    token: token,
+    expirationDate: expirationDate
+  });
+};
+
+const handleError = (errorRes: any) => {
+  let errorMessage = 'An unknown error occurred!';
+  if (!errorRes.error || !errorRes.error.error) {
+    return of(new AuthActions.AuthenticateFail(errorMessage));
+  }
+  switch (errorRes.error.error.message) {
+    case 'EMAIL_EXISTS':
+      errorMessage = 'This email exists already';
+      break;
+    case 'EMAIL_NOT_FOUND':
+      errorMessage = 'This email does not exist.';
+      break;
+    case 'INVALID_PASSWORD':
+      errorMessage = 'This password is not correct.';
+      break;
+  }
+  return of(new AuthActions.AuthenticateFail(errorMessage));
+};
+```
+
+auth.component.ts
+```ts
+// hàm submit
+
+this.store.dispatch(
+        new AuthActions.SignupStart({ email: email, password: password })
+      );
+      
+```
 
 ### 30. Further Auth Effects
+
+auth.reducer.ts
+
+```ts
+case AuthActions.LOGIN_START:
+    case AuthActions.SIGNUP_START: // add
+      return {
+        ...state,
+        authError: null,
+        loading: true
+      };
+    case AuthActions.AUTHENTICATE_FAIL:
+      return {
+        ...state,
+        user: null,
+        authError: action.payload,
+        loading: false
+      };
+	case AuthActions.CLEAR_ERROR:
+      return {
+        ...state,
+        authError: null
+      };
+    default:
+      return state;
+```
+
+auth.component.ts
+
+```ts
+private storeSub: Subscription; // add
+
+  ngOnInit() {
+      // add
+    this.storeSub = this.store.select('auth').subscribe(authState => {
+        
+        ....
+        
+     ngOnDestroy() {  
+         
+   // add
+    if (this.closeSub) {
+      this.closeSub.unsubscribe();
+    }
+    if (this.storeSub) {
+      this.storeSub.unsubscribe();
+    }
+  }
+  
+    // add
+  onHandleError() {
+    this.store.dispatch(new AuthActions.ClearError());
+  }
+```
+
+auth.actions.ts
+
+```ts
+
+export class ClearError implements Action {
+  readonly type = CLEAR_ERROR;
+}
+```
+
+auth.effect.ts
+
+```ts
+@Effect({ dispatch: false })
+  authRedirect = this.actions$.pipe(
+    ofType(AuthActions.AUTHENTICATE_SUCCESS, AuthActions.LOGOUT), // add logout
+    tap(() => {
+      this.router.navigate(['/']);
+    })
+  );
+```
+
+auth.service.ts
+
+```ts
+// xóa hàm login và ssign up đi vì k còn sd  
+
+logout() {
+    // this.user.next(null);
+    this.store.dispatch(new AuthActions.Logout()); // add
+```
+
+header.component.ts
+
+```ts
+
+  onLogout() {
+    this.store.dispatch(new AuthActions.Logout()); // replace service
+  }
+```
 
 
 
 ### 31. Adding Auto-Login with NgRx
 
+auth.actions
 
+```ts
+
+export class AutoLogin implements Action {
+  readonly type = AUTO_LOGIN;
+}
+```
+
+auth.effect.ts
+
+```ts
+// trong hàm handleAuthentication
+// add
+const user = new User(email, userId, token, expirationDate);
+  localStorage.setItem('userData', JSON.stringify(user));
+
+// add
+@Effect({ dispatch: false })
+  authLogout = this.actions$.pipe(
+    ofType(AuthActions.LOGOUT),
+    tap(() => {
+      localStorage.removeItem('userData');
+    })
+  );
+
+@Effect()
+  autoLogin = this.actions$.pipe(
+    ofType(AuthActions.AUTO_LOGIN),
+    map(() => {
+      const userData: {
+        email: string;
+        id: string;
+        _token: string;
+        _tokenExpirationDate: string;
+      } = JSON.parse(localStorage.getItem('userData'));
+      if (!userData) {
+        return { type: 'DUMMY' };
+      }
+
+      const loadedUser = new User(
+        userData.email,
+        userData.id,
+        userData._token,
+        new Date(userData._tokenExpirationDate)
+      );
+
+      if (loadedUser.token) {
+        // this.user.next(loadedUser);
+          // this.store.dispatch({})
+        return new AuthActions.AuthenticateSuccess({
+          email: loadedUser.email,
+          userId: loadedUser.id,
+          token: loadedUser.token,
+          expirationDate: new Date(userData._tokenExpirationDate)
+        });
+
+        // const expirationDuration =
+        //   new Date(userData._tokenExpirationDate).getTime() -
+        //   new Date().getTime();
+        // this.autoLogout(expirationDuration);
+      }
+      return { type: 'DUMMY' };
+    })
+  );
+
+```
+
+app.component.ts
+
+```ts
+export class AppComponent implements OnInit {
+  constructor(
+    private store: Store<fromApp.AppState>, // add
+    private loggingService: LoggingService
+  ) {}
+
+  ngOnInit() {
+    this.store.dispatch(new AuthActions.AutoLogin()); // add
+    this.loggingService.printLog('Hello from AppComponent ngOnInit');
+  }
+}
+
+```
+
+![image-20200612123201864](angular.assets/image-20200612123201864.png)  
+
+thêm return DUMMy để fix
 
 ### 32. Adding Auto-Logout
+
+auth.service.ts xóa những hàm không cần
+
+```ts
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from '../store/app.reducer';
+import * as AuthActions from './store/auth.actions';
+
+@Injectable({ providedIn: 'root' })
+export class AuthService {
+  private tokenExpirationTimer: any;
+
+  constructor(
+    private store: Store<fromApp.AppState>
+  ) {}
+
+  setLogoutTimer(expirationDuration: number) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.store.dispatch(new AuthActions.Logout());
+    }, expirationDuration);
+  }
+
+  clearLogoutTimer() {
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+      this.tokenExpirationTimer = null;
+    }
+  }
+}
+
+```
+
+auth.effects.ts
+
+```ts
+// auth login and sign up
+	tap(resData => {
+    	// add
+            this.authService.setLogoutTimer(+resData.expiresIn * 1000); // khi test 3.6s k cần nhân 1000
+          }),
+        
+// auto login
+   if (loadedUser.token) {
+        // this.user.next(loadedUser);
+        const expirationDuration =
+          new Date(userData._tokenExpirationDate).getTime() -
+          new Date().getTime();
+        this.authService.setLogoutTimer(expirationDuration); // add
+       
+       ....
+
+@Effect({ dispatch: false })
+  authLogout = this.actions$.pipe(
+    ofType(AuthActions.LOGOUT),
+    tap(() => {
+      this.authService.clearLogoutTimer(); // add
+      localStorage.removeItem('userData');
+      this.router.navigate(['/auth']); // add
+    })
+  );
+```
 
 
 
@@ -10651,51 +11361,653 @@ export const STOP_EDIT = '[Shopping List] Stop Edit';
 
 ### 34. Using the Store Devtools
 
+gg redux devtools extension
+
+https://github.com/zalmoxisus/redux-devtools-extension
+
+app.module.ts
+
+```ts
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { environment } from '../environments/environment';
+
+
+@NgModule({
+  declarations: [AppComponent, HeaderComponent],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([AuthEffects]),
+      // add
+    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
+      // # 35
+    StoreRouterConnectingModule.forRoot(),
+      
+    SharedModule,
+    CoreModule
+  ],
+  bootstrap: [AppComponent]
+  // providers: [LoggingService]
+})
+export class AppModule {}
+
+```
+
+![image-20200612141736124](angular.assets/image-20200612141736124.png)  
+
 
 
 ### 35. The Router Store
 
+`npm install --save @ngrx/router-store`
 
+![image-20200612142122468](angular.assets/image-20200612142122468.png)
 
 ### 36. Getting Started with NgRx for Recipes
 
+recipe.actions.ts
 
+```ts
+import { Action } from '@ngrx/store';
+
+import { Recipe } from '../recipe.model';
+
+export const SET_RECIPES = '[Recipes] Set Recipes';
+export const FETCH_RECIPES = '[Recipes] Fetch Recipes';
+
+export class SetRecipes implements Action {
+  readonly type = SET_RECIPES;
+
+  constructor(public payload: Recipe[]) {}
+}
+
+export class FetchRecipes implements Action {
+  readonly type = FETCH_RECIPES;
+}
+
+export type RecipesActions = SetRecipes;
+
+```
+
+recipe.reducer.ts
+
+```ts
+import { Recipe } from '../recipe.model';
+import * as RecipesActions from './recipe.actions';
+
+export interface State {
+  recipes: Recipe[];
+}
+
+const initialState: State = {
+  recipes: []
+};
+
+export function recipeReducer(
+  state = initialState,
+  action: RecipesActions.RecipesActions
+) {
+  switch (action.type) {
+    case RecipesActions.SET_RECIPES:
+      return {
+        ...state,
+        recipes: [...action.payload]
+      };
+    default:
+      return state;
+  }
+}
+
+```
+
+data-storage.service.ts
+
+```ts
+ fetchRecipes() {
+    return this.http
+      .get<Recipe[]>(
+        'https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json'
+      )
+      .pipe(
+        map(recipes => {
+          return recipes.map(recipe => {
+            return {
+              ...recipe,
+              ingredients: recipe.ingredients ? recipe.ingredients : []
+            };
+          });
+        }),
+        tap(recipes => {
+          // this.recipeService.setRecipes(recipes);
+          this.store.dispatch(new RecipesActions.SetRecipes(recipes)); // add
+        })
+      );
+  }
+```
+
+recipe-list.component.ts
+
+```ts
+ constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private store: Store<fromApp.AppState>  // add
+  ) {}
+
+  ngOnInit() {
+    this.subscription = this.store
+      .select('recipes')
+      .pipe(map(recipesState => recipesState.recipes))
+      .subscribe((recipes: Recipe[]) => {
+        this.recipes = recipes;
+      });
+  }
+```
+
+fetch ok nhưng chọn item thì lỗi
+
+![image-20200612143136509](angular.assets/image-20200612143136509.png)
 
 ### 37. Fetching Recipe Detail Data
+
+That's not how NgRx works, there we always access the store and the data in it by using select
+
+and we always get back an observable, so we have no synchronous call as we have it here to get back
+
+a recipe, we always get back an observable that might then give us a recipe depending on what we select. Even
+
+if that happens almost instantly, it's still technically an observable, so therefore we first of all will have to inject our store here
+
+into the recipe-detail component and then we can see how we proceed regarding that.
+
+cách 1
+
+![image-20200612144236999](angular.assets/image-20200612144236999.png)  
+
+recipe-detail.component
+
+```ts
+ngOnInit() {
+    // add
+    this.route.params
+      .pipe(
+        map(params => {
+          return +params['id'];
+        }),
+        switchMap(id => {
+          this.id = id;
+          return this.store.select('recipes');
+        }),
+        map(recipesState => {
+          return recipesState.recipes.find((recipe, index) => {
+            return index === this.id;
+          });
+        })
+      )
+      .subscribe(recipe => {
+        this.recipe = recipe;
+      });
+  }
+```
+
+recipe-edit.component.ts
+
+```ts
+
+  private initForm() {
+    let recipeName = '';
+    let recipeImagePath = '';
+    let recipeDescription = '';
+    let recipeIngredients = new FormArray([]);
+
+    if (this.editMode) {
+      // const recipe = this.recipeService.getRecipe(this.id);
+        // add
+      this.store
+        .select('recipes')
+        .pipe(
+          map(recipeState => {
+            return recipeState.recipes.find((recipe, index) => {
+              return index === this.id;
+            });
+          })
+        )
+        .subscribe(recipe => {
+          recipeName = recipe.name;
+          recipeImagePath = recipe.imagePath;
+          recipeDescription = recipe.description;
+          if (recipe['ingredients']) {
+            for (let ingredient of recipe.ingredients) {
+              recipeIngredients.push(
+                new FormGroup({
+                  name: new FormControl(ingredient.name, Validators.required),
+                  amount: new FormControl(ingredient.amount, [
+                    Validators.required,
+                    Validators.pattern(/^[1-9]+[0-9]*$/)
+                  ])
+                })
+              );
+            }
+          }
+        });
+    }
+
+    this.recipeForm = new FormGroup({
+      name: new FormControl(recipeName, Validators.required),
+      imagePath: new FormControl(recipeImagePath, Validators.required),
+      description: new FormControl(recipeDescription, Validators.required),
+      ingredients: recipeIngredients
+    });
+  }
+```
 
 
 
 ### 38. Fetching Recipes & Using the Resolver
 
+khi xem detail ấn reload => error
 
+![image-20200612144732397](angular.assets/image-20200612144732397.png)  
+
+recipe.effects.ts add
+
+```ts
+import { Injectable } from '@angular/core';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { HttpClient } from '@angular/common/http';
+import { switchMap, map } from 'rxjs/operators';
+
+import * as RecipesActions from './recipe.actions';
+import { Recipe } from '../recipe.model';
+
+@Injectable()
+export class RecipeEffects {
+  @Effect()
+  fetchRecipes = this.actions$.pipe(
+    ofType(RecipesActions.FETCH_RECIPES),
+    switchMap(() => {
+      return this.http.get<Recipe[]>(
+        'https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json'
+      );
+    }),
+    map(recipes => {
+      return recipes.map(recipe => {
+        return {
+          ...recipe,
+          ingredients: recipe.ingredients ? recipe.ingredients : []
+        };
+      });
+    }),
+    map(recipes => {
+      return new RecipesActions.SetRecipes(recipes);
+    })
+  );
+
+  constructor(private actions$: Actions, private http: HttpClient) {}
+}
+
+```
+
+header.component.ts
+
+```ts
+ onFetchData() {
+    // this.dataStorageService.fetchRecipes().subscribe();
+    this.store.dispatch(new RecipeActions.FetchRecipes()); // add
+  }
+```
+
+recipes-resolver.service
+
+```ts
+
+@Injectable({ providedIn: 'root' })
+export class RecipesResolverService implements Resolve<Recipe[]> {
+  constructor(
+    // add
+    private store: Store<fromApp.AppState>,
+    private actions$: Actions
+  ) {}
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+      // add
+    // return this.dataStorageService.fetchRecipes();
+    this.store.dispatch(new RecipesActions.FetchRecipes());
+    return this.actions$.pipe(
+      ofType(RecipesActions.SET_RECIPES),
+      take(1)
+    );
+  }
+}
+
+```
+
+
+
+Now again, the thing is I can't return this because this does not yield an observable,
+
+instead we want to wait for the effect that is triggered by that action to complete and there is a neat
+
+little way of doing that.
+
+![image-20200612150429625](angular.assets/image-20200612150429625.png)  
+
+Sau khi chọn và reload state ok nhưng vẫn chưa hiện được detail vì nó login bị redirect ra /
 
 ### 39. Fixing the Auth Redirect
+
+auth.actions.ts
+
+```ts
+constructor(
+    public payload: {
+      email: string;
+      userId: string;
+      token: string;
+      expirationDate: Date;
+      redirect: boolean; // add
+    }
+  ) {}
+```
+
+auth.effects
+
+```ts
+//   autoLogin = this.actions$.pipe(
+
+return new AuthActions.AuthenticateSuccess({
+          email: loadedUser.email,
+          userId: loadedUser.id,
+          token: loadedUser.token,
+          expirationDate: new Date(userData._tokenExpirationDate),
+          redirect: false // add
+        });
+
+// handleAuthentication
+redirect: true
+
+
+  @Effect({ dispatch: false })
+  authRedirect = this.actions$.pipe(
+    ofType(AuthActions.AUTHENTICATE_SUCCESS),
+      // add
+    tap((authSuccessAction: AuthActions.AuthenticateSuccess) => {
+      if (authSuccessAction.payload.redirect) { // add
+        this.router.navigate(['/']);
+      }
+    })
+  );
+```
 
 
 
 ### 40. Update, Delete and Add Recipes
 
+recipe.actions
 
+```ts
+
+export class AddRecipe implements Action {
+  readonly type = ADD_RECIPE;
+
+  constructor(public payload: Recipe) {}
+}
+
+export class UpdateRecipe implements Action {
+  readonly type = UPDATE_RECIPE;
+
+  constructor(public payload: { index: number; newRecipe: Recipe }) {}
+}
+
+export class DeleteRecipe implements Action {
+  readonly type = DELETE_RECIPE;
+
+  constructor(public payload: number) {}
+}
+
+```
+
+recipe.reducer.ts
+
+```ts
+case RecipesActions.ADD_RECIPE:
+      return {
+        ...state,
+        recipes: [...state.recipes, action.payload]
+      };
+    case RecipesActions.UPDATE_RECIPE:
+      const updatedRecipe = {
+        ...state.recipes[action.payload.index],
+        ...action.payload.newRecipe
+      };
+
+      const updatedRecipes = [...state.recipes];
+      updatedRecipes[action.payload.index] = updatedRecipe;
+
+      return {
+        ...state,
+        recipes: updatedRecipes
+      };
+    case RecipesActions.DELETE_RECIPE:
+      return {
+        ...state,
+        recipes: state.recipes.filter((recipe, index) => {
+          return index !== action.payload;
+        })
+      };
+```
+
+recipe-edit.component
+
+```ts
+
+  onSubmit() {
+    // const newRecipe = new Recipe(
+    //   this.recipeForm.value['name'],
+    //   this.recipeForm.value['description'],
+    //   this.recipeForm.value['imagePath'],
+    //   this.recipeForm.value['ingredients']);
+    if (this.editMode) {
+      // this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+      this.store.dispatch(
+        new RecipesActions.UpdateRecipe({
+          index: this.id,
+          newRecipe: this.recipeForm.value
+        })
+      );
+    } else {
+      // this.recipeService.addRecipe(this.recipeForm.value);
+      this.store.dispatch(new RecipesActions.AddRecipe(this.recipeForm.value));
+    }
+    this.onCancel();
+  }
+```
+
+recipe-detail.component
+
+```ts
+ onDeleteRecipe() {
+    // this.recipeService.deleteRecipe(this.id);
+    this.store.dispatch(new RecipesActions.DeleteRecipe(this.id));
+    this.router.navigate(['/recipes']);
+  }
+```
+
+recipes-resolver.service
+
+```ts
+resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    // add
+    // return this.dataStorageService.fetchRecipes();
+    return this.store.select('recipes').pipe(
+      take(1),
+      map(recipesState => {
+        return recipesState.recipes;
+      }),
+      switchMap(recipes => {
+        if (recipes.length === 0) {
+          this.store.dispatch(new RecipesActions.FetchRecipes());
+          return this.actions$.pipe(
+            ofType(RecipesActions.SET_RECIPES),
+            take(1)
+          );
+        } else {
+          return of(recipes);
+        }
+      })
+    );
+  }
+```
+
+recipe-edit.component
+
+```ts
+  private storeSub: Subscription;
+  ngOnDestroy() {
+    if (this.storeSub) { // fix lỗi bên dưới
+      this.storeSub.unsubscribe();
+    }
+  }
+```
+
+Khi add
+
+![image-20200612153057966](angular.assets/image-20200612153057966.png)
 
 ### 41. Storing Recipes via Effects
+
+recipe.effects
+
+```ts
+
+  @Effect({dispatch: false})
+  storeRecipes = this.actions$.pipe(
+    ofType(RecipesActions.STORE_RECIPES),
+    withLatestFrom(this.store.select('recipes')), // and that allows us to merge a value from another observable into this observable stream here and there,
+    switchMap(([actionData, recipesState]) => {
+      return this.http.put(
+        'https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json',
+        recipesState.recipes
+      );
+    })
+  );
+```
+
+this is done in this application, so we can **set dispatch to false** here so that NgRx effects knows that
+
+this won't dispatch anything and now we can go to the header component again 
+
+header
+
+```ts
+onSaveData() {
+    // this.dataStorageService.storeRecipes();
+    this.store.dispatch(new RecipeActions.StoreRecipes());
+  }
+```
 
 
 
 ### 42. Cleanup Work
 
+Xóa service và core module chỉ còn
+
+```ts
+import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
+
+@NgModule({
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ]
+})
+export class CoreModule {}
+
+```
+
+recipe-detail.component
+
+```ts
+onAddToShoppingList() {
+    // this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients);
+    this.store.dispatch(
+      new ShoppingListActions.AddIngredients(this.recipe.ingredients)
+    );
+  }
+```
 
 
-### 43. Wrap Up
 
+### 43. Wrap Up - Alternative NgRx Syntax
 
+Alternative NgRx Syntax
+
+The NgRx team also released an **alternative syntax** for creating actions, reducers, effects etc.
+
+The approach and setup shown in this course is a bit more verbose (which actually has the advantage of seeing more of the things that go on under the hood). Exploring the alternative, a bit shorter syntax might therefore be an interesting next step.
+
+Jost created a nice post where he summarizes the new syntax + how to adjust the course project to use it: https://www.udemy.com/the-complete-guide-to-angular-2/learn/lecture/14466642#questions/7350498
+
+Also check out the official docs to learn more about it: https://ngrx.io/docs
+
+**Again, just because it's important**: This syntax is **not** better, faster or more secure than the one taught in the course. The entire switch of the official docs is pretty drastic (and hard to understand to be very honest) since the syntax taught in this course was the syntax used for close to two years now. Many teams will certainly still be on that syntax and that alone is a strong reason to learn it.
 
 ### 44. Useful Resources & Links.html
+
+Useful Resources & Links
+
+Useful Resources:
+
+- Official Docs: [https://ngrx.io](https://ngrx.io/)
 
 
 
 ### 45. MUST READ The [LEGACY] Lectures.html
 
+With the release of Angular 8, I updated a couple of sections in this course (see "Announcements" part of the course).
 
+This section (about NgRx) was one of the updated sections.
+
+All the lectures marked as "[LEGACY]" in their title are OLD and taking them is not recommended. If you went through the lectures at the beginning of this module (i.e. without "[LEGACY]" in the title), you took the new, updated version of this module already. Ignore the "[LEGACY]" lectures then.
+
+Why do the "[LEGACY]" lectures exist?
+
+I'm keeping them around for students who started this section before I released my update. I'll remove them in the future.
+
+
+
+---
+
+Hi Everyone,
+
+a few hours ago **Angular 9** was released.
+
+As you know, a new version of Angular is released (roughly) every 6 months and it **does NOT mean that everything changed** or that you have to learn a new framework. Indeed, Angular 9 does not change anything about the code you write.
+
+I summarized the important changes in this **video** which you might want to check out: https://youtu.be/TcdhAxDWWxM
+
+In addition, the official announcement blog post might be worth reading: https://blog.angular.io/version-9-of-angular-now-available-project-ivy-has-arrived-23c97b63cfa3
+
+To sum it up: Angular 9 is a very important release because it contains a new renderer for Angular - its name is "**Ivy**". Ivy makes Angular **apps smaller and faster** - you don't have to do anything for that. It's a "free win"! :)
+
+BUT: This is a pure **behind-the-scenes change** that does **NOT** affect the code you write or the core concepts of Angular.
+
+My Angular courses are **fully up-to-date** with that new version. Minor adjustments that make sense (e.g. entryComponents is no longer mandatory) will be covered in the lectures where they apply.
+
+I still took this as an opportunity to add a **brand-new section** to my "Angular - The Complete Guide" course. It's not really related to Angular 9 but it is something I felt that was missing => A section where we dive a bit deeper into "**Angular as a Platform**". We'll explore the Angular CLI in greater detail, learn about commands like "ng add" or "ng update" and understand the configuration of an Angular project a bit better. This new section will replace the dated "Custom Setup with Webpack" section (which is really not needed anymore because the CLI is so amazing).
+
+I hope you like this update and the resources linked above. For now, nothing changes in the end - but Angular 9 (because of Ivy) gives us a great improvements "for free" (smaller bundles, faster apps). :)
+
+Have a great time and have fun learning!
 
 ### 46. [LEGACY] Module Introduction
 
@@ -10896,6 +12208,77 @@ export const STOP_EDIT = '[Shopping List] Stop Edit';
 
 ### 1. Module Introduction
 
+You could say as you know angular allows you to build front end user interfaces user interfaces that
+
+run in the browser.
+
+Your entire angular app runs in the browser angular universal now allows you to pre render your angular
+
+app on the server.
+
+So it's not a suicide framework like express choice or anything like that.
+
+You won't use it to write server side code but it allows you to on the fly pre render pages your users
+
+visit so that when the users load the page they get that finished Page served back and that initial
+
+rendering doesn't need to happen in the browser and only subsequent actions by the user are then handled
+
+as always in the browser only. Imagine that your users are on slower networks.
+
+In such cases the javascript download might take a time and until the javascript code has been downloaded
+
+your users will see nothing.
+
+Or take search engines a search engine.
+
+So the crawler of that search engine looks at different Web sites to index them and to search engine
+
+only sees what's initially downloaded by the server.
+
+It doesn't necessarily wait for all your scripts to be done with rendering what the user sees.
+
+### Angular Universal & ModuleMapLoader
+
+Angular Universal & ModuleMapLoader
+
+A quick note: In the next lecture, I mention that it's important to add `ModuleMapLoader` to your `app.server.ts` file - if you're using Angular 9, this is NOT required anymore!
+
+### Adding Angular Universal
+
+
+### Adding Angular Universal with NestJS
+
+### Deploying Universal Apps
+
+
+### Important: Remaining Lectures
+
+
+### Module Introduction
+
+
+### Getting Started with Angular Universal
+
+
+### Working on the App Module
+
+
+### Adding a Server-Side Build Workflow
+
+
+### Adding a NodeJS Server
+
+
+### Pre-Rendering the App on the Server
+
+
+
+### Next Steps
+
+
+
+### Angular Universal Gotchas
 
 
 ### 2. Important Official Docs & Starting Project.html
@@ -10933,17 +12316,22 @@ export const STOP_EDIT = '[Shopping List] Stop Edit';
 
 ### 1. Making Animations Work with Angular 4+.html
 
+Making Animations Work with Angular 4+
 
+With the release of **Angular 4**, the **general syntax of Angular Animations didn't change**. 
 
-### 10. Using Keyframes for Animations
+However, the animation functions were moved into their own package and you now also need to add a special module to your `imports[]` array in the **AppModule**.
 
+**Specifically, the following adjustments are required:**
 
+- You probably need to install the **new animations package** (running the command never hurts): `npm install --save @angular/animations` 
+- Add the `BrowserAnimationsModule` to your `imports[]` array in **AppModule**
+- This Module needs to be imported from `@angular/platform-browser/animations'` => `import { BrowserAnimationsModule } from '@angular/platform-browser/animations'` (in the **AppModule**!)
+- You then import `trigger` , `state` , `style` etc from `@angular/animations` **instead of** `@angular/core` 
 
-### 11. Grouping Transitions
+That's all!
 
-
-
-### 12. Using Animation Callbacks
+### 
 
 
 
@@ -10979,6 +12367,18 @@ export const STOP_EDIT = '[Shopping List] Stop Edit';
 
 
 
+### 10. Using Keyframes for Animations
+
+
+
+### 11. Grouping Transitions
+
+
+
+### 12. Using Animation Callbacks
+
+
+
 ## 27. Adding Offline Capabilities with Service Workers
 
 ### 1. Module Introduction
@@ -11006,12 +12406,6 @@ export const STOP_EDIT = '[Shopping List] Stop Edit';
 ### 1. About this Section.html
 
 
-
-### 10. Isolated vs Non-Isolated Tests
-
-
-
-### 11. Further Resources & Where to Go Next.html
 
 
 
@@ -11044,6 +12438,14 @@ export const STOP_EDIT = '[Shopping List] Stop Edit';
 
 
 ### 9. Using fakeAsync and tick
+
+
+
+### 10. Isolated vs Non-Isolated Tests
+
+
+
+### 11. Further Resources & Where to Go Next.html
 
 
 
