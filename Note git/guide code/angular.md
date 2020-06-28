@@ -6484,14 +6484,12 @@ Phải có bind this nó mới hiểu this trong hàm kia
 
 ### 31. Reactive Using Error Codes
 ```html
-<span
-              *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
-              class="help-block">
+<span *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched" class="help-block">
     // add -------
-              <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">This name is invalid!</span>
-              <span *ngIf="signupForm.get('userData.username').errors['required']">This field is required!</span>
+    <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">This name is invalid!</span>
+    <span *ngIf="signupForm.get('userData.username').errors['required']">This field is required!</span>
 
-            </span>
+</span>
 
 ```
 F12/ FormGroup/ controls/ userData/ controls/ username/ error
@@ -7251,8 +7249,9 @@ Khi nào có nó print
 
 ### 3. How Does Angular Interact With Backends
 
-![](../root/img/2019-11-25-21-29-49.png)
-https://academind.com/learn/javascript/hide-javascript-code/
+![](../root/img/2019-11-25-21-29-49.png)  
+
+https://academind.com/learn/javascript/hide-javascript-code/  
 https://academind.com/learn/node-js/building-a-restful-api-with/
 
 ### 3.1 Securing JS Code.html
@@ -7336,7 +7335,10 @@ private fetchPosts() {
   }
 }
 ```
+![image-20200629005627924](angular.assets/image-20200629005627924.png)
+
 ### 8. Using RxJS Operators to Transform Response Data
+
 ```ts
 private fetchPosts() {
     this.http
@@ -7359,7 +7361,12 @@ private fetchPosts() {
   }
 
 ```
+![image-20200629013657015](angular.assets/image-20200629013657015.png)  
+
+Chuyển thành array từ firebase
+
 ### 9. Using Types with the HttpClient
+
 post.model.ts
 ```ts
 export interface Post {
