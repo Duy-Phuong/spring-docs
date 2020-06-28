@@ -5562,6 +5562,7 @@ to create them yourselves, you only subscribe to them, you don't need to create 
 Observables nằm trong rxjs
 2.1 obs-01-start.zip.zip
 home.component.ts
+
 ```ts
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
@@ -5593,8 +5594,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
 ```
-memory leak
-Hàm interval sau 1s sẽ emit event, khi vào trang chủ sẽ tự động tăng biến count nếu quay lại thì sẽ có thêm 1 biến đếm bắt đầu từ 0 và tang song song => destroy
+**memory leak**
+
+Hàm interval sau 1s sẽ emit event, khi vào trang chủ sẽ tự động tăng biến count nếu quay lại thì sẽ có thêm 1 biến đếm bắt đầu từ 0 và tăng song song => destroy khắc phục memory leak
 
 Param k cần unsubscribe bởi vì nó được cung cấp bởi angular nên không cần làm thủ công
 
@@ -5786,7 +5788,7 @@ app.component.html
 
 This is the old approach with the event emitter and this is an approach you could use but there is a
 
-better one, a more recommended one and that new approach, the better approach uses a subject. Now a subject
+better one, **a more recommended one and that new approach**, the better approach uses a **subject**. Now a subject
 
 is something we import from RxJS, SO you import subject from RxJS, instead of event emitter, you now create a subject here. Other than that, it's pretty similar though, it's a generic type where you define which data will eventually
 
@@ -5795,9 +5797,10 @@ be emitted, in this case a boolean.
 So it's very similar to event emitter thus far.
 
 ![](../root/img/2019-11-23-16-22-39.png)
+
 => 
 Recommend
-If use @Output not use Subject
+**If use @Output not use Subject**
 
 You don't use subjects instead of event emitter when you're using @output.
 
@@ -5858,9 +5861,13 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
  xóa recipeSelected = new EventEmitter<Recipe>(); trong service và 
 recipes component
+recipes.component.ts vẫn subscribe bình thường
 
 ```
 Xem lai recipes.component.ts xoa vi da add routing in item-recipe
+
+=> xóa subscribe đi vì đã SD routing cho load recipe
+
 ### 1. Improving the Reactive Service with Observables (Subjects)
 
 ### 2. Changed the Subscription Name.html
@@ -5876,7 +5883,7 @@ Don't wonder - I changed the `igChangeSub` property to just subscription. So if 
 ### 3. Template-Driven (TD) vs Reactive Approach
 ![](../root/img/2019-11-23-21-58-25.png)  
 
-It offers the template driven approach, which is called like this because there, you simply set up your form in the template, in HTML code and Angular will automatically infer the structure of your form, will infer which controls your forms has, which inputs and makes it easy for you to get started quickly.
+It offers the **template driven approach**, which is called like this because there, you simply set up your form in the template, in HTML code and Angular will automatically infer the structure of your form, will infer which controls your forms has, which inputs and makes it easy for you to get started quickly.
 
 It also has a more complex approach, the reactive approach.
 
@@ -5890,7 +5897,7 @@ There, you actually define the structure of the form in TypeScript code, you als
 
 ### 5. TD Creating the Form and Registering the Controls
 
-This will be enough to tell Angular, hey this input is actually a control of my form, so ngModel in the end is a directive made available in the forms module, something I mentioned earlier in the course when we had a look at two-way data binding.
+This will be enough to tell Angular, hey this input is actually a control of my form, so **ngModel in the end is a directive** made available in the forms module, something I mentioned earlier in the course when we had a look at **two-way data binding.**
 
 This is key to understand, you can use it to get two-way data binding but it actually is part of a bigger module with more features giving you full control over forms.
 
@@ -5925,11 +5932,13 @@ Sau đó vào thẻ input thêm ngModel(is not two-way data binding) và name at
               name="email">
 
 ```
-ngModel tell angular this is a control, not two-way data binding
+**ngModel tell angular this is a control, not two-way data binding**
+
 ### 6. TD Submitting and Using the Form
 File html
-ngSubmit is directive
-ngForm tell angular please help me can access the form
+**ngSubmit is directive**
+
+**ngForm tell angular please help me can access the form**
 
 Now you learned about local references you can place on HTML elements to get access to them,
 
@@ -5943,6 +5952,8 @@ reference in our template and we could pass f as an argument to the onSubmit met
 ```
 `#f="ngForm">` : cho phép truy cập vào form
 Nếu để #f thì phải truyền như tham số vào hàm onSubmit, ghi log ra để xem
+
+![image-20200628235549476](angular.assets/image-20200628235549476.png)
 
 app.component.ts
 ```ts
