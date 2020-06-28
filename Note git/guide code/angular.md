@@ -5964,6 +5964,9 @@ app.component.ts
   //   console.log(f);
   // }
   
+  // cach 2
+  // <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+
   onSubmit(form: NgForm) {
     // form.value
     console.log(form);
@@ -5988,6 +5991,8 @@ input, so therefore of course dirty is false.
 **Disabled** would be true if the form was disabled for some reason, invalid is false because we haven't
 
 added any validators, so it isn't invalid, it is indeed valid.
+
+![image-20200629000018474](angular.assets/image-20200629000018474.png)
 
 ### 8. TD Accessing the Form with @ViewChild
 Nếu không truyền tham số vào hàm thì sử dụng @ViewChild => access local ref
@@ -6060,7 +6065,7 @@ ngModel is a directive
 
 So just like the form directive automatically added by Angular when it detects a form element, the
 
-ngModel directive here also kind of exposes some additional information about the control it creates
+**ngModel** directive here also kind of exposes some additional information about the control it creates
 
 for us on the overarching form by accessing ngModel.
 
@@ -6266,7 +6271,7 @@ ngOnInit() {
   }
 
 ```
-New FormControl nhận 2 tham số, thứ nhất là giá trị khởi tạo, in form, tham số thứ 2 là single validator, tham số thứ 3 là potential async validator
+New **FormControl** nhận 2 tham số, **thứ nhất là giá trị khởi tạo, in form, tham số thứ 2 là single validator, tham số thứ 3 là potential async validator**
 
 Now to this FormControl constructor, we can pass a couple of arguments, the first argument is the initial state, the initial value of this control you could say.
 
