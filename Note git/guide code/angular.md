@@ -4664,7 +4664,7 @@ allowEdit khi vào page Server vẫn được giữ nguyên qua edit server page
 
 ### 20. Redirecting and Wildcard Routes
 Tạo component page not found để url sai sẽ vào đây
-{ path: ":not-found", component: PageNotFoundComponent },
+{ path: "not-found", component: PageNotFoundComponent },
  { path: '**', redirectTo: '/not-found' } // phải để cuối cùng
 
 ### 21. Important Redirection Path Matching.html
@@ -4787,7 +4787,10 @@ export class AuthService {
 
 ```
 
-Thêm Injectable và constructor
+Thêm Injectable và constructor  
+
+auth-guard.service.ts
+
 ```ts
 import {
   CanActivate,
@@ -4847,7 +4850,8 @@ Nhớ khai báo
 
 ```
 
-Chi co tab server k load, back to home after 800s
+Vào tab server, back to home after 800s
+
 Declare new service in module 
 
 In the last lecture, we added the canActivate guard and it was working fine but it was working for our whole servers path here.
@@ -4856,9 +4860,7 @@ Now we could grab it from here and add it to our child to make sure that only th
 
 the children and not our root path but that is not the easiest way because if we add more child items, we have to add canActivate to each of them.
 
-There is another guard we can use, it's pretty similar
-
-to canActivate,
+There is another guard we can use, it's pretty similar to canActivate,
 
 it's called **CanActivateChild**.
 
@@ -4874,7 +4876,8 @@ the children and not our root path but that is not the easiest way because if we
 
 There is another guard we can use, it's pretty similar to canActivate, it's called CanActivateChild.
 
-Khi bạn đang edit muốn leave page => ask for confirmation
+**Khi bạn đang edit muốn leave page => ask for confirmation**
+
 Implement thêm CanActivateChild 
 
 ```ts
@@ -4882,6 +4885,7 @@ Implement thêm CanActivateChild
 export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(private authService: AuthService, private router: Router) {}
 
+    ...
   // add for child routes
   canActivateChild(route: ActivatedRouteSnapshot,
                    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
@@ -4933,7 +4937,9 @@ now I want to focus on the control of whether you are allowed to leave a route o
 Now we for example are allowed to edit the dev server  and here, if we actually changed something, I want to ask the user if he accidentally clicks back or somewhere else, if you really want to leave or if you maybe forgot to click update server first, so this convenience method of keeping the user from accidentally navigating away.
 
 edit-server.component.ts
-Thêm thuộc tính changesSaved = false;
+
+Thêm thuộc tính `changesSaved = false`;
+
 ```ts
 onUpdateServer() {
     this.serversService.updateServer(this.server.id, {name: this.serverName, status: this.serverStatus});
@@ -5099,7 +5105,7 @@ ngOnInit() {
   }
 
 ```
-Sử dụng cho asyn data before component render
+Sử dụng cho async data before component render
 
 ### 30. Understanding Location Strategies
 URL will be parses by the server first not angular =>care about localhost:4200/# and ignore the rest don't return 404 error
@@ -5270,7 +5276,9 @@ ng g c recipes/recipe-start
 ```
 
 Nội dung file html
+```html
 <h3>Please select a Recipe!</h3>
+```
 
 Khai báo RecipeStartComponent trong module
 recipes.component.html
@@ -5349,7 +5357,7 @@ recipe-item.component.html
 
 ```
 
-Thêm ở file .ts:  @Input() index: number;
+Thêm ở file recipe-item.component.ts:  `@Input() index: number;`
 
 recipe-list.component.html
 ```html
@@ -5397,7 +5405,7 @@ export class RecipeListComponent implements OnInit {
 ```
 Để new lên trước nếu không nó sẽ nhận new là id mà parse => err
 ```ts
-{ path: 'new', component: RecipeEditComponent },
+	{ path: 'new', component: RecipeEditComponent },
     { path: ':id', component: RecipeDetailComponent },
     { path: ':id/edit', component: RecipeEditComponent },
 
@@ -5522,11 +5530,6 @@ Angular uses them a lot and actually, observables have one major advantage,
 
 their operators, which I will show later in the section too. Back to this slide,
 
-### 10. Useful Resources & Links.html
-Useful Resources:
-•	Official Docs: https://rxjs-dev.firebaseapp.com/
-•	RxJS Series: https://academind.com/learn/javascript/understanding-rxjs/
-•	Updating to RxJS 6: https://academind.com/learn/javascript/rxjs-6-what-changed/
 
 ### 2. Analyzing Angular Observables
 
@@ -5807,6 +5810,13 @@ there you need the Angular event emitter, you only use subjects to communicate a
 If you're not subscribing to an event emitter, then it probably is an output,
 
 ### 9. Wrap Up
+
+### 10. Useful Resources & Links.html
+Useful Resources:
+•	Official Docs: https://rxjs-dev.firebaseapp.com/
+•	RxJS Series: https://academind.com/learn/javascript/understanding-rxjs/
+•	Updating to RxJS 6: https://academind.com/learn/javascript/rxjs-6-what-changed/
+
 
 ## 14. Course Project - Observables
 EventEmitter push new info from A to B
