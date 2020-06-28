@@ -1073,6 +1073,59 @@ app.component.html
 
 ![image-20200607195555001](angular.assets/image-20200607195555001.png)  
 
+warning-alert.component.ts
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-warning-alert',
+  template: `
+    <p>This is a warning, you are in danger!</p>
+  `,
+  styles: [
+    `
+      p {
+        padding: 20px;
+        background-color: mistyrose;
+        border: 1px solid red;
+      }
+    `
+  ]
+})
+export class WarningAlertComponent {
+
+}
+
+```
+
+app.component.html
+
+```html
+ <app-warning-alert></app-warning-alert>
+ <app-success-alert></app-success-alert>
+```
+
+app.module.ts
+
+```ts
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    WarningAlertComponent,
+    SuccessAlertComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
 
 
 ### 13. What is Databinding
@@ -1411,6 +1464,8 @@ install bs3
 
 ### 5. Creating the Components
 
+![image-20200608003510267](angular.assets/image-20200608003510267.png)    
+
 Create header and Add new Component in modules
 
 ```ts
@@ -1676,6 +1731,8 @@ recipe-detail.component.html
 ### 13. Working on the ShoppingListComponent
 
 ### 14. Creating an Ingredient Model
+
+share/ingredient.model.ts
 
 ```ts
 export class Ingredient {
@@ -1994,7 +2051,7 @@ Shallow DOM is a technology that is not supported by all browsers where each ele
 
 ### 10. More on View Encapsulation
 
-serrer-element.ts
+server-element.ts
 
 ```ts
 @Component({
@@ -2007,11 +2064,13 @@ serrer-element.ts
 export class ServerElementComponent
 ```
 
-- Emulated là default nên bạn không cần add
-- None có nghĩ là không sử dụng View encapsulation => effect all similar tag
-- Native cũng như emaulated…
+- **Emulated** là default nên bạn không cần add
+- **None** có nghĩ là component này không sử dụng View encapsulation => effect all similar tag
+- **Native** cũng như emaulated…
 
 The other components still will use it, there you still see these attributes but if you now define any styles for this component in the CSS file of this component, they will actually get applied globally and I can demonstrate this by going into this CSS file and if I change the label color and the label is in the cockpit, not in this component, to red, now you will see the label there is overwritten whilst this label of course still has its custom unique attribute, it still is a label in the end and in this server element component, we disable encapsulation. So there our selectors aren't changed by Angular, they don't receive their unique selector, therefore they are enforced => **NONE**
+
+Nếu thay đổi label của server-element cho màu đỏ thì apply all tag label của toàn bộ app và chỉ có component này không được thêm các class đặc biệt của angular
 
 ### 11. Using Local References in Templates
 
@@ -2075,7 +2134,7 @@ use
 
 ```
 
-The same change (add { static: true } as a second argument) needs to be applied to ALL usages of @ViewChild() (and also @ContentChild() which you'll learn about later) IF you plan on accessing the selected element inside of ngOnInit().
+The same change (add { static: true } as a second argument) needs to be applied to ALL usages of @ViewChild() (and also @ContentChild() which you'll learn about later) IF you plan on **accessing the selected element inside of ngOnInit()**.
 
 If you DON'T access the selected element in ngOnInit (but anywhere else in your component), set static: false instead!
 
@@ -2265,17 +2324,23 @@ app.component.html
 ></app-server-element>
 ```
 
+Sau khi click button onChangeFirst sẽ print object
+
 ![image-20200608105744127](angular.assets/image-20200608105744127.png)  
 
-DoCheck
+DoCheck: Khi ấn nut change và sau đó ấn nút add
 
-![image-20200608105716731](angular.assets/image-20200608105716731.png)
+![image-20200608105716731](angular.assets/image-20200608105716731.png)  
+
+Ban đầu khi mới reload app thì doCHeck được gọi 2 lần nhưng nó chỉ có khi ở **dev mode**
+
+
 
 So ngDoCheck as I told you gets called whenever Angular checks for any changes and there are a couple
 
 of triggers which trigger this method and event was called by clicking or a promise gave us back
 
-some data, so a lot of triggers for ngDoCheck.
+some data, so a lot of triggers for **ngDoCheck**.
 
 So that is not something where you want to run amazingly powerful code in because that would cost you a
 
@@ -2289,13 +2354,17 @@ Constructor được gọi đầu tiên => change => onInit => do Check => @Afte
 
 
 
-Now let's call this console log ngAfterContentInit called.
+Now let's call this console log **ngAfterContentInit** called.
 
 If we do this here, you will see that here it is, there it is called after do check and **it is called only once** because it doesn't get initialized again. Remember, content is the thing we projected into this through ng-content, so this here will be our content in the end.
 
 AfterContentInit
 
 ![image-20200608110236459](angular.assets/image-20200608110236459.png)  
+
+
+
+Khi reload app  
 
 ![image-20200608110519006](angular.assets/image-20200608110519006.png)  
 
@@ -2903,7 +2972,7 @@ Nhưng cách trên k tốt - access direct element is not good
 
 This however is not the best way of changing that style because as you might recall from some earlier
 
-lecture in this course, accessing elements directly like this is not a good practice,
+lecture in this course, **accessing elements directly like this is not a good practice**,
 
 you should use a different tool which I'll show you in a second because Angular actually is also able
 
@@ -2914,7 +2983,7 @@ ng g d better-highlight
 
 ```
 
-Vào module khai báo BetterHighlightDirective
+Vào module khai báo **BetterHighlightDirective**
 
 ```ts
 constructor(private elRef: ElementRef, private renderer: Renderer2){ }
@@ -2927,7 +2996,7 @@ ngOnInit() {
 
 Sau đó sửa lại html như phần 4
 
-Now why is it a better approach?
+**Now why is it a better approach?**
 
 Angular is not limited to running in the browser here, it for example also works with service workers
 
@@ -2935,7 +3004,7 @@ and these are environments where you might not have access to the DOM.
 
 So if you try to change the DOM as you did here in basic highlight by directly accessing the native
 
-element and the style of this element, you might get an error in some circumstances.
+element and the style of this element, **you might get an error in some circumstances.**
 
 Now to be honest, in most circumstances you probably don't and you probably also know if your app is
 
@@ -3139,7 +3208,7 @@ Vào header thêm để show như recipe-detail
 <li class="dropdown" appDropdown></li>
 ```
 
-thay open = appDropdown
+thay class có sẵn là **open** = appDropdown
 
 ![image-20200609121203623](angular.assets/image-20200609121203623.png)
 
@@ -3147,7 +3216,7 @@ thay open = appDropdown
 
 If you want that a dropdown can also be closed by a click anywhere outside (which also means that a click on one dropdown closes any other one, btw.), replace the code of dropdown.directive.ts by this one (placing the listener not on the dropdown, but on the document):
 
-import {Directive, ElementRef, HostBinding, HostListener} from '@angular/core';
+`import {Directive, ElementRef, HostBinding, HostListener} from '@angular/core';`
 
 ```ts
 @Directive({
@@ -3469,6 +3538,7 @@ export class AccountComponent {
 ### 6. Understanding the Hierarchical Injector
 
 Service được cung cấp cho 1 component và tất cả các con của nó => the same instance
+
 ![](../root/img/2019-11-21-00-06-50.png)  
 
 If we provide a service there, **the app module** does have a providers array, the same instance and that's important, the same instance of the class, of the service is available in our whole app, in all components, in all
@@ -3565,6 +3635,8 @@ constructor(private loggingService: LoggingService,
   }
 
 ```
+
+khi bấm change status thì nó sẽ alert and update luôn acc
 
 ### 10. Practicing Services.html
 
@@ -3683,9 +3755,7 @@ Let's have a look at our application again, this is the application the way it l
 
 Now services allow us to centralize tasks, manage data in a central place and so on.
 
-So we probably need a service for both feature areas, we will need a shopping list service and a recipe service. The shopping list service managing our shopping list and we will also access it from the
-
-recipe, from the recipe area because we want to add items to the shopping list from there and well the recipe service, that will be responsible for managing our recipe, managing the data there and so on.
+So we probably need a service for both feature areas, we will need a shopping list service and a recipe service. The shopping list service managing our shopping list and we will also access it from the recipe area because we want to add items to the shopping list from there and well the recipe service, that will be responsible for managing our recipe, managing the data there and so on.
 
 ### 2. Setting up the Services
 
@@ -3782,7 +3852,7 @@ Xóa hàm onRecipeSelected ở file recipe-list.component.html
 <app-recipe-item
   *ngFor="let recipeEl of recipes"
   [recipe]="recipeEl"
-  (recipeSelected)="onRecipeSelected(recipeEl)"
+  (recipeSelected)="onRecipeSelected(recipeEl)" // delete
 ></app-recipe-item>
 ```
 
@@ -3856,7 +3926,7 @@ we can provide it here in the shopping list component and therefore it would als
 
 shopping edit component but actually later I also want to access it from my recipe section.
 
-That is why I will actually provide it in app module and here, I will add it to this providers array therefore, shopping
+That is why I will actually **provide it in app module** and here, I will add it to this providers array therefore, shopping
 
 list service.
 
@@ -3877,6 +3947,9 @@ export class ShoppingListComponent implements OnInit {
 Vào service thêm
 
 ```ts
+// add
+ingredientsChanged = new EventEmitter<Ingredient[]>();  
+
 addIngredient(ingredient: Ingredient) {
     this.ingredients.push(ingredient);
     this.ingredientsChanged.emit(this.ingredients.slice());
@@ -3908,19 +3981,22 @@ Vào file shopping-list xóa hàm onIngredientAdded
 ```html
 // Xóa (ingredientAdded)="onIngredientAdded($event)"
 <app-shopping-edit
- (ingredientAdded)="onIngredientAdded($event)"
+ (ingredientAdded)="onIngredientAdded($event)" // delete
 ></app-shopping-edit>
 ```
 
 ### 6. Using Services for Pushing Data from A to B
 
 Khi ấn vào k add được vì lúc trả về là array copy
+
 Vào service tạo
+
+shopping-list.service.ts
 
 ```ts
   ingredientsChanged = new EventEmitter<Ingredient[]>();
 
-addIngredient(ingredients: Ingredient[]) {
+  addIngredient(ingredients: Ingredient[]) {
     this.ingredients.push(...ingredients);
     // add
     this.ingredientsChanged.emit(this.ingredients.slice());
@@ -4005,11 +4081,12 @@ modify button To shopping list
 recipe-detail.component.html
 
 ```html
-<li>
-  <a (click)="onAddToShoppingList()" style="cursor: pointer;"
-    >To Shopping List</a
-  >
-</li>
+<ul class="dropdown-menu">
+    <!-- add --> 
+   <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">To Shopping List</a></li>
+    <li><a href="#">Edit Recipe</a></li>
+    <li><a href="#">Delete Recipe</a></li>
+</ul>
 ```
 
 recipe-detail.component.ts
@@ -4026,15 +4103,17 @@ onAddToShoppingList() {
 recipe.service.ts
 
 ```ts
-constructor(private slService: ShoppingListService) {}
+	constructor(private slService: ShoppingListService) {}
 
+	// add
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
     this.slService.addIngredients(ingredients);
   }
 
 ```
 
-Nhớ thêm @Injectable()
+Nhớ thêm @Injectable() cho recipe.service.ts
+
 shopping-list.service.ts
 
 ```ts
@@ -4146,6 +4225,14 @@ path
 
 `routerLink="servers"` là relative path sẽ append thêm vào url
 
+![image-20200628214050833](angular.assets/image-20200628214050833.png)  
+
+Khi ấn vào reload sẽ báo lỗi vì /server/server k tìm thấy
+
+![image-20200628214248596](angular.assets/image-20200628214248596.png)  
+
+
+
 Tại file servers.component.html
 
 ```ts
@@ -4155,7 +4242,7 @@ routerLink="/servers" // phải có dấu / mới load được vì nó là abso
 
 ```
 
-Khi muon o page servers load lai trang bang cach nam button Reload => error /servers/servers path
+
 
 ### 7. Styling Active Router Links
 
@@ -4206,7 +4293,7 @@ export class HomeComponent implements OnInit {
 
 ### 9. Using Relative Paths in Programmatic Navigation
 
-the navigate method doesn't know on which route you are currently on, so to say. The routerLink always knows in which component it sits, in which components template and therefore it knows what the currently loaded route is.
+the **navigate method doesn't know on which route you are currently** on, so to say. The **routerLink** always knows in which component it sits, in which components template and therefore it knows what the currently loaded route is.
 
 Now you could argue that here we also call this inside the component TypeScript code, so it could determine where it is in but it's just not how it works.
 
@@ -4276,7 +4363,7 @@ user.component.html
 <a [routerLink]="['/users', 10, 'Anna']">Load Anna (10)</a>
 ```
 
-Khi ở trang này bấm vào sẽ không cập nhật được data, Bởi vì ta đang ở trên component mà mình định load nên angular sẽ k tạo ra instance mới
+**Khi ở trang này bấm vào sẽ không cập nhật được data, Bởi vì ta đang ở trên component mà mình định load nên angular sẽ k tạo ra instance mới**
 
 user.component.ts
 
@@ -4312,7 +4399,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
 ```
 
-Observable is an easy way to subscribe to some event may happen in the future, async => should wait
+**Observable is an easy way to subscribe to some event may happen in the future, async** => should wait
 Param is an observable
 
 Params here is an observable and now observables is something I will come to right after this section
@@ -4384,6 +4471,9 @@ servers.component.html
 ```
 
 Modify button Load server
+
+home.component.html
+
 ```html
 <button (click)="onLoadServer(1)">Load server 1<button>
 ```
@@ -4440,7 +4530,9 @@ users.component.html thêm
 
 ```
 fix to only load **ServerComponent**
+
 servers.component.html
+
 ```html
 <a
         [routerLink]="['/servers', server.id]"
@@ -4534,6 +4626,7 @@ onEdit() {
 
 ```
 relativeTo: this.route load đường dẫn hiện tại thêm /edit vào
+
 edit-server.component.ts
 
 ```ts
@@ -4558,12 +4651,16 @@ Khi ấn vào edit btn
 ### 19. Configuring the Handling of Query Parameters
 
 server.component.ts
-Fix params bị mất khi ấn vào Link ở list server rồi ấn vào button Edit server thêm queryParamsHandling: 'preserve'
+Fix params bị mất khi ấn vào Link ở list server rồi ấn vào button Edit server thêm `queryParamsHandling: 'preserve'`
 queryParamsHandling : 'merge'
 
 Now query params handling takes a string as a value and this could be merge, to merge our old query params
 
-with any new we might add here. Now we don't add any new ones, so we can simply choose preserve instead and preserve which will overwrite the default behavior which is to simply drop them and make sure that the old ones are kept.
+with any new we might add here. Now we don't add any new ones, so we can simply choose preserve instead and preserve which will overwrite the default behavior which is to simply drop them and make sure that the old ones are kept.  
+
+![image-20200628222433865](angular.assets/image-20200628222433865.png)  
+
+allowEdit khi vào page Server vẫn được giữ nguyên qua edit server page
 
 ### 20. Redirecting and Wildcard Routes
 Tạo component page not found để url sai sẽ vào đây
