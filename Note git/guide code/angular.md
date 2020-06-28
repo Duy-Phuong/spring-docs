@@ -639,7 +639,8 @@ This will only be the case temporarily (as you can tell if you visit the page) b
 We'll need that in the next lecture.
 
 https://angular.io/guide/setup-local  
-To install the Angular CLI:  
+
+**To install the Angular CLI**:  
 https://github.com/angular/angular-cli/wiki  
 
 ```js
@@ -661,8 +662,9 @@ ng serve --port 3000
 
 ```
 
-C:\Users\phuong\AppData\Roaming\npm\node_modules\@angular\cli\bin
-C:\Users\phuong\AppData\Roaming\npm
+**C:\Users\phuong\AppData\Roaming\npm\node_modules\@angular\cli\bin**
+**C:\Users\phuong\AppData\Roaming\npm**
+
 Vào Path thêm rồi restart
 
 ```js
@@ -683,7 +685,7 @@ I followed below steps for resolution for this issue in Windows 10:
 First make sure you have installed Angular CLI . You can use below to install same.
 `npm install -g @angular/cli@latest`
 
-Make sure that AppData is visible and navigate to path below.
+**Make sure that AppData is visible and navigate to path below.**
 `C:\Users\rkota\AppData\Roaming\npm`
 
 Same path can be found by running below too:
@@ -691,8 +693,9 @@ Same path can be found by running below too:
 `npm config get prefix`
 
 Add the above path i.e. " C:\Users\rkota\AppData\Roaming\npm" in Environment variable PATH and make sure it got added by running path in command prompt.
+
 Close command prompt and now try to run below:
-ng --version
+`ng --version`
 
 you will be able to see CLI version.  
 
@@ -812,7 +815,7 @@ Npm install --save bootstrap@3
 
 => install locally
 
-![image-20200523223802291](angular.assets/image-20200523223802291.png)
+![image-20200523223802291](../../../../angular/angular-docs/angular-setting.assets/image-20200523223802291.png)
 
 Tại file angular.json sửa lại tại options :
 
