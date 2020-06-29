@@ -7096,13 +7096,79 @@ Now there are pipes for different types of output and also for synchronous and a
 
 ![image-20200610211055008](angular.assets/image-20200610211055008.png)
 
-### 2. Using Pipes
+### 2. Using Pipes 
+
+app.component.ts
+
+```ts
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  appStatus = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('stable');
+    }, 2000);
+  });
+  servers = [
+    {
+      instanceType: 'medium',
+      name: 'Production',
+      status: 'stable',
+      started: new Date(15, 1, 2017)
+    },
+    {
+      instanceType: 'large',
+      name: 'User Database',
+      status: 'stable',
+      started: new Date(15, 1, 2017)
+    },
+    {
+      instanceType: 'small',
+      name: 'Development Server',
+      status: 'offline',
+      started: new Date(15, 1, 2017)
+    },
+    {
+      instanceType: 'small',
+      name: 'Testing Environment Server',
+      status: 'stable',
+      started: new Date(15, 1, 2017)
+    }
+  ];
+  filteredStatus = '';
+  getStatusClasses(server: {instanceType: string, name: string, status: string, started: Date}) {
+    return {
+      'list-group-item-success': server.status === 'stable',
+      'list-group-item-warning': server.status === 'offline',
+      'list-group-item-danger': server.status === 'critical'
+    };
+  }
+  onAddServer() {
+    this.servers.push({
+      instanceType: 'small',
+      name: 'New Server',
+      status: 'stable',
+      started: new Date(15, 1, 2017)
+    });
+  }
+}
+
+```
+
+
+
+
 
 ![image-20200610211120186](angular.assets/image-20200610211120186.png)  
 
 Thay đổi
 ```html
-<strong>{{ server.name | shorten:15 }}</strong> |
+<strong>{{ server.name }}</strong> |
           {{ server.instanceType | uppercase }} |
           {{ server.started | date:'fullDate' | uppercase }}
 
@@ -7112,6 +7178,8 @@ Thay đổi
 ### 3. Parametrizing Pipes
 
 **date:'fullDate'**
+
+![image-20200629205346413](angular.assets/image-20200629205346413.png)
 
 https://angular.io/guide/pipes
 https://angular.io/api?query=pipe
@@ -7194,7 +7262,8 @@ export class FilterPipe implements PipeTransform {
 ```
 Must import
 ```html
-<li
+		<input type="text" [(ngModel)]="filteredStatus">
+		<li
           class="list-group-item"
           *ngFor="let server of servers | filter:filteredStatus:'status'"
           [ngClass]="getStatusClasses(server)">
@@ -7499,7 +7568,9 @@ deletePosts() {
 ```
 ### 15. Handling Errors
 ![](../root/img/2019-11-26-00-30-02.png)
+
 read : false
+
 ```ts
 ngOnInit() {
     this.isFetching = true;
@@ -7664,6 +7735,10 @@ deletePosts() {
       );
   }
 ```
+![image-20200629213754067](angular.assets/image-20200629213754067.png)  
+
+
+
 ![image-20200610223802139](angular.assets/image-20200610223802139.png)
 
 ### 22. Changing the Response Body Type
@@ -7680,8 +7755,7 @@ header to every outgoing request therefore so that the back-end can read that, y
 
 auth-interceptor.service
 ```ts
-import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/co
-mmon/http';
+import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
 
 export class AuthInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
@@ -7693,7 +7767,7 @@ export class AuthInterceptorService implements HttpInterceptor {
 
 
 ```
-the first key is the provide key and there, you have to use HTTP_INTERCEPTORS, all capital cases,
+the first key is the provide key and there, you have to use **HTTP_INTERCEPTORS**, all capital cases,
 
 that is a type that is imported from @angular/common/http. So import that from this package
 
@@ -7723,9 +7797,11 @@ providers: [
   ],
 
 ```
+![image-20200629214736597](angular.assets/image-20200629214736597.png)  
+
 ### 24. Manipulating Request Objects
 
-However, the request object itself is **immutable**, so you can't set request URL to a new URL, that
+However, the request object itself is **immutable**, so you **can't set request URL to a new URL**, that
 
 will not work and you also get an error here.
 
@@ -7901,7 +7977,7 @@ O page detail an reload => fail
 
 boi vi khi k an nut FETCH DATA thi khi data empty o page detail => reload detail => fail
 
-A resolver is essentially some code that runs before a route is loaded to ensure that certain data
+A **resolver** is essentially some code that runs before a route is loaded to ensure that certain data
 
 the route depends on is there.
 
@@ -8545,7 +8621,7 @@ fetchRecipes() {
     );
   }
 ```
-**Take** is also imported from rxjs/operator and take is called as a function and you simply pass a number to it and I pass one here and what this tells RxJS is that I only want to take one value from that observable and thereafter, it should automatically unsubscribe.
+**Take** is also imported from rxjs/operator and take is called as a function and you simply pass a number to it and I pass one here and what this tells RxJS is that I only want to take one value from that observable and thereafter, **it should automatically unsubscribe**.
 
 So this manages the subscription for me, gives me the latest user and unsubscribes and I'm not getting future users because I just want to get them on demand when fetch recipes is called, so whenever this code executes.
 
@@ -8761,7 +8837,7 @@ private handleAuthentication(
 ```
 ### 21. Adding an Auth Guard
 
-Do you remember the routing section? There we had a look at route guards and that is exactly what we need here. A route guard allows us to run logic right before a route is loaded and we can deny access if a certain condition is not met and this is exactly what we need here. For that in the auth folder, let's create a new file and I'll name it auth.guard.ts
+Do you remember the routing section? There we had a look at **route guards** and that is exactly what we need here. A **route guard allows us to run logic right before a route is loaded** and we can deny access if a certain condition is not met and this is exactly what we need here. For that in the auth folder, let's create a new file and I'll name it auth.guard.ts
 
 Khi chỉnh sửa directly on url => back về home
 
@@ -8983,7 +9059,7 @@ onHandleError() {
 ### 3. Understanding the Different Approaches
 ![](../root/img/2019-11-30-01-49-08.png)  
 
-The alternative is that you use something which in the past was named dynamic component loader.
+The alternative is that you use something which in the past was named **dynamic component loader**.
 
 Now this was a helper utility that doesn't exist anymore or that you shouldn't use anymore but in the
 
@@ -9077,11 +9153,13 @@ auth.component.html
 
 ### 7. Understanding entryComponents
 
+![image-20200629234952252](angular.assets/image-20200629234952252.png)
+
 Meet strange error
 
-If you're not getting this error or if it just works for you then this is the case because you are using
+**If you're not getting this error or if it just works for you then this is the case because you are using**
 
-angular 9 or higher.
+**angular 9 or higher**.
 
 This is simply a tiny changed it was made behind the scenes of angular sort of general syntax since
 
@@ -9134,6 +9212,8 @@ The only difference is that you can omit entry components.
 You don't have to specifying a day or two isn't a problem. You will never make an error.
 
 If you do specify entry components just in some cases you could omit it.
+
+Vì tạo bằng cách 2 nên nó k biết tìm ở đâu => entry
 
 ### 8. Data Binding & Event Binding
 
@@ -12142,198 +12222,7 @@ I hope you like this update and the resources linked above. For now, nothing cha
 
 Have a great time and have fun learning!
 
-### 46. [LEGACY] Module Introduction
 
-
-
-### 47. [LEGACY] Important Angular 6, RxJS 6 and this section!.html
-
-
-
-### 48. [LEGACY] State Challenges
-
-
-
-### 49. [LEGACY] Getting Started with Reducers
-
-
-
-### 50. [LEGACY] Adding Actions
-
-
-
-### 51. [LEGACY] Finishing the First Reducer
-
-
-
-### 52. [LEGACY] Registering the Application Store
-
-
-
-### 53. [LEGACY] Selecting Data from State
-
-
-
-### 54. [LEGACY] Dispatch Actions
-
-
-
-### 55. [LEGACY] More Actions and Adding Ingredients
-
-
-
-### 56. [LEGACY] Dispatching Update and Deleting Shopping List Actions
-
-
-
-### 57. [LEGACY] Expanding App State
-
-
-
-### 58. [LEGACY] Editing the Shopping-List via NgRx
-
-
-
-### 59. [LEGACY] Managing all Relevant State
-
-
-
-### 60. [LEGACY] Authentication and Side Effects - Introduction
-
-
-
-### 61. [LEGACY] Setting up the Auth Store Files
-
-
-
-### 62. [LEGACY] The Reducer
-
-
-
-### 63. [LEGACY] Adding Reducer Logic & Actions
-
-
-
-### 64. [LEGACY] Adjusting the App Module Setup
-
-
-
-### 65. [LEGACY] Using Authentication
-
-
-
-### 66. [LEGACY] Dispatch Actions
-
-
-
-### 67. [LEGACY] Getting State Access in Http Interceptor
-
-
-
-### 68. [LEGACY] Handling the Auth Token
-
-
-
-### 69. [LEGACY] Only React to Actions Once via take(1)
-
-
-
-### 70. [LEGACY] A Closer Look at Effects
-
-
-
-### 71. [LEGACY] Auth Effects and Actions
-
-
-
-### 72. [LEGACY] Using NgRx Effects with NgRx = 7.html
-
-
-
-### 73. [LEGACY] Effects - How they Work
-
-
-
-### 74. [LEGACY] Adding Auth Signup
-
-
-
-### 75. [LEGACY] Adding Auth Signin
-
-
-
-### 76. [LEGACY] Navigation as a Side Effect
-
-
-
-### 77. [LEGACY] Handling Logout via NgRx
-
-
-
-### 78. [LEGACY] Additional Fixes
-
-
-
-### 79. [LEGACY] Redirecting Upon Logout
-
-
-
-### 80. [LEGACY] What's Next
-
-
-
-### 81. [LEGACY] The Router Store Package
-
-
-
-### 82. [LEGACY] Store Devtools
-
-
-
-### 83. [LEGACY] Lazy Load and Dynamic Injection
-
-
-
-### 84. [LEGACY] Adding Recipe Actions
-
-
-
-### 85. [LEGACY] Adding Recipe Reducers
-
-
-
-### 86. [LEGACY] Dispatching and Selecting State
-
-
-
-### 87. [LEGACY] Viewing and Deleting Recipes via NgRx
-
-
-
-### 88. [LEGACY] Editing and Updating Recipes via NgRx
-
-
-
-### 89. [LEGACY] Recipes Side Effects - Fetching from Server
-
-
-### 90. [LEGACY] Recipes Side Effects - Storing Recipes on Server
-
-
-
-### 91. [LEGACY] Cleaning Up
-
-
-
-### 92. [LEGACY] Updating to RxJS 6+
-
-
-
-### 93. [LEGACY] Wrap Up
-
-
-
-### 94. [LEGACY] Useful Resources & Links.html
 
 
 
