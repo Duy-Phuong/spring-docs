@@ -1,2 +1,0 @@
-Course
-<https://zendvn.com/>

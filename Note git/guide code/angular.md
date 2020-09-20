@@ -4,12 +4,13 @@ http://phocode.com/javascript/
 https://freetuts.net/template-trong-angular-4-1330.html  
 xuanthulap.com  
 https://www.youtube.com/channel/UCSJbGtTlrDami-tDGPUV9-w/playlists  
-      acdemind.com  
+ acdemind.com
 
 C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Source_All/python/Test/readfile.py  
 ======== name dir ========
 
 ---
+
 - [Angular 8 (formerly Angular 2) - The Complete Guide](#angular-8-formerly-angular-2---the-complete-guide)
   - [1. Getting Started](#1-getting-started)
     - [1. Course Introduction](#1-course-introduction)
@@ -184,7 +185,7 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [5. Fixing Page Reload Issues](#5-fixing-page-reload-issues)
     - [6. Child Routes Challenge](#6-child-routes-challenge)
     - [7. Adding Child Routing Together](#7-adding-child-routing-together)
-    - [8. Configuring Route Parameters](#8-configuring-route-parameters)
+    - [8. Configuring Route Paramieters](#8-configuring-route-paramieters)
     - [9. Passing Dynamic Parameters to Links](#9-passing-dynamic-parameters-to-links)
     - [10. Styling Active Recipe Items](#10-styling-active-recipe-items)
     - [11. Adding Editing Routes](#11-adding-editing-routes)
@@ -194,7 +195,6 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [15. Project Cleanup.html](#15-project-cleanuphtml)
   - [13. Understanding Observables](#13-understanding-observables)
     - [1. Module Introduction](#1-module-introduction-5)
-    - [10. Useful Resources & Links.html](#10-useful-resources--linkshtml)
     - [2. Analyzing Angular Observables](#2-analyzing-angular-observables)
     - [3. Getting Closer to the Core of Observables](#3-getting-closer-to-the-core-of-observables)
     - [4. Building a Custom Observable](#4-building-a-custom-observable)
@@ -203,6 +203,7 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [7. Understanding Operators](#7-understanding-operators)
     - [8. Subjects](#8-subjects)
     - [9. Wrap Up](#9-wrap-up)
+    - [10. Useful Resources & Links.html](#10-useful-resources--linkshtml)
   - [14. Course Project - Observables](#14-course-project---observables)
     - [1. Improving the Reactive Service with Observables (Subjects)](#1-improving-the-reactive-service-with-observables-subjects)
     - [2. Changed the Subscription Name.html](#2-changed-the-subscription-namehtml)
@@ -383,6 +384,14 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [5. Server Routing vs Browser Routing.html](#5-server-routing-vs-browser-routinghtml)
   - [24. Bonus Working with NgRx in our Project](#24-bonus-working-with-ngrx-in-our-project)
     - [1. Module Introduction](#1-module-introduction-12)
+    - [2. What is Application State](#2-what-is-application-state)
+    - [3. What is NgRx](#3-what-is-ngrx)
+    - [4. Getting Started with Reducers](#4-getting-started-with-reducers)
+    - [5. Adding Logic to the Reducer](#5-adding-logic-to-the-reducer)
+    - [6. Understanding & Adding Actions](#6-understanding--adding-actions)
+    - [7. Setting Up the NgRx Store](#7-setting-up-the-ngrx-store)
+    - [8. Selecting State](#8-selecting-state)
+    - [9. Dispatching Actions](#9-dispatching-actions)
     - [10. Multiple Actions](#10-multiple-actions)
     - [11. Preparing Update & Delete Actions](#11-preparing-update--delete-actions)
     - [12. Updating & Deleting Ingredients](#12-updating--deleting-ingredients)
@@ -393,7 +402,6 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [17. One Root State](#17-one-root-state)
     - [18. Setting Up Auth Reducer & Actions](#18-setting-up-auth-reducer--actions)
     - [19. Dispatching Auth Actions](#19-dispatching-auth-actions)
-    - [2. What is Application State](#2-what-is-application-state)
     - [20. Auth Finished (For Now...)](#20-auth-finished-for-now)
     - [21. And Important Note on Actions](#21-and-important-note-on-actions)
     - [22. Exploring NgRx Effects](#22-exploring-ngrx-effects)
@@ -404,7 +412,6 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [27. Finishing the Login Effect](#27-finishing-the-login-effect)
     - [28. Preparing Other Auth Actions](#28-preparing-other-auth-actions)
     - [29. Adding Signup](#29-adding-signup)
-    - [3. What is NgRx](#3-what-is-ngrx)
     - [30. Further Auth Effects](#30-further-auth-effects)
     - [31. Adding Auto-Login with NgRx](#31-adding-auto-login-with-ngrx)
     - [32. Adding Auto-Logout](#32-adding-auto-logout)
@@ -415,69 +422,27 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [37. Fetching Recipe Detail Data](#37-fetching-recipe-detail-data)
     - [38. Fetching Recipes & Using the Resolver](#38-fetching-recipes--using-the-resolver)
     - [39. Fixing the Auth Redirect](#39-fixing-the-auth-redirect)
-    - [4. Getting Started with Reducers](#4-getting-started-with-reducers)
     - [40. Update, Delete and Add Recipes](#40-update-delete-and-add-recipes)
     - [41. Storing Recipes via Effects](#41-storing-recipes-via-effects)
     - [42. Cleanup Work](#42-cleanup-work)
-    - [43. Wrap Up](#43-wrap-up)
+    - [43. Wrap Up - Alternative NgRx Syntax](#43-wrap-up---alternative-ngrx-syntax)
     - [44. Useful Resources & Links.html](#44-useful-resources--linkshtml)
     - [45. MUST READ The [LEGACY] Lectures.html](#45-must-read-the-legacy-lectureshtml)
-    - [46. [LEGACY] Module Introduction](#46-legacy-module-introduction)
-    - [47. [LEGACY] Important Angular 6, RxJS 6 and this section!.html](#47-legacy-important-angular-6-rxjs-6-and-this-sectionhtml)
-    - [48. [LEGACY] State Challenges](#48-legacy-state-challenges)
-    - [49. [LEGACY] Getting Started with Reducers](#49-legacy-getting-started-with-reducers)
-    - [5. Adding Logic to the Reducer](#5-adding-logic-to-the-reducer)
-    - [50. [LEGACY] Adding Actions](#50-legacy-adding-actions)
-    - [51. [LEGACY] Finishing the First Reducer](#51-legacy-finishing-the-first-reducer)
-    - [52. [LEGACY] Registering the Application Store](#52-legacy-registering-the-application-store)
-    - [53. [LEGACY] Selecting Data from State](#53-legacy-selecting-data-from-state)
-    - [54. [LEGACY] Dispatch Actions](#54-legacy-dispatch-actions)
-    - [55. [LEGACY] More Actions and Adding Ingredients](#55-legacy-more-actions-and-adding-ingredients)
-    - [56. [LEGACY] Dispatching Update and Deleting Shopping List Actions](#56-legacy-dispatching-update-and-deleting-shopping-list-actions)
-    - [57. [LEGACY] Expanding App State](#57-legacy-expanding-app-state)
-    - [58. [LEGACY] Editing the Shopping-List via NgRx](#58-legacy-editing-the-shopping-list-via-ngrx)
-    - [59. [LEGACY] Managing all Relevant State](#59-legacy-managing-all-relevant-state)
-    - [6. Understanding & Adding Actions](#6-understanding--adding-actions)
-    - [60. [LEGACY] Authentication and Side Effects - Introduction](#60-legacy-authentication-and-side-effects---introduction)
-    - [61. [LEGACY] Setting up the Auth Store Files](#61-legacy-setting-up-the-auth-store-files)
-    - [62. [LEGACY] The Reducer](#62-legacy-the-reducer)
-    - [63. [LEGACY] Adding Reducer Logic & Actions](#63-legacy-adding-reducer-logic--actions)
-    - [64. [LEGACY] Adjusting the App Module Setup](#64-legacy-adjusting-the-app-module-setup)
-    - [65. [LEGACY] Using Authentication](#65-legacy-using-authentication)
-    - [66. [LEGACY] Dispatch Actions](#66-legacy-dispatch-actions)
-    - [67. [LEGACY] Getting State Access in Http Interceptor](#67-legacy-getting-state-access-in-http-interceptor)
-    - [68. [LEGACY] Handling the Auth Token](#68-legacy-handling-the-auth-token)
-    - [69. [LEGACY] Only React to Actions Once via take(1)](#69-legacy-only-react-to-actions-once-via-take1)
-    - [7. Setting Up the NgRx Store](#7-setting-up-the-ngrx-store)
-    - [70. [LEGACY] A Closer Look at Effects](#70-legacy-a-closer-look-at-effects)
-    - [71. [LEGACY] Auth Effects and Actions](#71-legacy-auth-effects-and-actions)
-    - [72. [LEGACY] Using NgRx Effects with NgRx = 7.html](#72-legacy-using-ngrx-effects-with-ngrx--7html)
-    - [73. [LEGACY] Effects - How they Work](#73-legacy-effects---how-they-work)
-    - [74. [LEGACY] Adding Auth Signup](#74-legacy-adding-auth-signup)
-    - [75. [LEGACY] Adding Auth Signin](#75-legacy-adding-auth-signin)
-    - [76. [LEGACY] Navigation as a Side Effect](#76-legacy-navigation-as-a-side-effect)
-    - [77. [LEGACY] Handling Logout via NgRx](#77-legacy-handling-logout-via-ngrx)
-    - [78. [LEGACY] Additional Fixes](#78-legacy-additional-fixes)
-    - [79. [LEGACY] Redirecting Upon Logout](#79-legacy-redirecting-upon-logout)
-    - [8. Selecting State](#8-selecting-state)
-    - [80. [LEGACY] What's Next](#80-legacy-whats-next)
-    - [81. [LEGACY] The Router Store Package](#81-legacy-the-router-store-package)
-    - [82. [LEGACY] Store Devtools](#82-legacy-store-devtools)
-    - [83. [LEGACY] Lazy Load and Dynamic Injection](#83-legacy-lazy-load-and-dynamic-injection)
-    - [84. [LEGACY] Adding Recipe Actions](#84-legacy-adding-recipe-actions)
-    - [85. [LEGACY] Adding Recipe Reducers](#85-legacy-adding-recipe-reducers)
-    - [86. [LEGACY] Dispatching and Selecting State](#86-legacy-dispatching-and-selecting-state)
-    - [87. [LEGACY] Viewing and Deleting Recipes via NgRx](#87-legacy-viewing-and-deleting-recipes-via-ngrx)
-    - [88. [LEGACY] Editing and Updating Recipes via NgRx](#88-legacy-editing-and-updating-recipes-via-ngrx)
-    - [89. [LEGACY] Recipes Side Effects - Fetching from Server](#89-legacy-recipes-side-effects---fetching-from-server)
-    - [9. Dispatching Actions](#9-dispatching-actions)
-    - [90. [LEGACY] Recipes Side Effects - Storing Recipes on Server](#90-legacy-recipes-side-effects---storing-recipes-on-server)
-    - [91. [LEGACY] Cleaning Up](#91-legacy-cleaning-up)
-    - [92. [LEGACY] Updating to RxJS 6+](#92-legacy-updating-to-rxjs-6)
-    - [93. [LEGACY] Wrap Up](#93-legacy-wrap-up)
-    - [94. [LEGACY] Useful Resources & Links.html](#94-legacy-useful-resources--linkshtml)
   - [25. Bonus Angular Universal](#25-bonus-angular-universal)
     - [1. Module Introduction](#1-module-introduction-13)
+    - [Angular Universal & ModuleMapLoader](#angular-universal--modulemaploader)
+    - [Adding Angular Universal](#adding-angular-universal)
+    - [Adding Angular Universal with NestJS](#adding-angular-universal-with-nestjs)
+    - [Deploying Universal Apps](#deploying-universal-apps)
+    - [Important: Remaining Lectures](#important-remaining-lectures)
+    - [Module Introduction](#module-introduction)
+    - [Getting Started with Angular Universal](#getting-started-with-angular-universal)
+    - [Working on the App Module](#working-on-the-app-module)
+    - [Adding a Server-Side Build Workflow](#adding-a-server-side-build-workflow)
+    - [Adding a NodeJS Server](#adding-a-nodejs-server)
+    - [Pre-Rendering the App on the Server](#pre-rendering-the-app-on-the-server)
+    - [Next Steps](#next-steps)
+    - [Angular Universal Gotchas](#angular-universal-gotchas)
     - [2. Important Official Docs & Starting Project.html](#2-important-official-docs--starting-projecthtml)
     - [3. Getting Started with Angular Universal](#3-getting-started-with-angular-universal)
     - [4. Working on the App Module](#4-working-on-the-app-module)
@@ -488,9 +453,7 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [9. Angular Universal Gotchas.html](#9-angular-universal-gotchashtml)
   - [26. Angular Animations](#26-angular-animations)
     - [1. Making Animations Work with Angular 4+.html](#1-making-animations-work-with-angular-4html)
-    - [10. Using Keyframes for Animations](#10-using-keyframes-for-animations)
-    - [11. Grouping Transitions](#11-grouping-transitions)
-    - [12. Using Animation Callbacks](#12-using-animation-callbacks)
+    - [](#)
     - [2. Introduction](#2-introduction)
     - [3. Setting up the Starting Project](#3-setting-up-the-starting-project)
     - [4. Animations Triggers and State](#4-animations-triggers-and-state)
@@ -499,6 +462,9 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [7. Advanced Transitions](#7-advanced-transitions)
     - [8. Transition Phases](#8-transition-phases)
     - [9. The void State](#9-the-void-state)
+    - [10. Using Keyframes for Animations](#10-using-keyframes-for-animations)
+    - [11. Grouping Transitions](#11-grouping-transitions)
+    - [12. Using Animation Callbacks](#12-using-animation-callbacks)
   - [27. Adding Offline Capabilities with Service Workers](#27-adding-offline-capabilities-with-service-workers)
     - [1. Module Introduction](#1-module-introduction-14)
     - [2. Adding Service Workers](#2-adding-service-workers)
@@ -507,8 +473,6 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [5. Further Links & Resources.html](#5-further-links--resourceshtml)
   - [28. A Basic Introduction to Unit Testing in Angular Apps](#28-a-basic-introduction-to-unit-testing-in-angular-apps)
     - [1. About this Section.html](#1-about-this-sectionhtml)
-    - [10. Isolated vs Non-Isolated Tests](#10-isolated-vs-non-isolated-tests)
-    - [11. Further Resources & Where to Go Next.html](#11-further-resources--where-to-go-nexthtml)
     - [2. Introduction](#2-introduction-1)
     - [3. Why Unit Tests](#3-why-unit-tests)
     - [4. Analyzing the Testing Setup (as created by the CLI)](#4-analyzing-the-testing-setup-as-created-by-the-cli)
@@ -517,6 +481,8 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [7. Testing Dependencies Components and Services](#7-testing-dependencies-components-and-services)
     - [8. Simulating Async Tasks](#8-simulating-async-tasks)
     - [9. Using fakeAsync and tick](#9-using-fakeasync-and-tick)
+    - [10. Isolated vs Non-Isolated Tests](#10-isolated-vs-non-isolated-tests)
+    - [11. Further Resources & Where to Go Next.html](#11-further-resources--where-to-go-nexthtml)
   - [29. Angular Changes & New Features](#29-angular-changes--new-features)
     - [1. What's New with Angular 8](#1-whats-new-with-angular-8)
     - [2. What's New & How to Update.html](#2-whats-new--how-to-updatehtml)
@@ -525,10 +491,6 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [2. Bonus More Content!.html](#2-bonus-more-contenthtml)
   - [31. Custom Project & Workflow Setup](#31-custom-project--workflow-setup)
     - [1. Introduction](#1-introduction-3)
-    - [10. Finishing & Using the Development Workflow](#10-finishing--using-the-development-workflow)
-    - [11. Setting up a Production Workflow](#11-setting-up-a-production-workflow)
-    - [12. Adding Types & Fixing Bugs](#12-adding-types--fixing-bugs)
-    - [13. Finishing Touches](#13-finishing-touches)
     - [2. Initializing the Project](#2-initializing-the-project)
     - [3. Setting up the Basic Project Files](#3-setting-up-the-basic-project-files)
     - [4. Installing the Core Dependencies](#4-installing-the-core-dependencies)
@@ -538,6 +500,10 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [7. Installing Development Dependencies](#7-installing-development-dependencies)
     - [8. Setting up a Development Workflow](#8-setting-up-a-development-workflow)
     - [9. Updating to Angular 6 + Webpack 4.html](#9-updating-to-angular-6--webpack-4html)
+    - [10. Finishing & Using the Development Workflow](#10-finishing--using-the-development-workflow)
+    - [11. Setting up a Production Workflow](#11-setting-up-a-production-workflow)
+    - [12. Adding Types & Fixing Bugs](#12-adding-types--fixing-bugs)
+    - [13. Finishing Touches](#13-finishing-touches)
   - [32. Bonus TypeScript Introduction (for Angular 2 Usage)](#32-bonus-typescript-introduction-for-angular-2-usage)
     - [1. Introduction](#1-introduction-4)
     - [2. Using Types](#2-using-types)
@@ -546,10 +512,13 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
     - [5. Generics](#5-generics)
     - [6. Wrap up & Modules](#6-wrap-up--modules)
     - [7. Deep dive into TypeScript.html](#7-deep-dive-into-typescripthtml)
+
 ---
 
 # Angular 8 (formerly Angular 2) - The Complete Guide
+
 https://www.udemy.com/course/the-complete-guide-to-angular-2/
+
 ## 1. Getting Started
 
 ### 1. Course Introduction
@@ -571,16 +540,16 @@ Angular 8
 
 In the next lecture, we're going to build our first little app!
 
-If the CLI prompts you to **answer some questions** (some versions do that), you can simply hit ENTER for all questions. This will accept the default settings which are fine for this course.  
+If the CLI prompts you to **answer some questions** (some versions do that), you can simply hit ENTER for all questions. This will accept the default settings which are fine for this course.
 
-The CLI generates a different welcome screen than you're going to see in my video though. No worries, you'll still be able to follow along without issues! Just make sure to code along so that your code equals mine - Angular itself didn't change a bit :)  
+The CLI generates a different welcome screen than you're going to see in my video though. No worries, you'll still be able to follow along without issues! Just make sure to code along so that your code equals mine - Angular itself didn't change a bit :)
 
 Depending on the CLI version you're using, you might also need to add the FormsModule to the imports[] array in your app.module.ts file (add it if you don't see it there). You might not fully understand what that all means but we're going to cover that in this course, no worries.
 
 If you don't have **FormsModule** in imports[] in AppModule , please do add it and also add an import at the top of that file:
 
 ```ts
-import { FormsModule } from "@angular/forms";
+import { FormsModule } from '@angular/forms';
 ```
 
 ---
@@ -632,16 +601,16 @@ to serve your project on a new port
 
 Node.js Download
 
-At the moment, the Node webpage (nodejs.org) which we're going to use in the next lecture looks different.  
+At the moment, the Node webpage (nodejs.org) which we're going to use in the next lecture looks different.
 
-This will only be the case temporarily (as you can tell if you visit the page) but in the meantime, since you're going to need to download NodeJS from the site, here's the download link: https://nodejs.org/en/download/  
+This will only be the case temporarily (as you can tell if you visit the page) but in the meantime, since you're going to need to download NodeJS from the site, here's the download link: https://nodejs.org/en/download/
 
 We'll need that in the next lecture.
 
-https://angular.io/guide/setup-local  
+https://angular.io/guide/setup-local
 
 **To install the Angular CLI**:  
-https://github.com/angular/angular-cli/wiki  
+https://github.com/angular/angular-cli/wiki
 
 ```js
 node -v
@@ -678,7 +647,7 @@ npm install -g @angular/cli@latest
 
 ```
 
-![image-20200605142459873](angular.assets/image-20200605142459873.png)  
+![image-20200605142459873](angular.assets/image-20200605142459873.png)
 
 I followed below steps for resolution for this issue in Windows 10:
 
@@ -697,26 +666,26 @@ Add the above path i.e. " C:\Users\rkota\AppData\Roaming\npm" in Environment var
 Close command prompt and now try to run below:
 `ng --version`
 
-you will be able to see CLI version.  
+you will be able to see CLI version.
 
-![image-20200605141651197](angular.assets/image-20200605141651197.png)  
+![image-20200605141651197](angular.assets/image-20200605141651197.png)
 
-![image-20200605141709194](angular.assets/image-20200605141709194.png)  
+![image-20200605141709194](angular.assets/image-20200605141709194.png)
 
 ---
 
 Component includes: html, css, file ts
 
 ```ts
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = "app";
+  title = 'app';
 }
 
 // @Component duoc goi la decorator
@@ -725,16 +694,16 @@ export class AppComponent {
 Sau do vao file module.ts them Component moi duoc tao ra:
 
 ```ts
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-import { AppComponent } from "./app.component";
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
@@ -744,10 +713,8 @@ export class AppModule {}
 app.component.html
 
 ```html
-
-<input type="text" [(ngModel)]="name">
+<input type="text" [(ngModel)]="name" />
 <p>{{ name }}</p>
-
 ```
 
 app.component.ts
@@ -758,13 +725,12 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-    // add
+  // add
   name = 'Max';
 }
-
 ```
 
 app.module.ts
@@ -777,31 +743,26 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    FormsModule // add
+    FormsModule, // add
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
-
+export class AppModule {}
 ```
-
-
 
 ### 7. The Course Structure
 
-![img](../root/img/2019-11-16-12-15-30.png)
+![img](angular.assets/2019-11-16-12-15-30.png)
 
 ### 9. What is TypeScript
 
 TypeScript is compile to JS
 
-![image-20200523223602000](angular.assets/image-20200523223602000.png)  
+![image-20200523223602000](angular.assets/image-20200523223602000.png)
 
 However, Typescript doesn't run in the browser, so it is compiled to JavaScript in the end.
 
@@ -831,9 +792,9 @@ Tại file angular.json sửa lại tại options :
 
 In the next lecture, we set up the course project. For that, we'll install the Bootstrap CSS Framework.
 In this course, we use version 3 of the framework, install it via `npm install --save bootstrap@3` => The @3 is important!  
-Additionally, when using a project created with Angular CLI 6+ (check via ng -v ), you'll have an angular.json file instead of an .angular-cli.json file.   
+Additionally, when using a project created with Angular CLI 6+ (check via ng -v ), you'll have an angular.json file instead of an .angular-cli.json file.
 
-In that file, you still need to add Bootstrap to the styles[] array as shown in the next video, but the path should be `node_modules/bootstrap/dist/css/bootstrap.min.css` , NOT `../node_modules/bootstrap/dist/css/bootstrap.min.css` .   
+In that file, you still need to add Bootstrap to the styles[] array as shown in the next video, but the path should be `node_modules/bootstrap/dist/css/bootstrap.min.css` , NOT `../node_modules/bootstrap/dist/css/bootstrap.min.css` .
 
 The leading ../ must not be included.
 Also see this lecture - I do show the complete setup process there: https://www.udemy.com/the-complete-guide-to-angular-2/learn/v4/t/lecture/6655614/
@@ -863,32 +824,32 @@ app.components.html
 app.component.ts
 
 ```ts
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  name = "first-app-chap1";
-  pwd = "123";
+  name = 'first-app-chap1';
+  pwd = '123';
 }
 ```
 
-app.module.ts thêm FormsModule vì nếu  k có [(ngModel)] sẽ báo lỗi
+app.module.ts thêm FormsModule vì nếu k có [(ngModel)] sẽ báo lỗi
 
 ```ts
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { AppComponent } from "./app.component";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, FormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
@@ -943,9 +904,7 @@ Xem lại: https://phocode.com/javascript/lap-trinh-web-voi-angularjs-2/angular-
 
 File main.ts sẽ liên kết toàn bộ các file thành một ứng dụng hoàn chỉnh.
 
-![image-20200605163545934](angular.assets/image-20200605163545934.png)  
-
-
+![image-20200605163545934](angular.assets/image-20200605163545934.png)
 
 ### 4. Creating a New Component
 
@@ -961,20 +920,20 @@ Angular doesn't scan all class so yout must tell angular component exist in AppM
 Go to declarations to add new **ServerComponent**
 
 ```ts
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
-import { AppComponent } from "./app.component";
-import { ServerComponent } from "./server/server.component";
-import { ServersComponent } from "./servers/servers.component";
+import { AppComponent } from './app.component';
+import { ServerComponent } from './server/server.component';
+import { ServersComponent } from './servers/servers.component';
 
 @NgModule({
   // add new
   declarations: [AppComponent, ServerComponent, ServersComponent],
   imports: [BrowserModule, FormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
@@ -997,7 +956,7 @@ Angular will auto add in app.module.ts
 
 ### 8. Working with Component Templates
 
-Nếu định nghĩa template trong 1 file thì sử dụng dấu `` nếu viết trên nhiều dòng, dấu '' thì viết chỉ được trên  line:
+Nếu định nghĩa template trong 1 file thì sử dụng dấu `` nếu viết trên nhiều dòng, dấu '' thì viết chỉ được trên line:
 
 ```ts
 @Component({
@@ -1017,12 +976,12 @@ Change templateUrl => template to write code
 @Component({
   // selector: '[app-servers]',
   // selector: '.app-servers',
-  selector: "app-servers",
+  selector: 'app-servers',
   template: `
     <app-server></app-server>
     <app-server></app-server>
   `,
-  styleUrls: ["./servers.component.css"]
+  styleUrls: ['./servers.component.css'],
 })
 export class ServersComponent implements OnInit {
   constructor() {}
@@ -1038,19 +997,19 @@ app.component.ts
 Change styleUrls => styles
 
 ```ts
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
+  selector: 'app-root',
+  templateUrl: './app.component.html',
   // styleUrls: ['./app.component.css']
   styles: [
     `
       h3 {
         color: dodgerblue;
       }
-    `
-  ]
+    `,
+  ],
 })
 export class AppComponent {}
 ```
@@ -1071,7 +1030,7 @@ app.component.html
 
 ### 12. [OPTIONAL] Assignment Solution
 
-![image-20200607195555001](angular.assets/image-20200607195555001.png)  
+![image-20200607195555001](angular.assets/image-20200607195555001.png)
 
 warning-alert.component.ts
 
@@ -1080,9 +1039,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-warning-alert',
-  template: `
-    <p>This is a warning, you are in danger!</p>
-  `,
+  template: ` <p>This is a warning, you are in danger!</p> `,
   styles: [
     `
       p {
@@ -1090,47 +1047,34 @@ import { Component } from '@angular/core';
         background-color: mistyrose;
         border: 1px solid red;
       }
-    `
-  ]
+    `,
+  ],
 })
-export class WarningAlertComponent {
-
-}
-
+export class WarningAlertComponent {}
 ```
 
 app.component.html
 
 ```html
- <app-warning-alert></app-warning-alert>
- <app-success-alert></app-success-alert>
+<app-warning-alert></app-warning-alert>
+<app-success-alert></app-success-alert>
 ```
 
 app.module.ts
 
 ```ts
-
 @NgModule({
-  declarations: [
-    AppComponent,
-    WarningAlertComponent,
-    SuccessAlertComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-  ],
+  declarations: [AppComponent, WarningAlertComponent, SuccessAlertComponent],
+  imports: [BrowserModule, FormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 ```
-
-
 
 ### 13. What is Databinding
 
-![](../root/img/2019-11-17-02-20-04.png)
+![](angular.assets/2019-11-17-02-20-04.png)
 
 ### 14. String Interpolation
 
@@ -1144,12 +1088,12 @@ server.component.ts
 
 ```ts
 @Component({
-  selector: "app-server",
-  templateUrl: "./server.component.html"
+  selector: 'app-server',
+  templateUrl: './server.component.html',
 })
 export class ServerComponent {
   serverId: number = 10;
-  serverStatus: string = "offline";
+  serverStatus: string = 'offline';
 
   getServerStatus() {
     return this.serverStatus;
@@ -1237,7 +1181,7 @@ Important: For Two-Way-Binding (covered in the next lecture) to work, you need t
 You then also need to add the import from `@angular/forms` in the app.module.ts file:
 
 ```ts
-import { FormsModule } from "@angular/forms";
+import { FormsModule } from '@angular/forms';
 ```
 
 ### 21. Two-Way-Databinding
@@ -1251,7 +1195,7 @@ servers.component.ts
 
 click button => create sever
 
-ngModel được gọi là directive 
+ngModel được gọi là directive
 
 ### 22. Combining all Forms of Databinding
 
@@ -1259,9 +1203,7 @@ ngModel được gọi là directive
 
 ### 24. [OPTIONAL] Assignment Solution
 
-![image-20200607204305128](angular.assets/image-20200607204305128.png)  
-
-
+![image-20200607204305128](angular.assets/image-20200607204305128.png)
 
 ```html
 <div class="container">
@@ -1303,7 +1245,7 @@ ngModel được gọi là directive
 
 ### 25. Understanding Directives
 
-![](../root/img/2019-11-17-10-03-21.png)
+![](angular.assets/2019-11-17-10-03-21.png)
 
 ### 26. Using ngIf to Output Data Conditionally
 
@@ -1334,9 +1276,7 @@ Use local references to mark else **#condition**
 
 ### 28. Styling Elements Dynamically with ngStyle
 
-![image-20200607210539183](angular.assets/image-20200607210539183.png)  
-
-
+![image-20200607210539183](angular.assets/image-20200607210539183.png)
 
 Attribute directive
 server.component.html
@@ -1405,12 +1345,12 @@ server.component.ts
 ```
 
 ```ts
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   showSecret = false;
@@ -1425,7 +1365,7 @@ export class AppComponent {
 
 ### 33. Getting the Index when using ngFor
 
-![image-20200607211813408](angular.assets/image-20200607211813408.png)  
+![image-20200607211813408](angular.assets/image-20200607211813408.png)
 
 33.1 basics-ngfor-addition.zip
 
@@ -1446,7 +1386,7 @@ export class AppComponent {
 
 ### 2. Planning the App
 
-![](../root/img/2019-11-17-12-27-06.png)
+![](angular.assets/2019-11-17-12-27-06.png)
 
 ### 3. Installing Bootstrap Correctly.html
 
@@ -1464,7 +1404,7 @@ install bs3
 
 ### 5. Creating the Components
 
-![image-20200608003510267](angular.assets/image-20200608003510267.png)    
+![image-20200608003510267](angular.assets/image-20200608003510267.png)
 
 Create header and Add new Component in modules
 
@@ -1563,7 +1503,7 @@ Tại file shopping-list.component.html
 </nav>
 ```
 
-![image-20200607222152486](angular.assets/image-20200607222152486.png)  
+![image-20200607222152486](angular.assets/image-20200607222152486.png)
 
 ### 8. Alternative Non-Collapsable Navigation Bar.html
 
@@ -1634,15 +1574,15 @@ recipe-list.component.ts
 export class RecipeListComponent implements OnInit {
   recipes: Recipe[] = [
     new Recipe(
-      "A Test Recipe",
-      "This is simply a test",
-      "https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg"
+      'A Test Recipe',
+      'This is simply a test',
+      'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg'
     ),
     new Recipe(
-      "A Test Recipe",
-      "This is simply a test",
-      "https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg"
-    )
+      'A Test Recipe',
+      'This is simply a test',
+      'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg'
+    ),
   ];
 
   constructor() {}
@@ -1715,18 +1655,14 @@ recipe-detail.component.html
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12">
-    Description
-  </div>
+  <div class="col-xs-12">Description</div>
 </div>
 <div class="row">
-  <div class="col-xs-12">
-    Ingredients
-  </div>
+  <div class="col-xs-12">Ingredients</div>
 </div>
 ```
 
-![image-20200608000729831](angular.assets/image-20200608000729831.png)  
+![image-20200608000729831](angular.assets/image-20200608000729831.png)
 
 ### 13. Working on the ShoppingListComponent
 
@@ -1754,7 +1690,7 @@ import { Ingredient } from '../shared/ingredient.model';
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
-  styleUrls: ['./shopping-list.component.css']
+  styleUrls: ['./shopping-list.component.css'],
 })
 export class ShoppingListComponent implements OnInit {
   ingredients: Ingredient[] = [
@@ -1762,13 +1698,10 @@ export class ShoppingListComponent implements OnInit {
     new Ingredient('Tomatoes', 10),
   ];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
-
 ```
 
 shopping-list.component.html
@@ -1777,7 +1710,7 @@ shopping-list.component.html
 <div class="row">
   <div class="col-xs-10">
     <app-shopping-edit></app-shopping-edit>
-    <hr>
+    <hr />
     <ul class="list-group">
       <a
         class="list-group-item"
@@ -1789,10 +1722,7 @@ shopping-list.component.html
     </ul>
   </div>
 </div>
-
 ```
-
-
 
 ### 16. Adding a Shopping List Edit Section
 
@@ -1826,7 +1756,7 @@ shopping-edit
 
 ### 17. Wrap Up & Next Steps
 
-![image-20200608003510267](angular.assets/image-20200608003510267.png)  
+![image-20200608003510267](angular.assets/image-20200608003510267.png)
 
 ## 4. Debugging
 
@@ -1838,7 +1768,7 @@ Delete the last intem is not work
 => Use chrome
 Vao folder webpack/./src
 
-![image-20200608003733305](angular.assets/image-20200608003733305.png)  
+![image-20200608003733305](angular.assets/image-20200608003733305.png)
 
 ### 3. Using Augury to Dive into Angular Apps
 
@@ -1857,7 +1787,7 @@ ng g c server-element –-spec false
 
 App tạo server và blue print server(khi hiển thị sẽ in nghiêng và có màu khác): get server được tạo ra bởi cockpit và thêm vào list server ở app component
 
-![image-20200608004202825](angular.assets/image-20200608004202825.png)  
+![image-20200608004202825](angular.assets/image-20200608004202825.png)
 
 cmp-databinding-start
 
@@ -1869,28 +1799,28 @@ app.component.html
     <div class="col-xs-12">
       <p>Add new Servers or blueprints!</p>
       <label>Server Name</label>
-      <input type="text" class="form-control" [(ngModel)]="newServerName">
+      <input type="text" class="form-control" [(ngModel)]="newServerName" />
       <label>Server Content</label>
-      <input type="text" class="form-control" [(ngModel)]="newServerContent">
-      <br>
-      <button
-        class="btn btn-primary"
-        (click)="onAddServer()">Add Server</button>
-      <button
-        class="btn btn-primary"
-        (click)="onAddBlueprint()">Add Server Blueprint</button>
+      <input type="text" class="form-control" [(ngModel)]="newServerContent" />
+      <br />
+      <button class="btn btn-primary" (click)="onAddServer()">
+        Add Server
+      </button>
+      <button class="btn btn-primary" (click)="onAddBlueprint()">
+        Add Server Blueprint
+      </button>
     </div>
   </div>
-  <hr>
+  <hr />
   <div class="row">
     <div class="col-xs-12">
-      <div
-        class="panel panel-default"
-        *ngFor="let element of serverElements">
+      <div class="panel panel-default" *ngFor="let element of serverElements">
         <div class="panel-heading">{{ element.name }}</div>
         <div class="panel-body">
           <p>
-            <strong *ngIf="element.type === 'server'" style="color: red">{{ element.content }}</strong>
+            <strong *ngIf="element.type === 'server'" style="color: red"
+              >{{ element.content }}</strong
+            >
             <em *ngIf="element.type === 'blueprint'">{{ element.content }}</em>
           </p>
         </div>
@@ -1898,7 +1828,6 @@ app.component.html
     </div>
   </div>
 </div>
-
 ```
 
 app.components.ts
@@ -1909,7 +1838,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   serverElements = [];
@@ -1920,7 +1849,7 @@ export class AppComponent {
     this.serverElements.push({
       type: 'server',
       name: this.newServerName,
-      content: this.newServerContent
+      content: this.newServerContent,
     });
   }
 
@@ -1928,20 +1857,15 @@ export class AppComponent {
     this.serverElements.push({
       type: 'blueprint',
       name: this.newServerName,
-      content: this.newServerContent
+      content: this.newServerContent,
     });
   }
 }
-
 ```
-
-
-
-  
 
 ### 3. Property & Event Binding Overview
 
-![](../root/img/2019-11-18-23-49-15.png)
+![](angular.assets/2019-11-18-23-49-15.png)
 
 ### 4. Binding to Custom Properties: @Input
 
@@ -2026,7 +1950,7 @@ onAddServer() {
 
 ```
 
-![](../root/img/2019-11-19-00-45-54.png)
+![](angular.assets/2019-11-19-00-45-54.png)
 
 ### 7. Assigning an Alias to Custom Events
 
@@ -2157,15 +2081,20 @@ Khi muốn chuyển đoạn html bên dưới từ server-element ra ngoài app.
 
 ```html
 <app-server-element
-        *ngFor="let serverElement of serverElements"
-        [srvElement]="serverElement"
-        [name]="serverElement.name">
-    // add và thay serverElement để đổ data ra
-        <p #contentParagraph>
-          <strong *ngIf="serverElement.type === 'server'" style="color: red">{{ serverElement.content }}</strong>
-          <em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
-        </p>
-      </app-server-element>
+  *ngFor="let serverElement of serverElements"
+  [srvElement]="serverElement"
+  [name]="serverElement.name"
+>
+  // add và thay serverElement để đổ data ra
+  <p #contentParagraph>
+    <strong *ngIf="serverElement.type === 'server'" style="color: red"
+      >{{ serverElement.content }}</strong
+    >
+    <em *ngIf="serverElement.type === 'blueprint'"
+      >{{ serverElement.content }}</em
+    >
+  </p>
+</app-server-element>
 ```
 
 Thay bằng tại server-element.component.html
@@ -2176,14 +2105,13 @@ Thay bằng tại server-element.component.html
 
 ### 15. Understanding the Component Lifecycle
 
-![img](../root/img/2019-11-19-01-54-30.png)  
+![img](angular.assets/2019-11-19-01-54-30.png)
 
 ngOnInit will run after the constructor. Then we have ngDoCheck, that will also run multiple times, actually this method will be executed a lot because this will run whenever change detection runs.
 
 Now change detection simply is the system by which Angular determines whether something changed on the
 
 template of a component or inside of a component I should say, so whether it needs to change something in the template. So whether some property value changed from 1 to 2 let's say and that property is output in the template,
-
 
 well of course Angular needs to re-render that part of the template and ngDoCheck is a hook executed
 
@@ -2213,28 +2141,29 @@ import {
   OnDestroy,
   ViewChild,
   ElementRef,
-  ContentChild
+  ContentChild,
 } from '@angular/core';
 
 @Component({
   selector: 'app-server-element',
   templateUrl: './server-element.component.html',
   styleUrls: ['./server-element.component.css'],
-  encapsulation: ViewEncapsulation.Emulated // None, Native
+  encapsulation: ViewEncapsulation.Emulated, // None, Native
 })
-export class ServerElementComponent implements
-  OnInit,
-  OnChanges,
-  DoCheck,
-  AfterContentInit,
-  AfterContentChecked,
-  AfterViewInit,
-  AfterViewChecked,
-  OnDestroy {
-  @Input('srvElement') element: {type: string, name: string, content: string};
+export class ServerElementComponent
+  implements
+    OnInit,
+    OnChanges,
+    DoCheck,
+    AfterContentInit,
+    AfterContentChecked,
+    AfterViewInit,
+    AfterViewChecked,
+    OnDestroy {
+  @Input('srvElement') element: { type: string; name: string; content: string };
   @Input() name: string;
-  @ViewChild('heading', {static: true}) header: ElementRef;
-  @ContentChild('contentParagraph', {static: true}) paragraph: ElementRef;
+  @ViewChild('heading', { static: true }) header: ElementRef;
+  @ContentChild('contentParagraph', { static: true }) paragraph: ElementRef;
 
   constructor() {
     console.log('constructor called!');
@@ -2248,7 +2177,9 @@ export class ServerElementComponent implements
   ngOnInit() {
     console.log('ngOnInit called!');
     console.log('Text Content: ' + this.header.nativeElement.textContent);
-    console.log('Text Content of paragraph: ' + this.paragraph.nativeElement.textContent);
+    console.log(
+      'Text Content of paragraph: ' + this.paragraph.nativeElement.textContent
+    );
   }
 
   ngDoCheck() {
@@ -2257,7 +2188,9 @@ export class ServerElementComponent implements
 
   ngAfterContentInit() {
     console.log('ngAfterContentInit called!');
-    console.log('Text Content of paragraph: ' + this.paragraph.nativeElement.textContent);
+    console.log(
+      'Text Content of paragraph: ' + this.paragraph.nativeElement.textContent
+    );
   }
 
   ngAfterContentChecked() {
@@ -2276,16 +2209,12 @@ export class ServerElementComponent implements
   ngOnDestroy() {
     console.log('ngOnDestroy called!');
   }
-
 }
-
 ```
 
-![image-20200608104558036](angular.assets/image-20200608104558036.png)  
+![image-20200608104558036](angular.assets/image-20200608104558036.png)
 
 @Input('srvElement') element => in ra khi change
-
-
 
 ### 16. Seeing Lifecycle Hooks in Action
 
@@ -2326,15 +2255,13 @@ app.component.html
 
 Sau khi click button onChangeFirst sẽ print object
 
-![image-20200608105744127](angular.assets/image-20200608105744127.png)  
+![image-20200608105744127](angular.assets/image-20200608105744127.png)
 
 DoCheck: Khi ấn nut change và sau đó ấn nút add
 
-![image-20200608105716731](angular.assets/image-20200608105716731.png)  
+![image-20200608105716731](angular.assets/image-20200608105716731.png)
 
 Ban đầu khi mới reload app thì doCHeck được gọi 2 lần nhưng nó chỉ có khi ở **dev mode**
-
-
 
 So ngDoCheck as I told you gets called whenever Angular checks for any changes and there are a couple
 
@@ -2352,25 +2279,21 @@ Angular didn't pick it up or something like that.
 
 Constructor được gọi đầu tiên => change => onInit => do Check => @AfterContentInit
 
-
-
 Now let's call this console log **ngAfterContentInit** called.
 
 If we do this here, you will see that here it is, there it is called after do check and **it is called only once** because it doesn't get initialized again. Remember, content is the thing we projected into this through ng-content, so this here will be our content in the end.
 
 AfterContentInit
 
-![image-20200608110236459](angular.assets/image-20200608110236459.png)  
+![image-20200608110236459](angular.assets/image-20200608110236459.png)
 
+Khi reload app
 
+![image-20200608110519006](angular.assets/image-20200608110519006.png)
 
-Khi reload app  
+![image-20200608111158975](angular.assets/image-20200608111158975.png)
 
-![image-20200608110519006](angular.assets/image-20200608110519006.png)  
-
-![image-20200608111158975](angular.assets/image-20200608111158975.png)  
-
-![image-20200608111300216](angular.assets/image-20200608111300216.png)  
+![image-20200608111300216](angular.assets/image-20200608111300216.png)
 
 ### 17. Lifecycle Hooks and Template Access
 
@@ -2477,16 +2400,24 @@ app.component.html
 
 ```html
 <div class="row">
-    <div class="col-xs-12">
-      <app-game-control (intervalFired)="onIntervalFired($event)"></app-game-control>
-    </div>
+  <div class="col-xs-12">
+    <app-game-control
+      (intervalFired)="onIntervalFired($event)"
+    ></app-game-control>
   </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <app-odd *ngFor="let oddNumber of oddNumbers" [number]="oddNumber"></app-odd>
-      <app-even *ngFor="let evenNumber of evenNumbers" [number]="evenNumber"></app-even>
-    </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <app-odd
+      *ngFor="let oddNumber of oddNumbers"
+      [number]="oddNumber"
+    ></app-odd>
+    <app-even
+      *ngFor="let evenNumber of evenNumbers"
+      [number]="evenNumber"
+    ></app-even>
   </div>
+</div>
 ```
 
 app.component.ts
@@ -2497,7 +2428,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   oddNumbers: number[] = [];
@@ -2518,7 +2449,6 @@ game-control.component.html
 ```html
 <button class="btn btn-success" (click)="onStartGame()">Start Game</button>
 <button class="btn btn-danger" (click)="onPauseGame()">Pause Game</button>
-
 ```
 
 game-control.component.ts
@@ -2529,17 +2459,16 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 @Component({
   selector: 'app-game-control',
   templateUrl: './game-control.component.html',
-  styleUrls: ['./game-control.component.css']
+  styleUrls: ['./game-control.component.css'],
 })
 export class GameControlComponent implements OnInit {
   @Output() intervalFired = new EventEmitter<number>();
   interval;
   lastNumber = 0;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onStartGame() {
     this.interval = setInterval(() => {
@@ -2551,9 +2480,7 @@ export class GameControlComponent implements OnInit {
   onPauseGame() {
     clearInterval(this.interval);
   }
-
 }
-
 ```
 
 even.component.ts
@@ -2564,31 +2491,22 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'app-even',
   templateUrl: './even.component.html',
-  styleUrls: ['./even.component.css']
+  styleUrls: ['./even.component.css'],
 })
 export class EvenComponent implements OnInit {
   @Input() number: number;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
-
 ```
 
-
-
 ![image-20200608113613167](angular.assets/image-20200608113613167.png)
-
-
 
 ## 6. Course Project - Components & Databinding
 
 ### 1. Introduction
-
-
 
 ### 2. Adding Navigation with Event Binding and ngIf
 
@@ -2605,11 +2523,11 @@ header.component.html bắt event click
 header.component.ts
 
 ```ts
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: "app-header",
-  templateUrl: "./header.component.html"
+  selector: 'app-header',
+  templateUrl: './header.component.html',
 })
 export class HeaderComponent {
   @Output() featureSelected = new EventEmitter<string>();
@@ -2637,15 +2555,15 @@ app.component.html
 app.component.ts
 
 ```ts
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  loadedFeature = "recipe";
+  loadedFeature = 'recipe';
 
   onNavigate(feature: string) {
     this.loadedFeature = feature;
@@ -2653,9 +2571,9 @@ export class AppComponent {
 }
 ```
 
-![image-20200609082414085](angular.assets/image-20200609082414085.png)  
+![image-20200609082414085](angular.assets/image-20200609082414085.png)
 
-![image-20200609082426350](angular.assets/image-20200609082426350.png)  
+![image-20200609082426350](angular.assets/image-20200609082426350.png)
 
 ### 3. Passing Recipe Data with Property Binding
 
@@ -2813,11 +2731,11 @@ In case you're hitting an error in the next lecture, make sure you have FormsMod
     RecipeDetailComponent,
     RecipeItemComponent,
     ShoppingListComponent,
-    ShoppingEditComponent
+    ShoppingEditComponent,
   ],
   imports: [BrowserModule, FormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
@@ -2829,7 +2747,8 @@ shopping-edit.component.html thêm local ref
 ```html
 <div class="col-sm-5 form-group">
   <label for="name">Name</label>
-  <input type="text" id="name" class="form-control" #nameInput> // add #nameInput
+  <input type="text" id="name" class="form-control" #nameInput /> // add
+  #nameInput
 </div>
 <div class="col-sm-2 form-group">
   <label for="amount">Amount</label>
@@ -2843,8 +2762,8 @@ shopping-edit.component.ts
 
 ```ts
 export class ShoppingEditComponent implements OnInit {
-  @ViewChild("nameInput", { static: false }) nameInputRef: ElementRef;
-  @ViewChild("amountInput", { static: false }) amountInputRef: ElementRef;
+  @ViewChild('nameInput', { static: false }) nameInputRef: ElementRef;
+  @ViewChild('amountInput', { static: false }) amountInputRef: ElementRef;
   @Output() ingredientAdded = new EventEmitter<Ingredient>();
 
   constructor() {}
@@ -2881,7 +2800,7 @@ onIngredientAdded(ingredient: Ingredient) {
 
 ### 1. Module Introduction
 
-![](../root/img/2019-11-19-23-54-31.png)
+![](angular.assets/2019-11-19-23-54-31.png)
 
 ### 2. ngFor and ngIf Recap
 
@@ -2898,9 +2817,9 @@ export class AppComponent {
 ```
 
 ```html
-<button
-        class="btn btn-primary"
-        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+<button class="btn btn-primary" (click)="onlyOdd = !onlyOdd">
+  Only show odd numbers
+</button>
 <!--<div *ngIf="!onlyOdd">-->
 <!--<li-->
 <!--class="list-group-item"-->
@@ -2914,7 +2833,7 @@ export class AppComponent {
 
 ### 3. ngClass and ngStyle Recap
 
-  ![image-20200609094756175](angular.assets/image-20200609094756175.png)
+![image-20200609094756175](angular.assets/image-20200609094756175.png)
 
 ấn toggle để test
 
@@ -2923,17 +2842,17 @@ export class AppComponent {
 basic-highlight.directive.ts
 
 ```ts
-import { Directive, ElementRef, OnInit } from "@angular/core";
+import { Directive, ElementRef, OnInit } from '@angular/core';
 
 @Directive({
-  selector: "[appBasicHighlight]"
+  selector: '[appBasicHighlight]',
 })
 export class BasicHighlightDirective implements OnInit {
   // Auto inject value
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit() {
-    this.elementRef.nativeElement.style.backgroundColor = "green";
+    this.elementRef.nativeElement.style.backgroundColor = 'green';
   }
 }
 ```
@@ -2947,11 +2866,11 @@ export class BasicHighlightDirective implements OnInit {
     // Add
     BasicHighlightDirective,
     BetterHighlightDirective,
-    UnlessDirective
+    UnlessDirective,
   ],
   imports: [BrowserModule, FormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
@@ -2963,10 +2882,6 @@ file html
 ```
 
 Nhưng cách trên k tốt - access direct element is not good
-
-
-
-
 
 ### 5. Using the Renderer to build a Better Attribute Directive
 
@@ -3065,9 +2980,7 @@ ngOnInit() {
 File html
 
 ```html
-<p [appBetterHighlight]="'red'" defaultColor="yellow">
-  ---
-</p>
+<p [appBetterHighlight]="'red'" defaultColor="yellow">---</p>
 
 <p [appBetterHighlight]="'red'" [defaultColor]="'yellow'"></p>
 ```
@@ -3077,11 +2990,9 @@ Luu y: dau [], ''
 ### 10. What Happens behind the Scenes on Structural Directives
 
 `*` => strutural directive
-Dấu \* đại diện cho structural directive  
+Dấu \* đại diện cho structural directive
 
 Behind the scene thêm ng-template
-
-  
 
 ```html
 <!--<ng-template [ngIf]="!onlyOdd">-->
@@ -3099,7 +3010,7 @@ Behind the scene thêm ng-template
 
 ### 11. Building a Structural Directive
 
-it's just a setter of the property which is a method which gets executed whenever the property changes and it of course changes whenever it changes outside of this directive, so whenever the condition we pass changes or some parameter of this condition. 
+it's just a setter of the property which is a method which gets executed whenever the property changes and it of course changes whenever it changes outside of this directive, so whenever the condition we pass changes or some parameter of this condition.
 
 ```ts
 ng g d unless
@@ -3164,15 +3075,15 @@ Recipe book app
 Vào folder share tạo file dropdown.directive.ts
 
 ```ts
-import { Directive, HostListener, HostBinding } from "@angular/core";
+import { Directive, HostListener, HostBinding } from '@angular/core';
 
 @Directive({
-  selector: "[appDropdown]"
+  selector: '[appDropdown]',
 })
 export class DropdownDirective {
-  @HostBinding("class.open") isOpen = false;
+  @HostBinding('class.open') isOpen = false;
 
-  @HostListener("click") toggleOpen() {
+  @HostListener('click') toggleOpen() {
     this.isOpen = !this.isOpen;
   }
 }
@@ -3220,11 +3131,11 @@ If you want that a dropdown can also be closed by a click anywhere outside (whic
 
 ```ts
 @Directive({
-  selector: "[appDropdown]"
+  selector: '[appDropdown]',
 })
 export class DropdownDirective {
-  @HostBinding("class.open") isOpen = false;
-  @HostListener("document:click", ["$event"]) toggleOpen(event: Event) {
+  @HostBinding('class.open') isOpen = false;
+  @HostListener('document:click', ['$event']) toggleOpen(event: Event) {
     this.isOpen = this.elRef.nativeElement.contains(event.target)
       ? !this.isOpen
       : false;
@@ -3237,7 +3148,7 @@ export class DropdownDirective {
 
 ### 1. Module Introduction
 
-![](../root/img/2019-11-20-22-57-59.png)
+![](angular.assets/2019-11-20-22-57-59.png)
 
 ### 2. Why would you Need Services
 
@@ -3247,15 +3158,19 @@ account.component.html
 <div class="row">
   <div class="col-xs-12 col-md-8 col-md-offset-2">
     <h5>{{ account.name }}</h5>
-    <hr>
+    <hr />
     <p>This account is {{ account.status }}</p>
-    <button class="btn btn-default" (click)="onSetTo('active')">Set to 'active'</button>
-    <button class="btn btn-default" (click)="onSetTo('inactive')">Set to 'inactive'</button>
-    <button class="btn btn-default" (click)="onSetTo('unknown')">Set to 'unknown'</button>
+    <button class="btn btn-default" (click)="onSetTo('active')">
+      Set to 'active'
+    </button>
+    <button class="btn btn-default" (click)="onSetTo('inactive')">
+      Set to 'inactive'
+    </button>
+    <button class="btn btn-default" (click)="onSetTo('unknown')">
+      Set to 'unknown'
+    </button>
   </div>
 </div>
-
-
 ```
 
 account.component.ts
@@ -3266,20 +3181,21 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  styleUrls: ['./account.component.css'],
 })
 export class AccountComponent {
-  @Input() account: {name: string, status: string};
+  @Input() account: { name: string; status: string };
   @Input() id: number;
-  @Output() statusChanged = new EventEmitter<{id: number, newStatus: string}>();
-
+  @Output() statusChanged = new EventEmitter<{
+    id: number;
+    newStatus: string;
+  }>();
 
   onSetTo(status: string) {
-    this.statusChanged.emit({id: this.id, newStatus: status});
+    this.statusChanged.emit({ id: this.id, newStatus: status });
     console.log('A server status changed, new status: ' + status);
   }
 }
-
 ```
 
 app.component.html
@@ -3288,17 +3204,19 @@ app.component.html
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-md-8 col-md-offset-2">
-      <app-new-account (accountAdded)="onAccountAdded($event)"></app-new-account>
-      <hr>
+      <app-new-account
+        (accountAdded)="onAccountAdded($event)"
+      ></app-new-account>
+      <hr />
       <app-account
         *ngFor="let acc of accounts; let i = index"
         [account]="acc"
         [id]="i"
-        (statusChanged)="onStatusChanged($event)"></app-account>
+        (statusChanged)="onStatusChanged($event)"
+      ></app-account>
     </div>
   </div>
 </div>
-
 ```
 
 app.component.ts
@@ -3309,52 +3227,49 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   accounts = [
     {
       name: 'Master Account',
-      status: 'active'
+      status: 'active',
     },
     {
       name: 'Testaccount',
-      status: 'inactive'
+      status: 'inactive',
     },
     {
       name: 'Hidden Account',
-      status: 'unknown'
-    }
+      status: 'unknown',
+    },
   ];
 
-  onAccountAdded(newAccount: {name: string, status: string}) {
+  onAccountAdded(newAccount: { name: string; status: string }) {
     this.accounts.push(newAccount);
   }
 
-  onStatusChanged(updateInfo: {id: number, newStatus: string}) {
+  onStatusChanged(updateInfo: { id: number; newStatus: string }) {
     this.accounts[updateInfo.id].status = updateInfo.newStatus;
   }
 }
-
 ```
 
 new-account.component.ts
 
 ```ts
 export class NewAccountComponent {
-  @Output() accountAdded = new EventEmitter<{name: string, status: string}>();
+  @Output() accountAdded = new EventEmitter<{ name: string; status: string }>();
 
   onCreateAccount(accountName: string, accountStatus: string) {
     this.accountAdded.emit({
       name: accountName,
-      status: accountStatus
+      status: accountStatus,
     });
     console.log('A server status changed, new status: ' + accountStatus);
   }
 }
 ```
-
-
 
 App create account and log => not duplicate
 Tạo file logging.service.ts
@@ -3362,14 +3277,14 @@ Tạo file logging.service.ts
 ```ts
 export class LoggingService {
   logStatusChange(status: string) {
-    console.log("A server status changed, new status: " + status);
+    console.log('A server status changed, new status: ' + status);
   }
 }
 ```
 
 // sau đó import vào tạo instance bằng new sử dụng bt => cách sai in angular
 
-![image-20200609122251587](angular.assets/image-20200609122251587.png)  
+![image-20200609122251587](angular.assets/image-20200609122251587.png)
 
 ### 3. Creating a Logging Service
 
@@ -3423,17 +3338,17 @@ accounts.service.ts
 export class AccountsService {
   accounts = [
     {
-      name: "Master Account",
-      status: "active"
+      name: 'Master Account',
+      status: 'active',
     },
     {
-      name: "Testaccount",
-      status: "inactive"
+      name: 'Testaccount',
+      status: 'inactive',
     },
     {
-      name: "Hidden Account",
-      status: "unknown"
-    }
+      name: 'Hidden Account',
+      status: 'unknown',
+    },
   ];
   constructor(private loggingService: LoggingService) {}
 
@@ -3452,18 +3367,18 @@ export class AccountsService {
 App.component.ts
 
 ```ts
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
-import { AccountsService } from "./accounts.service";
+import { AccountsService } from './accounts.service';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"],
-  providers: [AccountsService]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  providers: [AccountsService],
 })
 export class AppComponent implements OnInit {
-    // add
+  // add
   accounts: { name: string; status: string }[] = [];
 
   constructor(private accountsService: AccountsService) {}
@@ -3496,10 +3411,10 @@ new-account.component.ts
 
 ```ts
 @Component({
-  selector: "app-new-account",
-  templateUrl: "./new-account.component.html",
-  styleUrls: ["./new-account.component.css"],
-  providers: [LoggingService]
+  selector: 'app-new-account',
+  templateUrl: './new-account.component.html',
+  styleUrls: ['./new-account.component.css'],
+  providers: [LoggingService],
 })
 export class NewAccountComponent {
   constructor(
@@ -3508,7 +3423,7 @@ export class NewAccountComponent {
   ) {}
 
   onCreateAccount(accountName: string, accountStatus: string) {
-      // add
+    // add
     this.accountsService.addAccount(accountName, accountStatus);
     // this.loggingService.logStatusChange(accountStatus);
   }
@@ -3528,7 +3443,7 @@ export class AccountComponent {
   ) {}
 
   onSetTo(status: string) {
-      // add
+    // add
     this.accountsService.updateStatus(this.id, status);
     this.loggingService.logStatusChange(status);
   }
@@ -3539,11 +3454,11 @@ export class AccountComponent {
 
 Service được cung cấp cho 1 component và tất cả các con của nó => the same instance
 
-![](../root/img/2019-11-21-00-06-50.png)  
+![](angular.assets/2019-11-21-00-06-50.png)
 
 If we provide a service there, **the app module** does have a providers array, the same instance and that's important, the same instance of the class, of the service is available in our whole app, in all components, in all
 
-directives, in all other services where we maybe inject the service. Yes, we can inject services into services,  
+directives, in all other services where we maybe inject the service. Yes, we can inject services into services,
 
 I'll come back to this. The next level for example would be the app component, there the app component and
 
@@ -3659,7 +3574,6 @@ export class CounterService {
     console.log('Inactive to Active: ' + this.inactiveToActiveCounter);
   }
 }
-
 ```
 
 users.service.ts
@@ -3688,21 +3602,19 @@ export class UserService {
     this.counterService.incrementActiveToInactive();
   }
 }
-
 ```
 
 active-users.component
 
 ```ts
-
 export class ActiveUsersComponent implements OnInit {
   users: string[];
 
-    // add
+  // add
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-      // add
+    // add
     this.users = this.userService.activeUsers;
   }
 
@@ -3712,9 +3624,9 @@ export class ActiveUsersComponent implements OnInit {
 }
 ```
 
-Nhớ khai báo  providers: [UserService] in AppComponent
+Nhớ khai báo providers: [UserService] in AppComponent
 
-![image-20200609154044546](angular.assets/image-20200609154044546.png)  
+![image-20200609154044546](angular.assets/image-20200609154044546.png)
 
 Khai báo CounterService in app.modules
 
@@ -3766,25 +3678,25 @@ Tạo file recipe.service.ts và shopping-list.service.ts trong folder tương �
 recipe.service.ts
 
 ```ts
-import { EventEmitter, Injectable } from "@angular/core";
+import { EventEmitter, Injectable } from '@angular/core';
 
-import { Recipe } from "./recipe.model";
-import { Ingredient } from "../shared/ingredient.model";
-import { ShoppingListService } from "../shopping-list/shopping-list.service";
+import { Recipe } from './recipe.model';
+import { Ingredient } from '../shared/ingredient.model';
+import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Injectable()
 export class RecipeService {
   private recipes: Recipe[] = [
     new Recipe(
-      "A Test Recipe",
-      "This is simply a test",
-      "https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg"
+      'A Test Recipe',
+      'This is simply a test',
+      'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg'
     ),
     new Recipe(
-      "Another Test Recipe",
-      "This is simply a test",
-      "https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg"
-    )
+      'Another Test Recipe',
+      'This is simply a test',
+      'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg'
+    ),
   ];
 
   getRecipes() {
@@ -3899,14 +3811,14 @@ export class RecipesComponent implements OnInit {
 shopping-list.service.ts
 
 ```ts
-import { Ingredient } from "../shared/ingredient.model";
-import { EventEmitter } from "@angular/core";
+import { Ingredient } from '../shared/ingredient.model';
+import { EventEmitter } from '@angular/core';
 
 export class ShoppingListService {
   ingredientsChanged = new EventEmitter<Ingredient[]>();
   private ingredients: Ingredient[] = [
-    new Ingredient("Apples", 5),
-    new Ingredient("Tomatoes", 10)
+    new Ingredient('Apples', 5),
+    new Ingredient('Tomatoes', 10),
   ];
 
   getIngredients() {
@@ -3948,7 +3860,7 @@ Vào service thêm
 
 ```ts
 // add
-ingredientsChanged = new EventEmitter<Ingredient[]>();  
+ingredientsChanged = new EventEmitter<Ingredient[]>();
 
 addIngredient(ingredient: Ingredient) {
     this.ingredients.push(ingredient);
@@ -4082,10 +3994,14 @@ recipe-detail.component.html
 
 ```html
 <ul class="dropdown-menu">
-    <!-- add --> 
-   <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">To Shopping List</a></li>
-    <li><a href="#">Edit Recipe</a></li>
-    <li><a href="#">Delete Recipe</a></li>
+  <!-- add -->
+  <li>
+    <a (click)="onAddToShoppingList()" style="cursor: pointer;"
+      >To Shopping List</a
+    >
+  </li>
+  <li><a href="#">Edit Recipe</a></li>
+  <li><a href="#">Delete Recipe</a></li>
 </ul>
 ```
 
@@ -4132,7 +4048,7 @@ addIngredients(ingredients: Ingredient[]) {
 
 ### 1. Module Introduction
 
-![](../root/img/2019-11-22-00-33-37.png)
+![](angular.assets/2019-11-22-00-33-37.png)
 
 ### 3. Understanding the Example Project.html
 
@@ -4154,9 +4070,9 @@ App.module.ts
 import { Routes, RouterModule } from '@angular/router';
 
 const appRoutes: Routes = [
-  { path: "", component: HomeComponent },
-  { path: "users", component: UsersComponent },
-  { path: "servers", component: ServersComponent }
+  { path: '', component: HomeComponent },
+  { path: 'users', component: UsersComponent },
+  { path: 'servers', component: ServersComponent },
 ];
 
 // và phải khai báo
@@ -4164,7 +4080,7 @@ imports: [
   BrowserModule,
   FormsModule,
   // add
-  RouterModule.forRoot(appRoutes)
+  RouterModule.forRoot(appRoutes),
 ];
 ```
 
@@ -4225,13 +4141,11 @@ path
 
 `routerLink="servers"` là relative path sẽ append thêm vào url
 
-![image-20200628214050833](angular.assets/image-20200628214050833.png)  
+![image-20200628214050833](angular.assets/image-20200628214050833.png)
 
 Khi ấn vào reload sẽ báo lỗi vì /server/server k tìm thấy
 
-![image-20200628214248596](angular.assets/image-20200628214248596.png)  
-
-
+![image-20200628214248596](angular.assets/image-20200628214248596.png)
 
 Tại file servers.component.html
 
@@ -4241,8 +4155,6 @@ routerLink="/servers" // phải có dấu / mới load được vì nó là abso
 ../servers go up a level
 
 ```
-
-
 
 ### 7. Styling Active Router Links
 
@@ -4286,7 +4198,7 @@ export class HomeComponent implements OnInit {
 
   onLoadServer(id: number) {
     // complex calculation
-    this.router.navigate(["/servers"]);
+    this.router.navigate(['/servers']);
   }
 }
 ```
@@ -4371,32 +4283,27 @@ user.component.ts
 import { ActivatedRoute, Params } from '@angular/router';
 
 export class UserComponent implements OnInit, OnDestroy {
-  user: {id: number, name: string};
+  user: { id: number; name: string };
   paramsSubscription: Subscription;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.user = {
       id: this.route.snapshot.params['id'],
-      name: this.route.snapshot.params['name']
+      name: this.route.snapshot.params['name'],
     };
-      // add
-    this.paramsSubscription = this.route.params
-      .subscribe(
-        (params: Params) => {
-          this.user.id = params['id'];
-          this.user.name = params['name'];
-        }
-      );
+    // add
+    this.paramsSubscription = this.route.params.subscribe((params: Params) => {
+      this.user.id = params['id'];
+      this.user.name = params['name'];
+    });
   }
 
   ngOnDestroy() {
     this.paramsSubscription.unsubscribe();
   }
-
 }
-
 ```
 
 **Observable is an easy way to subscribe to some event may happen in the future, async** => should wait
@@ -4427,6 +4334,7 @@ Well once you left, this component will be destroyed and when you come back, a n
 destroying of the subscription for you
 
 Must unsubscribe when destroy Component
+
 ```ts
 // Add
 paramsSubscription: Subscription;
@@ -4452,22 +4360,25 @@ ngOnDestroy() {
 ```
 
 ### 14. Passing Query Parameters and Fragments
+
 ```ts
   { path: "servers/:id/edit", component: EditServersComponent }
 
 ```
+
 servers.component.html
+
 ```html
 <a
-        [routerLink]="['/servers', 5, 'edit']"
-        [queryParams]="{allowEdit: server.id === 3 ? '1' : '0'}"
-        fragment="loading"
-        href="#"
-        class="list-group-item"
-        *ngFor="let server of servers">
-        {{ server.name }}
-      </a>
-
+  [routerLink]="['/servers', 5, 'edit']"
+  [queryParams]="{allowEdit: server.id === 3 ? '1' : '0'}"
+  fragment="loading"
+  href="#"
+  class="list-group-item"
+  *ngFor="let server of servers"
+>
+  {{ server.name }}
+</a>
 ```
 
 Modify button Load server
@@ -4475,9 +4386,11 @@ Modify button Load server
 home.component.html
 
 ```html
-<button (click)="onLoadServer(1)">Load server 1<button>
+<button (click)="onLoadServer(1)">Load server 1<button></button></button>
 ```
+
 home.component.ts
+
 ```ts
 onLoadServer(id: number) {
     // complex calculation
@@ -4485,10 +4398,13 @@ onLoadServer(id: number) {
   }
 
 ```
+
 Localhost:4200/servers/5/edit?allowEdit=3#loading
 
 ### 15. Retrieving Query Parameters and Fragments
+
 edit-server.component.ts
+
 ```ts
 constructor(private serversService: ServersService,
               private route: ActivatedRoute, // add
@@ -4514,38 +4430,43 @@ constructor(private serversService: ServersService,
   }
 
 ```
+
 You **don't need to unsubscribe** here, Angular will handle it for you just like it did for params but this is how you can now get access to these extra features and how you can make sure that you don't miss
 
 ### 16. Practicing and some Common Gotchas
 
 users.component.html thêm
+
 ```html
 <a
-        [routerLink]="['/users', user.id, user.name]"
-        href="#"
-        class="list-group-item"
-        *ngFor="let user of users">
-        {{ user.name }}
-      </a>
-
+  [routerLink]="['/users', user.id, user.name]"
+  href="#"
+  class="list-group-item"
+  *ngFor="let user of users"
+>
+  {{ user.name }}
+</a>
 ```
+
 fix to only load **ServerComponent**
 
 servers.component.html
 
 ```html
 <a
-        [routerLink]="['/servers', server.id]"
-        [queryParams]="{allowEdit: server.id === 3 ? '1' : '0'}"
-        fragment="loading"
-        href="#"
-        class="list-group-item"
-        *ngFor="let server of servers">
-        {{ server.name }}
-      </a>
-
+  [routerLink]="['/servers', server.id]"
+  [queryParams]="{allowEdit: server.id === 3 ? '1' : '0'}"
+  fragment="loading"
+  href="#"
+  class="list-group-item"
+  *ngFor="let server of servers"
+>
+  {{ server.name }}
+</a>
 ```
+
 Server.component.ts
+
 ```ts
   constructor(private serversService: ServersService,
               private route: ActivatedRoute, // add
@@ -4567,84 +4488,94 @@ Server.component.ts
 ```
 
 Comment servers.component.html because of error khi chưa có id
+
 ```html
 <!-- <app-server></app-server> -->
-
 ```
+
 ### 17. Setting up Child (Nested) Routes
+
 servers.component.html
+
 ```html
 <div class="col-xs-12 col-sm-4">
-    // add
-    <router-outlet></router-outlet>
-    // comment
-    <!--<button class="btn btn-primary" (click)="onReload()">Reload Page</button>-->
-    <!--<app-edit-server></app-edit-server>-->
-    <!--<hr>-->
-    <!--&lt;!&ndash;<app-server></app-server>&ndash;&gt;-->
-  </div>
-
+  // add
+  <router-outlet></router-outlet>
+  // comment
+  <!--<button class="btn btn-primary" (click)="onReload()">Reload Page</button>-->
+  <!--<app-edit-server></app-edit-server>-->
+  <!--<hr>-->
+  <!--&lt;!&ndash;<app-server></app-server>&ndash;&gt;-->
+</div>
 ```
+
 ```ts
 const appRoutes: Routes = [
-  { path: "", component: HomeComponent },
-  { path: 'users', component: UsersComponent, children: [
-    { path: ':id/:name', component: UserComponent }
-  ] },
-  { path: "servers", component: ServersComponent, children: [
-    { path: ":id", component: ServerComponent },
-    { path: ":id/edit", component: EditServerComponent }
-  ] }
+  { path: '', component: HomeComponent },
+  {
+    path: 'users',
+    component: UsersComponent,
+    children: [{ path: ':id/:name', component: UserComponent }],
+  },
+  {
+    path: 'servers',
+    component: ServersComponent,
+    children: [
+      { path: ':id', component: ServerComponent },
+      { path: ':id/edit', component: EditServerComponent },
+    ],
+  },
 ];
-
 ```
+
 users.component.html
+
 ```html
 <div class="col-xs-12 col-sm-4">
-    <!--<app-user></app-user>-->
-    <router-outlet></router-outlet>
-  </div>
-
+  <!--<app-user></app-user>-->
+  <router-outlet></router-outlet>
+</div>
 ```
+
 ![image-20200609222917591](angular.assets/image-20200609222917591.png)
 
 ### 18. Using Query Parameters - Practice
 
 server.component.html
+
 ```html
 <h5>{{ server.name }}</h5>
 <p>Server status is {{ server.status }}</p>
 <button class="btn btn-primary" (click)="onEdit()">Edit Server</button>
-
 ```
 
 server.component.ts
+
 ```ts
 onEdit() {
     this.router.navigate(['edit'], {relativeTo: this.route, queryParamsHandling: 'preserve'});
   }
 
 ```
+
 relativeTo: this.route load đường dẫn hiện tại thêm /edit vào
 
 edit-server.component.ts
 
 ```ts
-this.route.queryParams
-      .subscribe(
-        (queryParams: Params) => {
-          this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
-        }
-      );
-
+this.route.queryParams.subscribe((queryParams: Params) => {
+  this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
+});
 ```
+
 edit-server.component.html
+
 ```html
 <h4 *ngIf="!allowEdit">You're not allowed to edit!</h4>
-<div *ngIf="allowEdit">
-
+<div *ngIf="allowEdit"></div>
 ```
-![image-20200609234204378](angular.assets/image-20200609234204378.png)  
+
+![image-20200609234204378](angular.assets/image-20200609234204378.png)
 
 Khi ấn vào edit btn
 
@@ -4656,39 +4587,46 @@ queryParamsHandling : 'merge'
 
 Now query params handling takes a string as a value and this could be merge, to merge our old query params
 
-with any new we might add here. Now we don't add any new ones, so we can simply choose preserve instead and preserve which will overwrite the default behavior which is to simply drop them and make sure that the old ones are kept.  
+with any new we might add here. Now we don't add any new ones, so we can simply choose preserve instead and preserve which will overwrite the default behavior which is to simply drop them and make sure that the old ones are kept.
 
-![image-20200628222433865](angular.assets/image-20200628222433865.png)  
+![image-20200628222433865](angular.assets/image-20200628222433865.png)
 
 allowEdit khi vào page Server vẫn được giữ nguyên qua edit server page
 
 ### 20. Redirecting and Wildcard Routes
+
 Tạo component page not found để url sai sẽ vào đây
 { path: "not-found", component: PageNotFoundComponent },
- { path: '**', redirectTo: '/not-found' } // phải để cuối cùng
+{ path: '\*\*', redirectTo: '/not-found' } // phải để cuối cùng
 
 ### 21. Important Redirection Path Matching.html
+
 In our example, we didn't encounter any issues when we tried to redirect the user. But that's not always the case when adding redirections.
 
-By default, Angular matches paths by prefix. That means, that the following route will match both /recipes  and just / 
+By default, Angular matches paths by prefix. That means, that the following route will match both /recipes and just /
 
 ```ts
-{ path: '', redirectTo: '/somewhere-else' } 
+{ path: '', redirectTo: '/somewhere-else' }
 
 ```
+
 Actually, Angular will give you an error here, because that's a common gotcha: This route will now ALWAYS redirect you! Why?
 
-Since the default matching strategy is "prefix" , Angular checks if the path you entered in the URL does start with the path specified in the route. Of course every path starts with ''  (Important: That's no whitespace, it's simply "nothing").
+Since the default matching strategy is "prefix" , Angular checks if the path you entered in the URL does start with the path specified in the route. Of course every path starts with '' (Important: That's no whitespace, it's simply "nothing").
 
 To fix this behavior, you need to change the matching strategy to "full" :
 
 ```ts
-{ path: '', redirectTo: '/somewhere-else', pathMatch: 'full' } 
+{ path: '', redirectTo: '/somewhere-else', pathMatch: 'full' }
 
 ```
-Now, you only get redirected, if the full path is ''  (so only if you got NO other content in your path in this example).
+
+Now, you only get redirected, if the full path is '' (so only if you got NO other content in your path in this example).
+
 ### 22. Outsourcing the Route Configuration
+
 Tạo file app-routing.module.ts
+
 ```ts
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -4707,37 +4645,50 @@ import { ServerResolver } from './servers/server/server-resolver.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'users', component: UsersComponent, children: [
-    { path: ':id/:name', component: UserComponent }
-  ] },
+  {
+    path: 'users',
+    component: UsersComponent,
+    children: [{ path: ':id/:name', component: UserComponent }],
+  },
   {
     path: 'servers',
     // canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
     component: ServersComponent,
     children: [
-    { path: ':id', component: ServerComponent, resolve: {server: ServerResolver} },
-    { path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuard] }
-  ] },
+      {
+        path: ':id',
+        component: ServerComponent,
+        resolve: { server: ServerResolver },
+      },
+      {
+        path: ':id/edit',
+        component: EditServerComponent,
+        canDeactivate: [CanDeactivateGuard],
+      },
+    ],
+  },
   // { path: 'not-found', component: PageNotFoundComponent },
-  { path: 'not-found', component: ErrorPageComponent, data: {message: 'Page not found!'} },
-  { path: '**', redirectTo: '/not-found' }
+  {
+    path: 'not-found',
+    component: ErrorPageComponent,
+    data: { message: 'Page not found!' },
+  },
+  { path: '**', redirectTo: '/not-found' },
 ];
 
 @NgModule({
   imports: [
     // RouterModule.forRoot(appRoutes, {useHash: true})
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-
-}
-
+export class AppRoutingModule {}
 ```
 
 Module
+
 ```ts
 imports: [
     BrowserModule,
@@ -4747,17 +4698,20 @@ imports: [
 
 
 ```
+
 ### 23. An Introduction to Guards
 
 ### 24. Protecting Routes with canActivate
+
 Tạo file auth-guard.service.ts
 we will define that angular will execute this code before a route is loaded
 
 ```ts
 canActivate(route: ActivatedRouteSnapshot,
-              state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean 
+              state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean
 
 ```
+
 return về Observable, run asynchronously
 auth.service.ts
 
@@ -4766,13 +4720,11 @@ export class AuthService {
   loggedIn = false;
 
   isAuthenticated() {
-    const promise = new Promise(
-      (resolve, reject) => {
-        setTimeout(() => {
-          resolve(this.loggedIn);
-        }, 800);
-      }
-    );
+    const promise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.loggedIn);
+      }, 800);
+    });
     return promise;
   }
 
@@ -4784,10 +4736,9 @@ export class AuthService {
     this.loggedIn = false;
   }
 }
-
 ```
 
-Thêm Injectable và constructor  
+Thêm Injectable và constructor
 
 auth-guard.service.ts
 
@@ -4797,7 +4748,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   Router,
-  CanActivateChild
+  CanActivateChild,
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
@@ -4808,30 +4759,30 @@ import { AuthService } from './auth.service';
 export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot,
-              state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.authService.isAuthenticated()
-      .then(
-        (authenticated: boolean) => {
-          if (authenticated) {
-            return true;
-          } else {
-            this.router.navigate(['/']);
-          }
-        }
-      );
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | boolean {
+    return this.authService.isAuthenticated().then((authenticated: boolean) => {
+      if (authenticated) {
+        return true;
+      } else {
+        this.router.navigate(['/']);
+      }
+    });
   }
 
-  canActivateChild(route: ActivatedRouteSnapshot,
-                   state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+  canActivateChild(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | boolean {
     return this.canActivate(route, state);
   }
 }
-
-
-
 ```
-Vào app-routing.module  thêm canActivate
+
+Vào app-routing.module thêm canActivate
+
 ```ts
 {
     path: 'servers',
@@ -4852,7 +4803,7 @@ Nhớ khai báo
 
 Vào tab server, back to home after 800s
 
-Declare new service in module 
+Declare new service in module
 
 In the last lecture, we added the canActivate guard and it was working fine but it was working for our whole servers path here.
 
@@ -4878,7 +4829,7 @@ There is another guard we can use, it's pretty similar to canActivate, it's call
 
 **Khi bạn đang edit muốn leave page => ask for confirmation**
 
-Implement thêm CanActivateChild 
+Implement thêm CanActivateChild
 
 ```ts
 @Injectable()
@@ -4894,6 +4845,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 }
 
 ```
+
 Thêm `canActivateChild: [AuthGuard]`, rồi comment lại `canActivate: [AuthGuard],`
 khi click vào link child routes ở tab server thì redirect to home page
 
@@ -4904,6 +4856,7 @@ So with this in place, we should now be able to go to servers, this works but if
 server, now we get redirected back because now only the child routes are protected, something I can also prove by trying to go to /1/edit, this also navigates us back.
 
 ### 26. Using a Fake Auth Service
+
 Vào home tạo btn login và log out
 
 home
@@ -4934,7 +4887,7 @@ Sau khi log in mới vào tab server được
 
 now I want to focus on the control of whether you are allowed to leave a route or not.
 
-Now we for example are allowed to edit the dev server  and here, if we actually changed something, I want to ask the user if he accidentally clicks back or somewhere else, if you really want to leave or if you maybe forgot to click update server first, so this convenience method of keeping the user from accidentally navigating away.
+Now we for example are allowed to edit the dev server and here, if we actually changed something, I want to ask the user if he accidentally clicks back or somewhere else, if you really want to leave or if you maybe forgot to click update server first, so this convenience method of keeping the user from accidentally navigating away.
 
 edit-server.component.ts
 
@@ -4949,41 +4902,51 @@ onUpdateServer() {
   }
 
 ```
+
 Tạo file edit-server/ can-deactivate-guard.service.ts
+
 ```ts
 import { Observable } from 'rxjs/Observable';
-import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+  CanDeactivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 
 export interface CanComponentDeactivate {
   canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean;
 }
 
-export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate> {
+export class CanDeactivateGuard
+  implements CanDeactivate<CanComponentDeactivate> {
+  canDeactivate(
+    component: CanComponentDeactivate,
+    currentRoute: ActivatedRouteSnapshot,
+    currentState: RouterStateSnapshot,
 
-  canDeactivate(component: CanComponentDeactivate,
-                currentRoute: ActivatedRouteSnapshot,
-                currentState: RouterStateSnapshot,
-              
-                nextState?: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      // ?: is optional
+    nextState?: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | boolean {
+    // ?: is optional
     return component.canDeactivate();
   }
 }
-
 ```
 
 app-routing.module.ts
+
 ```ts
     { path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuard] }
 
 ```
-app.module.ts
-```ts
-providers:[ServersService, AuthService, AuthGuard, CanDeactivateGuard]
 
+app.module.ts
+
+```ts
+providers: [ServersService, AuthService, AuthGuard, CanDeactivateGuard];
 ```
 
 edit-server.component.ts
+
 ```ts
 implements CanComponentDeactivate
 canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
@@ -5003,11 +4966,13 @@ const id = +this.route.snapshot.params['id'];
     // Subscribe route params to update the id if params change
 
 ```
+
 ![image-20200610090229308](angular.assets/image-20200610090229308.png)
 
 ### 28. Passing Static Data to a Route
 
 Tạo component error page and declare
+
 ```ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
@@ -5015,32 +4980,30 @@ import { ActivatedRoute, Data } from '@angular/router';
 @Component({
   selector: 'app-error-page',
   templateUrl: './error-page.component.html',
-  styleUrls: ['./error-page.component.css']
+  styleUrls: ['./error-page.component.css'],
 })
 export class ErrorPageComponent implements OnInit {
   errorMessage: string;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     // this.errorMessage = this.route.snapshot.data['message'];
-    this.route.data.subscribe(
-      (data: Data) => {
-        this.errorMessage = data['message'];
-      }
-    );
+    this.route.data.subscribe((data: Data) => {
+      this.errorMessage = data['message'];
+    });
   }
-
 }
-
 ```
 
 app-routing.module.ts
+
 ```ts
 // { path: 'not-found', component: PageNotFoundComponent },
   { path: 'not-found', component: ErrorPageComponent, data: {message: 'Page not found!'} },
 
 ```
+
 Khai báo ErrorPageComponent
 
 So here, you could then also set it equal to data message, both would work depending on whether it may change or not,
@@ -5050,9 +5013,15 @@ so yes, both should work.
 I will comment out the first use case here but again, if it doesn't change, the using the snapshot is absolutely correct or fine.
 
 ### 29. Resolving Dynamic Data with the resolve Guard
+
 Tạo file server-resolver.service.ts
+
 ```ts
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+  Resolve,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 
@@ -5068,24 +5037,31 @@ interface Server {
 export class ServerResolver implements Resolve<Server> {
   constructor(private serversService: ServersService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Server> | Promise<Server> | Server {
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<Server> | Promise<Server> | Server {
     return this.serversService.getServer(+route.params['id']);
   }
 }
-
 ```
 
 Khai báo module
+
 ```ts
 providers: [ServersService, AuthService, AuthGuard, CanDeactivateGuard, ServerResolver],
 
 ```
+
 file routing
+
 ```ts
     { path: ':id', component: ServerComponent, resolve: {server: ServerResolver} },
 
 ```
+
 server.component.ts
+
 ```ts
 ngOnInit() {
     this.route.data
@@ -5105,9 +5081,11 @@ ngOnInit() {
   }
 
 ```
+
 Sử dụng cho async data before component render
 
 ### 30. Understanding Location Strategies
+
 URL will be parses by the server first not angular =>care about localhost:4200/# and ignore the rest don't return 404 error
 `RouterModule.forRoot(appRoutes, {useHash: true})`
 
@@ -5121,24 +5099,24 @@ What this hashtag will do is, it informs your web server, hey only care about th
 
 so all the parts thereafter will be ignored by your web server.
 
-Therefore this will run even on servers which don't return the index.html file in case of 404 errors 
+Therefore this will run even on servers which don't return the index.html file in case of 404 errors
 
 because they will only care about the part in front of the hashtag.
 
-![image-20200610093847143](angular.assets/image-20200610093847143.png)  
-
-
+![image-20200610093847143](angular.assets/image-20200610093847143.png)
 
 ### 31. Wrap Up
 
 ## 12. Course Project - Routing
 
 ### 1. Planning the General Structure
-![](../root/img/2019-11-23-10-29-39.png)
+
+![](angular.assets/2019-11-23-10-29-39.png)
 
 ### 2. Setting Up Routes
 
 Tạo file app-routing.module.ts
+
 ```ts
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -5151,23 +5129,20 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
-  { path: 'recipes', component: RecipesComponent},
+  { path: 'recipes', component: RecipesComponent },
   { path: 'shopping-list', component: ShoppingListComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-
-}
-
+export class AppRoutingModule {}
 ```
 
 pathMatch: 'full' nếu không bất kì path nào cũng redirect nên báo lỗi
 
-![image-20200610095808083](angular.assets/image-20200610095808083.png)  
+![image-20200610095808083](angular.assets/image-20200610095808083.png)
 
 Khai báo module
 
@@ -5179,56 +5154,60 @@ imports: [
   ],
 
 ```
+
 app.component.html
+
 ```html
 <app-header (featureSelected)="onNavigate($event)"></app-header>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-    <!-- thay cho if-->
+      <!-- thay cho if-->
       <router-outlet></router-outlet>
     </div>
   </div>
 </div>
 
-
 <router-outlet></router-outlet> component được render
-
 ```
 
 ### 3. Adding Navigation to the App
-header.component.html
-```html
-<li routerLinkActive ="active"><a routerLink="/recipes">Recipes</a>
-</li>
-<li routerLinkActive="active"><a routerLink="/shopping-list">Shopping List</a></li>
 
+header.component.html
+
+```html
+<li routerLinkActive="active"><a routerLink="/recipes">Recipes</a></li>
+<li routerLinkActive="active">
+  <a routerLink="/shopping-list">Shopping List</a>
+</li>
 ```
+
 header.component.ts sửa thành
+
 ```ts
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html'
+  templateUrl: './header.component.html',
 })
 export class HeaderComponent {
   // comment
   // @Output() featureSelected = new EventEmitter<string>();
-
   // onSelect(feature: string) {
   //   this.featureSelected.emit(feature);
   // }
 }
-
 ```
 
 ### 4. Marking Active Routes
+
 Thêm routerLinkActive
 
 ![image-20200610110625719](angular.assets/image-20200610110625719.png)
 
 ### 5. Fixing Page Reload Issues
+
 Khi bấm vào list recipe thì page sẽ bị load lại
 Vào file recipe-item.component.html, recipe-detail.component.html, header.component.html xóa `href=#`
 
@@ -5237,45 +5216,53 @@ Vào file recipe-item.component.html, recipe-detail.component.html, header.compo
   style="cursor: pointer;"
   [routerLink]="[index]"
   routerLinkActive="active"
-  class="list-group-item clearfix">
+  class="list-group-item clearfix"
+>
   <div class="pull-left">
     <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
     <p class="list-group-item-text">{{ recipe.description }}</p>
   </div>
   <span class="pull-right">
-        <img
-          [src]="recipe.imagePath"
-          alt="{{ recipe.name }}"
-          class="img-responsive"
-          style="max-height: 50px;">
-      </span>
+    <img
+      [src]="recipe.imagePath"
+      alt="{{ recipe.name }}"
+      class="img-responsive"
+      style="max-height: 50px;"
+    />
+  </span>
 </a>
-
 ```
 
 Thêm style="cursor: pointer;"
 
 ### 6. Child Routes Challenge
+
 ```ts
 const appRoutes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
-    // add 
-  { path: 'recipes', component: RecipesComponent, children: [
-    { path: '', component: RecipeStartComponent },
-    { path: 'new', component: RecipeEditComponent },
-    { path: ':id', component: RecipeDetailComponent },
-    { path: ':id/edit', component: RecipeEditComponent },
-  ] },
+  // add
+  {
+    path: 'recipes',
+    component: RecipesComponent,
+    children: [
+      { path: '', component: RecipeStartComponent },
+      { path: 'new', component: RecipeEditComponent },
+      { path: ':id', component: RecipeDetailComponent },
+      { path: ':id/edit', component: RecipeEditComponent },
+    ],
+  },
   { path: 'shopping-list', component: ShoppingListComponent },
 ];
-
 ```
+
 ### 7. Adding Child Routing Together
+
 ```ts
 ng g c recipes/recipe-start
 ```
 
 Nội dung file html
+
 ```html
 <h3>Please select a Recipe!</h3>
 ```
@@ -5292,10 +5279,12 @@ recipes.component.html
     <router-outlet></router-outlet>
   </div>
 </div>
-
 ```
+
 now cannot run app load detail recipe
+
 ### 8. Configuring Route Paramieters
+
 Remove event select item in recipe-item.component.html
 recipe-detail.component.ts
 
@@ -5303,27 +5292,24 @@ recipe-detail.component.ts
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   id: number;
-    
+
   // xóa  @Input() recipe: Recipe;
 
-  constructor(private recipeService: RecipeService,
-              private route: ActivatedRoute,
-              private router: Router) {
-  }
+  constructor(
+    private recipeService: RecipeService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.route.params
-      .subscribe(
-        (params: Params) => {
-          this.id = +params['id'];
-          this.recipe = this.recipeService.getRecipe(this.id);
-        }
-      );
+    this.route.params.subscribe((params: Params) => {
+      this.id = +params['id'];
+      this.recipe = this.recipeService.getRecipe(this.id);
+    });
   }
-
 }
-
 ```
+
 Vào recipe xóa các event không cần thiết
 recipe.service
 
@@ -5333,8 +5319,11 @@ getRecipe(index: number) {
   }
 
 ```
+
 ### 9. Passing Dynamic Parameters to Links
+
 recipe-item.component.html
+
 ```html
 <a
   style="cursor: pointer;"
@@ -5357,9 +5346,10 @@ recipe-item.component.html
 
 ```
 
-Thêm ở file recipe-item.component.ts:  `@Input() index: number;`
+Thêm ở file recipe-item.component.ts: `@Input() index: number;`
 
 recipe-list.component.html
+
 ```html
 <div class="col-xs-12">
     <app-recipe-item
@@ -5370,75 +5360,85 @@ recipe-list.component.html
   </div>
 
 ```
+
 ### 10. Styling Active Recipe Items
+
 ### 11. Adding Editing Routes
+
 Tạo component recipe-edit
+
 ```ts
 ng g c recepies/recipe-edit --spec false
 
 ```
-Vào recipe-list thêm
-```html
- <div class="col-xs-12">
-    <button class="btn btn-success" (click)="onNewRecipe()">New Recipe</button>
-  </div>
 
+Vào recipe-list thêm
+
+```html
+<div class="col-xs-12">
+  <button class="btn btn-success" (click)="onNewRecipe()">New Recipe</button>
+</div>
 ```
+
 ```ts
 export class RecipeListComponent implements OnInit {
   recipes: Recipe[];
 
-  constructor(private recipeService: RecipeService,
-              private router: Router,
-              private route: ActivatedRoute) {
-  }
+  constructor(
+    private recipeService: RecipeService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.recipes = this.recipeService.getRecipes();
   }
 
   onNewRecipe() {
-    this.router.navigate(['new'], {relativeTo: this.route}); // current route
+    this.router.navigate(['new'], { relativeTo: this.route }); // current route
   }
 }
-
 ```
+
 Để new lên trước nếu không nó sẽ nhận new là id mà parse => err
+
 ```ts
 	{ path: 'new', component: RecipeEditComponent },
     { path: ':id', component: RecipeDetailComponent },
     { path: ':id/edit', component: RecipeEditComponent },
 
 ```
+
 ### 12. Retrieving Route Parameters
+
 recipe-edit.component.ts
+
 ```ts
 export class RecipeEditComponent implements OnInit {
   id: number;
   editMode = false;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.route.params
-      .subscribe(
-        (params: Params) => {
-          this.id = +params['id'];
-          this.editMode = params['id'] != null; // pb với new
-        }
-      );
+    this.route.params.subscribe((params: Params) => {
+      this.id = +params['id'];
+      this.editMode = params['id'] != null; // pb với new
+    });
   }
 }
-
 ```
+
 ### 13. Programmatic Navigation to the Edit Page
-recipe-detail.component.html
-```html
-<li><a style="cursor: pointer;" (click)="onEditRecipe()">Edit
- Recipe</a></li>
 
+recipe-detail.component.html
+
+```html
+<li><a style="cursor: pointer;" (click)="onEditRecipe()">Edit Recipe</a></li>
 ```
+
 recipe-detail.component.ts
+
 ```ts
 constructor(private recipeService: RecipeService,
               private route: ActivatedRoute,
@@ -5452,6 +5452,7 @@ onEditRecipe() {
 
 
 ```
+
 ### 14. One Note about Route Observables
 
 Now as I explained, you don't need to clean up the subscription here, I just want to bring it to your
@@ -5463,6 +5464,7 @@ In other cases where you use your own observables, observables you created and n
 therefore, you will need to clean up the subscription.
 
 ### 15. Project Cleanup.html
+
 There's one thing I forgot to clean up here (will be cleaned up later in the course). Feel free to do the cleanup right now though.
 
 Our app.component.html file looks like that:
@@ -5476,14 +5478,11 @@ Our app.component.html file looks like that:
     </div>
   </div>
 </div>
-
 ```
 
-The `(featureSelected)="..."`  event listener is a relict of our "old" navigation approach using ngIf. We no longer need it, so feel free to change this template to:
+The `(featureSelected)="..."` event listener is a relict of our "old" navigation approach using ngIf. We no longer need it, so feel free to change this template to:
 
 ```html
-
-
 <app-header></app-header>
 <div class="container">
   <div class="row">
@@ -5492,13 +5491,13 @@ The `(featureSelected)="..."`  event listener is a relict of our "old" navigatio
     </div>
   </div>
 </div>
-
 ```
 
 ## 13. Understanding Observables
 
 ### 1. Module Introduction
-![](../root/img/2019-11-23-15-33-46.png)  
+
+![](angular.assets/2019-11-23-15-33-46.png)
 
 So what is an observable? An **observable** basically can be thought of as a data source.
 
@@ -5530,18 +5529,17 @@ Angular uses them a lot and actually, observables have one major advantage,
 
 their operators, which I will show later in the section too. Back to this slide,
 
-
 ### 2. Analyzing Angular Observables
 
-![image-20200610140954649](angular.assets/image-20200610140954649.png)  
+![image-20200610140954649](angular.assets/image-20200610140954649.png)
 
 user.component.ts
+
 ```ts
 export class UserComponent implements OnInit {
   id: number;
 
-  constructor(private route: ActivatedRoute) {
-  }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -5549,8 +5547,8 @@ export class UserComponent implements OnInit {
     });
   }
 }
-
 ```
+
 So that's how this built-in observable works and how you can think about it, params is the observable, it's that stream of data that gives us new values.
 
 Now that's all nice and Angular will heavily use such observables and there you will never need
@@ -5571,17 +5569,15 @@ import { interval, Subscription } from 'rxjs';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-
   private firstObsSubscription: Subscription;
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit() {
-    this.firstObsSubscription = interval(1000).subscribe(count => {
+    this.firstObsSubscription = interval(1000).subscribe((count) => {
       console.log(count);
     });
   }
@@ -5589,11 +5585,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.firstObsSubscription.unsubscribe();
   }
-
 }
-
-
 ```
+
 **memory leak**
 
 Hàm interval sau 1s sẽ emit event, khi vào trang chủ sẽ tự động tăng biến count nếu quay lại thì sẽ có thêm 1 biến đếm bắt đầu từ 0 và tăng song song => destroy khắc phục memory leak
@@ -5601,7 +5595,9 @@ Hàm interval sau 1s sẽ emit event, khi vào trang chủ sẽ tự động tă
 Param k cần unsubscribe bởi vì nó được cung cấp bởi angular nên không cần làm thủ công
 
 ### 4. Building a Custom Observable
+
 home.component.ts
+
 ```ts
 ngOnInit() {
     // this.firstObsSubscription = interval(1000).subscribe(count => {
@@ -5636,6 +5632,7 @@ ngOnInit() {
   }
 
 ```
+
 Now what's an **observer**?
 
 Now you heard about the observer in the first video of this module. The observer in the end is a part
@@ -5666,9 +5663,7 @@ hood and in the end, they all work a bit like that.
 
 ### 7. Understanding Operators
 
-
-
-![](../root/img/2019-11-23-16-02-35.png)  
+![](angular.assets/2019-11-23-16-02-35.png)
 
 Operators are the magic feature of the RxJS library and they are the thing that really turn observable
 
@@ -5686,26 +5681,32 @@ subscription but there's a more elegant way. Instead of setting up that subscrip
 
 operators in between.
 
-![image-20200610143554172](angular.assets/image-20200610143554172.png)  
-
-
+![image-20200610143554172](angular.assets/image-20200610143554172.png)
 
 ```ts
-this.firstObsSubscription = customIntervalObservable.pipe(filter(data
- => {
+this.firstObsSubscription = customIntervalObservable
+  .pipe(
+    filter((data) => {
       return data > 0;
-    }), map((data: number) => {
+    }),
+    map((data: number) => {
       return 'Round: ' + (data + 1);
-    })).subscribe(data => {
+    })
+  )
+  .subscribe(
+    (data) => {
       console.log(data);
-    }, error => {
+    },
+    (error) => {
       console.log(error);
       alert(error.message);
-    }, () => {
+    },
+    () => {
       console.log('Completed!');
-    });
-
+    }
+  );
 ```
+
 https://www.academind.com/learn/javascript/understanding-rxjs/
 
 https://www.learnrxjs.io/
@@ -5723,13 +5724,16 @@ As a side note, if you want to learn more about RxJS and operators and so on, yo
 page, academind.com and there on the Learn Javascript, you'll find a complete series on RxJS which introduces you to RxJS and to operators as well.
 
 ### 8. Subjects
+
 user.component.html
+
 ```html
 <p>User with <strong>ID {{ id }}</strong> was loaded</p>
 <button class="btn btn-primary" (click)="onActivate()">Activate</button>
-
 ```
+
 user.component.ts
+
 ```ts
 constructor(private route: ActivatedRoute, private userService: UserSe
 rvice) {
@@ -5746,44 +5750,47 @@ rvice) {
     this.userService.activatedEmitter.next(true);
   }
 ```
+
 user.service.ts
+
 ```ts
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class UserService {
   //activatedEmitter = new EvenEmitter<boolean>(); cách cũ
   activatedEmitter = new Subject<boolean>();
 }
-
-
 ```
+
 app.component.ts
+
 ```ts
 export class AppComponent implements OnInit, OnDestroy {
   userActivated = false;
   private activatedSub: Subscription;
 
-  constructor(private userService: UserService) {
-  }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.activatedSub = this.userService.activatedEmitter.subscribe(didActivate => {
-      this.userActivated = didActivate;
-    });
+    this.activatedSub = this.userService.activatedEmitter.subscribe(
+      (didActivate) => {
+        this.userActivated = didActivate;
+      }
+    );
   }
 
   ngOnDestroy(): void {
     this.activatedSub.unsubscribe();
   }
 }
-
 ```
+
 app.component.html
 
 ```html
-  <p *ngIf="userActivated">Activated!</p>
+<p *ngIf="userActivated">Activated!</p>
 ```
 
 This is the old approach with the event emitter and this is an approach you could use but there is a
@@ -5796,9 +5803,9 @@ be emitted, in this case a boolean.
 
 So it's very similar to event emitter thus far.
 
-![](../root/img/2019-11-23-16-22-39.png)
+![](angular.assets/2019-11-23-16-22-39.png)
 
-=> 
+=>
 Recommend
 **If use @Output not use Subject**
 
@@ -5815,25 +5822,29 @@ If you're not subscribing to an event emitter, then it probably is an output,
 ### 9. Wrap Up
 
 ### 10. Useful Resources & Links.html
-Useful Resources:
-•	Official Docs: https://rxjs-dev.firebaseapp.com/
-•	RxJS Series: https://academind.com/learn/javascript/understanding-rxjs/
-•	Updating to RxJS 6: https://academind.com/learn/javascript/rxjs-6-what-changed/
 
+Useful Resources:
+• Official Docs: https://rxjs-dev.firebaseapp.com/
+• RxJS Series: https://academind.com/learn/javascript/understanding-rxjs/
+• Updating to RxJS 6: https://academind.com/learn/javascript/rxjs-6-what-changed/
 
 ## 14. Course Project - Observables
+
 EventEmitter push new info from A to B
 Vào app.component.ts và .html xóa hàm onNavigate
 
 shopping-list.service.ts
+
 ```ts
 export class ShoppingListService {
   // add
   ingredientsChanged = new Subject<Ingredient[]>();
 ```
- thay hết emit => next
+
+thay hết emit => next
 
 shopping-list.component.ts
+
 ```ts
 export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients: Ingredient[];
@@ -5859,11 +5870,12 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   }
 }
 
- xóa recipeSelected = new EventEmitter<Recipe>(); trong service và 
+ xóa recipeSelected = new EventEmitter<Recipe>(); trong service và
 recipes component
 recipes.component.ts vẫn subscribe bình thường
 
 ```
+
 Xem lai recipes.component.ts xoa vi da add routing in item-recipe
 
 => xóa subscribe đi vì đã SD routing cho load recipe
@@ -5871,7 +5883,9 @@ Xem lai recipes.component.ts xoa vi da add routing in item-recipe
 ### 1. Improving the Reactive Service with Observables (Subjects)
 
 ### 2. Changed the Subscription Name.html
+
 Don't wonder - I changed the `igChangeSub` property to just subscription. So if you see that name change in code in future videos, that's why. Other than that, nothing changed!
+
 ## 15. Handling Forms in Angular Apps
 
 ### 1. Module Introduction
@@ -5881,7 +5895,8 @@ Don't wonder - I changed the `igChangeSub` property to just subscription. So if 
 ![image-20200610162107124](angular.assets/image-20200610162107124.png)
 
 ### 3. Template-Driven (TD) vs Reactive Approach
-![](../root/img/2019-11-23-21-58-25.png)  
+
+![](angular.assets/2019-11-23-21-58-25.png)
 
 It offers the **template driven approach**, which is called like this because there, you simply set up your form in the template, in HTML code and Angular will automatically infer the structure of your form, will infer which controls your forms has, which inputs and makes it easy for you to get started quickly.
 
@@ -5891,9 +5906,7 @@ There, you actually define the structure of the form in TypeScript code, you als
 
 ### 4. An Example Form
 
-![image-20200610162542106](angular.assets/image-20200610162542106.png)  
-
-
+![image-20200610162542106](angular.assets/image-20200610162542106.png)
 
 ### 5. TD Creating the Form and Registering the Controls
 
@@ -5904,37 +5917,33 @@ This is key to understand, you can use it to get two-way data binding but it act
 Now for this to work, for this to be recognized as a control in your form, we need to give Angular one other piece of information, the name of this control.
 
 Import FormsModule
+
 ```ts
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     // Add
     FormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
-
+export class AppModule {}
 ```
+
 Sau đó vào thẻ input thêm ngModel(is not two-way data binding) và name attr in HTML
-```html
-<input
-              type="email"
-              id="email"
-              class="form-control"
-              ngModel
-              name="email">
 
+```html
+<input type="email" id="email" class="form-control" ngModel name="email" />
 ```
+
 **ngModel tell angular this is a control, not two-way data binding**
 
 ### 6. TD Submitting and Using the Form
+
 File html
 **ngSubmit is directive**
 
@@ -5947,15 +5956,16 @@ so we could place #f on the form element and now we could access this form eleme
 reference in our template and we could pass f as an argument to the onSubmit method and print it there.
 
 ```html
-      <form (ngSubmit)="onSubmit()" #f="ngForm">
-
+<form (ngSubmit)="onSubmit()" #f="ngForm"></form>
 ```
+
 `#f="ngForm">` : cho phép truy cập vào form
 Nếu để #f thì phải truyền như tham số vào hàm onSubmit, ghi log ra để xem
 
 ![image-20200628235549476](angular.assets/image-20200628235549476.png)
 
 app.component.ts
+
 ```ts
   // cach 1
   // <form (ngSubmit)="onSubmit(f)" #f>
@@ -5963,7 +5973,7 @@ app.component.ts
   // onSubmit(f: HTMLFormElement) {   Nếu để #f
   //   console.log(f);
   // }
-  
+
   // cach 2
   // <form (ngSubmit)="onSubmit(f)" #f="ngForm">
 
@@ -5974,12 +5984,12 @@ app.component.ts
 
 ```
 
-![image-20200610164518463](angular.assets/image-20200610164518463.png)  
+![image-20200610164518463](angular.assets/image-20200610164518463.png)
 
 cách 2 mới in ra được value còn cách 1 print thẳng form ra luôn
 
-
 ### 7. TD Understanding Form State
+
 dirty, value, valid, controls
 
 **Dirty** for example is **true** because we changed something about that form.
@@ -5995,9 +6005,10 @@ added any validators, so it isn't invalid, it is indeed valid.
 ![image-20200629000018474](angular.assets/image-20200629000018474.png)
 
 ### 8. TD Accessing the Form with @ViewChild
+
 Nếu không truyền tham số vào hàm thì sử dụng @ViewChild => access local ref
 
-Nhưng bên file html phải là `  <form (ngSubmit)="onSubmit()" #f="ngForm">`
+Nhưng bên file html phải là ` <form (ngSubmit)="onSubmit()" #f="ngForm">`
 
 ```ts
 
@@ -6015,51 +6026,64 @@ Nhưng bên file html phải là `  <form (ngSubmit)="onSubmit()" #f="ngForm">`
   }
 
 ```
+
 ### 9. TD Adding Validation to check User Input
+
 Thêm require, email => nhập giá trị hợp lên ghi log ra console giá trị valid = true và F12 để kiểm tra angular sẽ thêm các class
 email la 1 directive
 
 ![image-20200610165635460](angular.assets/image-20200610165635460.png)
 
 ### 10. Built-in Validators & Using HTML5 Validation.html
-Which Validators do ship with Angular? 
+
+Which Validators do ship with Angular?
 
 Check out the Validators class: https://angular.io/api/forms/Validators - these are all built-in validators, though that are the methods which actually get executed (and which you later can add when using the reactive approach).
 
 For the template-driven approach, you need the directives. You can find out their names, by searching for "validator" in the official docs: https://angular.io/api?type=directive - everything marked with "D" is a directive and can be added to your template.
 
-Additionally, you might also want to enable HTML5 validation (by default, Angular disables it). You can do so by adding the ngNativeValidate  to a control in your template.
-### 11. TD Using the Form State
-```html
-<button
-          class="btn btn-primary"
-          type="submit"
-          [disabled]="!f.valid">Submit</button>
+Additionally, you might also want to enable HTML5 validation (by default, Angular disables it). You can do so by adding the ngNativeValidate to a control in your template.
 
+### 11. TD Using the Form State
+
+```html
+<button class="btn btn-primary" type="submit" [disabled]="!f.valid">
+  Submit
+</button>
 ```
+
 File css
+
 ```cs
 input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
 
 ```
+
 .ng-touched assure user had clicked in it
+
 ### 12. TD Outputting Validation Error Messages
+
 ```html
 <input
-              type="email"
-              id="email"
-              class="form-control"
-              ngModel
-              name="email"
-              required
-              email
-              #email="ngModel">
-<span class="help-
-block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
-
+  type="email"
+  id="email"
+  class="form-control"
+  ngModel
+  name="email"
+  required
+  email
+  #email="ngModel"
+/>
+<span
+  class="help-
+block"
+  *ngIf="!email.valid && email.touched"
+  >Please enter a valid email!</span
+>
 ```
+
 Thêm local reference `#email=”ngModel”`
 ngModel is a directive
 
@@ -6070,40 +6094,47 @@ So just like the form directive automatically added by Angular when it detects a
 for us on the overarching form by accessing ngModel.
 
 ### 13. TD Set Default Values with ngModel Property Binding
-Thêm biến defaultQuestion ở file ts và để ngModel trong dấu [] là prop binding
-```html
-<div class="form-group">
-          <label for="secret">Secret Questions</label>
-          <select
-            id="secret"
-            class="form-control"
-            [ngModel]="defaultQuestion"
-            name="secret">
-            <option value="pet">Your first Pet?</option>
-            <option value="teacher">Your first teacher?</option>
-          </select>
-        </div>
 
-```
-### 14. TD Using ngModel with Two-Way-Binding
-add html
+Thêm biến defaultQuestion ở file ts và để ngModel trong dấu [] là prop binding
+
 ```html
 <div class="form-group">
-          <textarea
-            name="questionAnswer"
-            rows="3"
-            class="form-control"
-            [(ngModel)]="answer"></textarea>
-        </div>
-        <p>Your reply: {{ answer }}</p>
+  <label for="secret">Secret Questions</label>
+  <select
+    id="secret"
+    class="form-control"
+    [ngModel]="defaultQuestion"
+    name="secret"
+  >
+    <option value="pet">Your first Pet?</option>
+    <option value="teacher">Your first teacher?</option>
+  </select>
+</div>
+```
+
+### 14. TD Using ngModel with Two-Way-Binding
+
+add html
+
+```html
+<div class="form-group">
+  <textarea
+    name="questionAnswer"
+    rows="3"
+    class="form-control"
+    [(ngModel)]="answer"
+  ></textarea>
+</div>
+<p>Your reply: {{ answer }}</p>
 ```
 
 ```ts
 defaultQuestion = 'teacher';
-  answer = '';
-
+answer = '';
 ```
+
 3 type:
+
 - No binding: is a control
 - One way binding
 - Two way binding
@@ -6113,10 +6144,12 @@ this is still part of this value object, it just is updated with every keystroke
 So two-way binding is still possible, you can still use ngModel with two-way binding and with that, you saw all three forms. No binding to just tell Angular that an input is a control, one-way binding to give that control a default value and two-way binding to instantly output it or do whatever you want to do with that value.
 
 ### 15. TD Grouping Form Controls
+
 Sử dụng ngModelGroup để group sau này truy cập ra phải .userData
 userData is local reference
+
 ```html
-      <form (ngSubmit)="onSubmit()" #f="ngForm"> 
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
 		<div
           id="user-data"
           // Add
@@ -6156,23 +6189,20 @@ userData is local reference
 ```
 
 ### 16. TD Handling Radio Buttons
-  genders = ['male', 'female'];
+
+genders = ['male', 'female'];
 
 ```html
 <div class="radio" *ngFor="let gender of genders">
-          <label>
-            <input
-              type="radio"
-              name="gender"
-              ngModel
-              [value]="gender"
-              required>
-            {{ gender }}
-          </label>
-        </div>
-
+  <label>
+    <input type="radio" name="gender" ngModel [value]="gender" required />
+    {{ gender }}
+  </label>
+</div>
 ```
+
 ### 17. TD Setting and Patching Form Values
+
 ```ts
 suggestUserName() {
     const suggestedName = 'Superuser';
@@ -6196,33 +6226,37 @@ suggestUserName() {
   }
 
 ```
+
 ### 18. TD Using Form Data
 
 set ở trong hàm submit vào object user được tạo mới
 
 ```html
 <div class="row" *ngIf="submitted">
-    <div class="col-xs-12">
-      <h3>Your Data</h3>
-      <p>Username: {{ user.username }}</p>
-      <p>Mail: {{ user.email }}</p>
-      <p>Secret Question: Your first {{ user.secretQuestion }}</p>
-      <p>Answer: {{ user.answer }}</p>
-      <p>Gender: {{ user.gender }}</p>
-    </div>
+  <div class="col-xs-12">
+    <h3>Your Data</h3>
+    <p>Username: {{ user.username }}</p>
+    <p>Mail: {{ user.email }}</p>
+    <p>Secret Question: Your first {{ user.secretQuestion }}</p>
+    <p>Answer: {{ user.answer }}</p>
+    <p>Gender: {{ user.gender }}</p>
   </div>
+</div>
 ```
 
 ### 19. TD Resetting Forms
+
 ```ts
 this.signupForm.reset();
 // can use set value with obj you want
 ```
+
 ### 20. Practicing Template-Driven Forms.html
 
 ### 21. Introduction to the Reactive Approach
 
 ### 22. Reactive Setup
+
 ```ts
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -6232,7 +6266,9 @@ export class AppComponent implements OnInit {
   signupForm: FormGroup;
 
 ```
-khai báo ReactiveFormsModule 
+
+khai báo ReactiveFormsModule
+
 ```ts
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -6242,22 +6278,22 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     // Add
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
-
+export class AppModule {}
 ```
+
 ### 23. Reactive Creating a Form in Code
+
 Sử dụng hàm onInit before render
+
 ```ts
 ngOnInit() {
     // create control
@@ -6271,6 +6307,7 @@ ngOnInit() {
   }
 
 ```
+
 New **FormControl** nhận 2 tham số, **thứ nhất là giá trị khởi tạo, in form, tham số thứ 2 là single validator, tham số thứ 3 là potential async validator**
 
 Now to this FormControl constructor, we can pass a couple of arguments, the first argument is the initial state, the initial value of this control you could say.
@@ -6280,43 +6317,46 @@ The second argument will be a single validator or an array of validators we want
 I'll come back to this. The third argument will be potential asynchronous validators,
 
 ### 24. Reactive Syncing HTML and Form
+
 Thông báo sử dụng directive formGroup tham chiếu đến signupForm bằng cách thêm vào thẻ form
 Sử dụng directive formControlName thay cho name
 Có thể sử dụng [formControlName]="'username'" thay cho formControlName="username"
 
 ```html
- <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-        <div formGroupName="userData">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              formControlName="username"
-              class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="email">email</label>
-            <input
-              type="text"
-              id="email"
-              formControlName="email"
-              class="form-control">
-          </div>
-        </div>
- <div class="radio" *ngFor="let gender of genders">
-          <label>
-            <input
-              type="radio"
-              formControlName="gender"
-              [value]="gender">{{ gender }}
-          </label>
-        </div>
-
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+  <div formGroupName="userData">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        formControlName="username"
+        class="form-control"
+      />
+    </div>
+    <div class="form-group">
+      <label for="email">email</label>
+      <input
+        type="text"
+        id="email"
+        formControlName="email"
+        class="form-control"
+      />
+    </div>
+  </div>
+  <div class="radio" *ngFor="let gender of genders">
+    <label>
+      <input type="radio" formControlName="gender" [value]="gender" />{{ gender
+      }}
+    </label>
+  </div>
+</form>
 ```
 
 ### 25. Reactive Submitting the Form
+
 Để submit thì thêm hàm (ngSubmit)="onSubmit()
+
 ```ts
 onSubmit() {
     console.log(this.signupForm);
@@ -6324,8 +6364,11 @@ onSubmit() {
   }
 
 ```
+
 ### 26. Reactive Adding Validation
+
 Nếu muốn config tham số thì truyền tham số ở file ts
+
 ```ts
 ngOnInit() {
     // create control
@@ -6339,46 +6382,52 @@ ngOnInit() {
   }
 
 ```
+
 ![image-20200610184337138](angular.assets/image-20200610184337138.png)
 
 ### 27. Reactive Getting Access to Controls
 
 ```html
-          <span
-              *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
-              class="help-block">
-              <!-- <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">This name is invalid!</span>
+<span
+  *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
+  class="help-block"
+>
+  <!-- <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">This name is invalid!</span>
               <span *ngIf="signupForm.get('userData.username').errors['required']">This field is required!</span> -->
-              Invalid name
-            </span>
+  Invalid name
+</span>
 
-        <span
-          *ngIf="!signupForm.valid && signupForm.touched"
-          class="help-block">Please enter valid data!</span>
-        <button class="btn btn-primary" type="submit">Submit</button>
+<span *ngIf="!signupForm.valid && signupForm.touched" class="help-block"
+  >Please enter valid data!</span
+>
+<button class="btn btn-primary" type="submit">Submit</button>
 ```
 
 Add css class
+
 ```css
 input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
-
-
 ```
+
 ### 28. Reactive Grouping Controls
-Tạo form Group để chứa form control 
-```html
-        <div formGroupName="userData"> </div>
 
+Tạo form Group để chứa form control
+
+```html
+<div formGroupName="userData"></div>
 ```
+
 ### Fixing a Bug
+
 In the next lecture, we'll add some code to access the controls of our form array:
 
 ```ts
 *ngFor="let hobbyControl of signupForm.get('hobbies').controls; let i = index"
 
 ```
+
 This code will fail as of the latest Angular version.
 
 You can fix it easily though. Outsource the "get the controls" logic into a method of your component code (the .ts file):
@@ -6389,12 +6438,14 @@ getControls() {
 }
 
 ```
+
 In the template, you can then use:
 
 ```ts
 *ngFor="let hobbyControl of getControls(); let i = index"
 
 ```
+
 Alternatively, you can set up a getter and use an alternative type casting syntax:
 
 ```ts
@@ -6403,14 +6454,18 @@ get controls() {
 }
 
 ```
+
 and then in the template:
 
 ```ts
 *ngFor="let hobbyControl of controls; let i = index"
 
 ```
+
 This adjustment is required due to the way TS works and Angular parses your templates (it doesn't understand TS there).
+
 ### 29. Reactive Arrays of Form Controls (FormArray)
+
 ```ts
       'hobbies': new FormArray([])
 ---
@@ -6421,27 +6476,29 @@ onAddHobby() {
   }
 
 ```
+
 File html: formArrayName="hobbies" connect
+
 ```html
 // add
 <div formArrayName="hobbies">
-          <h4>Your Hobbies</h4>
-          <button
-            class="btn btn-default"
-            type="button"
-            (click)="onAddHobby()">Add Hobby</button>
-          <div
-            class="form-group"
-            *ngFor="let hobbyControl of signupForm.get('hobbies').controls; let i = index">
-            <input type="text" class="form-control" [formControlName]="i">
-          </div>
-        </div>
-
+  <h4>Your Hobbies</h4>
+  <button class="btn btn-default" type="button" (click)="onAddHobby()">
+    Add Hobby
+  </button>
+  <div
+    class="form-group"
+    *ngFor="let hobbyControl of signupForm.get('hobbies').controls; let i = index"
+  >
+    <input type="text" class="form-control" [formControlName]="i" />
+  </div>
+</div>
 ```
 
 ### 30. Reactive Creating Custom Validators
+
 ```ts
-// add  
+// add
 forbiddenUsernames = ['Chris', 'Anna'];
 
 forbiddenNames(control: FormControl): {[s: string]: boolean} {
@@ -6454,11 +6511,11 @@ forbiddenNames(control: FormControl): {[s: string]: boolean} {
 
 this.signupForm = new FormGroup({
       'userData': new FormGroup({
-        'username': new FormControl(null, [Validators.required, 
+        'username': new FormControl(null, [Validators.required,
         // this.forbiddenEmails.bind(this) refers this class
                                            this.forbiddenNames.bind(this)]),
-        'email': new FormControl(null, [Validators.required, Validators.email], 
-        
+        'email': new FormControl(null, [Validators.required, Validators.email],
+
         this.forbiddenEmails)
       }),
       'gender': new FormControl('male'),
@@ -6479,26 +6536,35 @@ forbiddenEmails(control: FormControl): Promise<any> | Observable<any> {
   }
 
 ```
+
 Phải có bind this nó mới hiểu this trong hàm kia
 [s: string]: boolean => mean: key: value; key is a string
 
 ### 31. Reactive Using Error Codes
+
 ```html
-<span *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched" class="help-block">
-    // add -------
-    <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">This name is invalid!</span>
-    <span *ngIf="signupForm.get('userData.username').errors['required']">This field is required!</span>
-
+<span
+  *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
+  class="help-block"
+>
+  // add -------
+  <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']"
+    >This name is invalid!</span
+  >
+  <span *ngIf="signupForm.get('userData.username').errors['required']"
+    >This field is required!</span
+  >
 </span>
-
 ```
+
 F12/ FormGroup/ controls/ userData/ controls/ username/ error
 
 ![image-20200610192405967](angular.assets/image-20200610192405967.png)
 
 ### 32. Reactive Creating a Custom Async Validator
+
 ```ts
-forbiddenEmails(control: FormControl): Promise<any> | Observable<any> 
+forbiddenEmails(control: FormControl): Promise<any> | Observable<any>
 {
     const promise = new Promise<any>((resolve, reject) => {
       setTimeout(() => {
@@ -6513,8 +6579,11 @@ forbiddenEmails(control: FormControl): Promise<any> | Observable<any>
   }
 
 ```
+
 ### 33. Reactive Reacting to Status or Value Changes
+
 Try it
+
 ```ts
 ngOnInit() {
     // add
@@ -6526,6 +6595,7 @@ ngOnInit() {
     );
 }
 ```
+
 ![image-20200610192935422](angular.assets/image-20200610192935422.png)
 
 ### 34. Reactive Setting and Patching Values
@@ -6554,44 +6624,47 @@ this.signupForm.setValue({
 có thẻ chỉ rõ field cần reset in oject in reset({}) to don't clear radio button
 
 ```
+
 ![image-20200610193026967](angular.assets/image-20200610193026967.png)
 
 ### 35. Practicing Reactive Forms.html
 
 ### 36. [OPTIONAL] Assignment Solution
+
 ```html
- <form [formGroup]="projectForm" (ngSubmit)="onSaveProject()">
-        <div class="form-group">
-          <label for="name">Project Name</label>
-          <input
-            type="text"
-            id="name"
-            formControlName="projectName"
-            class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="email">Mail</label>
-          <input
-            type="email"
-            id="email"
-            formControlName="email"
-            class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="status">Projectstatus</label>
-          <select
-            id="status"
-            formControlName="projectStatus"
-            class="form-control">
-            <option value="stable">Stable</option>
-            <option value="critical">Critical</option>
-            <option value="finished">Finished</option>
-          </select>
-        </div>
-        <button class="btn btn-primary" type="submit">Create Project</button>
-      </form>
+<form [formGroup]="projectForm" (ngSubmit)="onSaveProject()">
+  <div class="form-group">
+    <label for="name">Project Name</label>
+    <input
+      type="text"
+      id="name"
+      formControlName="projectName"
+      class="form-control"
+    />
+  </div>
+  <div class="form-group">
+    <label for="email">Mail</label>
+    <input
+      type="email"
+      id="email"
+      formControlName="email"
+      class="form-control"
+    />
+  </div>
+  <div class="form-group">
+    <label for="status">Projectstatus</label>
+    <select id="status" formControlName="projectStatus" class="form-control">
+      <option value="stable">Stable</option>
+      <option value="critical">Critical</option>
+      <option value="finished">Finished</option>
+    </select>
+  </div>
+  <button class="btn btn-primary" type="submit">Create Project</button>
+</form>
 ```
+
 ts
+
 ```ts
 ngOnInit() {
     this.projectForm = new FormGroup({
@@ -6605,78 +6678,79 @@ ngOnInit() {
     });
   }
 ```
+
 ## 16. Course Project - Forms
 
 ### 1. Introduction
+
 ### 2. TD Adding the Shopping List Form
+
 shopping-edit.component.html
 Nhớ khai báo FormModule trước
 Không cần sử dụng local ref như cũ thêm ngForm và name
 
 ```html
 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-      <div class="row">
-        <div class="col-sm-5 form-group">
-          <label for="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            class="form-control"
-            name="name"
-            ngModel
-          >
-        </div>
-        <div class="col-sm-2 form-group">
-          <label for="amount">Amount</label>
-          <input
-            type="number"
-            id="amount"
-            class="form-control"
-            name="amount"
-            ngModel
-          >
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <button
-            class="btn btn-success"
-            type="submit"
-            [disabled]="!f.valid">{{ editMode ? 'Update' : 'Add' }}</button>
-          
-        </div>
-      </div>
-    </form>
-
+  <div class="row">
+    <div class="col-sm-5 form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" class="form-control" name="name" ngModel />
+    </div>
+    <div class="col-sm-2 form-group">
+      <label for="amount">Amount</label>
+      <input
+        type="number"
+        id="amount"
+        class="form-control"
+        name="amount"
+        ngModel
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button class="btn btn-success" type="submit" [disabled]="!f.valid">
+        {{ editMode ? 'Update' : 'Add' }}
+      </button>
+    </div>
+  </div>
+</form>
 ```
+
 shopping-edit.component.ts
+
 ```ts
 onSubmit(form: NgForm) {
     const value = form.value;
     const newIngredient = new Ingredient(value.name, value.amount);
 
 ```
+
 ### 3. Adding Validation to the Form
+
 ```html
 <div class="col-sm-2 form-group">
-          <label for="amount">Amount</label>
-          <input
-            type="number"
-            id="amount"
-            class="form-control"
-            name="amount"
-            ngModel
-            <!-- add -->
-            required
-            pattern="^[1-9]+[0-9]*$"
-    // [pattern]="'^[1-9]+[0-9]*$'"
-          >
-        </div>
-
+  <label for="amount">Amount</label>
+  <input
+    type="number"
+    id="amount"
+    class="form-control"
+    name="amount"
+    ngModel
+    <!--
+    add
+    --
+  />
+  required pattern="^[1-9]+[0-9]*$" // [pattern]="'^[1-9]+[0-9]*$'" >
+</div>
 ```
+
 Check số dương bằng pattern
+
 ### 4. Allowing the Selection of Items in the List
+
 shopping-list.component.html thêm event onEditItem
+
 ```html
 <a
         class="list-group-item"
@@ -6688,7 +6762,9 @@ shopping-list.component.html thêm event onEditItem
       </a>
 
 ```
+
 shopping-list.component.ts
+
 ```ts
 // add
 onEditItem(index: number) {
@@ -6696,12 +6772,14 @@ onEditItem(index: number) {
   }
 
 ```
-shopping-list.service.ts 
-Thêm   `startedEditing = new Subject<number>();`
+
+shopping-list.service.ts
+Thêm `startedEditing = new Subject<number>();`
 
 shopping-edit.component.ts lắng nghe lấy ra item mà click đổ data vào form
+
 ```ts
-// add  
+// add
 @ViewChild('f', { static: false }) slForm: NgForm; // local ref
   subscription: Subscription;
   editMode = false;
@@ -6731,24 +6809,30 @@ shopping-edit.component.ts lắng nghe lấy ra item mà click đổ data vào f
   }
 
 ```
+
 ### 5. Loading the Shopping List Items into the Form
-shopping-list.service.ts 
+
+shopping-list.service.ts
+
 ```ts
 getIngredient(index: number) {
     return this.ingredients[index];
   }
 
 ```
-### 6. Updating existing Items
-Hiển thị đúng tên btn khi edit
-```html
-<button
-            class="btn btn-success"
-            type="submit"
-            [disabled]="!f.valid">{{ editMode ? 'Update' : 'Add' }}</button>
 
+### 6. Updating existing Items
+
+Hiển thị đúng tên btn khi edit
+
+```html
+<button class="btn btn-success" type="submit" [disabled]="!f.valid">
+  {{ editMode ? 'Update' : 'Add' }}
+</button>
 ```
+
 Service
+
 ```ts
 updateIngredient(index: number, newIngredient: Ingredient) {
     this.ingredients[index] = newIngredient;
@@ -6756,7 +6840,9 @@ updateIngredient(index: number, newIngredient: Ingredient) {
   }
 
 ```
+
 shopping-edit.component.ts
+
 ```ts
 onSubmit(form: NgForm) {
     const value = form.value;
@@ -6772,14 +6858,18 @@ onSubmit(form: NgForm) {
   }
 
 ```
-### 7. Resetting the Form
-Hàm add
-```ts
-    this.editMode = false;    
-    form.reset(); // clear
 
+### 7. Resetting the Form
+
+Hàm add
+
+```ts
+this.editMode = false;
+form.reset(); // clear
 ```
+
 ### 8. Allowing the the User to Clear (Cancel) the Form
+
 ```ts
 onClear() {
     this.slForm.reset();
@@ -6787,16 +6877,15 @@ onClear() {
   }
 
 ```
-### 9. Allowing the Deletion of Shopping List Items
-```html
-<button
-            class="btn btn-danger"
-            type="button"
-            (click)="onDelete()"
-            <!-- add -->
-            *ngIf="editMode">Delete</button>
 
+### 9. Allowing the Deletion of Shopping List Items
+
+```html
+<button class="btn btn-danger" type="button" (click)="onDelete()" <!-- add -->
+  *ngIf="editMode">Delete
+</button>
 ```
+
 ```ts
 onDelete() {
     this.slService.deleteIngredient(this.editedItemIndex);
@@ -6810,13 +6899,17 @@ deleteIngredient(index: number) {
   }
 
 ```
+
 ### 10. Creating the Template for the (Reactive) Recipe Edit Form
+
 Cách 2
 recipe-edit.component.html tạo template bình thường
 Nhớ khai báo ReactiveFormModule
 
 ### 11. Creating the Form For Editing Recipes
+
 Tạo hàm init
+
 ```ts
   recipeForm: FormGroup;
 
@@ -6856,50 +6949,57 @@ private initForm() {
   }
 
 ```
+
 ### 12. Syncing HTML with the Form
+
 import ReactiveFormsModule
 Thêm FormControlName, FormGroup vào file html
+
 ### 13. Adding Ingredient Controls to a Form Array
+
 ```html
 <div class="row">
-        <div class="col-xs-12" formArrayName="ingredients">
-          <div
-            class="row"
-            *ngFor="let ingredientCtrl of recipeForm.get('ingredients').controls; let i = index"
-            [formGroupName]="i"
-            style="margin-top: 10px;">
-            <div class="col-xs-8">
-              <input
-                type="text"
-                class="form-control"
-                formControlName="name">
-            </div>
-            <div class="col-xs-2">
-              <input
-                type="number"
-                class="form-control"
-                formControlName="amount">
-            </div>
-            <div class="col-xs-2">
-              <button
-                type="button"
-                class="btn btn-danger"
-                (click)="onDeleteIngredient(i)">X</button>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-xs-12">
-              <button
-                type="button"
-                class="btn btn-success"
-                (click)="onAddIngredient()">Add Ingredient</button>
-            </div>
-          </div>
-        </div>
+  <div class="col-xs-12" formArrayName="ingredients">
+    <div
+      class="row"
+      *ngFor="let ingredientCtrl of recipeForm.get('ingredients').controls; let i = index"
+      [formGroupName]="i"
+      style="margin-top: 10px;"
+    >
+      <div class="col-xs-8">
+        <input type="text" class="form-control" formControlName="name" />
       </div>
+      <div class="col-xs-2">
+        <input type="number" class="form-control" formControlName="amount" />
+      </div>
+      <div class="col-xs-2">
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="onDeleteIngredient(i)"
+        >
+          X
+        </button>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-xs-12">
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="onAddIngredient()"
+        >
+          Add Ingredient
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 ```
+
 ### 14. Fixing a Bug.html
+
 Fixing a Bug
 In the next lecture, we'll add some code to access the controls of our form array:
 
@@ -6907,6 +7007,7 @@ In the next lecture, we'll add some code to access the controls of our form arra
 *ngFor="let ingredientCtrl of recipeForm.get('ingredients').controls; let i = index"
 
 ```
+
 This code will fail with the latest Angular version.
 
 You can fix it easily though. Outsource the "get the controls" logic into a getter of your component code (the .ts file):
@@ -6917,14 +7018,18 @@ get controls() { // a getter!
 }
 
 ```
+
 In the template, you can then use:
 
 ```ts
 *ngFor="let ingredientCtrl of controls; let i = index"
 
 ```
+
 This adjustment is required due to the way TS works and Angular parses your templates (it doesn't understand TS there).
+
 ### 15. Adding new Ingredient Controls
+
 ```ts
 onAddIngredient() {
     (<FormArray>this.recipeForm.get('ingredients')).push(
@@ -6939,17 +7044,22 @@ onAddIngredient() {
   }
 
 ```
+
 ### 16. Validating User Input
+
 File css
+
 ```css
 input.ng-invalid.ng-touched,
 textarea.ng-invalid.ng-touched {
   border: 1px solid red;
 }
-
 ```
+
 ### 17. Submitting the Recipe Edit Form
+
 recipe-edit.component.ts
+
 ```ts
 onSubmit() {
     // const newRecipe = new Recipe(
@@ -6966,7 +7076,9 @@ onSubmit() {
   }
 
 ```
+
 Service
+
 ```ts
   recipesChanged = new Subject<Recipe[]>();
 
@@ -6986,7 +7098,9 @@ addRecipe(recipe: Recipe) {
   }
 
 ```
+
 recipe-list.component.ts
+
 ```ts
 ngOnInit() {
     this.subscription = this.recipeService.recipesChanged
@@ -6999,8 +7113,11 @@ ngOnInit() {
   }
 
 ```
+
 ### 18. Adding a Delete and Clear (Cancel) Functionality
+
 recipe-detail
+
 ```ts
 onDeleteRecipe() {
     this.recipeService.deleteRecipe(this.id);
@@ -7008,7 +7125,9 @@ onDeleteRecipe() {
   }
 
 ```
+
 recipe-edit
+
 ```ts
 // after submit call this.onCancel();
 onCancel() {
@@ -7016,40 +7135,48 @@ onCancel() {
   }
 
 ```
+
 ### 19. Redirecting the User (after Deleting a Recipe)
 
-
 ### 20. Adding an Image Preview
+
 Thêm local ref imagePath; truy cập imagePath.value
+
 ```html
 <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="imagePath">Image URL</label>
-            <input
-              type="text"
-              id="imagePath"
-              formControlName="imagePath"
-              class="form-control"
-              <!-- add -->
-              #imagePath>
-          </div>
-        </div>
-      </div>
-      <!-- add -->
-      <div class="row">
-        <div class="col-xs-12">
-          <img [src]="imagePath.value" class="img-responsive">
-        </div>
-      </div>
-
+  <div class="col-xs-12">
+    <div class="form-group">
+      <label for="imagePath">Image URL</label>
+      <input
+        type="text"
+        id="imagePath"
+        formControlName="imagePath"
+        class="form-control"
+        <!--
+        add
+        --
+      />
+      #imagePath>
+    </div>
+  </div>
+</div>
+<!-- add -->
+<div class="row">
+  <div class="col-xs-12">
+    <img [src]="imagePath.value" class="img-responsive" />
+  </div>
+</div>
 ```
+
 ### 21. Providing the Recipe Service Correctly
+
 Khai báo service trong module để đảm bảo có 1 instance được tạo k khia bao trong recipes vi di chuyen qua shopping list se mat
+
 ```ts
   providers: [ShoppingListService, RecipeService],
 
 ```
+
 The issue we encounter here is that we provide our recipe service in the recipes component,
 
 so all the components in this area share the same instance
@@ -7059,27 +7186,32 @@ but if we navigate away to the shopping list area, the recipes component is dest
 ### 22. Deleting Ingredients and Some Finishing Touches
 
 recipe-edit.component
+
 ```ts
 onDeleteIngredient(index: number) {
     (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
   }
 
 ```
+
 Thêm recipe-list.component
+
 ```ts
 ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
 ```
+
 ### 23. Deleting all Items in a FormArray.html
+
 Deleting all Items in a FormArray
 As of Angular 8, there's a new way of clearing all items in a FormArray.
 
 ```ts
 (<FormArray>this.recipeForm.get('ingredients')).clear();
-
 ```
+
 The clear() method automatically loops through all registered FormControls (or FormGroups) in the FormArray and removes them.
 
 It's like manually creating a loop and calling removeAt() for every item.
@@ -7096,7 +7228,7 @@ Now there are pipes for different types of output and also for synchronous and a
 
 ![image-20200610211055008](angular.assets/image-20200610211055008.png)
 
-### 2. Using Pipes 
+### 2. Using Pipes
 
 app.component.ts
 
@@ -7106,7 +7238,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   appStatus = new Promise((resolve, reject) => {
@@ -7119,33 +7251,38 @@ export class AppComponent {
       instanceType: 'medium',
       name: 'Production',
       status: 'stable',
-      started: new Date(15, 1, 2017)
+      started: new Date(15, 1, 2017),
     },
     {
       instanceType: 'large',
       name: 'User Database',
       status: 'stable',
-      started: new Date(15, 1, 2017)
+      started: new Date(15, 1, 2017),
     },
     {
       instanceType: 'small',
       name: 'Development Server',
       status: 'offline',
-      started: new Date(15, 1, 2017)
+      started: new Date(15, 1, 2017),
     },
     {
       instanceType: 'small',
       name: 'Testing Environment Server',
       status: 'stable',
-      started: new Date(15, 1, 2017)
-    }
+      started: new Date(15, 1, 2017),
+    },
   ];
   filteredStatus = '';
-  getStatusClasses(server: {instanceType: string, name: string, status: string, started: Date}) {
+  getStatusClasses(server: {
+    instanceType: string;
+    name: string;
+    status: string;
+    started: Date;
+  }) {
     return {
       'list-group-item-success': server.status === 'stable',
       'list-group-item-warning': server.status === 'offline',
-      'list-group-item-danger': server.status === 'critical'
+      'list-group-item-danger': server.status === 'critical',
     };
   }
   onAddServer() {
@@ -7153,26 +7290,21 @@ export class AppComponent {
       instanceType: 'small',
       name: 'New Server',
       status: 'stable',
-      started: new Date(15, 1, 2017)
+      started: new Date(15, 1, 2017),
     });
   }
 }
-
 ```
 
-
-
-
-
-![image-20200610211120186](angular.assets/image-20200610211120186.png)  
+![image-20200610211120186](angular.assets/image-20200610211120186.png)
 
 Thay đổi
-```html
-<strong>{{ server.name }}</strong> |
-          {{ server.instanceType | uppercase }} |
-          {{ server.started | date:'fullDate' | uppercase }}
 
+```html
+<strong>{{ server.name }}</strong> | {{ server.instanceType | uppercase }} | {{
+server.started | date:'fullDate' | uppercase }}
 ```
+
 ![image-20200610211222544](angular.assets/image-20200610211222544.png)
 
 ### 3. Parametrizing Pipes
@@ -7189,14 +7321,18 @@ https://angular.io/api/common/DatePipe
 ### 4. Where to learn more about Pipes
 
 ### 5. Chaining Multiple Pipes
+
 Lưu ý thứ tự từ trái qua phải
+
 ### 6. Creating a Custom Pipe
+
 Tạo file shorten.pipe.ts
+
 ```ts
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'shorten'
+  name: 'shorten',
 })
 export class ShortenPipe implements PipeTransform {
   transform(value: any, limit: number) {
@@ -7206,10 +7342,10 @@ export class ShortenPipe implements PipeTransform {
     return value;
   }
 }
-
 ```
 
 Khai báo
+
 ```ts
 declarations: [
     AppComponent,
@@ -7218,32 +7354,37 @@ declarations: [
   ],
 
 ```
+
 ### 7. Parametrizing a Custom Pipe
 
 `{{ server.name | shorten:15 }}`
 
 Neu nhieu tham so: shorten:15:12
-### 8. Example Creating a Filter Pipe
-```html
-      <input type="text" [(ngModel)]="filteredStatus">
 
+### 8. Example Creating a Filter Pipe
+
+```html
+<input type="text" [(ngModel)]="filteredStatus" />
 ```
+
 Gõ
+
 ```ts
 ng generate pipe filter
 ng g p filter
 
 ```
+
 filter.pipe.ts
+
 ```ts
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'filter',
-  pure: false
+  pure: false,
 })
 export class FilterPipe implements PipeTransform {
-
   transform(value: any, filterString: string, propName: string): any {
     if (value.length === 0 || filterString === '') {
       return value;
@@ -7256,24 +7397,25 @@ export class FilterPipe implements PipeTransform {
     }
     return resultArray;
   }
-
 }
-
 ```
+
 Must import
-```html
-		<input type="text" [(ngModel)]="filteredStatus">
-		<li
-          class="list-group-item"
-          *ngFor="let server of servers | filter:filteredStatus:'status'"
-          [ngClass]="getStatusClasses(server)">
 
+```html
+<input type="text" [(ngModel)]="filteredStatus" />
+<li
+  class="list-group-item"
+  *ngFor="let server of servers | filter:filteredStatus:'status'"
+  [ngClass]="getStatusClasses(server)"
+></li>
 ```
+
 ![image-20200610212116956](angular.assets/image-20200610212116956.png)
 
 ### 9. Pure and Impure Pipes (or How to fix the Filter Pipe)
 
-Khi thêm mới server khi bam nut ADD, filter sẽ không update nên cần thêm  pure: false nó sẽ tính toán lại khi bất cứ thay đổi nào happen => affect performance NG
+Khi thêm mới server khi bam nut ADD, filter sẽ không update nên cần thêm pure: false nó sẽ tính toán lại khi bất cứ thay đổi nào happen => affect performance NG
 
 ```ts
 @Pipe({
@@ -7282,6 +7424,7 @@ Khi thêm mới server khi bam nut ADD, filter sẽ không update nên cần th�
 })
 // Update array or object doesn't trigger it
 ```
+
 You can force this pipe to be updated whenever the data changes by adding a second property to the pipe decorator,
 
 it's called pure and you can set it to false. By default, this is true and doesn't need to be added.
@@ -7293,20 +7436,21 @@ The reason simply is that the pipe now gets recalculated whenever data changes a
 ### 10. Understanding the async Pipe
 
 app.component.ts
+
 ```ts
 appStatus = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve('stable');
-    }, 2000);
-  });
-
+  setTimeout(() => {
+    resolve('stable');
+  }, 2000);
+});
 ```
+
 ```html
 <!-- Print data after 2s -->
-      <h2>App Status: {{ appStatus | async}}</h2>
-
+<h2>App Status: {{ appStatus | async}}</h2>
 ```
-![image-20200610212655495](angular.assets/image-20200610212655495.png)  
+
+![image-20200610212655495](angular.assets/image-20200610212655495.png)
 
 Khi nào có nó print
 
@@ -7318,7 +7462,7 @@ Khi nào có nó print
 
 ### 3. How Does Angular Interact With Backends
 
-![](../root/img/2019-11-25-21-29-49.png)  
+![](angular.assets/2019-11-25-21-29-49.png)
 
 https://academind.com/learn/javascript/hide-javascript-code/  
 https://academind.com/learn/node-js/building-a-restful-api-with/
@@ -7328,34 +7472,36 @@ https://academind.com/learn/node-js/building-a-restful-api-with/
 ### 3.2 Building a REST API.html
 
 ### 4. The Anatomy of a Http Request
+
 The most important part about a request of course is the URL you are sending the request to,
 
 that's also called the API endpoint and it is something like yourdomain.com/posts/1
 
 ### 5. Backend (Firebase) Setup
+
 https://console.firebase.google.com/?pli=1
 
 Create project/ input name ng-complete-guide
 
-![](../root/img/2019-11-25-21-55-17.png)    
-![](../root/img/2019-11-25-21-56-23.png)
+![](angular.assets/2019-11-25-21-55-17.png)  
+![](angular.assets/2019-11-25-21-56-23.png)
 
 Vao tab database(It's a complete back-end service)
 
-![](../root/img/2019-11-25-21-58-49.png)  
-
-
+![](angular.assets/2019-11-25-21-58-49.png)
 
 Vào mục database/ real time db/ Chọn start in test mode
 
-![](../root/img/2019-11-25-21-59-14.png)  
+![](angular.assets/2019-11-25-21-59-14.png)
 
 https://ng-complete-guide-35524.firebaseio.com/
 
 https://console.firebase.google.com/project/ng-complete-guide-35524/database/ng-complete-guide-35524/data
 
 ### 6. Sending a POST Request
+
 6.1 http-02-post-requests.zip
+
 ```ts
 import { HttpClient } from '@angular/common/http';
 
@@ -7375,7 +7521,9 @@ onCreatePost(postData: { title: string; content: string }) {
 // neu k subscribe, no se k gui request
 // F12 OPTIONS check post req allow
 ```
+
 Import HttpClientModule
+
 ```ts
 @NgModule({
   declarations: [AppComponent],
@@ -7385,14 +7533,17 @@ Import HttpClientModule
 })
 
 ```
-F12 vào tab network để check, hàm post return a Observable 
 
-![image-20200610220312608](angular.assets/image-20200610220312608.png)  
+F12 vào tab network để check, hàm post return a Observable
+
+![image-20200610220312608](angular.assets/image-20200610220312608.png)
 
 ![image-20200610220110766](angular.assets/image-20200610220110766.png)
 
 ### 7. GETting Data
+
 Fetch data làm như post
+
 ```ts
 private fetchPosts() {
     this.http
@@ -7404,6 +7555,7 @@ private fetchPosts() {
   }
 }
 ```
+
 ![image-20200629005627924](angular.assets/image-20200629005627924.png)
 
 ### 8. Using RxJS Operators to Transform Response Data
@@ -7430,13 +7582,15 @@ private fetchPosts() {
   }
 
 ```
-![image-20200629013657015](angular.assets/image-20200629013657015.png)  
+
+![image-20200629013657015](angular.assets/image-20200629013657015.png)
 
 Chuyển thành array từ firebase
 
 ### 9. Using Types with the HttpClient
 
 post.model.ts
+
 ```ts
 export interface Post {
   title: string;
@@ -7446,7 +7600,7 @@ export interface Post {
 ```
 
 ```ts
-.get<{ [key: string]: Post }> 
+.get<{ [key: string]: Post }>
 // nghĩa là 1 key có kiểu string sẽ có gtri là Post
     this.http
       .get<{ [key: string]: Post }>(
@@ -7460,7 +7614,9 @@ export interface Post {
 this.http
       .post<{ name: string }>
 ```
+
 ### 10. Outputting Posts
+
 ```ts
  <div class="col-xs-12 col-md-6 col-md-offset-3">
       <p *ngIf="loadedPosts.length < 1 && !isFetching">No posts available!</p>
@@ -7473,14 +7629,19 @@ this.http
       <p *ngIf="isFetching">Loading...</p>
     </div>
 ```
+
 ### 11. Showing a Loading Indicator
+
 ```ts
 <p *ngIf="loadedPosts.length < 1 && !isFetching">No posts available!
 </p>
 
 ```
+
 ### 12. Using a Service for Http Requests
+
 posts.service.ts
+
 ```ts
 @Injectable({ providedIn: 'root' })
 export class PostsService {
@@ -7527,11 +7688,12 @@ export class PostsService {
 
 ```
 
- lost connection between fetched data from service and template
+lost connection between fetched data from service and template
 
 ### 13. Services & Components Working Together
+
 ```ts
-constructor(private http: HttpClient, private postsService: 
+constructor(private http: HttpClient, private postsService:
 PostsService) {}
 
   onFetchPosts() {
@@ -7549,7 +7711,9 @@ PostsService) {}
     );
   }
 ```
+
 ### 14. Sending a DELETE Request
+
 ```ts
 onClearPosts() {
     // Send Http request
@@ -7566,8 +7730,10 @@ deletePosts() {
 }
 
 ```
+
 ### 15. Handling Errors
-![](../root/img/2019-11-26-00-30-02.png)
+
+![](angular.assets/2019-11-26-00-30-02.png)
 
 read : false
 
@@ -7588,8 +7754,11 @@ ngOnInit() {
     );
   }
 ```
+
 ### 16. Using Subjects for Error Handling
+
 service
+
 ```ts
 // add
 error = new Subject<string>();
@@ -7617,15 +7786,19 @@ error = new Subject<string>();
 ```
 
 app.component.ts
+
 ```ts
 // Add trong ham onInit
-this.errorSub = this.postsService.error.subscribe(errorMessage => {
-      this.error = errorMessage;
-    });
+this.errorSub = this.postsService.error.subscribe((errorMessage) => {
+  this.error = errorMessage;
+});
 // Destroy
 ```
+
 ### 17. Using the catchError Operator
+
 service
+
 ```ts
 fetchPosts() {
     // let searchParams = new HttpParams();
@@ -7661,7 +7834,9 @@ fetchPosts() {
 ```
 
 ### 18. Error Handling & UX
+
 app
+
 ```ts
 onFetchPosts() {
     // Send Http request
@@ -7671,7 +7846,7 @@ onFetchPosts() {
         this.isFetching = false;
         this.loadedPosts = posts;
       },
-      
+
       // Add
       error => {
         this.isFetching = false;
@@ -7685,25 +7860,29 @@ onHandleError() {
     this.error = null;
   }
 ```
+
 ### 19. Setting Headers
+
 ```ts
- let searchParams = new HttpParams();
-    searchParams = searchParams.append('print', 'pretty');
-    searchParams = searchParams.append('custom', 'key');
-return this.http
-      .get<{ [key: string]: Post }>(
-        'https://ng-complete-guide-c56d3.firebaseio.com/posts.json',
-        {
-          headers: new HttpHeaders({ 'Custom-Header': 'Hello' }),
-          params: searchParams,
-          responseType: 'json'
-        }
-      )
+let searchParams = new HttpParams();
+searchParams = searchParams.append('print', 'pretty');
+searchParams = searchParams.append('custom', 'key');
+return this.http.get<{ [key: string]: Post }>(
+  'https://ng-complete-guide-c56d3.firebaseio.com/posts.json',
+  {
+    headers: new HttpHeaders({ 'Custom-Header': 'Hello' }),
+    params: searchParams,
+    responseType: 'json',
+  }
+);
 ```
+
 ### 20. Adding Query Params
 
 ### 21. Observing Different Types of Responses
+
 Có thể observe là body để chỉ nhận body, response để xem nhiều thứ khác như stt code
+
 ```ts
 this.http
       .post<{ name: string }>(
@@ -7735,9 +7914,8 @@ deletePosts() {
       );
   }
 ```
-![image-20200629213754067](angular.assets/image-20200629213754067.png)  
 
-
+![image-20200629213754067](angular.assets/image-20200629213754067.png)
 
 ![image-20200610223802139](angular.assets/image-20200610223802139.png)
 
@@ -7754,8 +7932,13 @@ scenario would be that you want to authenticate your user and you need to add a 
 header to every outgoing request therefore so that the back-end can read that, you don't want to manually configure every request because that is very cumbersome and for that, you can add interceptors.
 
 auth-interceptor.service
+
 ```ts
-import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+} from '@angular/common/http';
 
 export class AuthInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
@@ -7764,9 +7947,8 @@ export class AuthInterceptorService implements HttpInterceptor {
     return next.handle(req);
   }
 }
-
-
 ```
+
 the first key is the provide key and there, you have to use **HTTP_INTERCEPTORS**, all capital cases,
 
 that is a type that is imported from @angular/common/http. So import that from this package
@@ -7797,7 +7979,8 @@ providers: [
   ],
 
 ```
-![image-20200629214736597](angular.assets/image-20200629214736597.png)  
+
+![image-20200629214736597](angular.assets/image-20200629214736597.png)
 
 ### 24. Manipulating Request Objects
 
@@ -7815,27 +7998,27 @@ or you could add new headers, if you want to keep the old headers by the way, th
 
 by using the request headers and calling append or you add new params or whatever you want.
 
-Khi muốn thay đổi request obj 
+Khi muốn thay đổi request obj
 
-![image-20200610225106065](angular.assets/image-20200610225106065.png)  
-
-
+![image-20200610225106065](angular.assets/image-20200610225106065.png)
 
 ```ts
 export class AuthInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const modifiedRequest = req.clone({
-      headers: req.headers.append('Auth', 'xyz')
+      headers: req.headers.append('Auth', 'xyz'),
     });
     console.log(req.url);
     return next.handle(modifiedRequest);
   }
 }
 ```
+
 ### 25. Response Interceptors
+
 Có thể thay đổi response
 
-![](../root/img/2019-11-26-01-43-47.png)  
+![](angular.assets/2019-11-26-01-43-47.png)
 
 Now here again, I'm just doing some logging but as I just mentioned, you could use other operators like
 
@@ -7844,7 +8027,9 @@ map here and even transform the response, that would be possible.
 ![image-20200610225315812](angular.assets/image-20200610225315812.png)
 
 ### 26. Multiple Interceptors
+
 Tạo file logging-intercepter.service.ts
+
 ```ts
 import {
   HttpInterceptor,
@@ -7884,6 +8069,7 @@ providers: [
     }
   ],
 ```
+
 ![image-20200610225602519](angular.assets/image-20200610225602519.png)
 
 ### 27. Wrap Up
@@ -7893,18 +8079,23 @@ providers: [
 ## 19. Course Project - Http
 
 ### 1. Module Introduction
+
 SAVE AND FETCH in header
+
 ### 2. Backend (Firebase) Setup
+
 Project name: ng-course-recipe-book / real time db
+
 ### 3. Setting Up the DataStorage Service
 
 ### 4. Storing Recipes
 
-![image-20200610230750447](angular.assets/image-20200610230750447.png)  
+![image-20200610230750447](angular.assets/image-20200610230750447.png)
 
-![image-20200610230835806](angular.assets/image-20200610230835806.png)  
+![image-20200610230835806](angular.assets/image-20200610230835806.png)
 
 data-storage.service.ts ở header active 2 button
+
 ```ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -7924,7 +8115,7 @@ export class DataStorageService {
         'https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json',
         recipes
       )
-      .subscribe(response => {
+      .subscribe((response) => {
         console.log(response);
       });
   }
@@ -7936,28 +8127,28 @@ export class DataStorageService {
       )
       // add => always have ingredients
       .pipe(
-        map(recipes => {
+        map((recipes) => {
           // map step2 is an arraya func
-          return recipes.map(recipe => {
+          return recipes.map((recipe) => {
             return {
               ...recipe,
-              ingredients: recipe.ingredients ? recipe.ingredients : []
+              ingredients: recipe.ingredients ? recipe.ingredients : [],
             };
           });
         })
       )
       // end add
-      .subscribe(recipes => {
+      .subscribe((recipes) => {
         this.recipeService.setRecipes(recipes);
       });
   }
 }
-
 ```
 
 Nhớ import HttpClientModule
 
 recipe.service.ts
+
 ```ts
 private recipes: Recipe[] = [];
 
@@ -7966,14 +8157,16 @@ setRecipes(recipes: Recipe[]) {
     this.recipesChanged.next(this.recipes.slice());
   }
 ```
+
 ### 5. Fetching Recipes
 
 ### 6. Transforming Response Data
 
 ### 7. Resolving Data Before Loading
+
 O page detail an reload => fail
 
-![image-20200610231654060](angular.assets/image-20200610231654060.png)  
+![image-20200610231654060](angular.assets/image-20200610231654060.png)
 
 boi vi khi k an nut FETCH DATA thi khi data empty o page detail => reload detail => fail
 
@@ -7988,7 +8181,7 @@ import { Injectable } from '@angular/core';
 import {
   Resolve,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot
+  RouterStateSnapshot,
 } from '@angular/router';
 
 import { Recipe } from './recipe.model';
@@ -8013,10 +8206,10 @@ export class RecipesResolverService implements Resolve<Recipe[]> {
     }
   }
 }
-
-
 ```
+
 data-storage.service.ts
+
 ```ts
 fetchRecipes() {
     return this.http
@@ -8044,28 +8237,30 @@ fetchRecipes() {
     this.dataStorageService.fetchRecipes().subscribe();
   }
 ```
+
 The tap operator allows us to execute some code here in place without altering the data that is funneled through that observable.
 
 routing
 
 ```ts
 children: [
-      { path: '', component: RecipeStartComponent },
-      { path: 'new', component: RecipeEditComponent },
-      {
-        path: ':id',
-        component: RecipeDetailComponent,
-        resolve: [RecipesResolverService]
-      },
-      {
-        path: ':id/edit',
-        component: RecipeEditComponent,
-        resolve: [RecipesResolverService]
-      }
-    ]
-
+  { path: '', component: RecipeStartComponent },
+  { path: 'new', component: RecipeEditComponent },
+  {
+    path: ':id',
+    component: RecipeDetailComponent,
+    resolve: [RecipesResolverService],
+  },
+  {
+    path: ':id/edit',
+    component: RecipeEditComponent,
+    resolve: [RecipesResolverService],
+  },
+];
 ```
+
 ### 8. Fixing a Bug with the Resolver
+
 edit not save
 
 It fetches new recipes from the server and that simply overwrites our existing recipes, including our changes to these recipes.
@@ -8079,17 +8274,20 @@ Now the solution is to first check whether we do have recipes and only fetch new
 ### 1. Module Introduction
 
 ### 2. How Authentication Works
-Happen in the server not client 
+
+Happen in the server not client
 Traditional web using session but in angular we will handle with angular and its router, Server is Rest API  
 Server and client is decouple
 
 RestAPI là stateless vì vậy server không quan tâm đến client nên session không được sử dụng => token: string được mã hóa và giải mã bởi client, token được tạo ra ở server và mã hóa bằng thuật toán chỉ có server biết
-Chỉ có server có thể validate incoming token 
+Chỉ có server có thể validate incoming token
 
-![](../root/img/2019-11-26-23-19-19.png)
+![](angular.assets/2019-11-26-23-19-19.png)
 
 ### 3. Adding the Auth Page
+
 auth.component.html
+
 ```html
 <div class="row">
   <div class="col-xs-12 col-md-6 col-md-offset-3">
@@ -8109,36 +8307,39 @@ auth.component.html
     </form>
   </div>
 </div>
-
 ```
 
 auth.component.ts
+
 ```ts
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-auth',
-  templateUrl: './auth.component.html'
+  templateUrl: './auth.component.html',
 })
 export class AuthComponent {}
-
 ```
 
 Nhớ khai báo component
 Routing
+
 ```ts
   { path: 'shopping-list', component: ShoppingListComponent },
   { path: 'auth', component: AuthComponent }
 
 ```
+
 Vào header thêm
+
 ```html
 <li routerLinkActive="active">
-          <a routerLink="/auth">Authenticate</a>
-        </li>
-
+  <a routerLink="/auth">Authenticate</a>
+</li>
 ```
+
 ### 4. Switching Between Auth Modes
+
 ```ts
 export class AuthComponent {
   isLoginMode = true;
@@ -8152,55 +8353,54 @@ export class AuthComponent {
     form.reset();
   }
 }
-
 ```
+
 File auth.component.html
+
 ```html
 <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-      <div class="form-group">
-        <label for="email">E-Mail</label>
-        <input
-          type="email"
-          id="email"
-          class="form-control"
-          ngModel
-          name="email"
-          required
-          email
-        />
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          class="form-control"
-          ngModel
-          name="password"
-          required
-          minlength="6"
-        />
-      </div>
-      <div>
-        <button
-          class="btn btn-primary"
-          type="submit"
-          [disabled]="!authForm.valid"
-        >
-          {{ isLoginMode ? 'Login' : 'Sign Up' }}
-        </button>
-        |
-        <button class="btn btn-primary" (click)="onSwitchMode()" type="button">
-          Switch to {{ isLoginMode ? 'Sign Up' : 'Login' }}
-        </button>
-      </div>
-    </form>
-
+  <div class="form-group">
+    <label for="email">E-Mail</label>
+    <input
+      type="email"
+      id="email"
+      class="form-control"
+      ngModel
+      name="email"
+      required
+      email
+    />
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      class="form-control"
+      ngModel
+      name="password"
+      required
+      minlength="6"
+    />
+  </div>
+  <div>
+    <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">
+      {{ isLoginMode ? 'Login' : 'Sign Up' }}
+    </button>
+    |
+    <button class="btn btn-primary" (click)="onSwitchMode()" type="button">
+      Switch to {{ isLoginMode ? 'Sign Up' : 'Login' }}
+    </button>
+  </div>
+</form>
 ```
+
 ### 5. Handling Form Input
 
 ### 6. Preparing the Backend
-Vao database/ rule/ 
+
+Vao database/ rule/
+
 ```js
 {
   "read": "auth != null",
@@ -8208,30 +8408,35 @@ Vao database/ rule/
 }
 
 ```
-![](../root/img/2019-11-27-00-25-19.png)
+
+![](angular.assets/2019-11-27-00-25-19.png)
 
 Authen... / set up the sign in method
 
-![](../root/img/2019-11-27-00-37-11.png)
+![](angular.assets/2019-11-27-00-37-11.png)
 
 SAVE sau do vao tab USER
 
 ### 7. Make sure you got Recipes in your backend!.html
+
 Make sure you got Recipes in your backend!
 In order to continue with this module and send successful authenticated requests, you need to ensure that you got recipes stored in your backend database.
 
 So in case you deleted those (or never added any), make sure you do add some recipes before you turn on protection as shown in the last lecture!
+
 ### 8. Preparing the Signup Request
+
 GG: firebase auth rest api
 https://firebase.google.com/docs/reference/rest/auth/
 
 Xem Endpoint
 
 ### 9. Sending the Signup Request
+
 auth-03-signup-request
 Sign up with email / password
 
-![](../root/img/2019-11-27-00-45-22.png)  
+![](angular.assets/2019-11-27-00-45-22.png)  
 get key from Project setting copy web api key paste vào url
 
 auth.service.ts
@@ -8256,20 +8461,20 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   signup(email: string, password: string) {
-    return this.http
-      .post<AuthResponseData>(
-        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=[API_KEY]',
-        {
-          email: email,
-          password: password,
-          returnSecureToken: true
-        }
-      );
+    return this.http.post<AuthResponseData>(
+      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=[API_KEY]',
+      {
+        email: email,
+        password: password,
+        returnSecureToken: true,
+      }
+    );
   }
 }
-
 ```
+
 auth.component.ts
+
 ```ts
 onSubmit(form: NgForm) {
     if (!form.valid) {
@@ -8299,13 +8504,13 @@ onSubmit(form: NgForm) {
   }
 ```
 
-![image-20200611083556258](angular.assets/image-20200611083556258.png)  
+![image-20200611083556258](angular.assets/image-20200611083556258.png)
 
-![image-20200611083619149](angular.assets/image-20200611083619149.png)  
+![image-20200611083619149](angular.assets/image-20200611083619149.png)
 
 Nếu đăng kí cùng email
 
-![image-20200611083703725](angular.assets/image-20200611083703725.png)    
+![image-20200611083703725](angular.assets/image-20200611083703725.png)
 
 ### 10. Adding a Loading Spinner & Error Handling Logic
 
@@ -8318,16 +8523,21 @@ vào css chỉnh từ #fff thành màu #2102cf
 auth.component.html
 
 ```html
-  <div class="alert alert-danger" *ngIf="error">
-      <p>{{ error }}</p>
-    </div>
-    <div *ngIf="isLoading" style="text-align: center;">
-      <app-loading-spinner></app-loading-spinner>
-    </div>
-    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
-
+<div class="alert alert-danger" *ngIf="error">
+  <p>{{ error }}</p>
+</div>
+<div *ngIf="isLoading" style="text-align: center;">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+<form
+  #authForm="ngForm"
+  (ngSubmit)="onSubmit(authForm)"
+  *ngIf="!isLoading"
+></form>
 ```
+
 ### 11. Improving Error Handling
+
 Xem lại thêm auth-03-signup-request
 Hàm sign up auth.service.ts
 
@@ -8359,31 +8569,34 @@ signup(email: string, password: string) {
   }
 
 ```
+
 auth.component.ts
+
 ```ts
 if (this.isLoginMode) {
-      // ...
-    } else {
-      this.authService.signup(email, password).subscribe(
-        resData => {
-          console.log(resData);
-          this.isLoading = false;
-        },
-        errorMessage => {
-            // add
-          console.log(errorMessage);
-          this.error = errorMessage;
-          this.isLoading = false;
-        }
-      );
+  // ...
+} else {
+  this.authService.signup(email, password).subscribe(
+    (resData) => {
+      console.log(resData);
+      this.isLoading = false;
+    },
+    (errorMessage) => {
+      // add
+      console.log(errorMessage);
+      this.error = errorMessage;
+      this.isLoading = false;
     }
-
+  );
+}
 ```
+
 ![image-20200611084912077](angular.assets/image-20200611084912077.png)
 
 ### 12. Sending Login Requests
 
 service
+
 ```ts
   login(email: string, password: string) {
     return this.http
@@ -8409,36 +8622,41 @@ service
       );
   }
 ```
+
 auth.component.ts
+
 ```ts
 // Add
-    let authObs: Observable<AuthResponseData>;
+let authObs: Observable<AuthResponseData>;
 
-    this.isLoading = true;
+this.isLoading = true;
 
-    if (this.isLoginMode) {
-        // add
-      authObs = this.authService.login(email, password);
-    } else {
-      authObs = this.authService.signup(email, password);
-    }
+if (this.isLoginMode) {
+  // add
+  authObs = this.authService.login(email, password);
+} else {
+  authObs = this.authService.signup(email, password);
+}
 
 // đỡ subcrbe nhiều lần
-    authObs.subscribe(
-      resData => {
-        console.log(resData);
-        this.isLoading = false;
-      },
-      errorMessage => {
-        console.log(errorMessage);
-        this.error = errorMessage;
-        this.isLoading = false;
-      }
-    );
-    // run meet error
+authObs.subscribe(
+  (resData) => {
+    console.log(resData);
+    this.isLoading = false;
+  },
+  (errorMessage) => {
+    console.log(errorMessage);
+    this.error = errorMessage;
+    this.isLoading = false;
+  }
+);
+// run meet error
 ```
+
 ### 13. Login Error Handling
+
 sevice
+
 ```ts
 private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';
@@ -8464,11 +8682,13 @@ private handleError(errorRes: HttpErrorResponse) {
         catchError(this.handleError)
       );
 ```
-![image-20200611090150629](angular.assets/image-20200611090150629.png)  
+
+![image-20200611090150629](angular.assets/image-20200611090150629.png)
 
 ### 14. Creating & Storing the User Data
 
 Tạo file user.model
+
 ```ts
 export class User {
   constructor(
@@ -8478,8 +8698,9 @@ export class User {
     private _tokenExpirationDate: Date
   ) {}
 
-  get token() { // getter
-  // !this._tokenExpirationDate : not exist
+  get token() {
+    // getter
+    // !this._tokenExpirationDate : not exist
     if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
       return null;
     }
@@ -8489,6 +8710,7 @@ export class User {
 ```
 
 auth.service.ts
+
 ```ts
   user = new BehaviorSubject<User>(null);
 
@@ -8522,25 +8744,29 @@ private handleAuthentication(
 ```
 
 ### 15. Reflecting the Auth State in the UI
+
 auth-05-added-token-to-requests
 auth.component.ts
+
 ```ts
 authObs.subscribe(
-      resData => {
-        console.log(resData);
-        this.isLoading = false;
-        // Add
-        this.router.navigate(['/recipes']);
-      },
-      errorMessage => {
-        console.log(errorMessage);
-        this.error = errorMessage;
-        this.isLoading = false;
-      }
-    );
+  (resData) => {
+    console.log(resData);
+    this.isLoading = false;
+    // Add
+    this.router.navigate(['/recipes']);
+  },
+  (errorMessage) => {
+    console.log(errorMessage);
+    this.error = errorMessage;
+    this.isLoading = false;
+  }
+);
 ```
+
 Thêm button log out
 header.component.ts
+
 ```ts
 ngOnInit() {
     this.userSub = this.authService.user.subscribe(user => {
@@ -8551,23 +8777,26 @@ ngOnInit() {
   }
 
 ```
+
 Hien an button fetch...
 
 ```html
-      <li routerLinkActive="active" *ngIf="isAuthenticated">
-          <a routerLink="/recipes">Recipes</a>
-        </li>
-        <li routerLinkActive="active" *ngIf="!isAuthenticated">
-          <a routerLink="/auth">Authenticate</a>
-		
-		<li *ngIf="isAuthenticated">
-          <a style="cursor: pointer;">Logout</a>
-        </li>
+<li routerLinkActive="active" *ngIf="isAuthenticated">
+  <a routerLink="/recipes">Recipes</a>
+</li>
+<li routerLinkActive="active" *ngIf="!isAuthenticated">
+  <a routerLink="/auth">Authenticate</a>
+</li>
+
+<li *ngIf="isAuthenticated">
+  <a style="cursor: pointer;">Logout</a>
+</li>
 ```
 
 ![image-20200611092113554](angular.assets/image-20200611092113554.png)
 
 ### 16. Adding the Token to Outgoing Requests
+
 Khi an FETCH DATA gap loi vi firebase cannot know we have a valid token
 
 This **subject** is a subject to which we can subscribe and we'll get information whenever new data is emitted.
@@ -8587,13 +8816,12 @@ Now therefore behavior subject also needs to be initialized with a starting valu
 auth.service.ts
 
 ```ts
-  user = new BehaviorSubject<User>(null);
-  // The difference is that behavior subjects gives subscribers immediate access to the previously emitted value even if they haven't subscribed at the point of time the value was emitted => get lastest user token even if user logged
-
-
+user = new BehaviorSubject<User>(null);
+// The difference is that behavior subjects gives subscribers immediate access to the previously emitted value even if they haven't subscribed at the point of time the value was emitted => get lastest user token even if user logged
 ```
 
 data-storage.service.ts
+
 ```ts
 fetchRecipes() {
     return this.authService.user.pipe(
@@ -8621,6 +8849,7 @@ fetchRecipes() {
     );
   }
 ```
+
 **Take** is also imported from rxjs/operator and take is called as a function and you simply pass a number to it and I pass one here and what this tells RxJS is that I only want to take one value from that observable and thereafter, **it should automatically unsubscribe**.
 
 So this manages the subscription for me, gives me the latest user and unsubscribes and I'm not getting future users because I just want to get them on demand when fetch recipes is called, so whenever this code executes.
@@ -8630,13 +8859,14 @@ So this manages the subscription for me, gives me the latest user and unsubscrib
 auth-06-logout
 
 Add auth-interceptor.service.ts
+
 ```ts
 import { Injectable } from '@angular/core';
 import {
   HttpInterceptor,
   HttpRequest,
   HttpHandler,
-  HttpParams
+  HttpParams,
 } from '@angular/common/http';
 import { take, exhaustMap } from 'rxjs/operators';
 
@@ -8650,13 +8880,13 @@ export class AuthInterceptorService implements HttpInterceptor {
     // this.authService.user is an observable
     return this.authService.user.pipe(
       take(1),
-      exhaustMap(user => {
+      exhaustMap((user) => {
         // if user null cannot access token
         if (!user) {
           return next.handle(req);
         }
         const modifiedReq = req.clone({
-          params: new HttpParams().set('auth', user.token)
+          params: new HttpParams().set('auth', user.token),
         });
         // this is an observable
         return next.handle(modifiedReq);
@@ -8664,9 +8894,10 @@ export class AuthInterceptorService implements HttpInterceptor {
     );
   }
 }
-
 ```
+
 Khai bao
+
 ```ts
 providers: [
     ShoppingListService,
@@ -8708,10 +8939,10 @@ data-storage.service.ts
 }
 ```
 
-
-
 ### 18. Adding Logout
+
 auth.service.ts
+
 ```ts
 logout() {
     this.user.next(null);
@@ -8719,6 +8950,7 @@ logout() {
   }
   // Vao header sua them ham logout
 ```
+
 ### 19. Adding Auto-Login
 
 **When we re load a page the app will be reload => use local storage or cookie**
@@ -8730,6 +8962,7 @@ remember that we're storing the token in a user model which happens in Javascrip
 happens in memory, since we manage that all in memory, we'll lose all that state whenever the application restarts because that memory gets cleared automatically,
 
 auth.service.ts
+
 ```ts
 // handleAuthentication
 private handleAuthentication(
@@ -8742,7 +8975,7 @@ private handleAuthentication(
     const user = new User(email, userId, token, expirationDate);
     this.user.next(user);
     this.autoLogout(expiresIn * 1000);
-    // add 
+    // add
     // convert to string
     localStorage.setItem('userData', JSON.stringify(user));
   }
@@ -8780,13 +9013,17 @@ autoLogin() {
 
 
 ```
+
 app.component.ts
+
 ```ts
 ngOnInit() {
     this.authService.autoLogin();
   }
 ```
+
 app.component.html
+
 ```html
 <app-header></app-header>
 <div class="container">
@@ -8797,8 +9034,11 @@ app.component.html
   </div>
 </div>
 ```
+
 ### 20. Adding Auto-Logout
+
 auth.service.ts
+
 ```ts
  private tokenExpirationTimer: any;
 logout() {
@@ -8819,7 +9059,7 @@ autoLogout(expirationDuration: number) {
       this.logout();
     }, expirationDuration); // thay expirationDuration  = 2000 de xem khi log in co log out after 2s chứ bình thưởng là 3600000
   }
-  
+
 // handleAuthentication
 private handleAuthentication(
     email: string,
@@ -8835,6 +9075,7 @@ private handleAuthentication(
     localStorage.setItem('userData', JSON.stringify(user));
   }
 ```
+
 ### 21. Adding an Auth Guard
 
 Do you remember the routing section? There we had a look at **route guards** and that is exactly what we need here. A **route guard allows us to run logic right before a route is loaded** and we can deny access if a certain condition is not met and this is exactly what we need here. For that in the auth folder, let's create a new file and I'll name it auth.guard.ts
@@ -8850,7 +9091,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   Router,
-  UrlTree
+  UrlTree,
 } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -8872,19 +9113,19 @@ export class AuthGuard implements CanActivate {
     | Observable<boolean | UrlTree> {
     return this.authService.user.pipe(
       take(1), // take the lastest user them unsubcribed => don't need listen
-      map(user => {
+      map((user) => {
         const isAuth = !!user;
         if (isAuth) {
           return true;
         }
-          // cach 2
+        // cach 2
         return this.router.createUrlTree(['/auth']);
       })
-// cách 1
- 	//	map(user => {
-    //    const isAuth = !!user;
-    //    return !!user;
-    //    })
+      // cách 1
+      //	map(user => {
+      //    const isAuth = !!user;
+      //    return !!user;
+      //    })
       //, tap(isAuth => {
       //   if (!isAuth) {
       //     this.router.navigate(['/auth']);
@@ -8893,7 +9134,6 @@ export class AuthGuard implements CanActivate {
     );
   }
 }
-
 ```
 
 we essentially set up an ongoing subscription here though. This user subject of course can emit
@@ -8934,9 +9174,11 @@ routing
     ]
   }
 ```
+
 ### 22. Wrap Up
 
 ### 23. Useful Resources & Links.html
+
 Useful Resources & Links
 Useful Docs:
 
@@ -8969,10 +9211,13 @@ through our code and that's exactly what we'll do in this module. You will learn
 component and how to then load it on demand, how to communicate with it and also how to get rid of it.
 
 ### 10. Useful Resources & Links.html
+
 Useful Resources:
 
 Official Docs: https://angular.io/guide/dynamic-component-loader
+
 ### 2. Adding an Alert Modal Component
+
 Vào folder share tại component alert
 alert.component.html
 
@@ -8984,13 +9229,11 @@ alert.component.html
     <button class="btn btn-primary" (click)="onClose()">Close</button>
   </div>
 </div>
-
 ```
+
 nho khai bao modules
 
-![image-20200611141137611](angular.assets/image-20200611141137611.png)  
-
-
+![image-20200611141137611](angular.assets/image-20200611141137611.png)
 
 alert.component.ts
 
@@ -8998,7 +9241,7 @@ alert.component.ts
 @Component({
   selector: 'app-alert',
   templateUrl: './alert.component.html', // xem css
-  styleUrls: ['./alert.component.css']
+  styleUrls: ['./alert.component.css'],
 })
 export class AlertComponent {
   @Input() message: string;
@@ -9008,9 +9251,10 @@ export class AlertComponent {
     this.close.emit();
   }
 }
-
 ```
+
 css
+
 ```css
 .backdrop {
   position: fixed;
@@ -9036,28 +9280,29 @@ css
 .alert-box-actions {
   text-align: right;
 }
-
 ```
+
 auth.component.html
+
 ```html
 <app-alert
-      [message]="error"
-      *ngIf="error"
-      (close)="onHandleError()"
-    ></app-alert>
-
+  [message]="error"
+  *ngIf="error"
+  (close)="onHandleError()"
+></app-alert>
 ```
 
 auth.component.ts
+
 ```ts
 onHandleError() {
     this.error = null;
   }
 ```
 
-
 ### 3. Understanding the Different Approaches
-![](../root/img/2019-11-30-01-49-08.png)  
+
+![](angular.assets/2019-11-30-01-49-08.png)
 
 The alternative is that you use something which in the past was named **dynamic component loader**.
 
@@ -9076,14 +9321,19 @@ So everything ngIf does for you, you have to do on your own there. Still, this a
 it also of course allows you to control it entirely from code and you don't have to touch the template.
 
 ### 4. Using ngIf
+
 auth.component.ts
+
 ```ts
 onHandleError() {
     this.error = null;
   }
 ```
+
 ### 5. Preparing Programmatic Creation
+
 auth.component.ts
+
 ```ts
 error: string = null;
 // give angular a ref, a pointer to the place in the DOM
@@ -9094,13 +9344,13 @@ error: string = null;
 constructor(
     private authService: AuthService,
     private router: Router,
-    private componentFactoryResolver: ComponentFactoryResolver // add inject 
+    private componentFactoryResolver: ComponentFactoryResolver // add inject
   ) {}
 
 // add
 private showErrorAlert(message: string) {
     // const alertCmp = new AlertComponent(); => ts will fail to create component
-    
+
     // create component for you
     const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
       AlertComponent
@@ -9120,7 +9370,7 @@ private showErrorAlert(message: string) {
 // ham onsubmit
 onSubmit(form: NgForm) {
     // .....
-    
+
 	errorMessage => {
         console.log(errorMessage);
         this.error = errorMessage;
@@ -9130,25 +9380,29 @@ onSubmit(form: NgForm) {
         this.isLoading = false;
       }
 ```
+
 Tạo placeholder.directive.ts
+
 ```ts
 import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[appPlaceholder]'
+  selector: '[appPlaceholder]',
 })
 export class PlaceholderDirective {
   //inject
   constructor(public viewContainerRef: ViewContainerRef) {}
 }
-
 ```
 
 ### 6. Creating a Component Programmatically
+
 auth.component.html
+
 ```html
 <ng-template appPlaceholder></ng-template>
 ```
+
 ![image-20200611143217725](angular.assets/image-20200611143217725.png)
 
 ### 7. Understanding entryComponents
@@ -9180,7 +9434,9 @@ app.module
     AlertComponent
   ]
 ```
+
 auth.component.ts
+
 ```ts
 // Add closeSub
 ngOnDestroy() {
@@ -9189,6 +9445,7 @@ ngOnDestroy() {
     }
   }
 ```
+
 There is a property we haven't worked with thus far and Data's entry components entry components also
 
 is an array and it's an array of components types but only of components that will eventually need to
@@ -9224,12 +9481,17 @@ Vì tạo bằng cách 2 nên nó k biết tìm ở đâu => entry
 ### 1. Module Introduction
 
 ### 2. What are Modules
-![](../root/img/2019-11-30-15-57-21.png)
+
+![](angular.assets/2019-11-30-15-57-21.png)
+
 ### 3. Analyzing the AppModule
-![](../root/img/2019-11-30-16-08-07.png)
+
+![](angular.assets/2019-11-30-16-08-07.png)
 
 ### 4. Getting Started with Feature Modules
+
 Tạo file recipes.module
+
 ```ts
 @NgModule({
   declarations: [
@@ -9238,7 +9500,7 @@ Tạo file recipes.module
     RecipeDetailComponent,
     RecipeItemComponent,
     RecipeStartComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
   ],
   // fix next
   imports: [RouterModule, CommonModule, ReactiveFormsModule],
@@ -9248,13 +9510,14 @@ Tạo file recipes.module
     RecipeDetailComponent,
     RecipeItemComponent,
     RecipeStartComponent,
-    RecipeEditComponent
-  ]
+    RecipeEditComponent,
+  ],
 })
 export class RecipesModule {}
-
 ```
+
 vào app
+
 ```ts
 imports: [
     BrowserModule,
@@ -9267,6 +9530,7 @@ imports: [
   ],
 
 ```
+
 CommonModule fix lỗi cho ngIf, ngfor
 
 So to be able to use ngFor in the recipes module, besides the router module, we probably also need
@@ -9286,6 +9550,7 @@ ngFor.
 ### 5. Splitting Modules Correctly
 
 ### 6. Adding Routes to Feature Modules
+
 create new file, cut from routing to here
 recipes-routing.module.ts
 
@@ -9311,26 +9576,26 @@ const routes: Routes = [
       {
         path: ':id',
         component: RecipeDetailComponent,
-        resolve: [RecipesResolverService]
+        resolve: [RecipesResolverService],
       },
       {
         path: ':id/edit',
         component: RecipeEditComponent,
-        resolve: [RecipesResolverService]
-      }
-    ]
-  }
+        resolve: [RecipesResolverService],
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class RecipesRoutingModule {}
-
 ```
 
 Khai bao trong Module moi
+
 ```ts
 imports: [
     RouterModule,
@@ -9341,7 +9606,9 @@ imports: [
 
 
 ```
+
 ### 7. Component Declarations
+
 Because using routing recipe internal so **you can remove it**
 
 The other important thing I wanted to highlight is that now that we manage the loading of our components,
@@ -9352,19 +9619,21 @@ to still export all these recipe components because we're now only using them in
 
 module. We're using them either embedded into other components here or by loading them through the recipes routing
 
-module, both is part of this file. So there is no reason to export the recipe components anymore 
+module, both is part of this file. So there is no reason to export the recipe components anymore
 
 ```ts
 exports: [
-    RecipesComponent,
-    RecipeListComponent,
-    RecipeDetailComponent,
-    RecipeItemComponent,
-    RecipeStartComponent,
-    RecipeEditComponent
-  ]
+  RecipesComponent,
+  RecipeListComponent,
+  RecipeDetailComponent,
+  RecipeItemComponent,
+  RecipeStartComponent,
+  RecipeEditComponent,
+];
 ```
+
 ### 8. The ShoppingList Feature Module
+
 ```ts
 @NgModule({
   declarations: [ShoppingListComponent, ShoppingEditComponent],
@@ -9373,19 +9642,19 @@ exports: [
     RouterModule.forChild([
       { path: 'shopping-list', component: ShoppingListComponent },
     ]),
-    SharedModule // add next nếu bt thì commonmodule and form module là ok
-  ]
+    SharedModule, // add next nếu bt thì commonmodule and form module là ok
+  ],
 })
 export class ShoppingListModule {}
 // Sau do vao AppModule khai bao
 ```
+
 ### 9. Understanding Shared Modules
 
-![image-20200611155248204](angular.assets/image-20200611155248204.png)  
-
-
+![image-20200611155248204](angular.assets/image-20200611155248204.png)
 
 shared.module.ts
+
 ```ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9400,7 +9669,7 @@ import { DropdownDirective } from './dropdown.directive';
     AlertComponent,
     LoadingSpinnerComponent,
     PlaceholderDirective,
-    DropdownDirective
+    DropdownDirective,
   ],
   imports: [CommonModule],
   exports: [
@@ -9408,13 +9677,13 @@ import { DropdownDirective } from './dropdown.directive';
     LoadingSpinnerComponent,
     PlaceholderDirective,
     DropdownDirective,
-    CommonModule
+    CommonModule,
   ],
-  entryComponents: [AlertComponent]
+  entryComponents: [AlertComponent],
 })
 export class SharedModule {}
-
 ```
+
 use in app.modules.ts xóa những cái đã được định nghĩa trong share
 
 ```ts
@@ -9428,7 +9697,7 @@ use in app.modules.ts xóa những cái đã được định nghĩa trong share
     AppRoutingModule,
     RecipesModule,
     ShoppingListModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     ShoppingListService,
@@ -9436,22 +9705,22 @@ use in app.modules.ts xóa những cái đã được định nghĩa trong share
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
 
-
-
 ### 10. Understanding the Core Module
-![](../root/img/2019-11-30-22-56-11.png)
-Nen sử dụng @Injectable({ providedIn: 'root' }) thay vì khai báo trong 
+
+![](angular.assets/2019-11-30-22-56-11.png)
+Nen sử dụng @Injectable({ providedIn: 'root' }) thay vì khai báo trong
 app.modules
 
 core.module.ts
+
 ```ts
 @NgModule({
   providers: [
@@ -9460,14 +9729,15 @@ core.module.ts
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class CoreModule {}
-
 ```
+
 app.module.ts
+
 ```ts
 @NgModule({
   declarations: [AppComponent, HeaderComponent, AuthComponent],
@@ -9484,6 +9754,7 @@ app.module.ts
     CoreModule
   ],
 ```
+
 The core module is basically there to make the app module a bit leaner, let's say in the app module, we
 
 have the app component and here we are providing two services.
@@ -9505,22 +9776,25 @@ auth.module.ts
     CommonModule,
     FormsModule,
     RouterModule.forChild([{ path: '', component: AuthComponent }]),
-    SharedModule // error loading spiner
-  ]
+    SharedModule, // error loading spiner
+  ],
 })
 export class AuthModule {}
-
 ```
+
 ### 12. Understanding Lazy Loading
-![](../root/img/2019-11-30-23-10-48.png)  
+
+![](angular.assets/2019-11-30-23-10-48.png)
 
 Chỉ load những gì mình cần root route content, xóa url ở file con  
-Khi reload F12 o tab network a bunch of files were downloaded  
+Khi reload F12 o tab network a bunch of files were downloaded
 
 ![image-20200611160535656](angular.assets/image-20200611160535656.png)
 
 ---
+
 recipes-routing.module.ts
+
 ```ts
  path: '', // replace recipes with ''
     component: RecipesComponent,
@@ -9528,6 +9802,7 @@ recipes-routing.module.ts
 ```
 
 app-routing.module.ts
+
 ```ts
 const appRoutes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
@@ -9536,17 +9811,18 @@ const appRoutes: Routes = [
   // add in 15
   {
     path: 'shopping-list',
-    loadChildren: './shopping-list/shopping-list.module#ShoppingListModule'
+    loadChildren: './shopping-list/shopping-list.module#ShoppingListModule',
   },
   {
     path: 'auth',
-    loadChildren: './auth/auth.module#AuthModule'
-  }
+    loadChildren: './auth/auth.module#AuthModule',
+  },
 ];
- // => only download bunch of code that you need it
+// => only download bunch of code that you need it
 ```
 
 app.modules
+
 ```ts
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -9562,44 +9838,54 @@ app.modules
 })
 
 ```
+
 ### 13. Implementing Lazy Loading
 
 ### 14. Alternative Lazy Loading Syntax.html
+
 If you're using Angular 8+, you can use an alternative syntax for specifying lazy-loaded routes:
 
 Instead of
 
 ```ts
-const routes: Routes = [{
-  path: 'your-path',
-  loadChildren: './your-module-path/module-name.module#ModuleName'
-}];
-
+const routes: Routes = [
+  {
+    path: 'your-path',
+    loadChildren: './your-module-path/module-name.module#ModuleName',
+  },
+];
 ```
+
 you can use
 
 ```ts
-const routes: Routes = [{
-  path: 'your-path',
-  loadChildren: () => import('./your-module-path/module-name.module').then(m => m.ModuleName)
-}];
-
+const routes: Routes = [
+  {
+    path: 'your-path',
+    loadChildren: () =>
+      import('./your-module-path/module-name.module').then((m) => m.ModuleName),
+  },
+];
 ```
+
 Please note, that you need to ensure that in your tsconfig.json file, you use
 
 ```ts
 "module": "esnext",
 
 ```
+
 instead of
 
 ```ts
 "module": "es2015",
 
 ```
+
 Why would you use this syntax? In the future, it'll replace the "string-only" approach (i.e. the first alternative mentioned here). It also will give you better IDE support.
 
 ### 15. More Lazy Loading
+
 shopping-list.module.ts
 
 Add and delete path in file module.ts
@@ -9613,15 +9899,16 @@ Add and delete path in file module.ts
       // modify
       { path: '', component: ShoppingListComponent },
     ]),
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
 export class ShoppingListModule {}
 ```
-app.module.ts
-Xoa ShoppingListModule, AuthModule 
 
-![image-20200611163345520](angular.assets/image-20200611163345520.png)  
+app.module.ts
+Xoa ShoppingListModule, AuthModule
+
+![image-20200611163345520](angular.assets/image-20200611163345520.png)
 
 ### 16. Preloading Lazy-Loaded Code
 
@@ -9635,6 +9922,7 @@ no internet connection, the longer that delay will be and therefore, we can actu
 
 Avoid delay because internet...
 app-routing
+
 ```ts
 @NgModule({
   imports: [
@@ -9652,9 +9940,12 @@ But with preload all modules imported and set here as a preloading strategy, you
 
 ### 17. Modules & Services
 
-![](../root/img/2019-11-30-23-56-50.png)
+![](angular.assets/2019-11-30-23-56-50.png)
+
 ### 18. Loading Services Differently
+
 Tạo file logging.service.ts
+
 ```ts
 import { Injectable } from '@angular/core';
 
@@ -9668,9 +9959,10 @@ export class LoggingService {
     this.lastlog = message;
   }
 }
-
 ```
+
 app.component.ts
+
 ```ts
 ngOnInit() {
     this.authService.autoLogin();
@@ -9684,13 +9976,14 @@ ngOnInit() {
 
 Khi chay in lastlog dau la undefined va cai sau o shopping list co value => same instance when use Injectable
 
-![image-20200611164543754](angular.assets/image-20200611164543754.png)  
+![image-20200611164543754](angular.assets/image-20200611164543754.png)
 
 ---
-Thêm   ` providers: [LoggingService]` ở app.module or core.module để test => same instance when use Injectable
+
+Thêm ` providers: [LoggingService]` ở app.module or core.module để test => same instance when use Injectable
 File shopping list module thì khác instance with lazy khi khai bao o app.module va shopping-list.module => undefined all
 
-![image-20200611164814137](angular.assets/image-20200611164814137.png)  
+![image-20200611164814137](angular.assets/image-20200611164814137.png)
 
 We're using a separate instance in our application in general for the service provided in app module
 
@@ -9702,7 +9995,7 @@ service, they don't use the application-wide available instance, they use their 
 
 by that child injector.
 
-shared.module : eager loading  => undefined all
+shared.module : eager loading => undefined all
 
 ### 19. Ahead-of-Time Compilation
 
@@ -9710,9 +10003,10 @@ So before we deploy our built angular app onto a server and that is ahead of tim
 
 in time compilation.
 
-![](../root/img/2019-12-01-00-23-02.png)
+![](angular.assets/2019-12-01-00-23-02.png)
 
 recipe-edit
+
 ```ts
 // modify because build fail
 get ingredientsControls() {
@@ -9720,23 +10014,23 @@ get ingredientsControls() {
   }
 
 ```
+
 ```html
 <div
-            class="row"
-            *ngFor="let ingredientCtrl of ingredientsControls; let i = index"
-            [formGroupName]="i"
-            style="margin-top: 10px;"
-          >
+  class="row"
+  *ngFor="let ingredientCtrl of ingredientsControls; let i = index"
+  [formGroupName]="i"
+  style="margin-top: 10px;"
+></div>
 ```
-
-
 
 Vào folder dist sau khi build
 
 ```ts
-Ng build --prod 
+Ng build --prod
 // build to few file to deloy
 ```
+
 We want to have a good development experience with rich error messages and so on but as soon as we're
 
 preparing ourselves for production and for building our angular app for production to then upload it
@@ -9759,11 +10053,14 @@ NgModules FAQ: https://angular.io/guide/ngmodule-faq
 ### 1. Module Introduction
 
 ### 2. Deployment Preparation & Steps
-![](../root/img/2019-12-01-00-36-36.png)
+
+![](angular.assets/2019-12-01-00-36-36.png)
 
 ### 3. Using Environment Variables
-environment.ts, 
+
+environment.ts,
 environment.prod.ts // build for production
+
 ```ts
 export const environment = {
   production: false,
@@ -9775,13 +10072,16 @@ export const environment = {
 import { environment } from '../../environments/environment';
 
 ```
+
 ### 4. Deployment Example Firebase Hosting
+
 GG: static website host
 aws s3
 firebase hosting
 vao doc firebase.gooole.com => install CLI
+
 ```
-npm install -g firevbse-tools  
+npm install -g firevbse-tools
 firebase login
 firebase init // connect to app
 Chon hosting
@@ -9793,19 +10093,23 @@ firebase deloy
 ```
 
 ### 5. Server Routing vs Browser Routing.html
+
 Server Routing vs Browser Routing
 When deploying your Angular app, it's really important to make sure that your server (like S3) is configured to always serve the index.html file.
 
 Here's why: https://academind.com/learn/angular/angular-q-a/#how-to-fix-broken-routes-after-deployment
+
 ## 24. Bonus Working with NgRx in our Project
 
 ### 1. Module Introduction
+
 ### 2. What is Application State
-Nếu app lớn hơn các state phụ thuộc vào component, component phụ thuộc vào service 
+
+Nếu app lớn hơn các state phụ thuộc vào component, component phụ thuộc vào service
 State is app is loading state => wait fetch data
 application state => affect all app
 
-![](../root/img/2019-12-01-08-31-14.png)  
+![](angular.assets/2019-12-01-08-31-14.png)
 
 State is not just data like stored exercises or recipes, state could also be things like "this app is currently
 
@@ -9813,8 +10117,8 @@ waiting for some data to be fetched", so the app is in a loading state, it's sho
 
 So basically, any data, any information that controls what should be visible on the screen, that is state.
 
-![](../root/img/2019-12-01-08-41-12.png)  
-![](../root/img/2019-12-01-08-42-43.png)  
+![](angular.assets/2019-12-01-08-41-12.png)  
+![](angular.assets/2019-12-01-08-42-43.png)
 
 Well we already have a remedy to that and that is rxjs, at least partly. RxJS already allows
 
@@ -9860,9 +10164,9 @@ it's unclear where this should happen - should you write the code for sending th
 
 you do it in a service?
 
-![](../root/img/2019-12-01-08-47-22.png)  
+![](angular.assets/2019-12-01-08-47-22.png)  
 Redux là 1 js obj lớn gồm all data, central store  
-Reducer là js func that get current state which stored in a store, copy in and change the copy return a copy of old state 
+Reducer là js func that get current state which stored in a store, copy in and change the copy return a copy of old state
 
 **Redux** is a state management pattern, it's also a library that helps you implement that pattern into any application.
 
@@ -9872,9 +10176,7 @@ so that store is the single source of truth that manages the entire application 
 
 ![image-20200611182807494](angular.assets/image-20200611182807494.png)
 
-
-
-![](../root/img/2019-12-01-08-57-27.png)
+![](angular.assets/2019-12-01-08-57-27.png)
 
 It also embraces RxJS and observables, so all the state is managed as one large observable
 
@@ -9889,10 +10191,12 @@ this will not change the store state of course
 and it of course also supports TypeScript.
 
 ### 4. Getting Started with Reducers
+
 ```ts
-Npm install –-save @ngrx/store 
+Npm install –-save @ngrx/store
 
 ```
+
 Tạo file shopping-list.reducer.ts
 
 ```ts
@@ -9901,10 +10205,7 @@ import { Action } from '@ngrx/store';
 import { Ingredient } from '../shared/ingredient.model';
 
 const initialState = {
-  ingredients: [
-    new Ingredient('Apples', 5),
-    new Ingredient('Tomatoes', 10),
-  ]
+  ingredients: [new Ingredient('Apples', 5), new Ingredient('Tomatoes', 10)],
 };
 
 export function shoppingListReducer(state = initialState, action: Action) {
@@ -9912,13 +10213,12 @@ export function shoppingListReducer(state = initialState, action: Action) {
     case 'ADD_INGREDIENT':
       return {
         ...state,
-        ingredients: [...state.ingredients, action] // action duoc them tam
+        ingredients: [...state.ingredients, action], // action duoc them tam
       };
   }
 }
-
-
 ```
+
 State is immutable
 
 So the first time this reducer will run, it will receive that initial state for subsequent actions,
@@ -9946,17 +10246,17 @@ export class AddIngredient implements Action {
   readonly type = ADD_INGREDIENT;
   payload: Ingredient; // riêng tên này có thể thay đổi trừ type
 }
-
 ```
 
 Khi export nhiều thứ từ 1 class
 shopping-list.reducer
+
 ```ts
 import { Ingredient } from '../../shared/ingredient.model';
 import * as ShoppingListActions from './shopping-list.actions';
 
 const initialState = {
-  ingredients: [new Ingredient('Apples', 5), new Ingredient('Tomatoes', 10)]
+  ingredients: [new Ingredient('Apples', 5), new Ingredient('Tomatoes', 10)],
 };
 
 export function shoppingListReducer(
@@ -9967,16 +10267,18 @@ export function shoppingListReducer(
     case ShoppingListActions.ADD_INGREDIENT:
       return {
         ...state,
-        ingredients: [...state.ingredients, action.payload]
+        ingredients: [...state.ingredients, action.payload],
       };
     default:
       return state;
   }
 }
-
 ```
+
 ### 7. Setting Up the NgRx Store
+
 app.module.ts
+
 ```ts
 import { StoreModule } from '@ngrx/store';
 import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
@@ -9992,9 +10294,11 @@ imports: [
   ],
 
 ```
+
 So now all action will dispatch to reducer
 
 ### 8. Selecting State
+
 shopping-list.component.ts
 
 ```ts
@@ -10017,18 +10321,22 @@ ngOnInit() {
     this.loggingService.printLog('Hello from ShoppingListComponent ngOnInit!');
   }
 ```
-shopping-list.component.html
-```html
- <a
-        class="list-group-item"
-        style="cursor: pointer"
-        *ngFor="let ingredient of (ingredients | async).ingredients; let i = index"
-        (click)="onEditItem(i)"
-      >
 
+shopping-list.component.html
+
+```html
+<a
+  class="list-group-item"
+  style="cursor: pointer"
+  *ngFor="let ingredient of (ingredients | async).ingredients; let i = index"
+  (click)="onEditItem(i)"
+>
+</a>
 ```
+
 (ingredients | async).ingredients bằng cách này nó sẽ subcribe ingredients observable
 Reducer
+
 ```ts
 export function shoppingListReducer(
   state = initialState,
@@ -10038,20 +10346,20 @@ export function shoppingListReducer(
     case ShoppingListActions.ADD_INGREDIENT:
       return {
         ...state,
-        ingredients: [...state.ingredients, action.payload]
+        ingredients: [...state.ingredients, action.payload],
       };
     case ShoppingListActions.ADD_INGREDIENTS:
       return {
         ...state,
-        ingredients: [...state.ingredients, ...action.payload]
+        ingredients: [...state.ingredients, ...action.payload],
       };
-      // add
+    // add
     default:
       return state;
   }
 }
-
 ```
+
 we need to add a default case to our switch statement to handle any cases we're not explicitly handling and we're only handling one explicit case here and that's not the action NgRx will dispatch automatically when it starts, it kind of dispatches an initialization action and we need to handle this and we can handle it here with the default case
 
 and there I simply want to return the unchanged state and that will now be the initial state.
@@ -10065,6 +10373,7 @@ but to be super safe, I would recommend storing this in a subscription property 
 as well just to avoid memory leaks and bugs
 
 shopping-edit.component.ts
+
 ```ts
 constructor(
     private slService: ShoppingListService,
@@ -10086,7 +10395,9 @@ onSubmit(form: NgForm) {
   }
 
 ```
+
 shopping-list.action.ts
+
 ```ts
 import { Action } from '@ngrx/store';
 
@@ -10100,13 +10411,14 @@ export class AddIngredient implements Action {
 
   constructor(public payload: Ingredient) {} // change payload properties
 }
-
 ```
+
 ![image-20200611210145619](angular.assets/image-20200611210145619.png)
 
 ### 10. Multiple Actions
 
 shopping-list.action.ts
+
 ```ts
 export class AddIngredients implements Action {
   readonly type = ADD_INGREDIENTS;
@@ -10118,6 +10430,7 @@ export type ShoppingListActions = AddIngredient | AddIngredients;
 ```
 
 Recipe.service
+
 ```ts
  constructor(
     private slService: ShoppingListService,
@@ -10131,13 +10444,15 @@ addIngredientsToShoppingList(ingredients: Ingredient[]) {
   }
 
 ```
+
 shopping-list.reducer.ts
+
 ```ts
 import { Ingredient } from '../../shared/ingredient.model';
 import * as ShoppingListActions from './shopping-list.actions';
 
 const initialState = {
-  ingredients: [new Ingredient('Apples', 5), new Ingredient('Tomatoes', 10)]
+  ingredients: [new Ingredient('Apples', 5), new Ingredient('Tomatoes', 10)],
 };
 
 export function shoppingListReducer(
@@ -10148,33 +10463,37 @@ export function shoppingListReducer(
     case ShoppingListActions.ADD_INGREDIENT:
       return {
         ...state,
-        ingredients: [...state.ingredients, action.payload]
+        ingredients: [...state.ingredients, action.payload],
       };
     case ShoppingListActions.ADD_INGREDIENTS:
       return {
         ...state,
-        ingredients: [...state.ingredients, ...action.payload]
+        ingredients: [...state.ingredients, ...action.payload],
       };
     default:
       return state;
   }
 }
-
 ```
+
 recipe-detail.component.ts
+
 ```ts
 // button add all
 onAddToShoppingList() {
     this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients);
   }
 ```
+
 ### 11. Preparing Update & Delete Actions
+
 action
+
 ```ts
 export class UpdateIngredient implements Action {
   readonly type = UPDATE_INGREDIENT;
 
-  constructor(public payload: Ingredient ) {}
+  constructor(public payload: Ingredient) {}
 }
 
 export class DeleteIngredient implements Action {
@@ -10186,10 +10505,12 @@ export type ShoppingListActions =
   | AddIngredients
   | UpdateIngredient
   | DeleteIngredient;
-
 ```
+
 ### 12. Updating & Deleting Ingredients
+
 reducer
+
 ```ts
 case ShoppingListActions.UPDATE_INGREDIENT:
       const ingredient = state.ingredients[state.editedIngredientIndex];
@@ -10219,15 +10540,18 @@ case ShoppingListActions.UPDATE_INGREDIENT:
 Hàm filter trả về arr copy
 
 ```
+
 shopping-edit.component.ts
+
 ```ts
 // this.slService.updateIngredient(this.editedItemIndex, newIngredient);
-      this.store.dispatch(
-        new ShoppingListActions.UpdateIngredient(newIngredient)
-      );
+this.store.dispatch(new ShoppingListActions.UpdateIngredient(newIngredient));
 ```
+
 ### 13. Expanding the State
+
 shopping-list.reducer.ts
+
 ```ts
 // Add
 export interface State {
@@ -10265,6 +10589,7 @@ const initialState: State = { // thêm kiểu là state
 ```
 
 shopping-list.component.ts
+
 ```ts
 import * as fromShoppingList from './store/shopping-list.reducer';
 
@@ -10281,11 +10606,14 @@ onEditItem(index: number) {
   }
 
 ```
+
 shopping-edit.component.ts
 Lam tuong tu thay kiểu cho store
 
 ### 14. Managing More State via NgRx
+
 shopping-list.actions.ts
+
 ```ts
 export const START_EDIT = 'START_EDIT';
 export const STOP_EDIT = 'STOP_EDIT';
@@ -10306,10 +10634,10 @@ export type ShoppingListActions =
   | DeleteIngredient
   | StartEdit
   | StopEdit; // add
-
 ```
 
 shopping-list.reducer.ts
+
 ```ts
     case ShoppingListActions.START_EDIT:
       return {
@@ -10324,7 +10652,9 @@ shopping-list.reducer.ts
         editedIngredientIndex: -1
       };
 ```
+
 shopping-list.component.ts
+
 ```ts
 onEditItem(index: number) {
     // this.slService.startedEditing.next(index);
@@ -10334,6 +10664,7 @@ onEditItem(index: number) {
 ```
 
 shopping-edit.component.ts
+
 ```ts
 //	ngOnInit() {
   //   this.subscription = this.slService.startedEditing
@@ -10409,7 +10740,9 @@ onClear() {
 now can have error
 
 ---
+
 app.reducer.ts
+
 ```ts
 import { ActionReducerMap } from '@ngrx/store';
 
@@ -10423,14 +10756,16 @@ export interface AppState {
 
 export const appReducer: ActionReducerMap<AppState> = {
   shoppingList: fromShoppingList.shoppingListReducer,
-  auth: fromAuth.authReducer
+  auth: fromAuth.authReducer,
 };
-
 ```
+
 ### 15. Removing Redundant Component State Management
+
 delete all editedIngredientIndex
 modify(xem lai)
 shopping-list.reducer.ts
+
 ```ts
 case ShoppingListActions.UPDATE_INGREDIENT:
       const ingredient = state.ingredients[state.editedIngredientIndex];
@@ -10457,7 +10792,9 @@ case ShoppingListActions.UPDATE_INGREDIENT:
         editedIngredient: null
       };
 ```
+
 shopping-edit.component.ts
+
 ```ts
  onSubmit(form: NgForm) {
     const value = form.value;
@@ -10492,13 +10829,12 @@ export interface State {
 }
 
 const initialState: State = {
-  user: null
+  user: null,
 };
 
 export function authReducer(state = initialState, action) {
   return state;
 }
-
 ```
 
 app.reducer.ts
@@ -10516,13 +10852,12 @@ export interface AppState {
 
 export const appReducer: ActionReducerMap<AppState> = {
   shoppingList: fromShoppingList.shoppingListReducer,
-  auth: fromAuth.authReducer
+  auth: fromAuth.authReducer,
 };
-
-
 ```
 
 app.module.ts
+
 ```ts
 import * as fromApp from './store/app.reducer';
 
@@ -10558,10 +10893,6 @@ constructor(
   ) {}
 ```
 
-
-
-
-
 ### 18. Setting Up Auth Reducer & Actions
 
 auth.actions.ts
@@ -10590,7 +10921,6 @@ export class Logout implements Action {
 }
 
 export type AuthActions = Login | Logout;
-
 ```
 
 auth.reducer.ts
@@ -10604,7 +10934,7 @@ export interface State {
 }
 
 const initialState: State = {
-  user: null
+  user: null,
 };
 
 export function authReducer(
@@ -10621,23 +10951,18 @@ export function authReducer(
       );
       return {
         ...state,
-        user: user
+        user: user,
       };
     case AuthActions.LOGOUT:
       return {
         ...state,
-        user: null
+        user: null,
       };
     default:
       return state;
   }
 }
-
 ```
-
-
-
-
 
 ### 19. Dispatching Auth Actions
 
@@ -10667,7 +10992,7 @@ constructor(
         })
       );
      // .....
-        
+
     logout() {
         // add
     // this.user.next(null);
@@ -10682,10 +11007,6 @@ constructor(
 
 ```
 
-
-
-
-
 ### 20. Auth Finished (For Now...)
 
 auth-interceptor.service.ts
@@ -10693,7 +11014,7 @@ auth-interceptor.service.ts
 ```ts
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
-  constructor(private authService: AuthService, 
+  constructor(private authService: AuthService,
                // add
                private store: Store<fromApp.AppState>) {}
 
@@ -10751,15 +11072,11 @@ header.component.ts
   }
 ```
 
-
-
-
-
 ### 21. And Important Note on Actions
 
 Khi ấn delete
 
-![image-20200611231946916](angular.assets/image-20200611231946916.png)  
+![image-20200611231946916](angular.assets/image-20200611231946916.png)
 
 Vào file reducer in state ra console để xem
 
@@ -10799,7 +11116,6 @@ export const LOGOUT = '[Auth] Logout';
 shopping-list.actions.ts
 
 ```ts
-
 export const ADD_INGREDIENT = '[Shopping List] Add Ingredient';
 export const ADD_INGREDIENTS = '[Shopping List] Add Ingredients';
 export const UPDATE_INGREDIENT = '[Shopping List] Update Ingredient';
@@ -10807,8 +11123,6 @@ export const DELETE_INGREDIENT = '[Shopping List] Delete Ingredient';
 export const START_EDIT = '[Shopping List] Start Edit';
 export const STOP_EDIT = '[Shopping List] Stop Edit';
 ```
-
-
 
 ### 22. Exploring NgRx Effects
 
@@ -10820,7 +11134,7 @@ if we move as much as possible into the NgRx world and therefore if we use @ngrx
 
 our HTTP requests and local storage access.
 
- Side effects are basically parts in your code where you run some logic that of course is important for your application,
+Side effects are basically parts in your code where you run some logic that of course is important for your application,
 
 otherwise you wouldn't do it but that's not so important for the immediate update of the current state.
 
@@ -10962,8 +11276,6 @@ will not trigger this effect here, only login start will
 
 and you could add multiple actions here by the way if you want to run the same code for different actions.
 
-
-
 ### 24. Effects & Error Handling
 
 we need to create a new action class here in the auth actions file, the login start class which also implements action,
@@ -10971,7 +11283,6 @@ we need to create a new action class here in the auth actions file, the login st
 auth.actions.ts
 
 ```ts
-
 export class LoginStart implements Action {
   readonly type = LOGIN_START;
 
@@ -11029,7 +11340,7 @@ because this entire observable is dead and therefore, errors have to be handled 
 
 ```ts
 @Injectable() // add
-export class AuthEffects 
+export class AuthEffects
 ```
 
 be injected itself so it doesn't need to be provided but it needs @injectable so that things can be
@@ -11050,13 +11361,12 @@ import { AuthEffects } from './auth/store/auth.effects';
     StoreModule.forRoot(fromApp.appReducer),
     EffectsModule.forRoot([AuthEffects]), // add
     SharedModule,
-    CoreModule
+    CoreModule,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
   // providers: [LoggingService]
 })
 export class AppModule {}
-
 ```
 
 auth.component.ts
@@ -11070,7 +11380,7 @@ auth.component.ts
   ) {}
 
 
-// trong hàm onSUbmit 
+// trong hàm onSUbmit
 if (this.isLoginMode) {
       // authObs = this.authService.login(email, password);
       this.store.dispatch(
@@ -11096,9 +11406,7 @@ if (this.isLoginMode) {
     // );
 ```
 
-![image-20200612092154764](angular.assets/image-20200612092154764.png)  
-
-
+![image-20200612092154764](angular.assets/image-20200612092154764.png)
 
 ### 26. Managing UI State in NgRx
 
@@ -11135,13 +11443,13 @@ ngOnInit() {
 auth.effects.ts
 
 ```ts
-Effect({ dispatch: false })
-  authSuccess = this.actions$.pipe(
-    ofType(AuthActions.LOGIN),
-    tap(() => {
-      this.router.navigate(['/']);
-    })
-  );
+Effect({ dispatch: false });
+authSuccess = this.actions$.pipe(
+  ofType(AuthActions.LOGIN),
+  tap(() => {
+    this.router.navigate(['/']);
+  })
+);
 ```
 
 I mentioned that typically, your effects do that, they typically return an observable which holds a new
@@ -11157,36 +11465,34 @@ and this lets @ngrx/effects know that this is an effect which will actually not 
 ### 27. Finishing the Login Effect
 
 ```ts
-catchError(errorRes => {
-            let errorMessage = 'An unknown error occurred!';
-            if (!errorRes.error || !errorRes.error.error) {
-              return of(new AuthActions.LoginFail(errorMessage));
-            }
-            switch (errorRes.error.error.message) {
-              case 'EMAIL_EXISTS':
-                errorMessage = 'This email exists already';
-                break;
-              case 'EMAIL_NOT_FOUND':
-                errorMessage = 'This email does not exist.';
-                break;
-              case 'INVALID_PASSWORD':
-                errorMessage = 'This password is not correct.';
-                break;
-            }
-            return of(new AuthActions.LoginFail(errorMessage));
-          })
+catchError((errorRes) => {
+  let errorMessage = 'An unknown error occurred!';
+  if (!errorRes.error || !errorRes.error.error) {
+    return of(new AuthActions.LoginFail(errorMessage));
+  }
+  switch (errorRes.error.error.message) {
+    case 'EMAIL_EXISTS':
+      errorMessage = 'This email exists already';
+      break;
+    case 'EMAIL_NOT_FOUND':
+      errorMessage = 'This email does not exist.';
+      break;
+    case 'INVALID_PASSWORD':
+      errorMessage = 'This password is not correct.';
+      break;
+  }
+  return of(new AuthActions.LoginFail(errorMessage));
+});
 ```
-
-
 
 ### 28. Preparing Other Auth Actions
 
 auth.actions.ts
+
 ```ts
 export const AUTHENTICATE_SUCCESS = '[Auth] Login';
 export const AUTHENTICATE_FAIL = '[Auth] Login Fail';
 export const SIGNUP_START = '[Auth] Signup Start';
-
 
 export class AuthenticateSuccess implements Action {
   readonly type = AUTHENTICATE_SUCCESS;
@@ -11201,7 +11507,6 @@ export class AuthenticateSuccess implements Action {
   ) {}
 }
 
-
 export class AuthenticateFail implements Action {
   readonly type = AUTHENTICATE_FAIL;
 
@@ -11213,16 +11518,13 @@ export class SignupStart implements Action {
 
   constructor(public payload: { email: string; password: string }) {}
 }
-
 ```
 
 auth.effects.ts
+
 ```ts
 // thay LOGIN bằng AUTHENTICATE_SUCCESS và return new AuthActions.AuthenticateSuccess
-
-
 ```
-
 
 ### 29. Adding Signup
 
@@ -11261,8 +11563,8 @@ export class AuthEffects {
         );
     })
   );
-  
-  
+
+
   const handleAuthentication = (
   expiresIn: number,
   email: string,
@@ -11303,13 +11605,13 @@ const handleError = (errorRes: any) => {
 ```
 
 auth.component.ts
+
 ```ts
 // hàm submit
 
 this.store.dispatch(
-        new AuthActions.SignupStart({ email: email, password: password })
-      );
-      
+  new AuthActions.SignupStart({ email: email, password: password })
+);
 ```
 
 ### 30. Further Auth Effects
@@ -11348,11 +11650,11 @@ private storeSub: Subscription; // add
   ngOnInit() {
       // add
     this.storeSub = this.store.select('auth').subscribe(authState => {
-        
+
         ....
-        
-     ngOnDestroy() {  
-         
+
+     ngOnDestroy() {
+
    // add
     if (this.closeSub) {
       this.closeSub.unsubscribe();
@@ -11361,7 +11663,7 @@ private storeSub: Subscription; // add
       this.storeSub.unsubscribe();
     }
   }
-  
+
     // add
   onHandleError() {
     this.store.dispatch(new AuthActions.ClearError());
@@ -11371,7 +11673,6 @@ private storeSub: Subscription; // add
 auth.actions.ts
 
 ```ts
-
 export class ClearError implements Action {
   readonly type = CLEAR_ERROR;
 }
@@ -11392,7 +11693,7 @@ auth.effect.ts
 auth.service.ts
 
 ```ts
-// xóa hàm login và ssign up đi vì k còn sd  
+// xóa hàm login và ssign up đi vì k còn sd
 
 logout() {
     // this.user.next(null);
@@ -11408,14 +11709,11 @@ header.component.ts
   }
 ```
 
-
-
 ### 31. Adding Auto-Login with NgRx
 
 auth.actions
 
 ```ts
-
 export class AutoLogin implements Action {
   readonly type = AUTO_LOGIN;
 }
@@ -11494,10 +11792,9 @@ export class AppComponent implements OnInit {
     this.loggingService.printLog('Hello from AppComponent ngOnInit');
   }
 }
-
 ```
 
-![image-20200612123201864](angular.assets/image-20200612123201864.png)  
+![image-20200612123201864](angular.assets/image-20200612123201864.png)
 
 thêm return DUMMy để fix
 
@@ -11516,9 +11813,7 @@ import * as AuthActions from './store/auth.actions';
 export class AuthService {
   private tokenExpirationTimer: any;
 
-  constructor(
-    private store: Store<fromApp.AppState>
-  ) {}
+  constructor(private store: Store<fromApp.AppState>) {}
 
   setLogoutTimer(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
@@ -11533,7 +11828,6 @@ export class AuthService {
     }
   }
 }
-
 ```
 
 auth.effects.ts
@@ -11544,7 +11838,7 @@ auth.effects.ts
     	// add
             this.authService.setLogoutTimer(+resData.expiresIn * 1000); // khi test 3.6s k cần nhân 1000
           }),
-        
+
 // auto login
    if (loadedUser.token) {
         // this.user.next(loadedUser);
@@ -11552,7 +11846,7 @@ auth.effects.ts
           new Date(userData._tokenExpirationDate).getTime() -
           new Date().getTime();
         this.authService.setLogoutTimer(expirationDuration); // add
-       
+
        ....
 
 @Effect({ dispatch: false })
@@ -11566,11 +11860,7 @@ auth.effects.ts
   );
 ```
 
-
-
 ### 33. Finishing the Auth Effects
-
-
 
 ### 34. Using the Store Devtools
 
@@ -11585,7 +11875,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { environment } from '../environments/environment';
 
-
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
   imports: [
@@ -11594,24 +11883,21 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     StoreModule.forRoot(fromApp.appReducer),
     EffectsModule.forRoot([AuthEffects]),
-      // add
+    // add
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
-      // # 35
+    // # 35
     StoreRouterConnectingModule.forRoot(),
-      
+
     SharedModule,
-    CoreModule
+    CoreModule,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
   // providers: [LoggingService]
 })
 export class AppModule {}
-
 ```
 
-![image-20200612141736124](angular.assets/image-20200612141736124.png)  
-
-
+![image-20200612141736124](angular.assets/image-20200612141736124.png)
 
 ### 35. The Router Store
 
@@ -11642,7 +11928,6 @@ export class FetchRecipes implements Action {
 }
 
 export type RecipesActions = SetRecipes;
-
 ```
 
 recipe.reducer.ts
@@ -11656,7 +11941,7 @@ export interface State {
 }
 
 const initialState: State = {
-  recipes: []
+  recipes: [],
 };
 
 export function recipeReducer(
@@ -11667,13 +11952,12 @@ export function recipeReducer(
     case RecipesActions.SET_RECIPES:
       return {
         ...state,
-        recipes: [...action.payload]
+        recipes: [...action.payload],
       };
     default:
       return state;
   }
 }
-
 ```
 
 data-storage.service.ts
@@ -11738,7 +12022,7 @@ into the recipe-detail component and then we can see how we proceed regarding th
 
 cách 1
 
-![image-20200612144236999](angular.assets/image-20200612144236999.png)  
+![image-20200612144236999](angular.assets/image-20200612144236999.png)
 
 recipe-detail.component
 
@@ -11817,13 +12101,11 @@ recipe-edit.component.ts
   }
 ```
 
-
-
 ### 38. Fetching Recipes & Using the Resolver
 
 khi xem detail ấn reload => error
 
-![image-20200612144732397](angular.assets/image-20200612144732397.png)  
+![image-20200612144732397](angular.assets/image-20200612144732397.png)
 
 recipe.effects.ts add
 
@@ -11846,22 +12128,21 @@ export class RecipeEffects {
         'https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json'
       );
     }),
-    map(recipes => {
-      return recipes.map(recipe => {
+    map((recipes) => {
+      return recipes.map((recipe) => {
         return {
           ...recipe,
-          ingredients: recipe.ingredients ? recipe.ingredients : []
+          ingredients: recipe.ingredients ? recipe.ingredients : [],
         };
       });
     }),
-    map(recipes => {
+    map((recipes) => {
       return new RecipesActions.SetRecipes(recipes);
     })
   );
 
   constructor(private actions$: Actions, private http: HttpClient) {}
 }
-
 ```
 
 header.component.ts
@@ -11876,7 +12157,6 @@ header.component.ts
 recipes-resolver.service
 
 ```ts
-
 @Injectable({ providedIn: 'root' })
 export class RecipesResolverService implements Resolve<Recipe[]> {
   constructor(
@@ -11886,19 +12166,13 @@ export class RecipesResolverService implements Resolve<Recipe[]> {
   ) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-      // add
+    // add
     // return this.dataStorageService.fetchRecipes();
     this.store.dispatch(new RecipesActions.FetchRecipes());
-    return this.actions$.pipe(
-      ofType(RecipesActions.SET_RECIPES),
-      take(1)
-    );
+    return this.actions$.pipe(ofType(RecipesActions.SET_RECIPES), take(1));
   }
 }
-
 ```
-
-
 
 Now again, the thing is I can't return this because this does not yield an observable,
 
@@ -11906,7 +12180,7 @@ instead we want to wait for the effect that is triggered by that action to compl
 
 little way of doing that.
 
-![image-20200612150429625](angular.assets/image-20200612150429625.png)  
+![image-20200612150429625](angular.assets/image-20200612150429625.png)
 
 Sau khi chọn và reload state ok nhưng vẫn chưa hiện được detail vì nó login bị redirect ra /
 
@@ -11955,14 +12229,11 @@ redirect: true
   );
 ```
 
-
-
 ### 40. Update, Delete and Add Recipes
 
 recipe.actions
 
 ```ts
-
 export class AddRecipe implements Action {
   readonly type = ADD_RECIPE;
 
@@ -11980,7 +12251,6 @@ export class DeleteRecipe implements Action {
 
   constructor(public payload: number) {}
 }
-
 ```
 
 recipe.reducer.ts
@@ -12111,7 +12381,7 @@ recipe.effects
 
 this is done in this application, so we can **set dispatch to false** here so that NgRx effects knows that
 
-this won't dispatch anything and now we can go to the header component again 
+this won't dispatch anything and now we can go to the header component again
 
 header
 
@@ -12121,8 +12391,6 @@ onSaveData() {
     this.store.dispatch(new RecipeActions.StoreRecipes());
   }
 ```
-
-
 
 ### 42. Cleanup Work
 
@@ -12139,12 +12407,11 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class CoreModule {}
-
 ```
 
 recipe-detail.component
@@ -12157,8 +12424,6 @@ onAddToShoppingList() {
     );
   }
 ```
-
-
 
 ### 43. Wrap Up - Alternative NgRx Syntax
 
@@ -12182,8 +12447,6 @@ Useful Resources:
 
 - Official Docs: [https://ngrx.io](https://ngrx.io/)
 
-
-
 ### 45. MUST READ The [LEGACY] Lectures.html
 
 With the release of Angular 8, I updated a couple of sections in this course (see "Announcements" part of the course).
@@ -12195,8 +12458,6 @@ All the lectures marked as "[LEGACY]" in their title are OLD and taking them is 
 Why do the "[LEGACY]" lectures exist?
 
 I'm keeping them around for students who started this section before I released my update. I'll remove them in the future.
-
-
 
 ---
 
@@ -12221,10 +12482,6 @@ I still took this as an opportunity to add a **brand-new section** to my "Angula
 I hope you like this update and the resources linked above. For now, nothing changes in the end - but Angular 9 (because of Ivy) gives us a great improvements "for free" (smaller bundles, faster apps). :)
 
 Have a great time and have fun learning!
-
-
-
-
 
 ## 25. Bonus Angular Universal
 
@@ -12268,71 +12525,43 @@ A quick note: In the next lecture, I mention that it's important to add `ModuleM
 
 ### Adding Angular Universal
 
-
 ### Adding Angular Universal with NestJS
 
 ### Deploying Universal Apps
 
-
 ### Important: Remaining Lectures
-
 
 ### Module Introduction
 
-
 ### Getting Started with Angular Universal
-
 
 ### Working on the App Module
 
-
 ### Adding a Server-Side Build Workflow
-
 
 ### Adding a NodeJS Server
 
-
 ### Pre-Rendering the App on the Server
-
-
 
 ### Next Steps
 
-
-
 ### Angular Universal Gotchas
-
 
 ### 2. Important Official Docs & Starting Project.html
 
-
-
 ### 3. Getting Started with Angular Universal
-
-
 
 ### 4. Working on the App Module
 
-
-
 ### 5. Adding a Server-Side Build Workflow
-
-
 
 ### 6. Adding a NodeJS Server
 
-
-
 ### 7. Pre-Rendering the App on the Server
-
-
 
 ### 8. Next Steps
 
-
 ### 9. Angular Universal Gotchas.html
-
-
 
 ## 26. Angular Animations
 
@@ -12340,142 +12569,82 @@ A quick note: In the next lecture, I mention that it's important to add `ModuleM
 
 Making Animations Work with Angular 4+
 
-With the release of **Angular 4**, the **general syntax of Angular Animations didn't change**. 
+With the release of **Angular 4**, the **general syntax of Angular Animations didn't change**.
 
 However, the animation functions were moved into their own package and you now also need to add a special module to your `imports[]` array in the **AppModule**.
 
 **Specifically, the following adjustments are required:**
 
-- You probably need to install the **new animations package** (running the command never hurts): `npm install --save @angular/animations` 
+- You probably need to install the **new animations package** (running the command never hurts): `npm install --save @angular/animations`
 - Add the `BrowserAnimationsModule` to your `imports[]` array in **AppModule**
 - This Module needs to be imported from `@angular/platform-browser/animations'` => `import { BrowserAnimationsModule } from '@angular/platform-browser/animations'` (in the **AppModule**!)
-- You then import `trigger` , `state` , `style` etc from `@angular/animations` **instead of** `@angular/core` 
+- You then import `trigger` , `state` , `style` etc from `@angular/animations` **instead of** `@angular/core`
 
 That's all!
 
-### 
-
-
+###
 
 ### 2. Introduction
 
-
-
 ### 3. Setting up the Starting Project
-
-
 
 ### 4. Animations Triggers and State
 
-
-
 ### 5. Switching between States
-
-
 
 ### 6. Transitions
 
-
-
 ### 7. Advanced Transitions
-
-
 
 ### 8. Transition Phases
 
-
-
 ### 9. The void State
-
-
 
 ### 10. Using Keyframes for Animations
 
-
-
 ### 11. Grouping Transitions
 
-
-
 ### 12. Using Animation Callbacks
-
-
 
 ## 27. Adding Offline Capabilities with Service Workers
 
 ### 1. Module Introduction
 
-
-
 ### 2. Adding Service Workers
-
-
 
 ### 3. Caching Assets for Offline Use
 
-
-
 ### 4. Caching Dynamic Assets & URLs
 
-
-
 ### 5. Further Links & Resources.html
-
-
 
 ## 28. A Basic Introduction to Unit Testing in Angular Apps
 
 ### 1. About this Section.html
 
-
-
-
-
 ### 2. Introduction
-
-
 
 ### 3. Why Unit Tests
 
-
-
 ### 4. Analyzing the Testing Setup (as created by the CLI)
-
-
 
 ### 5. Running Tests (with the CLI)
 
-
-
 ### 6. Adding a Component and some fitting Tests
-
-
 
 ### 7. Testing Dependencies Components and Services
 
-
-
 ### 8. Simulating Async Tasks
-
-
 
 ### 9. Using fakeAsync and tick
 
-
-
 ### 10. Isolated vs Non-Isolated Tests
 
-
-
 ### 11. Further Resources & Where to Go Next.html
-
-
 
 ## 29. Angular Changes & New Features
 
 ### 1. What's New with Angular 8
-
-
 
 ### 2. What's New & How to Update.html
 
@@ -12483,93 +12652,51 @@ That's all!
 
 ### 1. Course Roundup
 
-
-
 ### 2. Bonus More Content!.html
 
 ## 31. Custom Project & Workflow Setup
 
 ### 1. Introduction
 
-
-
 ### 2. Initializing the Project
-
-
 
 ### 3. Setting up the Basic Project Files
 
-
-
 ### 4. Installing the Core Dependencies
-
-
 
 ### 5. Filling the Project Files with Some Life
 
-
-
 ### 6. index.html & Polyfills
-
-
 
 ### 6. index.html & Polyfills.vtt
 
-
-
 ### 7. Installing Development Dependencies
-
-
 
 ### 8. Setting up a Development Workflow
 
-
-
 ### 9. Updating to Angular 6 + Webpack 4.html
-
-
 
 ### 10. Finishing & Using the Development Workflow
 
-
-
 ### 11. Setting up a Production Workflow
-
-
 
 ### 12. Adding Types & Fixing Bugs
 
-
-
 ### 13. Finishing Touches
-
-
 
 ## 32. Bonus TypeScript Introduction (for Angular 2 Usage)
 
 ### 1. Introduction
 
-
-
 ### 2. Using Types
-
-
 
 ### 3. Classes
 
-
-
 ### 4. Interfaces
-
-
 
 ### 5. Generics
 
-
-
 ### 6. Wrap up & Modules
-
-
 
 ### 7. Deep dive into TypeScript.html
 

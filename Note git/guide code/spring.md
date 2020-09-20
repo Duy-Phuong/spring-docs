@@ -4,628 +4,624 @@ F:\programing\document\java\spring-hiberante
 
 [TOC]
 
------
+---
 
 - [Spring & Hibernate for Beginners (includes Spring Boot)](#spring--hibernate-for-beginners-includes-spring-boot)
-	- [Tai lieu](#tai-lieu)
-	- [2. Spring Overview](#2-spring-overview)
-		- [1. Why Spring - part 1](#1-why-spring---part-1)
-		- [2. Why Spring - part 2](#2-why-spring---part-2)
-		- [3. Spring 5 Update](#3-spring-5-update)
-		- [4. Spring Core Framework - Part 1](#4-spring-core-framework---part-1)
-		- [5. Spring Core Framework - Part 2](#5-spring-core-framework---part-2)
-		- [6. Spring Platform](#6-spring-platform)
-	- [3. Setting Up Your Development Environment](#3-setting-up-your-development-environment)
-		- [2. Installing Tomcat](#2-installing-tomcat)
-		- [4. Connecting Tomcat to Eclipse](#4-connecting-tomcat-to-eclipse)
-		- [5 Add jar files](#5-add-jar-files)
-	- [4. Spring Inversion of Control - XML Configuration](#4-spring-inversion-of-control---xml-configuration)
-		- [1. What is Inversion of Control](#1-what-is-inversion-of-control)
-		- [4. Spring Inversion of Control - Overview](#4-spring-inversion-of-control---overview)
-				- [Spring Container](#spring-container)
-				- [IOC & XML Configuration](#ioc--xml-configuration)
-				- [Configuring Spring Container](#configuring-spring-container)
-				- [Spring Development Process](#spring-development-process)
-			- [FAQ: What is a Spring Bean?](#faq-what-is-a-spring-bean)
-			- [8. HEADS UP - Add Logging Messages in Spring 5.1](#8-heads-up---add-logging-messages-in-spring-51)
-			- [9. FAQ Why do we specify the Coach interface in getBean().html](#9-faq-why-do-we-specify-the-coach-interface-in-getbeanhtml)
-	- [5. Spring Dependency Injection - XML Configuration](#5-spring-dependency-injection---xml-configuration)
-		- [Các nguyên tắc đảo ngược phụ thuộc.](#c%c3%a1c-nguy%c3%aan-t%e1%ba%afc-%c4%91%e1%ba%a3o-ng%c6%b0%e1%bb%a3c-ph%e1%bb%a5-thu%e1%bb%99c)
-			- [Spring Injection Types(pdf)](#spring-injection-typespdf)
-			- [Development Process - Constructor Injection](#development-process---constructor-injection)
-			- [FAQ: What is the purpose for the no arg constructor?](#faq-what-is-the-purpose-for-the-no-arg-constructor)
-			- [Development Process - Setter Injection](#development-process---setter-injection)
-			- [Injecting Literal Values Development Process](#injecting-literal-values-development-process)
-			- [Question:](#question)
-			- [Injecting Values from a Properties File](#injecting-values-from-a-properties-file)
-			- [Practice Activity #2 - Dependency Injection with XML Configuration](#practice-activity-2---dependency-injection-with-xml-configuration)
-	- [6. Spring Bean Scopes and Lifecycle](#6-spring-bean-scopes-and-lifecycle)
-		- [1. Bean scope](#1-bean-scope)
-		- [2. Bean Lifecycle](#2-bean-lifecycle)
-			- [Special Note about init and destroy Method Signatures](#special-note-about-init-and-destroy-method-signatures)
-	- [7. Spring Configuration with Java Annotations - Inversion of Control](#7-spring-configuration-with-java-annotations---inversion-of-control)
-		- [1. Annotations Overview - Component Scanning](#1-annotations-overview---component-scanning)
-		- [2. Annotations Project Setup](#2-annotations-project-setup)
-		- [3. Explicit Component Names - Write Some Code](#3-explicit-component-names---write-some-code)
-		- [4. Default Component Names - Overview](#4-default-component-names---overview)
-	- [8. Spring Configuration with Java Annotations - Dependency Injection](#8-spring-configuration-with-java-annotations---dependency-injection)
-		- [1. Constructor Injection - Overview](#1-constructor-injection---overview)
-			- [FAQ: What if there are multiple FortuneService implementations?](#faq-what-if-there-are-multiple-fortuneservice-implementations)
-			- [I have finished the video "Constructor Injection - Writing Code part2".](#i-have-finished-the-video-%22constructor-injection---writing-code-part2%22)
-		- [2. Setter Injection - Overview](#2-setter-injection---overview)
-		- [3. Method Injection](#3-method-injection)
-		- [4. Field Injection - Overview](#4-field-injection---overview)
-		- [5. Which Injection Type Should You Use](#5-which-injection-type-should-you-use)
-		- [12. Qualifiers for Dependency Injection - Overview](#12-qualifiers-for-dependency-injection---overview)
-		- [13. Qualifiers for Dependency Injection - Write Some Code - Part 1](#13-qualifiers-for-dependency-injection---write-some-code---part-1)
-		- [14. Qualifiers for Dependency Injection - Write Some Code - Part 2](#14-qualifiers-for-dependency-injection---write-some-code---part-2)
-			- [Annotations - Default Bean Names ... and the Special Case](#annotations---default-bean-names--and-the-special-case)
-		- [16. Using @Qualifier with Constructors](#16-using-qualifier-with-constructors)
-			- [FAQ: How to inject properties file using Java annotations](#faq-how-to-inject-properties-file-using-java-annotations)
-	- [9. Spring Configuration with Java Annotations - Bean Scopes and Lifecycle Methods](#9-spring-configuration-with-java-annotations---bean-scopes-and-lifecycle-methods)
-		- [1. @Scope Annotation - Overview](#1-scope-annotation---overview)
-		- [2. @Scope Annotation - Write Some Code](#2-scope-annotation---write-some-code)
-			- [Special Note about @PostConstruct and @PreDestroy Method Signatures](#special-note-about-postconstruct-and-predestroy-method-signatures)
-		- [3. Bean Lifecycle Method Annotations - Overview](#3-bean-lifecycle-method-annotations---overview)
-			- [HEADS UP - FOR JAVA 9, 10 and 11 USERS - @PostConstruct and @PreDestroy](#heads-up---for-java-9-10-and-11-users---postconstruct-and-predestroy)
-	- [10. Spring Configuration with Java Code (no xml)](#10-spring-configuration-with-java-code-no-xml)
-		- [1. Spring Configuration with Java Code (no xml) – Overview](#1-spring-configuration-with-java-code-no-xml-%e2%80%93-overview)
-		- [4. Defining Spring Beans with Java Code (no xml) - Overview](#4-defining-spring-beans-with-java-code-no-xml---overview)
-		- [3. Heads Up - Add Logging Messages in Spring 5.1 - All Java Config Version](#3-heads-up---add-logging-messages-in-spring-51---all-java-config-version)
-		- [Defining Spring Beans with Java Code (no xml) - Write Some Code - Part 1.mp4](#defining-spring-beans-with-java-code-no-xml---write-some-code---part-1mp4)
-		- [Defining Spring Beans with Java Code (no xml) - Write Some Code - Part 2.mp4](#defining-spring-beans-with-java-code-no-xml---write-some-code---part-2mp4)
-		- [During All Java Configuration, how does the @Bean annotation work in the background?](#during-all-java-configuration-how-does-the-bean-annotation-work-in-the-background)
-		- [8. Injecting Values from Properties File - Overview](#8-injecting-values-from-properties-file---overview)
-		- [9. Injecting Values from Properties File - Write Some Code - Part 1](#9-injecting-values-from-properties-file---write-some-code---part-1)
-		- [10. Injecting Values from Properties File - Write Some Code - Part 2](#10-injecting-values-from-properties-file---write-some-code---part-2)
-		- [11. FAQ Problems with Injecting Values - Value not returning from \${foo.email}.html](#11-faq-problems-with-injecting-values---value-not-returning-from-fooemailhtml)
-		- [12. Practice Activity #7 - IoC and DI with Java Configuration.html](#12-practice-activity-7---ioc-and-di-with-java-configurationhtml)
-	- [11. Spring MVC - Building Spring Web Apps](#11-spring-mvc---building-spring-web-apps)
-		- [1. Spring MVC Overview](#1-spring-mvc-overview)
-		- [2. Spring MVC - Behind the Scenes](#2-spring-mvc---behind-the-scenes)
-		- [3. Development Environment Checkpoint](#3-development-environment-checkpoint)
-		- [4. Download Spring MVC Starter Files.html](#4-download-spring-mvc-starter-fileshtml)
-		- [5. Spring MVC Configuration - Overview](#5-spring-mvc-configuration---overview)
-		- [6. Spring MVC Configuration - JAR Files](#6-spring-mvc-configuration---jar-files)
-		- [7. Spring MVC Configuration - Config Files](#7-spring-mvc-configuration---config-files)
-		- [8. How to configure the Spring Dispatcher Servlet using all Java Code (no xml)?](#8-how-to-configure-the-spring-dispatcher-servlet-using-all-java-code-no-xml)
-		- [Answer:](#answer)
-	- [12. Spring MVC - Creating Controllers and Views](#12-spring-mvc---creating-controllers-and-views)
-		- [1. Creating a Spring Home Controller and View – Overview](#1-creating-a-spring-home-controller-and-view-%e2%80%93-overview)
-		- [3. Creating a Spring Home Controller and View - Write Some Code - Part 2](#3-creating-a-spring-home-controller-and-view---write-some-code---part-2)
-		- [4. FAQ HELP! My Spring MVC Controller is not working. What to do.html](#4-faq-help-my-spring-mvc-controller-is-not-working-what-to-dohtml)
-		- [5. FAQ HELP! - Can't Start Tomcat - Ports are in Use!.html](#5-faq-help---cant-start-tomcat---ports-are-in-usehtml)
-		- [6. FAQ How Does Component Scan Work - Your Package Names are Different!.html](#6-faq-how-does-component-scan-work---your-package-names-are-differenthtml)
-		- [7. Reading HTML Form Data - Overview](#7-reading-html-form-data---overview)
-		- [8. Reading HTML Form Data - Write Some Code - Part 1](#8-reading-html-form-data---write-some-code---part-1)
-		- [9. Reading HTML Form Data - Write Some Code - Part 2](#9-reading-html-form-data---write-some-code---part-2)
-		- [10. Reading HTML Form Data - Write Some Code - Part 3](#10-reading-html-form-data---write-some-code---part-3)
-		- [11. Adding Data to the Spring Model - Overview](#11-adding-data-to-the-spring-model---overview)
-		- [12. Adding Data to the Spring Model - Write Some Code - Part 1](#12-adding-data-to-the-spring-model---write-some-code---part-1)
-		- [13. Adding Data to the Spring Model - Write Some Code - Part 2](#13-adding-data-to-the-spring-model---write-some-code---part-2)
-		- [14. FAQ How to use CSS, JavaScript and Images in Spring MVC Web App.html](#14-faq-how-to-use-css-javascript-and-images-in-spring-mvc-web-apphtml)
-		- [15. Bonus Deploying To Tomcat using WAR files.html](#15-bonus-deploying-to-tomcat-using-war-fileshtml)
-		- [Question: HELP! My Spring MVC Controller is not working. What to do?](#question-help-my-spring-mvc-controller-is-not-working-what-to-do)
-		- [Can't Start Tomcat - Ports are in Use](#cant-start-tomcat---ports-are-in-use)
-		- [How Does Component Scan Work - Your Package Names are Different!](#how-does-component-scan-work---your-package-names-are-different)
-		- [How do I use CSS, JavaScript and Images in a Spring MVC Web App?](#how-do-i-use-css-javascript-and-images-in-a-spring-mvc-web-app)
-	- [13. Spring MVC - Request Params and Request Mappings](#13-spring-mvc---request-params-and-request-mappings)
-		- [1. Binding Request Params - Overview](#1-binding-request-params---overview)
-		- [2. Binding Request Params - Write Some Code](#2-binding-request-params---write-some-code)
-		- [3. Controller Level Request Mapping - Overview](#3-controller-level-request-mapping---overview)
-		- [4. Controller Level Request Mapping - Write Some Code - Part 1](#4-controller-level-request-mapping---write-some-code---part-1)
-		- [5. Controller Level Request Mapping - Write Some Code - Part 2](#5-controller-level-request-mapping---write-some-code---part-2)
-		- [6. FAQ How does processForm work for hello.html](#6-faq-how-does-processform-work-for-hellohtml)
-	- [14. Spring MVC - Form Tags and Data Binding](#14-spring-mvc---form-tags-and-data-binding)
-		- [2. Text Fields - Overview](#2-text-fields---overview)
-		- [6. Drop-Down Lists - Overview](#6-drop-down-lists---overview)
-		- [9. FAQ Use properties file to load country options.html](#9-faq-use-properties-file-to-load-country-optionshtml)
-		- [11. Radio Buttons - Overview](#11-radio-buttons---overview)
-		- [12. FAQ How to populate radiobuttons with items from Java class.html](#12-faq-how-to-populate-radiobuttons-with-items-from-java-classhtml)
-		- [15. Checkboxes - Overview](#15-checkboxes---overview)
-	- [15. Spring MVC Form Validation - Applying Built-In Validation Rules](#15-spring-mvc-form-validation---applying-built-in-validation-rules)
-		- [1. Spring MVC Form Validation Overview](#1-spring-mvc-form-validation-overview)
-		- [2. Setting Up Dev Environment for Form Validation](#2-setting-up-dev-environment-for-form-validation)
-		- [3. Installing Validation Files](#3-installing-validation-files)
-		- [4. Checking for Required Fields Overview](#4-checking-for-required-fields-overview)
-		- [5. Special Note about BindingResult Parameter Order.html](#5-special-note-about-bindingresult-parameter-orderhtml)
-		- [6. Add Validation Rule to Customer Class](#6-add-validation-rule-to-customer-class)
-		- [7. Display Validation Error Messages on HTML Form](#7-display-validation-error-messages-on-html-form)
-		- [8. Perform Validation in Controller Class - Part 1](#8-perform-validation-in-controller-class---part-1)
-		- [9. Perform Validation in Controller Class - Part 2](#9-perform-validation-in-controller-class---part-2)
-		- [10. Update Confirmation Page](#10-update-confirmation-page)
-		- [11. Test the Validation Rule for Required Fields](#11-test-the-validation-rule-for-required-fields)
-		- [12. Add Pre-processing Code with @InitBinder - Overview](#12-add-pre-processing-code-with-initbinder---overview)
-	- [16. Spring MVC Form Validation - Validating Number Ranges and Regular Expressions](#16-spring-mvc-form-validation---validating-number-ranges-and-regular-expressions)
-		- [1. Validating a Number Range - Overview](#1-validating-a-number-range---overview)
-		- [2. Validating a Number Range - Write Some Code](#2-validating-a-number-range---write-some-code)
-		- [3. Applying Regular Expressions - Overview](#3-applying-regular-expressions---overview)
-		- [4. Applying Regular Expressions - Write Some Code](#4-applying-regular-expressions---write-some-code)
-		- [5. How to make Integer Field Required freePasses](#5-how-to-make-integer-field-required-freepasses)
-		- [6. How to Handle String input for Integer Fields - Custom Message](#6-how-to-handle-string-input-for-integer-fields---custom-message)
-		- [7. How to Handle String input for Integer Fields - Configure Resource Bundle](#7-how-to-handle-string-input-for-integer-fields---configure-resource-bundle)
-		- [8. How to Handle String input for Integer Fields - Deep Dive](#8-how-to-handle-string-input-for-integer-fields---deep-dive)
-		- [FAQ: How to Make Integer field required and handle Strings: freePasses?](#faq-how-to-make-integer-field-required-and-handle-strings-freepasses)
-		- [Handle String Input for Integer Fields](#handle-string-input-for-integer-fields)
-	- [17. Spring MVC Form Validation - Creating Custom Validation Rules](#17-spring-mvc-form-validation---creating-custom-validation-rules)
-		- [1. Custom Form Validation - Overview - Part 1](#1-custom-form-validation---overview---part-1)
-		- [2. Custom Form Validation - Overview - Part 2](#2-custom-form-validation---overview---part-2)
-		- [5. Developing the ConstraintValidator](#5-developing-the-constraintvalidator)
-		- [6. Adding Validation Rule to the Entity and Form](#6-adding-validation-rule-to-the-entity-and-form)
-			- [Spring MVC Custom Validation - FAQ: Is it possible to integrate multiple validation string in one annotation?](#spring-mvc-custom-validation---faq-is-it-possible-to-integrate-multiple-validation-string-in-one-annotation)
-	- [18. Introduction to Hibernate](#18-introduction-to-hibernate)
-	- [19. Setting Up Hibernate Development Environment](#19-setting-up-hibernate-development-environment)
-		- [2. Hibernate Development Environment Overview](#2-hibernate-development-environment-overview)
-		- [3. Installing MySQL on MS Windows](#3-installing-mysql-on-ms-windows)
-		- [4. Setting Up Database Table](#4-setting-up-database-table)
-		- [5. Setting up Hibernate in Eclipse](#5-setting-up-hibernate-in-eclipse)
-		- [6. Testing Your JDBC Connection](#6-testing-your-jdbc-connection)
-	- [20. Hibernate Configuration with Annotations](#20-hibernate-configuration-with-annotations)
-		- [1. Creating the Hibernate Configuration File](#1-creating-the-hibernate-configuration-file)
-		- [2. Hibernate Annotations - Part 1](#2-hibernate-annotations---part-1)
-		- [4. HEADS UP - FOR JAVA 9 USERS.html](#4-heads-up---for-java-9-usershtml)
-		- [5. HEADS UP - JAVA 9 USERS - Eclipse Generate toString() fails.html](#5-heads-up---java-9-users---eclipse-generate-tostring-failshtml)
-		- [HEADS UP - JAVA 9 USERS - Eclipse Generate toString() fails](#heads-up---java-9-users---eclipse-generate-tostring-fails)
-		- [6. Hibernate Annotations - Part 2](#6-hibernate-annotations---part-2)
-		- [7. FAQ Why we are using JPA Annotation instead of Hibernate.html](#7-faq-why-we-are-using-jpa-annotation-instead-of-hibernatehtml)
-		- [FAQ: Why we are using JPA Annotation instead of Hibernate ?](#faq-why-we-are-using-jpa-annotation-instead-of-hibernate)
-	- [21. Hibernate CRUD Features Create, Read, Update and Delete](#21-hibernate-crud-features-create-read-update-and-delete)
-		- [1. Creating and Saving Java Objects - Part 1](#1-creating-and-saving-java-objects---part-1)
-		- [2. Creating and Saving Java Objects - Part 2](#2-creating-and-saving-java-objects---part-2)
-		- [3. Primary Keys - Overview](#3-primary-keys---overview)
-		- [5. Primary Keys - Changing the Starting Index](#5-primary-keys---changing-the-starting-index)
-		- [6. Reading Objects with Hibernate](#6-reading-objects-with-hibernate)
-		- [7. Querying Objects with Hibernate - Overview](#7-querying-objects-with-hibernate---overview)
-		- [8. Special Note about Deprecated Method in Hibernate 5.2.html](#8-special-note-about-deprecated-method-in-hibernate-52html)
-		- [9. Querying Objects with Hibernate - Write Some Code - Part 1](#9-querying-objects-with-hibernate---write-some-code---part-1)
-		- [10. Querying Objects with Hibernate - Write Some Code - Part 2](#10-querying-objects-with-hibernate---write-some-code---part-2)
-		- [11. FAQ How To View Hibernate SQL Parameter Values.html (LOG4J)](#11-faq-how-to-view-hibernate-sql-parameter-valueshtml-log4j)
-			- [**Here is an overview of the process:**](#here-is-an-overview-of-the-process)
-			- [**Here are the detailed steps:**](#here-are-the-detailed-steps)
-		- [12. Updating Objects with Hibernate - Overview](#12-updating-objects-with-hibernate---overview)
-		- [13. Updating Objects with Hibernate - Write Some Code](#13-updating-objects-with-hibernate---write-some-code)
-		- [14. Deleting Objects with Hibernate - Overview](#14-deleting-objects-with-hibernate---overview)
-		- [15. Deleting Objects with Hibernate - Write Some Code](#15-deleting-objects-with-hibernate---write-some-code)
-		- [16. Practice Activity #8 - Hibernate Development.html](#16-practice-activity-8---hibernate-developmenthtml)
-		- [17. FAQ How to read Dates with Hibernate.html](#17-faq-how-to-read-dates-with-hibernatehtml)
-	- [22. Hibernate Advanced Mappings](#22-hibernate-advanced-mappings)
-		- [1. Advanced Mappings Overview](#1-advanced-mappings-overview)
-		- [2. Database Concepts](#2-database-concepts)
-	- [23. Hibernate Advanced Mappings - @OneToOne](#23-hibernate-advanced-mappings---onetoone)
-		- [1. @OneToOne - Overview - Part 1](#1-onetoone---overview---part-1)
-		- [2. @OneToOne - Overview - Part 2](#2-onetoone---overview---part-2)
-		- [3. @OneToOne - Overview - Part 3](#3-onetoone---overview---part-3)
-		- [4. @OneToOne - Run Database Scripts](#4-onetoone---run-database-scripts)
-		- [5. @OneToOne - Write Some Code - Prep Work](#5-onetoone---write-some-code---prep-work)
-		- [6. @OneToOne - Write Some Code - Create InstructorDetail class](#6-onetoone---write-some-code---create-instructordetail-class)
-		- [7. @OneToOne - Write Some Code - Create Instructor class](#7-onetoone---write-some-code---create-instructor-class)
-		- [8. @OneToOne - Write Some Code - Build Main App - Part 1](#8-onetoone---write-some-code---build-main-app---part-1)
-		- [9. @OneToOne - Write Some Code - Build Main App - Part 2](#9-onetoone---write-some-code---build-main-app---part-2)
-		- [10. @OneToOne - Delete an Entity](#10-onetoone---delete-an-entity)
-		- [11. @OneToOne - Bi-Directional Overview](#11-onetoone---bi-directional-overview)
-		- [12. @OneToOne - Bi-Directional - Create Relationship](#12-onetoone---bi-directional---create-relationship)
-		- [13. @OneToOne - Bi-Directional - Develop Main App](#13-onetoone---bi-directional---develop-main-app)
-		- [14. @OneToOne - Refactoring and Exception Handling](#14-onetoone---refactoring-and-exception-handling)
-		- [15. @OneToOne - Bi-Directional - Cascade Delete](#15-onetoone---bi-directional---cascade-delete)
-		- [16. @OneToOne - Bi-Directional - Delete Only InstructorDetail - Part 1](#16-onetoone---bi-directional---delete-only-instructordetail---part-1)
-		- [17. @OneToOne - Bi-Directional - Delete Only InstructorDetail - Part 2](#17-onetoone---bi-directional---delete-only-instructordetail---part-2)
-	- [24. Hibernate Advanced Mappings - @OneToMany](#24-hibernate-advanced-mappings---onetomany)
-		- [1. @OneToMany - Bi-Directional Overview - Part 1](#1-onetomany---bi-directional-overview---part-1)
-		- [2. @OneToMany - Bi-Directional Overview - Part 2](#2-onetomany---bi-directional-overview---part-2)
-		- [3. @OneToMany - Bi-Directional - Database Prep Work](#3-onetomany---bi-directional---database-prep-work)
-		- [4. @OneToMany - Bi-Directional - Create Course Mapping](#4-onetomany---bi-directional---create-course-mapping)
-		- [5. @OneToMany - Bi-Directional - Define Course Relationship](#5-onetomany---bi-directional---define-course-relationship)
-		- [6. @OneToMany - Bi-Directional - Update Instructor](#6-onetomany---bi-directional---update-instructor)
-		- [7. @OneToMany - Bi-Directional - Add Instructor to Database](#7-onetomany---bi-directional---add-instructor-to-database)
-		- [8. @OneToMany - Bi-Directional - Create Courses for Instructor](#8-onetomany---bi-directional---create-courses-for-instructor)
-		- [9. @OneToMany - Bi-Directional - Retrieve Instructor Courses](#9-onetomany---bi-directional---retrieve-instructor-courses)
-		- [10. @OneToMany - Bi-Directional - Delete a Course](#10-onetomany---bi-directional---delete-a-course)
-	- [25. Hibernate Advanced Mappings - Eager vs Lazy Loading](#25-hibernate-advanced-mappings---eager-vs-lazy-loading)
-		- [1. Eager vs Lazy Loading - Overview - Part 1](#1-eager-vs-lazy-loading---overview---part-1)
-		- [2. Eager vs Lazy Loading - Overview - Part 2](#2-eager-vs-lazy-loading---overview---part-2)
-		- [3. Eager vs Lazy Loading - Coding - Eager](#3-eager-vs-lazy-loading---coding---eager)
-		- [4. Eager vs Lazy Loading - Coding - Lazy](#4-eager-vs-lazy-loading---coding---lazy)
-		- [5. Eager vs Lazy Loading - Coding - Closing the Session](#5-eager-vs-lazy-loading---coding---closing-the-session)
-		- [6. Eager vs Lazy Loading - Coding - Resolve Lazy Loading Issue](#6-eager-vs-lazy-loading---coding---resolve-lazy-loading-issue)
-		- [7. Eager vs Lazy Loading - Coding - HQL JOIN FETCH](#7-eager-vs-lazy-loading---coding---hql-join-fetch)
-		- [8. FAQ How to load the courses at a later time in the application.html](#8-faq-how-to-load-the-courses-at-a-later-time-in-the-applicationhtml)
-	- [26. Hibernate Advanced Mappings - @OneToMany - Unidirectional](#26-hibernate-advanced-mappings---onetomany---unidirectional)
-		- [1. @OneToMany - Uni-Directional - Overview - Part 1](#1-onetomany---uni-directional---overview---part-1)
-		- [2. @OneToMany - Uni-Directional - Overview - Part 2](#2-onetomany---uni-directional---overview---part-2)
-		- [3. FAQ @JoinColumn ... where does it find the column.html](#3-faq-joincolumn--where-does-it-find-the-columnhtml)
-		- [4. @OneToMany - Uni-Directional - Set up database tables](#4-onetomany---uni-directional---set-up-database-tables)
-		- [5. @OneToMany - Uni-Directional - Create Review Class](#5-onetomany---uni-directional---create-review-class)
-		- [6. @OneToMany - Uni-Directional - Configure Fetch Type](#6-onetomany---uni-directional---configure-fetch-type)
-		- [7. @OneToMany - Uni-Directional - Create Course Reviews](#7-onetomany---uni-directional---create-course-reviews)
-		- [8. @OneToMany - Uni-Directional - Get Course Reviews](#8-onetomany---uni-directional---get-course-reviews)
-		- [9. @OneToMany - Uni-Directional - Delete Course Reviews](#9-onetomany---uni-directional---delete-course-reviews)
-	- [27. Hibernate Advanced Mappings - @ManyToMany](#27-hibernate-advanced-mappings---manytomany)
-		- [1. @ManyToMany - Overview - Part 1](#1-manytomany---overview---part-1)
-		- [2. @ManyToMany - Overview - Part 2](#2-manytomany---overview---part-2)
-		- [3. @ManyToMany - Set up database tables](#3-manytomany---set-up-database-tables)
-		- [4. @ManyToMany - Update Course class](#4-manytomany---update-course-class)
-		- [5. @ManyToMany - Configure Course for many-to-many](#5-manytomany---configure-course-for-many-to-many)
-		- [6. @ManyToMany - Configure Student for many-to-many](#6-manytomany---configure-student-for-many-to-many)
-		- [7. @ManyToMany - Create a Main App](#7-manytomany---create-a-main-app)
-		- [8. @ManyToMany - Review app output](#8-manytomany---review-app-output)
-		- [9. @ManyToMany - Add more courses for a student](#9-manytomany---add-more-courses-for-a-student)
-		- [10. @ManyToMany - Verify Data in Join Table](#10-manytomany---verify-data-in-join-table)
-		- [11. @ManyToMany - Get Courses for Student](#11-manytomany---get-courses-for-student)
-		- [12. @ManyToMany - Delete a Course](#12-manytomany---delete-a-course)
-		- [13. @ManyToMany - Delete a Student](#13-manytomany---delete-a-student)
-	- [28. Build a Database Web App - Spring MVC and Hibernate Project - Part 1](#28-build-a-database-web-app---spring-mvc-and-hibernate-project---part-1)
-		- [1. Project Overview and Demo](#1-project-overview-and-demo)
-		- [2. Source Files for Spring MVC + Hibernate Web App.html](#2-source-files-for-spring-mvc--hibernate-web-apphtml)
-		- [3. Set up Sample Data for Database](#3-set-up-sample-data-for-database)
-		- [4. Test Database Connection - Part 1](#4-test-database-connection---part-1)
-		- [5. Test Database Connection - Part 2](#5-test-database-connection---part-2)
-		- [6. Set Up Dev Environment - Part 1](#6-set-up-dev-environment---part-1)
-		- [7. HEADS UP - FOR JAVA 9 and higher USERS - Spring MVC CRUD.html](#7-heads-up---for-java-9-and-higher-users---spring-mvc-crudhtml)
-		- [8. Set Up Dev Environment - Part 2](#8-set-up-dev-environment---part-2)
-		- [9. Set Up Dev Environment - Part 3](#9-set-up-dev-environment---part-3)
-		- [10. Test Spring MVC Controller - Part 1](#10-test-spring-mvc-controller---part-1)
-		- [11. Test Spring MVC Controller - Part 2](#11-test-spring-mvc-controller---part-2)
-	- [30. Build a Database Web App - Spring MVC and Hibernate Project - Part 2](#30-build-a-database-web-app---spring-mvc-and-hibernate-project---part-2)
-		- [1. List Customers - Overview](#1-list-customers---overview)
-		- [2. List Customers - Overview of Development Process](#2-list-customers---overview-of-development-process)
-		- [3. List Customers - Creating Hibernate Entity - Part 1](#3-list-customers---creating-hibernate-entity---part-1)
-		- [4. List Customers - Creating Hibernate Entity - Part 2](#4-list-customers---creating-hibernate-entity---part-2)
-		- [5. List Customers - Developing Hibernate DAO - Overview - Part 1](#5-list-customers---developing-hibernate-dao---overview---part-1)
-		- [6. List Customers - Developing Hibernate DAO - Overview - Part 2](#6-list-customers---developing-hibernate-dao---overview---part-2)
-		- [7. List Customers - Developing Hibernate DAO - Write Some Code - Part 1](#7-list-customers---developing-hibernate-dao---write-some-code---part-1)
-		- [8. List Customers - Developing Hibernate DAO - Write Some Code - Part 2](#8-list-customers---developing-hibernate-dao---write-some-code---part-2)
-		- [9. List Customers - Injecting DAO into Controller](#9-list-customers---injecting-dao-into-controller)
-		- [10. List Customers - Developing JSP View Page](#10-list-customers---developing-jsp-view-page)
-		- [11. Making it Pretty with CSS - Overview](#11-making-it-pretty-with-css---overview)
-		- [12. Making it Pretty with CSS - Write Some Code - Part 1](#12-making-it-pretty-with-css---write-some-code---part-1)
-		- [13. Making it Pretty with CSS - Write Some Code - Part 2](#13-making-it-pretty-with-css---write-some-code---part-2)
-		- [14. Adding a Welcome File](#14-adding-a-welcome-file)
-	- [30. Build a Database Web App - Spring MVC and Hibernate Project - Part 3](#30-build-a-database-web-app---spring-mvc-and-hibernate-project---part-3)
-		- [1. Refactor @GetMapping and @PostMapping - Overview](#1-refactor-getmapping-and-postmapping---overview)
-		- [2. Refactor @GetMapping and @PostMapping - Write Some Code](#2-refactor-getmapping-and-postmapping---write-some-code)
-		- [3. Refactor Add a Service Layer - Overview](#3-refactor-add-a-service-layer---overview)
-		- [4. Refactor Add a Service Layer - Write Some Code - Part 1](#4-refactor-add-a-service-layer---write-some-code---part-1)
-		- [5. Refactor Add a Service Layer - Write Some Code - Part 2](#5-refactor-add-a-service-layer---write-some-code---part-2)
-	- [31. Build a Database Web App - Spring MVC and Hibernate Project - Part 4](#31-build-a-database-web-app---spring-mvc-and-hibernate-project---part-4)
-		- [1. Add Customer - Overview](#1-add-customer---overview)
-		- [2. Add Customer - Setting up the Add Button - Part 1](#2-add-customer---setting-up-the-add-button---part-1)
-		- [3. Add Customer - Setting up the Add Button - Part 2](#3-add-customer---setting-up-the-add-button---part-2)
-		- [4. Add Customer - Creating the HTML Form - Part 1](#4-add-customer---creating-the-html-form---part-1)
-		- [5. Add Customer - Creating the HTML Form - Part 2](#5-add-customer---creating-the-html-form---part-2)
-		- [6. Add Customer - Creating the HTML Form - Part 3](#6-add-customer---creating-the-html-form---part-3)
-		- [7. Add Customer - Save to Database - Part 1](#7-add-customer---save-to-database---part-1)
-		- [8. Add Customer - Save to Database - Part 2](#8-add-customer---save-to-database---part-2)
-		- [9. Sort Customer Data](#9-sort-customer-data)
-	- [32. Build a Database Web App - Spring MVC and Hibernate Project - Part 5](#32-build-a-database-web-app---spring-mvc-and-hibernate-project---part-5)
-		- [1. Update Customer - Overview](#1-update-customer---overview)
-		- [2. Update Customer - Creating Update Link](#2-update-customer---creating-update-link)
-		- [3. Update Customer - Prepopulating the Form - Part 1](#3-update-customer---prepopulating-the-form---part-1)
-		- [4. Update Customer - Prepopulating the Form - Part 2](#4-update-customer---prepopulating-the-form---part-2)
-		- [5. Update Customer - Prepopulating the Form - Part 3](#5-update-customer---prepopulating-the-form---part-3)
-		- [6. Update Customer - Save Customer to Database - Part 1](#6-update-customer---save-customer-to-database---part-1)
-		- [7. Update Customer - Save Customer to Database - Part 2](#7-update-customer---save-customer-to-database---part-2)
-	- [33. Build a Database Web App - Spring MVC and Hibernate Project - Part 6](#33-build-a-database-web-app---spring-mvc-and-hibernate-project---part-6)
-		- [1. Delete Customer - Overview](#1-delete-customer---overview)
-		- [2. Delete Customer - Creating Delete Link - Part 1](#2-delete-customer---creating-delete-link---part-1)
-		- [3. Delete Customer - Creating Delete Link - Part 2](#3-delete-customer---creating-delete-link---part-2)
-		- [4. Delete Customer - Delete from Database - Part 1](#4-delete-customer---delete-from-database---part-1)
-		- [5. Delete Customer - Delete from Database - Part 2](#5-delete-customer---delete-from-database---part-2)
-		- [6. Delete Customer - Delete from Database - Part 3](#6-delete-customer---delete-from-database---part-3)
-		- [7. FAQ How to Add Search support.html](#7-faq-how-to-add-search-supporthtml)
-	- [34. AOP Aspect-Oriented Programming Overview](#34-aop-aspect-oriented-programming-overview)
-		- [1. AOP - The Business Problem](#1-aop---the-business-problem)
-		- [2. AOP Solution and AOP Use Cases](#2-aop-solution-and-aop-use-cases)
-		- [3. Comparing Spring AOP and AspectJ](#3-comparing-spring-aop-and-aspectj)
-	- [35. AOP @Before Advice Type](#35-aop-before-advice-type)
-		- [1. AOP @Before Advice Overview](#1-aop-before-advice-overview)
-		- [2. AOP AOP Project Setup](#2-aop-aop-project-setup)
-		- [3. AOP @Before Advice - Write Some Code](#3-aop-before-advice---write-some-code)
-		- [4. AOP @Before Advice - Add and Test AOP Aspect](#4-aop-before-advice---add-and-test-aop-aspect)
-	- [36. AOP Pointcut Expressions - Match Methods and Return Types](#36-aop-pointcut-expressions---match-methods-and-return-types)
-		- [1. AOP - Pointcut Expressions Overview](#1-aop---pointcut-expressions-overview)
-		- [2. AOP - Pointcut Expressions - Match any addAccount Method - Part 2](#2-aop---pointcut-expressions---match-any-addaccount-method---part-2)
-		- [3. AOP - Pointcut Expressions - Match only DAO addAccount - Match any add Method](#3-aop---pointcut-expressions---match-only-dao-addaccount---match-any-add-method)
-		- [4. AOP - Pointcut Expressions - Match any Return Type](#4-aop---pointcut-expressions---match-any-return-type)
-	- [37. AOP Pointcut Expressions - Match Method Parameter Types](#37-aop-pointcut-expressions---match-method-parameter-types)
-		- [1. AOP Pointcut Expressions - Match Method Parameter Types Overview](#1-aop-pointcut-expressions---match-method-parameter-types-overview)
-		- [2. AOP Pointcut Expressions - Match Method with Account and more Params](#2-aop-pointcut-expressions---match-method-with-account-and-more-params)
-		- [3. AOP Pointcut Expressions - Match Method Any Params - Match Method in a Package](#3-aop-pointcut-expressions---match-method-any-params---match-method-in-a-package)
-	- [38. AOP Pointcut Declarations](#38-aop-pointcut-declarations)
-		- [1. AOP Pointcut Declarations - Overview](#1-aop-pointcut-declarations---overview)
-		- [2. AOP Pointcut Declarations - Write Some Code](#2-aop-pointcut-declarations---write-some-code)
-		- [3. AOP Combining Pointcuts - Overview](#3-aop-combining-pointcuts---overview)
-		- [4. AOP Combining Pointcuts - Write Some Code - Part 1](#4-aop-combining-pointcuts---write-some-code---part-1)
-		- [5. AOP Combining Pointcuts - Write Some Code - Part 2](#5-aop-combining-pointcuts---write-some-code---part-2)
-	- [39. AOP Ordering Aspects](#39-aop-ordering-aspects)
-		- [1. AOP Ordering Aspects - Overview](#1-aop-ordering-aspects---overview)
-		- [2. AOP Ordering Aspects - Write Some Code - Part 1](#2-aop-ordering-aspects---write-some-code---part-1)
-		- [3. AOP Ordering Aspects - Write Some Code - Part 2](#3-aop-ordering-aspects---write-some-code---part-2)
-	- [40. AOP JoinPoints](#40-aop-joinpoints)
-		- [1. AOP Read Method Arguments with JoinPoints - Overview](#1-aop-read-method-arguments-with-joinpoints---overview)
-		- [2. AOP Read Method Arguments with JoinPoints - Write Some Code](#2-aop-read-method-arguments-with-joinpoints---write-some-code)
-	- [41. AOP @AfterReturning Advice Type](#41-aop-afterreturning-advice-type)
-		- [1. AOP @AfterReturning Overview](#1-aop-afterreturning-overview)
-		- [2. AOP @AfterReturning - Write Some Code - Part 1](#2-aop-afterreturning---write-some-code---part-1)
-		- [3. AOP @AfterReturning - Write Some Code - Part 2](#3-aop-afterreturning---write-some-code---part-2)
-		- [4. AOP @AfterReturning - Write Some Code - Part 2](#4-aop-afterreturning---write-some-code---part-2)
-		- [5. AOP @AfterReturning - Modifying Data - Write Some Code](#5-aop-afterreturning---modifying-data---write-some-code)
-	- [42. AOP @AfterThrowing Advice Type](#42-aop-afterthrowing-advice-type)
-		- [1. AOP @AfterThrowing](#1-aop-afterthrowing)
-		- [2. AOP @AfterThrowing - Write Some Code](#2-aop-afterthrowing---write-some-code)
-	- [43. AOP @After Advice Type](#43-aop-after-advice-type)
-		- [1. AOP @After Overview](#1-aop-after-overview)
-		- [2. AOP @After - Write Some Code](#2-aop-after---write-some-code)
-	- [44. AOP @Around Advice Type](#44-aop-around-advice-type)
-		- [1. AOP @Around Advice Overview](#1-aop-around-advice-overview)
-		- [2. AOP @Around - Write Some Code - Part 1](#2-aop-around---write-some-code---part-1)
-		- [3. AOP @Around - Write Some Code - Part 2](#3-aop-around---write-some-code---part-2)
-		- [4. AOP @Around Advice - Resolve Order Issue](#4-aop-around-advice---resolve-order-issue)
-		- [5. AOP @Around Advice - Handling Exceptions - Overview](#5-aop-around-advice---handling-exceptions---overview)
-		- [6. AOP @Around Advice - Handling Exceptions - Write Some Code](#6-aop-around-advice---handling-exceptions---write-some-code)
-		- [7. AOP @Around Advice - Rethrowing Exceptions](#7-aop-around-advice---rethrowing-exceptions)
-	- [45. AOP Add AOP Logging to Spring MVC App - Real-Time Project](#45-aop-add-aop-logging-to-spring-mvc-app---real-time-project)
-		- [1. AOP AOP and Spring MVC App - Overview](#1-aop-aop-and-spring-mvc-app---overview)
-		- [2. AOP AOP and Spring MVC App - Write Some Code - Create Aspect](#2-aop-aop-and-spring-mvc-app---write-some-code---create-aspect)
-		- [3. AOP AOP and Spring MVC App - Write Some Code - Add @Before Advice](#3-aop-aop-and-spring-mvc-app---write-some-code---add-before-advice)
-		- [4. AOP AOP and Spring MVC App - Write Some Code - Add @AfterReturning Advice](#4-aop-aop-and-spring-mvc-app---write-some-code---add-afterreturning-advice)
-	- [46. Maven Crash Course](#46-maven-crash-course)
-		- [1. Maven Overview - Part 1](#1-maven-overview---part-1)
-		- [2. Maven Overview - Part 2](#2-maven-overview---part-2)
-		- [3. Maven Key Concepts - POM file and Coordinates](#3-maven-key-concepts---pom-file-and-coordinates)
-		- [4. Maven - How to Find Dependencies](#4-maven---how-to-find-dependencies)
-		- [5. Maven Archetypes](#5-maven-archetypes)
-		- [6. Maven - Creating a Simple Project - Part 1](#6-maven---creating-a-simple-project---part-1)
-		- [7. How to Install the m2eclipse Plugin.html](#7-how-to-install-the-m2eclipse-pluginhtml)
-		- [8. Maven - Creating a Simple Project - Part 2](#8-maven---creating-a-simple-project---part-2)
-		- [9. Maven - Creating a Web App Project](#9-maven---creating-a-web-app-project)
-		- [10. Maven - Repositories Overview](#10-maven---repositories-overview)
-		- [11. Maven - Local Repository](#11-maven---local-repository)
-		- [12. Maven - Central Repository (remote)](#12-maven---central-repository-remote)
-		- [13. Maven - Additional Repositories Overview](#13-maven---additional-repositories-overview)
-		- [14. Maven - Additional Repositories Demo](#14-maven---additional-repositories-demo)
-		- [15. Maven - Private Repositories](#15-maven---private-repositories)
-		- [16. FAQ How to use Maven with customer-tracker project.html](#16-faq-how-to-use-maven-with-customer-tracker-projecthtml)
-		- [16.1 maven-with-crm-app.pdf.pdf](#161-maven-with-crm-apppdfpdf)
-	- [47. Spring Security - Getting Started](#47-spring-security---getting-started)
-		- [1. Spring Security - Overview](#1-spring-security---overview)
-		- [2. Spring Security - Demo](#2-spring-security---demo)
-		- [3. Spring Security - All Java Configuration - Part 1](#3-spring-security---all-java-configuration---part-1)
-		- [4. Spring Security - All Java Configuration - Part 2](#4-spring-security---all-java-configuration---part-2)
-		- [5. Spring Security - Project Downloads and Setup](#5-spring-security---project-downloads-and-setup)
-		- [6. Spring Security - Maven Configuration](#6-spring-security---maven-configuration)
-		- [7. FAQ Maven can't find a class but I have it in pom.xml.html](#7-faq-maven-cant-find-a-class-but-i-have-it-in-pomxmlhtml)
-		- [8. Spring Security - Create Spring Java Config class](#8-spring-security---create-spring-java-config-class)
-		- [9. Spring Security - Create Spring Initializer class](#9-spring-security---create-spring-initializer-class)
-		- [10. Spring Security - Create Controller and View](#10-spring-security---create-controller-and-view)
-		- [11. Spring Security - Run the App](#11-spring-security---run-the-app)
-		- [12. Spring Security - Add Spring Security Maven Dependencies](#12-spring-security---add-spring-security-maven-dependencies)
-		- [13. Spring Security - Latest Version.html](#13-spring-security---latest-versionhtml)
-	- [<springsecurity.version>5.1.1.RELEASE</springsecurity.version>](#springsecurityversion511releasespringsecurityversion)
-	- [<springsecurity.version>5.1.0.RELEASE</springsecurity.version>](#springsecurityversion510releasespringsecurityversion)
-	- [<springsecurity.version>5.0.7.RELEASE</springsecurity.version>](#springsecurityversion507releasespringsecurityversion)
-	- [<springsecurity.version>5.0.6.RELEASE</springsecurity.version>](#springsecurityversion506releasespringsecurityversion)
-	- [<springsecurity.version>5.0.5.RELEASE</springsecurity.version>](#springsecurityversion505releasespringsecurityversion)
-	- [<springsecurity.version>5.0.4.RELEASE</springsecurity.version>](#springsecurityversion504releasespringsecurityversion)
-	- [<springsecurity.version>5.0.3.RELEASE</springsecurity.version>](#springsecurityversion503releasespringsecurityversion)
-	- [<springsecurity.version>5.0.2.RELEASE</springsecurity.version>](#springsecurityversion502releasespringsecurityversion)
-		- [14. Spring Security - Add Spring Security Maven Dependencies - Demo](#14-spring-security---add-spring-security-maven-dependencies---demo)
-		- [15. Spring Security - Basic Security (Users, Passwords and Roles)](#15-spring-security---basic-security-users-passwords-and-roles)
-		- [16. Spring Security - Create Security Initializer](#16-spring-security---create-security-initializer)
-		- [17. HEADS UP - New Spring Security 5.0.2 - Deprecated method.html](#17-heads-up---new-spring-security-502---deprecated-methodhtml)
-		- [18. Spring Security - Create Security Config](#18-spring-security---create-security-config)
-	- [48. Spring Security - Adding Custom Login Form](#48-spring-security---adding-custom-login-form)
-		- [1. Spring Security - Rename Context Roots](#1-spring-security---rename-context-roots)
-		- [2. Spring Security - Dev and Testing with New Private Window](#2-spring-security---dev-and-testing-with-new-private-window)
-		- [3. Spring Security - Custom Login Form Overview - Part 1](#3-spring-security---custom-login-form-overview---part-1)
-		- [4. Spring Security - Custom Login Form Overview - Part 2](#4-spring-security---custom-login-form-overview---part-2)
-		- [5. Spring Security - Spring Config for Custom Login Form](#5-spring-security---spring-config-for-custom-login-form)
-		- [6. Spring Security - Create Request Mapping for Login Form](#6-spring-security---create-request-mapping-for-login-form)
-		- [7. Spring Security - Building Custom Login Form](#7-spring-security---building-custom-login-form)
-		- [8. Spring Security - Testing Custom Login Form](#8-spring-security---testing-custom-login-form)
-		- [9. Spring Security - Adding Login Error Message - Overview](#9-spring-security---adding-login-error-message---overview)
-		- [10. Spring Security - Adding Login Error Message - Coding](#10-spring-security---adding-login-error-message---coding)
-	- [49. Spring Security - Boostrap CSS Login Form](#49-spring-security---boostrap-css-login-form)
-		- [1. Spring Security - Bootstrap CSS Login Form](#1-spring-security---bootstrap-css-login-form)
-		- [2. Spring Security - Bootstrap CSS Login Form - Adding Form](#2-spring-security---bootstrap-css-login-form---adding-form)
-		- [3. Spring Security - Bootstrap CSS Login Form - Customizing Form](#3-spring-security---bootstrap-css-login-form---customizing-form)
-	- [50. Spring Security - Adding Logout Support](#50-spring-security---adding-logout-support)
-		- [1. Spring Security - Logout Overview](#1-spring-security---logout-overview)
-		- [2. Spring Security - Logout Configuration](#2-spring-security---logout-configuration)
-		- [3. Spring Security - Customizing Logout Message](#3-spring-security---customizing-logout-message)
-	- [51. Spring Security - Cross Site Request Forgery (CSRF)](#51-spring-security---cross-site-request-forgery-csrf)
-		- [1. Spring Security - Cross Site Request Forgery (CSRF)](#1-spring-security---cross-site-request-forgery-csrf)
-		- [2. Spring Security - Viewing CSRF Tokens](#2-spring-security---viewing-csrf-tokens)
-		- [3. Spring Security - Manually Adding CSRF Tokens](#3-spring-security---manually-adding-csrf-tokens)
-	- [52. Spring Security - User Roles](#52-spring-security---user-roles)
-		- [1. Spring Security - Displaying User ID and Roles - Overview](#1-spring-security---displaying-user-id-and-roles---overview)
-		- [2. Spring Security - Displaying User ID and Roles - Write Some Code](#2-spring-security---displaying-user-id-and-roles---write-some-code)
-		- [3. Spring Security - Displaying User ID and Roles - Test the App](#3-spring-security---displaying-user-id-and-roles---test-the-app)
-		- [4. FAQ How to Add a Public Landing Page.html](#4-faq-how-to-add-a-public-landing-pagehtml)
-	- [53. Spring Security - Restrict Access Based on Role](#53-spring-security---restrict-access-based-on-role)
-		- [1. Spring Security - Restrict Access - Overview](#1-spring-security---restrict-access---overview)
-		- [2. Spring Security - Restrict Access - Update Home Page](#2-spring-security---restrict-access---update-home-page)
-		- [3. Spring Security - Restrict Access - Create Controller and Views](#3-spring-security---restrict-access---create-controller-and-views)
-		- [4. Spring Security - Restrict Access - Security Configuration](#4-spring-security---restrict-access---security-configuration)
-		- [5. Spring Security - Restrict Access - Test Admin Access](#5-spring-security---restrict-access---test-admin-access)
-		- [6. Spring Security - Create a Custom Access Denied Page - Overview](#6-spring-security---create-a-custom-access-denied-page---overview)
-		- [7. Spring Security - Create a Custom Access Denied Page - Configuration](#7-spring-security---create-a-custom-access-denied-page---configuration)
-		- [8. Spring Security - Create a Custom Access Denied Page - Coding](#8-spring-security---create-a-custom-access-denied-page---coding)
-		- [9. Spring Security - Display Content based on Roles - Overview](#9-spring-security---display-content-based-on-roles---overview)
-		- [10. Spring Security - Display Content based on Roles - Write Some Code](#10-spring-security---display-content-based-on-roles---write-some-code)
-		- [11. Spring Security - Display Content based on Roles - Testing](#11-spring-security---display-content-based-on-roles---testing)
-	- [54. Spring Security - Add JDBC Database Authentication](#54-spring-security---add-jdbc-database-authentication)
-		- [1. Spring Security JDBC - Overview - Defining Database Schema](#1-spring-security-jdbc---overview---defining-database-schema)
-		- [2. Spring Security JDBC - Overview - DataSource Configuration](#2-spring-security-jdbc---overview---datasource-configuration)
-		- [3. Spring Security JDBC - Overview - Add JDBC Authentication](#3-spring-security-jdbc---overview---add-jdbc-authentication)
-		- [4. Spring Security JDBC - Coding - Run SQL Script](#4-spring-security-jdbc---coding---run-sql-script)
-		- [5. Spring Security JDBC - Coding - Update Maven POM File](#5-spring-security-jdbc---coding---update-maven-pom-file)
-		- [6. Spring Security JDBC - Coding - Add JDBC Properties File](#6-spring-security-jdbc---coding---add-jdbc-properties-file)
-		- [7. Spring Security JDBC - Coding - Define DataSource](#7-spring-security-jdbc---coding---define-datasource)
-		- [8. Spring Security JDBC - Coding - Reading Props File](#8-spring-security-jdbc---coding---reading-props-file)
-		- [9. Spring Security JDBC - Coding - Configure Data Source](#9-spring-security-jdbc---coding---configure-data-source)
-		- [10. Spring Security JDBC - Coding - Add JDBC Authentication](#10-spring-security-jdbc---coding---add-jdbc-authentication)
-		- [11. Spring Security JDBC - Coding - Test the App](#11-spring-security-jdbc---coding---test-the-app)
-	- [55. Spring Security - Password Encryption](#55-spring-security---password-encryption)
-		- [1. Spring Security - Password Encryption - Bcrypt Overview](#1-spring-security---password-encryption---bcrypt-overview)
-		- [1.1 Detailed bcrypt algorithm analysis.html](#11-detailed-bcrypt-algorithm-analysishtml)
-		- [1.2 Why you should use bcrypt to hash password.html](#12-why-you-should-use-bcrypt-to-hash-passwordhtml)
-		- [1.3 Generate BCrypt Password.html](#13-generate-bcrypt-passwordhtml)
-		- [1.4 Password hashing - Best Practices.html](#14-password-hashing---best-practiceshtml)
-		- [2. bcrypt Additional Resources.html](#2-bcrypt-additional-resourceshtml)
-		- [3. Spring Security - Password Encryption - Spring Configuration](#3-spring-security---password-encryption---spring-configuration)
-		- [4. Spring Security - Password Encryption - Setting up Database Schema](#4-spring-security---password-encryption---setting-up-database-schema)
-		- [5. Spring Security - Password Encryption - Bcrypt Configuration](#5-spring-security---password-encryption---bcrypt-configuration)
-		- [6. Spring Security - Password Encryption - Testing Passwords](#6-spring-security---password-encryption---testing-passwords)
-		- [7. Bonus Lecture Spring Security - User Registration.html](#7-bonus-lecture-spring-security---user-registrationhtml)
-		- [8. Bonus Lecture Adding Spring Security to CRM App.html](#8-bonus-lecture-adding-spring-security-to-crm-apphtml)
-		- [1.1 Why you should use bcrypt to hash password.html](#11-why-you-should-use-bcrypt-to-hash-passwordhtml)
-		- [1.2 Detailed bcrypt algorithm analysis.html](#12-detailed-bcrypt-algorithm-analysishtml)
-		- [1.3 Password hashing - Best Practices.html](#13-password-hashing---best-practiceshtml)
-		- [1.4 Generate BCrypt Password.html](#14-generate-bcrypt-passwordhtml)
-	- [56. Spring REST - Overview](#56-spring-rest---overview)
-		- [1. Spring REST - What are REST Web Services - Part 1](#1-spring-rest---what-are-rest-web-services---part-1)
-		- [2. Spring REST - What are REST Web Services - Part 2](#2-spring-rest---what-are-rest-web-services---part-2)
-	- [57. Spring REST - JSON Data Binding](#57-spring-rest---json-data-binding)
-		- [1. Spring REST - JSON Overview](#1-spring-rest---json-overview)
-		- [2. Spring REST - JSON Data Binding with Jackson - Overview 1](#2-spring-rest---json-data-binding-with-jackson---overview-1)
-		- [3. Spring REST - JSON Data Binding with Jackson - Overview 2](#3-spring-rest---json-data-binding-with-jackson---overview-2)
-		- [4. Spring REST - JSON Jackson Demo - Set Up Maven Project](#4-spring-rest---json-jackson-demo---set-up-maven-project)
-		- [5. Spring REST - JSON Jackson Demo - Processing JSON](#5-spring-rest---json-jackson-demo---processing-json)
-		- [6. Spring REST - JSON Jackson Demo - Nested Objects and Arrays](#6-spring-rest---json-jackson-demo---nested-objects-and-arrays)
-		- [7. Spring REST - JSON Jackson Demo - Display Nested and Arrays](#7-spring-rest---json-jackson-demo---display-nested-and-arrays)
-		- [8. Spring REST - JSON Jackson Demo - Ignore Properties](#8-spring-rest---json-jackson-demo---ignore-properties)
-	- [58. Spring REST - Create a Spring REST Controller](#58-spring-rest---create-a-spring-rest-controller)
-		- [1. Spring REST - HTTP Overview](#1-spring-rest---http-overview)
-		- [2. Spring REST - Install a REST Client](#2-spring-rest---install-a-rest-client)
-		- [3. Spring REST - Creating a Spring REST Controller - Overview 1](#3-spring-rest---creating-a-spring-rest-controller---overview-1)
-		- [4. Spring REST - Creating a Spring REST Controller - Overview 2](#4-spring-rest---creating-a-spring-rest-controller---overview-2)
-		- [5. Spring REST - REST Controller Demo - Set Up Maven Project](#5-spring-rest---rest-controller-demo---set-up-maven-project)
-		- [6. Spring REST - REST Controller Demo - Set Up All Java Configuration](#6-spring-rest---rest-controller-demo---set-up-all-java-configuration)
-		- [7. Spring REST - REST Controller Demo - Creating the REST Controller](#7-spring-rest---rest-controller-demo---creating-the-rest-controller)
-		- [8. Spring REST - App Enhancement with Default Page](#8-spring-rest---app-enhancement-with-default-page)
-	- [59. Spring REST - Retrieve POJOs as JSON](#59-spring-rest---retrieve-pojos-as-json)
-		- [1. Spring REST - Retrieve POJOs as JSON - Overview](#1-spring-rest---retrieve-pojos-as-json---overview)
-		- [2. Spring REST - Retrieve POJOs as JSON - Create POJO](#2-spring-rest---retrieve-pojos-as-json---create-pojo)
-		- [3. Spring REST - Retrieve POJOs as JSON - Create REST Controller](#3-spring-rest---retrieve-pojos-as-json---create-rest-controller)
-		- [4. Spring REST - Retrieve POJOs as JSON - Test REST Controller](#4-spring-rest---retrieve-pojos-as-json---test-rest-controller)
-	- [60. Spring REST - Using @PathVariable for REST Endpoints](#60-spring-rest---using-pathvariable-for-rest-endpoints)
-		- [1. Spring REST - Using @PathVariable for REST Endpoints - Overview](#1-spring-rest---using-pathvariable-for-rest-endpoints---overview)
-		- [2. Spring REST - Using @PathVariable for REST Endpoints - Refactoring Code](#2-spring-rest---using-pathvariable-for-rest-endpoints---refactoring-code)
-		- [3. Spring REST - Using @PathVariable for REST Endpoints - Coding @PathVariable](#3-spring-rest---using-pathvariable-for-rest-endpoints---coding-pathvariable)
-	- [61. Spring REST - Exception Handling](#61-spring-rest---exception-handling)
-		- [1. Spring REST - Exception Handling Overview - Part 1](#1-spring-rest---exception-handling-overview---part-1)
-		- [2. Spring REST - Exception Handling Overview - Part 2](#2-spring-rest---exception-handling-overview---part-2)
-		- [3. Spring REST - Exception Handling - Create Custom Error Response and Exception](#3-spring-rest---exception-handling---create-custom-error-response-and-exception)
-		- [4. Spring REST - Exception Handling - Update REST Service to throw Exception](#4-spring-rest---exception-handling---update-rest-service-to-throw-exception)
-		- [5. Spring REST - Exception Handling - Add Exception Handler with @ExceptionHandler](#5-spring-rest---exception-handling---add-exception-handler-with-exceptionhandler)
-		- [6. Spring REST - Exception Handling - Test the App](#6-spring-rest---exception-handling---test-the-app)
-		- [7. Spring REST - Exception Handling - Adding Generic Exception Handler](#7-spring-rest---exception-handling---adding-generic-exception-handler)
-		- [8. Spring REST - Global Exception Handling Overview](#8-spring-rest---global-exception-handling-overview)
-		- [9. Spring REST - Global Exception Handling with @ControllerAdvice](#9-spring-rest---global-exception-handling-with-controlleradvice)
-	- [62. Spring REST - API Design Best Practices](#62-spring-rest---api-design-best-practices)
-		- [1. Spring REST - API Design Best Practices](#1-spring-rest---api-design-best-practices)
-		- [2. Spring REST - API Design of Real-Time Projects (PayPal, Github and SalesForce)](#2-spring-rest---api-design-of-real-time-projects-paypal-github-and-salesforce)
-	- [63. Spring REST - CRUD Database Real-Time Project - Overview](#63-spring-rest---crud-database-real-time-project---overview)
-		- [1. Spring REST - CRUD Database Real-Time Project - Overview](#1-spring-rest---crud-database-real-time-project---overview)
-		- [2. Spring REST - Import Maven Project](#2-spring-rest---import-maven-project)
-		- [3. Spring REST - Maven POM file and All Java Config (no xml)](#3-spring-rest---maven-pom-file-and-all-java-config-no-xml)
-		- [4. Spring REST - Project Service and DAO](#4-spring-rest---project-service-and-dao)
-		- [5. Spring REST - Create Database Tables](#5-spring-rest---create-database-tables)
-	- [64. Spring REST - CRUD Database Real-Time Project - Get Customers](#64-spring-rest---crud-database-real-time-project---get-customers)
-		- [1. Spring REST - CRUD Database Real-Time Project - Get Customers Overview](#1-spring-rest---crud-database-real-time-project---get-customers-overview)
-		- [2. Spring REST - CRUD Database Real-Time Project - Create REST Controller](#2-spring-rest---crud-database-real-time-project---create-rest-controller)
-		- [3. Spring REST - CRUD Database Real-Time Project - Testing in Postman](#3-spring-rest---crud-database-real-time-project---testing-in-postman)
-		- [4. Spring REST - CRUD Database Real-Time Project - Get Single Customer Overview](#4-spring-rest---crud-database-real-time-project---get-single-customer-overview)
-		- [5. Spring REST - CRUD Database Real-Time Project - Get Single Customer - Testing](#5-spring-rest---crud-database-real-time-project---get-single-customer---testing)
-	- [65. Spring REST - CRUD Database Real-Time Project - Exception Handling](#65-spring-rest---crud-database-real-time-project---exception-handling)
-		- [1. Spring REST - CRUD Database Real-Time Project - Exception Handling - Responses](#1-spring-rest---crud-database-real-time-project---exception-handling---responses)
-		- [2. Spring REST - CRUD Database Real-Time Project - Exception Handling - Refactor](#2-spring-rest---crud-database-real-time-project---exception-handling---refactor)
-		- [3. Spring REST - CRUD Database Real-Time Project - Exception Handling - Annotation](#3-spring-rest---crud-database-real-time-project---exception-handling---annotation)
-		- [4. Spring REST - CRUD Database Real-Time Project - Exception Handling - Catch All](#4-spring-rest---crud-database-real-time-project---exception-handling---catch-all)
-	- [66. Spring REST - CRUD Database Real-Time Project - Add Customer](#66-spring-rest---crud-database-real-time-project---add-customer)
-		- [1. Spring REST - CRUD Database Real-Time Project - Add Customer - Overview](#1-spring-rest---crud-database-real-time-project---add-customer---overview)
-		- [2. Spring REST - CRUD Database Real-Time Project - Add Customer - Coding](#2-spring-rest---crud-database-real-time-project---add-customer---coding)
-		- [3. Spring REST - CRUD Database Real-Time Project - Add Customer - Testing](#3-spring-rest---crud-database-real-time-project---add-customer---testing)
-	- [67. Spring REST - CRUD Database Real-Time Project - Update Customer](#67-spring-rest---crud-database-real-time-project---update-customer)
-		- [1. Spring REST - CRUD Database Real-Time Project - Update Customer - Overview](#1-spring-rest---crud-database-real-time-project---update-customer---overview)
-		- [2. Spring REST - CRUD Database Real-Time Project - Update Customer - Coding](#2-spring-rest---crud-database-real-time-project---update-customer---coding)
-	- [68. Spring REST - CRUD Database Real-Time Project - Delete Customer](#68-spring-rest---crud-database-real-time-project---delete-customer)
-		- [1. Spring REST - CRUD Database Real-Time Project - Delete Customer - Overview](#1-spring-rest---crud-database-real-time-project---delete-customer---overview)
-		- [2. Spring REST - CRUD Database Real-Time Project - Delete Customer - Coding](#2-spring-rest---crud-database-real-time-project---delete-customer---coding)
-		- [3. Spring REST - CRUD Database Real-Time Project - Delete Customer - Testing](#3-spring-rest---crud-database-real-time-project---delete-customer---testing)
-	- [69. Spring REST - Bonus Lectures](#69-spring-rest---bonus-lectures)
-		- [1. Bonus Lecture Creating a REST Client with Spring.html](#1-bonus-lecture-creating-a-rest-client-with-springhtml)
-		- [1.1 crm-web-app-rest-client-demo.pdf.pdf](#11-crm-web-app-rest-client-demopdfpdf)
-		- [2. Bonus Lecture Securing REST API Endpoints.html](#2-bonus-lecture-securing-rest-api-endpointshtml)
-		- [2.1 adding-spring-security-to-crm-rest-api.pdf.pdf](#21-adding-spring-security-to-crm-rest-apipdfpdf)
-	- [70. Spring Boot - Overview](#70-spring-boot---overview)
-		- [1. Spring Boot - What is Spring Boot](#1-spring-boot---what-is-spring-boot)
-		- [2. Spring Boot - Creating a Project with Spring Boot Initializr](#2-spring-boot---creating-a-project-with-spring-boot-initializr)
-		- [3. Spring Boot - Developing a REST API Controller with Spring Boot](#3-spring-boot---developing-a-rest-api-controller-with-spring-boot)
-		- [4. Spring Boot - Exploring the Spring Boot Project Structure - Part 1](#4-spring-boot---exploring-the-spring-boot-project-structure---part-1)
-		- [5. Spring Boot - Exploring the Spring Boot Project Structure - Part 2](#5-spring-boot---exploring-the-spring-boot-project-structure---part-2)
-		- [6. Spring Boot - Spring Boot Starters - A Curated List of Dependencies](#6-spring-boot---spring-boot-starters---a-curated-list-of-dependencies)
-		- [7. Spring Boot - Parents for Spring Boot Starters](#7-spring-boot---parents-for-spring-boot-starters)
-	- [71. Spring Boot - Spring Boot Dev Tools and Spring Boot Actuator](#71-spring-boot---spring-boot-dev-tools-and-spring-boot-actuator)
-		- [1. Spring Boot - Dev Tools](#1-spring-boot---dev-tools)
-		- [2. Spring Boot - Spring Boot Actuator - Overview](#2-spring-boot---spring-boot-actuator---overview)
-		- [3. Spring Boot - Spring Boot Actuator - Accessing Actuator Endpoints](#3-spring-boot---spring-boot-actuator---accessing-actuator-endpoints)
-		- [4. Spring Boot - Spring Boot Actuator - Applying Security to Actuator Endpoints](#4-spring-boot---spring-boot-actuator---applying-security-to-actuator-endpoints)
-	- [72. Spring Boot - Running Spring Boot Apps from the Command Line](#72-spring-boot---running-spring-boot-apps-from-the-command-line)
-		- [1. Spring Boot - Running Spring Boot Apps from the Command Line - Overview](#1-spring-boot---running-spring-boot-apps-from-the-command-line---overview)
-		- [2. Spring Boot - Running Spring Boot Apps from the Command Line - Coding](#2-spring-boot---running-spring-boot-apps-from-the-command-line---coding)
-	- [73. Spring Boot - Application Properties](#73-spring-boot---application-properties)
-		- [1. Spring Boot - Injecting Custom Application Properties](#1-spring-boot---injecting-custom-application-properties)
-		- [2. Spring Boot - Configuring the Spring Boot Server](#2-spring-boot---configuring-the-spring-boot-server)
-	- [74. Spring Boot - Build a REST CRUD API with Hibernate - Real-Time Project](#74-spring-boot---build-a-rest-crud-api-with-hibernate---real-time-project)
-		- [1. Spring Boot - REST CRUD Real-Time Project Overview and Database Set Up](#1-spring-boot---rest-crud-real-time-project-overview-and-database-set-up)
-		- [2. Spring Boot - Create Project with Spring Initializr](#2-spring-boot---create-project-with-spring-initializr)
-		- [3. Spring Boot - Integrating Hibernate and JPA](#3-spring-boot---integrating-hibernate-and-jpa)
-		- [4. Spring Boot - Configuring the Spring Boot Data Source](#4-spring-boot---configuring-the-spring-boot-data-source)
-		- [5. Spring Boot - Developing the DAO Interface and Implementation](#5-spring-boot---developing-the-dao-interface-and-implementation)
-		- [6. Spring Boot - Creating REST Controller Methods](#6-spring-boot---creating-rest-controller-methods)
-		- [7. Spring Boot - Additional CRUD Methods for DAO](#7-spring-boot---additional-crud-methods-for-dao)
-		- [8. Spring Boot - Refactoring the Code to use a Service Layer](#8-spring-boot---refactoring-the-code-to-use-a-service-layer)
-		- [9. Spring Boot - REST Controller Methods to Find and Add Employee](#9-spring-boot---rest-controller-methods-to-find-and-add-employee)
-		- [10. Spring Boot - REST Controller Methods to Update and Delete an Employee](#10-spring-boot---rest-controller-methods-to-update-and-delete-an-employee)
-	- [75. Spring Boot - Build a REST CRUD API with JPA - Real-Time Project](#75-spring-boot---build-a-rest-crud-api-with-jpa---real-time-project)
-		- [1. Spring Boot - REST JPA Overview](#1-spring-boot---rest-jpa-overview)
-		- [2. Spring Boot - Creating JPA DAO Implementation for REST API](#2-spring-boot---creating-jpa-dao-implementation-for-rest-api)
-		- [3. Spring Boot - Testing the REST API with JPA DAO Implementation](#3-spring-boot---testing-the-rest-api-with-jpa-dao-implementation)
-	- [76. Spring Boot - Spring Data JPA - Real-Time Project](#76-spring-boot---spring-data-jpa---real-time-project)
-		- [1. Spring Boot - Spring Data JPA Overview](#1-spring-boot---spring-data-jpa-overview)
-		- [2. Spring Boot - Creating Spring Data JPA Repository](#2-spring-boot---creating-spring-data-jpa-repository)
-		- [3. Spring Boot - Testing the REST API with Spring Data JPA Repository](#3-spring-boot---testing-the-rest-api-with-spring-data-jpa-repository)
-	- [77. Spring Boot - Spring Data REST - Real-Time Project](#77-spring-boot---spring-data-rest---real-time-project)
-		- [1. Spring Boot - Spring Data REST Overview](#1-spring-boot---spring-data-rest-overview)
-		- [2. Spring Boot - Spring Data REST - Creating a REST API](#2-spring-boot---spring-data-rest---creating-a-rest-api)
-		- [3. Spring Boot - Spring Data REST - Configuration, Pagination and Sorting](#3-spring-boot---spring-data-rest---configuration-pagination-and-sorting)
-	- [78. Spring Boot - Thymeleaf](#78-spring-boot---thymeleaf)
-		- [1. Spring Boot - Thymeleaf Overview](#1-spring-boot---thymeleaf-overview)
-		- [2. Spring Boot - Thymeleaf Helloworld - Create a Thymeleaf App](#2-spring-boot---thymeleaf-helloworld---create-a-thymeleaf-app)
-		- [3. Spring Boot - Thymeleaf Helloworld - Apply CSS Stylesheets](#3-spring-boot---thymeleaf-helloworld---apply-css-stylesheets)
-	- [79. Spring Boot - Thymeleaf - Build HTML Tables](#79-spring-boot---thymeleaf---build-html-tables)
-		- [1. Spring Boot - Thymeleaf - Build HTML Tables - Overview](#1-spring-boot---thymeleaf---build-html-tables---overview)
-		- [2. Spring Boot - Thymeleaf - Build HTML Tables - Write Some Code](#2-spring-boot---thymeleaf---build-html-tables---write-some-code)
-		- [3. Spring Boot - Thymeleaf - Add Bootstrap CSS](#3-spring-boot---thymeleaf---add-bootstrap-css)
-	- [80. Spring Boot - Thymeleaf - CRUD Database Real-Time Project](#80-spring-boot---thymeleaf---crud-database-real-time-project)
-		- [1. Spring Boot - Thymeleaf - CRUD Database Project - Get Employees - Part 1](#1-spring-boot---thymeleaf---crud-database-project---get-employees---part-1)
-		- [2. Spring Boot - Thymeleaf - CRUD Database Project - Get Employees - Part 2](#2-spring-boot---thymeleaf---crud-database-project---get-employees---part-2)
-		- [3. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Add Employee - Part 1](#3-spring-boot---thymeleaf---crud-database-real-time-project-add-employee---part-1)
-		- [4. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Add Employee - Part 2](#4-spring-boot---thymeleaf---crud-database-real-time-project-add-employee---part-2)
-		- [5. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Add Employee - Part 3](#5-spring-boot---thymeleaf---crud-database-real-time-project-add-employee---part-3)
-		- [6. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Update Employee - 1](#6-spring-boot---thymeleaf---crud-database-real-time-project-update-employee---1)
-		- [7. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Update Employee - 2](#7-spring-boot---thymeleaf---crud-database-real-time-project-update-employee---2)
-		- [8. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Delete Employee](#8-spring-boot---thymeleaf---crud-database-real-time-project-delete-employee)
-		- [6. More Thymeleaf coming.html](#6-more-thymeleaf-cominghtml)
-	- [81. Summary](#81-summary)
-		- [1. Thank You and Please Leave a Rating for the Course](#1-thank-you-and-please-leave-a-rating-for-the-course)
-		- [2. Direct Links to My Java Courses.html](#2-direct-links-to-my-java-courseshtml)
-	- [82. Appendix](#82-appendix)
-		- [1. FAQ Spring Student Questions.html](#1-faq-spring-student-questionshtml)
-	- [83. Bonus Spring Boot Deployments on Tomcat](#83-bonus-spring-boot-deployments-on-tomcat)
-		- [1. Deploying Spring Boot WAR file with JSP to Tomcat.html](#1-deploying-spring-boot-war-file-with-jsp-to-tomcathtml)
-		- [2. Deploy Spring Boot WAR file with Thymeleaf to Tomcat.html](#2-deploy-spring-boot-war-file-with-thymeleaf-to-tomcathtml)
+  - [Tai lieu](#tai-lieu)
+  - [2. Spring Overview](#2-spring-overview)
+    - [1. Why Spring - part 1](#1-why-spring---part-1)
+    - [2. Why Spring - part 2](#2-why-spring---part-2)
+    - [3. Spring 5 Update](#3-spring-5-update)
+    - [4. Spring Core Framework - Part 1](#4-spring-core-framework---part-1)
+    - [5. Spring Core Framework - Part 2](#5-spring-core-framework---part-2)
+    - [6. Spring Platform](#6-spring-platform)
+  - [3. Setting Up Your Development Environment](#3-setting-up-your-development-environment)
+    - [2. Installing Tomcat](#2-installing-tomcat)
+    - [4. Connecting Tomcat to Eclipse](#4-connecting-tomcat-to-eclipse)
+    - [5 Add jar files](#5-add-jar-files)
+  - [4. Spring Inversion of Control - XML Configuration](#4-spring-inversion-of-control---xml-configuration)
+    - [1. What is Inversion of Control](#1-what-is-inversion-of-control)
+    - [4. Spring Inversion of Control - Overview](#4-spring-inversion-of-control---overview) - [Spring Container](#spring-container) - [IOC & XML Configuration](#ioc--xml-configuration) - [Configuring Spring Container](#configuring-spring-container) - [Spring Development Process](#spring-development-process)
+      - [FAQ: What is a Spring Bean?](#faq-what-is-a-spring-bean)
+      - [8. HEADS UP - Add Logging Messages in Spring 5.1](#8-heads-up---add-logging-messages-in-spring-51)
+      - [9. FAQ Why do we specify the Coach interface in getBean().html](#9-faq-why-do-we-specify-the-coach-interface-in-getbeanhtml)
+  - [5. Spring Dependency Injection - XML Configuration](#5-spring-dependency-injection---xml-configuration)
+    - [Các nguyên tắc đảo ngược phụ thuộc.](#các-nguyên-tắc-đảo-ngược-phụ-thuộc)
+      - [Spring Injection Types(pdf)](#spring-injection-typespdf)
+      - [Development Process - Constructor Injection](#development-process---constructor-injection)
+      - [FAQ: What is the purpose for the no arg constructor?](#faq-what-is-the-purpose-for-the-no-arg-constructor)
+      - [Development Process - Setter Injection](#development-process---setter-injection)
+      - [Injecting Literal Values Development Process](#injecting-literal-values-development-process)
+      - [Question:](#question)
+      - [Injecting Values from a Properties File](#injecting-values-from-a-properties-file)
+      - [Practice Activity #2 - Dependency Injection with XML Configuration](#practice-activity-2---dependency-injection-with-xml-configuration)
+  - [6. Spring Bean Scopes and Lifecycle](#6-spring-bean-scopes-and-lifecycle)
+    - [1. Bean scope](#1-bean-scope)
+    - [2. Bean Lifecycle](#2-bean-lifecycle)
+      - [Special Note about init and destroy Method Signatures](#special-note-about-init-and-destroy-method-signatures)
+  - [7. Spring Configuration with Java Annotations - Inversion of Control](#7-spring-configuration-with-java-annotations---inversion-of-control)
+    - [1. Annotations Overview - Component Scanning](#1-annotations-overview---component-scanning)
+    - [2. Annotations Project Setup](#2-annotations-project-setup)
+    - [3. Explicit Component Names - Write Some Code](#3-explicit-component-names---write-some-code)
+    - [4. Default Component Names - Overview](#4-default-component-names---overview)
+  - [8. Spring Configuration with Java Annotations - Dependency Injection](#8-spring-configuration-with-java-annotations---dependency-injection)
+    - [1. Constructor Injection - Overview](#1-constructor-injection---overview)
+      - [FAQ: What if there are multiple FortuneService implementations?](#faq-what-if-there-are-multiple-fortuneservice-implementations)
+      - [I have finished the video "Constructor Injection - Writing Code part2".](#i-have-finished-the-video-constructor-injection---writing-code-part2)
+    - [2. Setter Injection - Overview](#2-setter-injection---overview)
+    - [3. Method Injection](#3-method-injection)
+    - [4. Field Injection - Overview](#4-field-injection---overview)
+    - [5. Which Injection Type Should You Use](#5-which-injection-type-should-you-use)
+    - [12. Qualifiers for Dependency Injection - Overview](#12-qualifiers-for-dependency-injection---overview)
+    - [13. Qualifiers for Dependency Injection - Write Some Code - Part 1](#13-qualifiers-for-dependency-injection---write-some-code---part-1)
+    - [14. Qualifiers for Dependency Injection - Write Some Code - Part 2](#14-qualifiers-for-dependency-injection---write-some-code---part-2)
+      - [Annotations - Default Bean Names ... and the Special Case](#annotations---default-bean-names--and-the-special-case)
+    - [16. Using @Qualifier with Constructors](#16-using-qualifier-with-constructors)
+      - [FAQ: How to inject properties file using Java annotations](#faq-how-to-inject-properties-file-using-java-annotations)
+  - [9. Spring Configuration with Java Annotations - Bean Scopes and Lifecycle Methods](#9-spring-configuration-with-java-annotations---bean-scopes-and-lifecycle-methods)
+    - [1. @Scope Annotation - Overview](#1-scope-annotation---overview)
+    - [2. @Scope Annotation - Write Some Code](#2-scope-annotation---write-some-code)
+      - [Special Note about @PostConstruct and @PreDestroy Method Signatures](#special-note-about-postconstruct-and-predestroy-method-signatures)
+    - [3. Bean Lifecycle Method Annotations - Overview](#3-bean-lifecycle-method-annotations---overview)
+      - [HEADS UP - FOR JAVA 9, 10 and 11 USERS - @PostConstruct and @PreDestroy](#heads-up---for-java-9-10-and-11-users---postconstruct-and-predestroy)
+  - [10. Spring Configuration with Java Code (no xml)](#10-spring-configuration-with-java-code-no-xml)
+    - [1. Spring Configuration with Java Code (no xml) – Overview](#1-spring-configuration-with-java-code-no-xml--overview)
+    - [4. Defining Spring Beans with Java Code (no xml) - Overview](#4-defining-spring-beans-with-java-code-no-xml---overview)
+    - [3. Heads Up - Add Logging Messages in Spring 5.1 - All Java Config Version](#3-heads-up---add-logging-messages-in-spring-51---all-java-config-version)
+    - [Defining Spring Beans with Java Code (no xml) - Write Some Code - Part 1.mp4](#defining-spring-beans-with-java-code-no-xml---write-some-code---part-1mp4)
+    - [Defining Spring Beans with Java Code (no xml) - Write Some Code - Part 2.mp4](#defining-spring-beans-with-java-code-no-xml---write-some-code---part-2mp4)
+    - [During All Java Configuration, how does the @Bean annotation work in the background?](#during-all-java-configuration-how-does-the-bean-annotation-work-in-the-background)
+    - [8. Injecting Values from Properties File - Overview](#8-injecting-values-from-properties-file---overview)
+    - [9. Injecting Values from Properties File - Write Some Code - Part 1](#9-injecting-values-from-properties-file---write-some-code---part-1)
+    - [10. Injecting Values from Properties File - Write Some Code - Part 2](#10-injecting-values-from-properties-file---write-some-code---part-2)
+    - [11. FAQ Problems with Injecting Values - Value not returning from \${foo.email}.html](#11-faq-problems-with-injecting-values---value-not-returning-from-fooemailhtml)
+    - [12. Practice Activity #7 - IoC and DI with Java Configuration.html](#12-practice-activity-7---ioc-and-di-with-java-configurationhtml)
+  - [11. Spring MVC - Building Spring Web Apps](#11-spring-mvc---building-spring-web-apps)
+    - [1. Spring MVC Overview](#1-spring-mvc-overview)
+    - [2. Spring MVC - Behind the Scenes](#2-spring-mvc---behind-the-scenes)
+    - [3. Development Environment Checkpoint](#3-development-environment-checkpoint)
+    - [4. Download Spring MVC Starter Files.html](#4-download-spring-mvc-starter-fileshtml)
+    - [5. Spring MVC Configuration - Overview](#5-spring-mvc-configuration---overview)
+    - [6. Spring MVC Configuration - JAR Files](#6-spring-mvc-configuration---jar-files)
+  - [FAQ: HELP! My Spring MVC Controller is not working. What to do?](#faq-help-my-spring-mvc-controller-is-not-working-what-to-do)
+    - [7. Spring MVC Configuration - Config Files](#7-spring-mvc-configuration---config-files)
+    - [8. How to configure the Spring Dispatcher Servlet using all Java Code (no xml)?](#8-how-to-configure-the-spring-dispatcher-servlet-using-all-java-code-no-xml)
+    - [Answer:](#answer)
+  - [12. Spring MVC - Creating Controllers and Views](#12-spring-mvc---creating-controllers-and-views)
+    - [1. Creating a Spring Home Controller and View – Overview](#1-creating-a-spring-home-controller-and-view--overview)
+    - [3. Creating a Spring Home Controller and View - Write Some Code - Part 2](#3-creating-a-spring-home-controller-and-view---write-some-code---part-2)
+    - [4. FAQ HELP! My Spring MVC Controller is not working. What to do.html](#4-faq-help-my-spring-mvc-controller-is-not-working-what-to-dohtml)
+    - [5. FAQ HELP! - Can't Start Tomcat - Ports are in Use!.html](#5-faq-help---cant-start-tomcat---ports-are-in-usehtml)
+    - [6. FAQ How Does Component Scan Work - Your Package Names are Different!.html](#6-faq-how-does-component-scan-work---your-package-names-are-differenthtml)
+    - [7. Reading HTML Form Data - Overview](#7-reading-html-form-data---overview)
+    - [8. Reading HTML Form Data - Write Some Code - Part 1](#8-reading-html-form-data---write-some-code---part-1)
+    - [9. Reading HTML Form Data - Write Some Code - Part 2](#9-reading-html-form-data---write-some-code---part-2)
+    - [10. Reading HTML Form Data - Write Some Code - Part 3](#10-reading-html-form-data---write-some-code---part-3)
+    - [11. Adding Data to the Spring Model - Overview](#11-adding-data-to-the-spring-model---overview)
+    - [12. Adding Data to the Spring Model - Write Some Code - Part 1](#12-adding-data-to-the-spring-model---write-some-code---part-1)
+    - [13. Adding Data to the Spring Model - Write Some Code - Part 2](#13-adding-data-to-the-spring-model---write-some-code---part-2)
+    - [14. FAQ How to use CSS, JavaScript and Images in Spring MVC Web App.html](#14-faq-how-to-use-css-javascript-and-images-in-spring-mvc-web-apphtml)
+    - [15. Bonus Deploying To Tomcat using WAR files.html](#15-bonus-deploying-to-tomcat-using-war-fileshtml)
+  - [13. Spring MVC - Request Params and Request Mappings](#13-spring-mvc---request-params-and-request-mappings)
+    - [1. Binding Request Params - Overview](#1-binding-request-params---overview)
+    - [2. Binding Request Params - Write Some Code](#2-binding-request-params---write-some-code)
+    - [3. Controller Level Request Mapping - Overview](#3-controller-level-request-mapping---overview)
+    - [4. Controller Level Request Mapping - Write Some Code - Part 1](#4-controller-level-request-mapping---write-some-code---part-1)
+    - [5. Controller Level Request Mapping - Write Some Code - Part 2](#5-controller-level-request-mapping---write-some-code---part-2)
+    - [6. FAQ How does processForm work for hello.html](#6-faq-how-does-processform-work-for-hellohtml)
+  - [14. Spring MVC - Form Tags and Data Binding](#14-spring-mvc---form-tags-and-data-binding)
+    - [2. Text Fields - Overview](#2-text-fields---overview)
+    - [6. Drop-Down Lists - Overview](#6-drop-down-lists---overview)
+    - [9. FAQ Use properties file to load country options.html](#9-faq-use-properties-file-to-load-country-optionshtml)
+    - [11. Radio Buttons - Overview](#11-radio-buttons---overview)
+    - [12. FAQ How to populate radiobuttons with items from Java class.html](#12-faq-how-to-populate-radiobuttons-with-items-from-java-classhtml)
+    - [15. Checkboxes - Overview](#15-checkboxes---overview)
+  - [15. Spring MVC Form Validation - Applying Built-In Validation Rules](#15-spring-mvc-form-validation---applying-built-in-validation-rules)
+    - [1. Spring MVC Form Validation Overview](#1-spring-mvc-form-validation-overview)
+    - [2. Setting Up Dev Environment for Form Validation](#2-setting-up-dev-environment-for-form-validation)
+    - [3. Installing Validation Files](#3-installing-validation-files)
+    - [4. Checking for Required Fields Overview](#4-checking-for-required-fields-overview)
+    - [5. Special Note about BindingResult Parameter Order.html](#5-special-note-about-bindingresult-parameter-orderhtml)
+    - [6. Add Validation Rule to Customer Class](#6-add-validation-rule-to-customer-class)
+    - [7. Display Validation Error Messages on HTML Form](#7-display-validation-error-messages-on-html-form)
+    - [8. Perform Validation in Controller Class - Part 1](#8-perform-validation-in-controller-class---part-1)
+    - [9. Perform Validation in Controller Class - Part 2](#9-perform-validation-in-controller-class---part-2)
+    - [10. Update Confirmation Page](#10-update-confirmation-page)
+    - [11. Test the Validation Rule for Required Fields](#11-test-the-validation-rule-for-required-fields)
+    - [12. Add Pre-processing Code with @InitBinder - Overview](#12-add-pre-processing-code-with-initbinder---overview)
+  - [16. Spring MVC Form Validation - Validating Number Ranges and Regular Expressions](#16-spring-mvc-form-validation---validating-number-ranges-and-regular-expressions)
+    - [1. Validating a Number Range - Overview](#1-validating-a-number-range---overview)
+    - [2. Validating a Number Range - Write Some Code](#2-validating-a-number-range---write-some-code)
+    - [3. Applying Regular Expressions - Overview](#3-applying-regular-expressions---overview)
+    - [4. Applying Regular Expressions - Write Some Code](#4-applying-regular-expressions---write-some-code)
+    - [5. How to make Integer Field Required freePasses](#5-how-to-make-integer-field-required-freepasses)
+    - [6. How to Handle String input for Integer Fields - Custom Message](#6-how-to-handle-string-input-for-integer-fields---custom-message)
+    - [7. How to Handle String input for Integer Fields - Configure Resource Bundle](#7-how-to-handle-string-input-for-integer-fields---configure-resource-bundle)
+    - [8. How to Handle String input for Integer Fields - Deep Dive](#8-how-to-handle-string-input-for-integer-fields---deep-dive)
+    - [FAQ: How to Make Integer field required and handle Strings: freePasses?](#faq-how-to-make-integer-field-required-and-handle-strings-freepasses)
+    - [Handle String Input for Integer Fields](#handle-string-input-for-integer-fields)
+  - [17. Spring MVC Form Validation - Creating Custom Validation Rules](#17-spring-mvc-form-validation---creating-custom-validation-rules)
+    - [1. Custom Form Validation - Overview - Part 1](#1-custom-form-validation---overview---part-1)
+    - [2. Custom Form Validation - Overview - Part 2](#2-custom-form-validation---overview---part-2)
+    - [5. Developing the ConstraintValidator](#5-developing-the-constraintvalidator)
+    - [6. Adding Validation Rule to the Entity and Form](#6-adding-validation-rule-to-the-entity-and-form)
+      - [Spring MVC Custom Validation - FAQ: Is it possible to integrate multiple validation string in one annotation?](#spring-mvc-custom-validation---faq-is-it-possible-to-integrate-multiple-validation-string-in-one-annotation)
+  - [18. Introduction to Hibernate](#18-introduction-to-hibernate)
+  - [19. Setting Up Hibernate Development Environment](#19-setting-up-hibernate-development-environment)
+    - [2. Hibernate Development Environment Overview](#2-hibernate-development-environment-overview)
+    - [3. Installing MySQL on MS Windows](#3-installing-mysql-on-ms-windows)
+    - [4. Setting Up Database Table](#4-setting-up-database-table)
+    - [5. Setting up Hibernate in Eclipse](#5-setting-up-hibernate-in-eclipse)
+    - [6. Testing Your JDBC Connection](#6-testing-your-jdbc-connection)
+  - [20. Hibernate Configuration with Annotations](#20-hibernate-configuration-with-annotations)
+    - [1. Creating the Hibernate Configuration File](#1-creating-the-hibernate-configuration-file)
+    - [2. Hibernate Annotations - Part 1](#2-hibernate-annotations---part-1)
+    - [4. HEADS UP - FOR JAVA 9 USERS.html](#4-heads-up---for-java-9-usershtml)
+    - [5. HEADS UP - JAVA 9 USERS - Eclipse Generate toString() fails.html](#5-heads-up---java-9-users---eclipse-generate-tostring-failshtml)
+    - [HEADS UP - JAVA 9 USERS - Eclipse Generate toString() fails](#heads-up---java-9-users---eclipse-generate-tostring-fails)
+    - [6. Hibernate Annotations - Part 2](#6-hibernate-annotations---part-2)
+    - [7. FAQ Why we are using JPA Annotation instead of Hibernate.html](#7-faq-why-we-are-using-jpa-annotation-instead-of-hibernatehtml)
+    - [FAQ: Why we are using JPA Annotation instead of Hibernate ?](#faq-why-we-are-using-jpa-annotation-instead-of-hibernate-)
+  - [21. Hibernate CRUD Features Create, Read, Update and Delete](#21-hibernate-crud-features-create-read-update-and-delete)
+    - [1. Creating and Saving Java Objects - Part 1](#1-creating-and-saving-java-objects---part-1)
+    - [2. Creating and Saving Java Objects - Part 2](#2-creating-and-saving-java-objects---part-2)
+    - [3. Primary Keys - Overview](#3-primary-keys---overview)
+    - [5. Primary Keys - Changing the Starting Index](#5-primary-keys---changing-the-starting-index)
+    - [6. Reading Objects with Hibernate](#6-reading-objects-with-hibernate)
+    - [7. Querying Objects with Hibernate - Overview](#7-querying-objects-with-hibernate---overview)
+    - [8. Special Note about Deprecated Method in Hibernate 5.2.html](#8-special-note-about-deprecated-method-in-hibernate-52html)
+    - [9. Querying Objects with Hibernate - Write Some Code - Part 1](#9-querying-objects-with-hibernate---write-some-code---part-1)
+    - [10. Querying Objects with Hibernate - Write Some Code - Part 2](#10-querying-objects-with-hibernate---write-some-code---part-2)
+    - [11. FAQ How To View Hibernate SQL Parameter Values.html (LOG4J)](#11-faq-how-to-view-hibernate-sql-parameter-valueshtml-log4j)
+      - [**Here is an overview of the process:**](#here-is-an-overview-of-the-process)
+      - [**Here are the detailed steps:**](#here-are-the-detailed-steps)
+    - [12. Updating Objects with Hibernate - Overview](#12-updating-objects-with-hibernate---overview)
+    - [13. Updating Objects with Hibernate - Write Some Code](#13-updating-objects-with-hibernate---write-some-code)
+    - [14. Deleting Objects with Hibernate - Overview](#14-deleting-objects-with-hibernate---overview)
+    - [15. Deleting Objects with Hibernate - Write Some Code](#15-deleting-objects-with-hibernate---write-some-code)
+    - [16. Practice Activity #8 - Hibernate Development.html](#16-practice-activity-8---hibernate-developmenthtml)
+    - [17. FAQ How to read Dates with Hibernate.html](#17-faq-how-to-read-dates-with-hibernatehtml)
+  - [22. Hibernate Advanced Mappings](#22-hibernate-advanced-mappings)
+    - [1. Advanced Mappings Overview](#1-advanced-mappings-overview)
+    - [2. Database Concepts](#2-database-concepts)
+  - [23. Hibernate Advanced Mappings - @OneToOne](#23-hibernate-advanced-mappings---onetoone)
+    - [1. @OneToOne - Overview - Part 1](#1-onetoone---overview---part-1)
+    - [2. @OneToOne - Overview - Part 2](#2-onetoone---overview---part-2)
+    - [3. @OneToOne - Overview - Part 3](#3-onetoone---overview---part-3)
+    - [4. @OneToOne - Run Database Scripts](#4-onetoone---run-database-scripts)
+    - [5. @OneToOne - Write Some Code - Prep Work](#5-onetoone---write-some-code---prep-work)
+    - [6. @OneToOne - Write Some Code - Create InstructorDetail class](#6-onetoone---write-some-code---create-instructordetail-class)
+    - [7. @OneToOne - Write Some Code - Create Instructor class](#7-onetoone---write-some-code---create-instructor-class)
+    - [8. @OneToOne - Write Some Code - Build Main App - Part 1](#8-onetoone---write-some-code---build-main-app---part-1)
+    - [9. @OneToOne - Write Some Code - Build Main App - Part 2](#9-onetoone---write-some-code---build-main-app---part-2)
+    - [10. @OneToOne - Delete an Entity](#10-onetoone---delete-an-entity)
+    - [11. @OneToOne - Bi-Directional Overview](#11-onetoone---bi-directional-overview)
+    - [12. @OneToOne - Bi-Directional - Create Relationship](#12-onetoone---bi-directional---create-relationship)
+    - [13. @OneToOne - Bi-Directional - Develop Main App](#13-onetoone---bi-directional---develop-main-app)
+    - [14. @OneToOne - Refactoring and Exception Handling](#14-onetoone---refactoring-and-exception-handling)
+    - [15. @OneToOne - Bi-Directional - Cascade Delete](#15-onetoone---bi-directional---cascade-delete)
+    - [16. @OneToOne - Bi-Directional - Delete Only InstructorDetail - Part 1](#16-onetoone---bi-directional---delete-only-instructordetail---part-1)
+    - [17. @OneToOne - Bi-Directional - Delete Only InstructorDetail - Part 2](#17-onetoone---bi-directional---delete-only-instructordetail---part-2)
+  - [24. Hibernate Advanced Mappings - @OneToMany](#24-hibernate-advanced-mappings---onetomany)
+    - [1. @OneToMany - Bi-Directional Overview - Part 1](#1-onetomany---bi-directional-overview---part-1)
+    - [2. @OneToMany - Bi-Directional Overview - Part 2](#2-onetomany---bi-directional-overview---part-2)
+    - [3. @OneToMany - Bi-Directional - Database Prep Work](#3-onetomany---bi-directional---database-prep-work)
+    - [4. @OneToMany - Bi-Directional - Create Course Mapping](#4-onetomany---bi-directional---create-course-mapping)
+    - [5. @OneToMany - Bi-Directional - Define Course Relationship](#5-onetomany---bi-directional---define-course-relationship)
+    - [6. @OneToMany - Bi-Directional - Update Instructor](#6-onetomany---bi-directional---update-instructor)
+    - [7. @OneToMany - Bi-Directional - Add Instructor to Database](#7-onetomany---bi-directional---add-instructor-to-database)
+    - [8. @OneToMany - Bi-Directional - Create Courses for Instructor](#8-onetomany---bi-directional---create-courses-for-instructor)
+    - [9. @OneToMany - Bi-Directional - Retrieve Instructor Courses](#9-onetomany---bi-directional---retrieve-instructor-courses)
+    - [10. @OneToMany - Bi-Directional - Delete a Course](#10-onetomany---bi-directional---delete-a-course)
+  - [25. Hibernate Advanced Mappings - Eager vs Lazy Loading](#25-hibernate-advanced-mappings---eager-vs-lazy-loading)
+    - [1. Eager vs Lazy Loading - Overview - Part 1](#1-eager-vs-lazy-loading---overview---part-1)
+    - [2. Eager vs Lazy Loading - Overview - Part 2](#2-eager-vs-lazy-loading---overview---part-2)
+    - [3. Eager vs Lazy Loading - Coding - Eager](#3-eager-vs-lazy-loading---coding---eager)
+    - [4. Eager vs Lazy Loading - Coding - Lazy](#4-eager-vs-lazy-loading---coding---lazy)
+    - [5. Eager vs Lazy Loading - Coding - Closing the Session](#5-eager-vs-lazy-loading---coding---closing-the-session)
+    - [6. Eager vs Lazy Loading - Coding - Resolve Lazy Loading Issue](#6-eager-vs-lazy-loading---coding---resolve-lazy-loading-issue)
+    - [7. Eager vs Lazy Loading - Coding - HQL JOIN FETCH](#7-eager-vs-lazy-loading---coding---hql-join-fetch)
+    - [8. FAQ How to load the courses at a later time in the application.html](#8-faq-how-to-load-the-courses-at-a-later-time-in-the-applicationhtml)
+  - [26. Hibernate Advanced Mappings - @OneToMany - Unidirectional](#26-hibernate-advanced-mappings---onetomany---unidirectional)
+    - [1. @OneToMany - Uni-Directional - Overview - Part 1](#1-onetomany---uni-directional---overview---part-1)
+    - [2. @OneToMany - Uni-Directional - Overview - Part 2](#2-onetomany---uni-directional---overview---part-2)
+    - [3. FAQ @JoinColumn ... where does it find the column.html](#3-faq-joincolumn--where-does-it-find-the-columnhtml)
+    - [4. @OneToMany - Uni-Directional - Set up database tables](#4-onetomany---uni-directional---set-up-database-tables)
+    - [5. @OneToMany - Uni-Directional - Create Review Class](#5-onetomany---uni-directional---create-review-class)
+    - [6. @OneToMany - Uni-Directional - Configure Fetch Type](#6-onetomany---uni-directional---configure-fetch-type)
+    - [7. @OneToMany - Uni-Directional - Create Course Reviews](#7-onetomany---uni-directional---create-course-reviews)
+    - [8. @OneToMany - Uni-Directional - Get Course Reviews](#8-onetomany---uni-directional---get-course-reviews)
+    - [9. @OneToMany - Uni-Directional - Delete Course Reviews](#9-onetomany---uni-directional---delete-course-reviews)
+  - [27. Hibernate Advanced Mappings - @ManyToMany](#27-hibernate-advanced-mappings---manytomany)
+    - [1. @ManyToMany - Overview - Part 1](#1-manytomany---overview---part-1)
+    - [2. @ManyToMany - Overview - Part 2](#2-manytomany---overview---part-2)
+    - [3. @ManyToMany - Set up database tables](#3-manytomany---set-up-database-tables)
+    - [4. @ManyToMany - Update Course class](#4-manytomany---update-course-class)
+    - [5. @ManyToMany - Configure Course for many-to-many](#5-manytomany---configure-course-for-many-to-many)
+    - [6. @ManyToMany - Configure Student for many-to-many](#6-manytomany---configure-student-for-many-to-many)
+    - [7. @ManyToMany - Create a Main App](#7-manytomany---create-a-main-app)
+    - [8. @ManyToMany - Review app output](#8-manytomany---review-app-output)
+    - [9. @ManyToMany - Add more courses for a student](#9-manytomany---add-more-courses-for-a-student)
+    - [10. @ManyToMany - Verify Data in Join Table](#10-manytomany---verify-data-in-join-table)
+    - [11. @ManyToMany - Get Courses for Student](#11-manytomany---get-courses-for-student)
+    - [12. @ManyToMany - Delete a Course](#12-manytomany---delete-a-course)
+    - [13. @ManyToMany - Delete a Student](#13-manytomany---delete-a-student)
+  - [28. Build a Database Web App - Spring MVC and Hibernate Project - Part 1](#28-build-a-database-web-app---spring-mvc-and-hibernate-project---part-1)
+    - [1. Project Overview and Demo](#1-project-overview-and-demo)
+    - [2. Source Files for Spring MVC + Hibernate Web App.html](#2-source-files-for-spring-mvc--hibernate-web-apphtml)
+    - [3. Set up Sample Data for Database](#3-set-up-sample-data-for-database)
+    - [4. Test Database Connection - Part 1](#4-test-database-connection---part-1)
+    - [5. Test Database Connection - Part 2](#5-test-database-connection---part-2)
+    - [6. Set Up Dev Environment - Part 1](#6-set-up-dev-environment---part-1)
+    - [7. HEADS UP - FOR JAVA 9 and higher USERS - Spring MVC CRUD.html](#7-heads-up---for-java-9-and-higher-users---spring-mvc-crudhtml)
+    - [8. Set Up Dev Environment - Part 2](#8-set-up-dev-environment---part-2)
+    - [9. Set Up Dev Environment - Part 3](#9-set-up-dev-environment---part-3)
+    - [10. Test Spring MVC Controller - Part 1](#10-test-spring-mvc-controller---part-1)
+    - [11. Test Spring MVC Controller - Part 2](#11-test-spring-mvc-controller---part-2)
+  - [30. Build a Database Web App - Spring MVC and Hibernate Project - Part 2](#30-build-a-database-web-app---spring-mvc-and-hibernate-project---part-2)
+    - [1. List Customers - Overview](#1-list-customers---overview)
+    - [2. List Customers - Overview of Development Process](#2-list-customers---overview-of-development-process)
+    - [3. List Customers - Creating Hibernate Entity - Part 1](#3-list-customers---creating-hibernate-entity---part-1)
+    - [4. List Customers - Creating Hibernate Entity - Part 2](#4-list-customers---creating-hibernate-entity---part-2)
+    - [5. List Customers - Developing Hibernate DAO - Overview - Part 1](#5-list-customers---developing-hibernate-dao---overview---part-1)
+    - [6. List Customers - Developing Hibernate DAO - Overview - Part 2](#6-list-customers---developing-hibernate-dao---overview---part-2)
+    - [7. List Customers - Developing Hibernate DAO - Write Some Code - Part 1](#7-list-customers---developing-hibernate-dao---write-some-code---part-1)
+    - [8. List Customers - Developing Hibernate DAO - Write Some Code - Part 2](#8-list-customers---developing-hibernate-dao---write-some-code---part-2)
+    - [9. List Customers - Injecting DAO into Controller](#9-list-customers---injecting-dao-into-controller)
+    - [10. List Customers - Developing JSP View Page](#10-list-customers---developing-jsp-view-page)
+    - [11. Making it Pretty with CSS - Overview](#11-making-it-pretty-with-css---overview)
+    - [12. Making it Pretty with CSS - Write Some Code - Part 1](#12-making-it-pretty-with-css---write-some-code---part-1)
+    - [13. Making it Pretty with CSS - Write Some Code - Part 2](#13-making-it-pretty-with-css---write-some-code---part-2)
+    - [14. Adding a Welcome File](#14-adding-a-welcome-file)
+  - [30. Build a Database Web App - Spring MVC and Hibernate Project - Part 3](#30-build-a-database-web-app---spring-mvc-and-hibernate-project---part-3)
+    - [1. Refactor @GetMapping and @PostMapping - Overview](#1-refactor-getmapping-and-postmapping---overview)
+    - [2. Refactor @GetMapping and @PostMapping - Write Some Code](#2-refactor-getmapping-and-postmapping---write-some-code)
+    - [3. Refactor Add a Service Layer - Overview](#3-refactor-add-a-service-layer---overview)
+    - [4. Refactor Add a Service Layer - Write Some Code - Part 1](#4-refactor-add-a-service-layer---write-some-code---part-1)
+    - [5. Refactor Add a Service Layer - Write Some Code - Part 2](#5-refactor-add-a-service-layer---write-some-code---part-2)
+  - [31. Build a Database Web App - Spring MVC and Hibernate Project - Part 4](#31-build-a-database-web-app---spring-mvc-and-hibernate-project---part-4)
+    - [1. Add Customer - Overview](#1-add-customer---overview)
+    - [2. Add Customer - Setting up the Add Button - Part 1](#2-add-customer---setting-up-the-add-button---part-1)
+    - [3. Add Customer - Setting up the Add Button - Part 2](#3-add-customer---setting-up-the-add-button---part-2)
+    - [4. Add Customer - Creating the HTML Form - Part 1](#4-add-customer---creating-the-html-form---part-1)
+    - [5. Add Customer - Creating the HTML Form - Part 2](#5-add-customer---creating-the-html-form---part-2)
+    - [6. Add Customer - Creating the HTML Form - Part 3](#6-add-customer---creating-the-html-form---part-3)
+    - [7. Add Customer - Save to Database - Part 1](#7-add-customer---save-to-database---part-1)
+    - [8. Add Customer - Save to Database - Part 2](#8-add-customer---save-to-database---part-2)
+    - [9. Sort Customer Data](#9-sort-customer-data)
+  - [32. Build a Database Web App - Spring MVC and Hibernate Project - Part 5](#32-build-a-database-web-app---spring-mvc-and-hibernate-project---part-5)
+    - [1. Update Customer - Overview](#1-update-customer---overview)
+    - [2. Update Customer - Creating Update Link](#2-update-customer---creating-update-link)
+    - [3. Update Customer - Prepopulating the Form - Part 1](#3-update-customer---prepopulating-the-form---part-1)
+    - [4. Update Customer - Prepopulating the Form - Part 2](#4-update-customer---prepopulating-the-form---part-2)
+    - [5. Update Customer - Prepopulating the Form - Part 3](#5-update-customer---prepopulating-the-form---part-3)
+    - [6. Update Customer - Save Customer to Database - Part 1](#6-update-customer---save-customer-to-database---part-1)
+    - [7. Update Customer - Save Customer to Database - Part 2](#7-update-customer---save-customer-to-database---part-2)
+  - [33. Build a Database Web App - Spring MVC and Hibernate Project - Part 6](#33-build-a-database-web-app---spring-mvc-and-hibernate-project---part-6)
+    - [1. Delete Customer - Overview](#1-delete-customer---overview)
+    - [2. Delete Customer - Creating Delete Link - Part 1](#2-delete-customer---creating-delete-link---part-1)
+    - [3. Delete Customer - Creating Delete Link - Part 2](#3-delete-customer---creating-delete-link---part-2)
+    - [4. Delete Customer - Delete from Database - Part 1](#4-delete-customer---delete-from-database---part-1)
+    - [5. Delete Customer - Delete from Database - Part 2](#5-delete-customer---delete-from-database---part-2)
+    - [6. Delete Customer - Delete from Database - Part 3](#6-delete-customer---delete-from-database---part-3)
+    - [7. FAQ How to Add Search support.html](#7-faq-how-to-add-search-supporthtml)
+  - [34. AOP Aspect-Oriented Programming Overview](#34-aop-aspect-oriented-programming-overview)
+    - [1. AOP - The Business Problem](#1-aop---the-business-problem)
+    - [2. AOP Solution and AOP Use Cases](#2-aop-solution-and-aop-use-cases)
+    - [3. Comparing Spring AOP and AspectJ](#3-comparing-spring-aop-and-aspectj)
+  - [35. AOP @Before Advice Type](#35-aop-before-advice-type)
+    - [1. AOP @Before Advice Overview](#1-aop-before-advice-overview)
+    - [2. AOP AOP Project Setup](#2-aop-aop-project-setup)
+    - [3. AOP @Before Advice - Write Some Code](#3-aop-before-advice---write-some-code)
+    - [4. AOP @Before Advice - Add and Test AOP Aspect](#4-aop-before-advice---add-and-test-aop-aspect)
+  - [36. AOP Pointcut Expressions - Match Methods and Return Types](#36-aop-pointcut-expressions---match-methods-and-return-types)
+    - [1. AOP - Pointcut Expressions Overview](#1-aop---pointcut-expressions-overview)
+    - [2. AOP - Pointcut Expressions - Match any addAccount Method - Part 2](#2-aop---pointcut-expressions---match-any-addaccount-method---part-2)
+    - [3. AOP - Pointcut Expressions - Match only DAO addAccount - Match any add Method](#3-aop---pointcut-expressions---match-only-dao-addaccount---match-any-add-method)
+    - [4. AOP - Pointcut Expressions - Match any Return Type](#4-aop---pointcut-expressions---match-any-return-type)
+  - [37. AOP Pointcut Expressions - Match Method Parameter Types](#37-aop-pointcut-expressions---match-method-parameter-types)
+    - [1. AOP Pointcut Expressions - Match Method Parameter Types Overview](#1-aop-pointcut-expressions---match-method-parameter-types-overview)
+    - [2. AOP Pointcut Expressions - Match Method with Account and more Params](#2-aop-pointcut-expressions---match-method-with-account-and-more-params)
+    - [3. AOP Pointcut Expressions - Match Method Any Params - Match Method in a Package](#3-aop-pointcut-expressions---match-method-any-params---match-method-in-a-package)
+  - [38. AOP Pointcut Declarations](#38-aop-pointcut-declarations)
+    - [1. AOP Pointcut Declarations - Overview](#1-aop-pointcut-declarations---overview)
+    - [2. AOP Pointcut Declarations - Write Some Code](#2-aop-pointcut-declarations---write-some-code)
+    - [3. AOP Combining Pointcuts - Overview](#3-aop-combining-pointcuts---overview)
+    - [4. AOP Combining Pointcuts - Write Some Code - Part 1](#4-aop-combining-pointcuts---write-some-code---part-1)
+    - [5. AOP Combining Pointcuts - Write Some Code - Part 2](#5-aop-combining-pointcuts---write-some-code---part-2)
+  - [39. AOP Ordering Aspects](#39-aop-ordering-aspects)
+    - [1. AOP Ordering Aspects - Overview](#1-aop-ordering-aspects---overview)
+    - [2. AOP Ordering Aspects - Write Some Code - Part 1](#2-aop-ordering-aspects---write-some-code---part-1)
+    - [3. AOP Ordering Aspects - Write Some Code - Part 2](#3-aop-ordering-aspects---write-some-code---part-2)
+  - [40. AOP JoinPoints](#40-aop-joinpoints)
+    - [1. AOP Read Method Arguments with JoinPoints - Overview](#1-aop-read-method-arguments-with-joinpoints---overview)
+    - [2. AOP Read Method Arguments with JoinPoints - Write Some Code](#2-aop-read-method-arguments-with-joinpoints---write-some-code)
+  - [41. AOP @AfterReturning Advice Type](#41-aop-afterreturning-advice-type)
+    - [1. AOP @AfterReturning Overview](#1-aop-afterreturning-overview)
+    - [2. AOP @AfterReturning - Write Some Code - Part 1](#2-aop-afterreturning---write-some-code---part-1)
+    - [3. AOP @AfterReturning - Write Some Code - Part 2](#3-aop-afterreturning---write-some-code---part-2)
+    - [4. AOP @AfterReturning - Write Some Code - Part 2](#4-aop-afterreturning---write-some-code---part-2)
+    - [5. AOP @AfterReturning - Modifying Data - Write Some Code](#5-aop-afterreturning---modifying-data---write-some-code)
+  - [42. AOP @AfterThrowing Advice Type](#42-aop-afterthrowing-advice-type)
+    - [1. AOP @AfterThrowing](#1-aop-afterthrowing)
+    - [2. AOP @AfterThrowing - Write Some Code](#2-aop-afterthrowing---write-some-code)
+  - [43. AOP @After Advice Type](#43-aop-after-advice-type)
+    - [1. AOP @After Overview](#1-aop-after-overview)
+    - [2. AOP @After - Write Some Code](#2-aop-after---write-some-code)
+  - [44. AOP @Around Advice Type](#44-aop-around-advice-type)
+    - [1. AOP @Around Advice Overview](#1-aop-around-advice-overview)
+    - [2. AOP @Around - Write Some Code - Part 1](#2-aop-around---write-some-code---part-1)
+    - [3. AOP @Around - Write Some Code - Part 2](#3-aop-around---write-some-code---part-2)
+    - [4. AOP @Around Advice - Resolve Order Issue](#4-aop-around-advice---resolve-order-issue)
+    - [5. AOP @Around Advice - Handling Exceptions - Overview](#5-aop-around-advice---handling-exceptions---overview)
+    - [6. AOP @Around Advice - Handling Exceptions - Write Some Code](#6-aop-around-advice---handling-exceptions---write-some-code)
+    - [7. AOP @Around Advice - Rethrowing Exceptions](#7-aop-around-advice---rethrowing-exceptions)
+  - [45. AOP Add AOP Logging to Spring MVC App - Real-Time Project](#45-aop-add-aop-logging-to-spring-mvc-app---real-time-project)
+    - [1. AOP AOP and Spring MVC App - Overview](#1-aop-aop-and-spring-mvc-app---overview)
+    - [2. AOP AOP and Spring MVC App - Write Some Code - Create Aspect](#2-aop-aop-and-spring-mvc-app---write-some-code---create-aspect)
+    - [3. AOP AOP and Spring MVC App - Write Some Code - Add @Before Advice](#3-aop-aop-and-spring-mvc-app---write-some-code---add-before-advice)
+    - [4. AOP AOP and Spring MVC App - Write Some Code - Add @AfterReturning Advice](#4-aop-aop-and-spring-mvc-app---write-some-code---add-afterreturning-advice)
+  - [46. Maven Crash Course](#46-maven-crash-course)
+    - [1. Maven Overview - Part 1](#1-maven-overview---part-1)
+    - [2. Maven Overview - Part 2](#2-maven-overview---part-2)
+    - [3. Maven Key Concepts - POM file and Coordinates](#3-maven-key-concepts---pom-file-and-coordinates)
+    - [4. Maven - How to Find Dependencies](#4-maven---how-to-find-dependencies)
+    - [5. Maven Archetypes](#5-maven-archetypes)
+    - [6. Maven - Creating a Simple Project - Part 1](#6-maven---creating-a-simple-project---part-1)
+    - [7. How to Install the m2eclipse Plugin.html](#7-how-to-install-the-m2eclipse-pluginhtml)
+    - [8. Maven - Creating a Simple Project - Part 2](#8-maven---creating-a-simple-project---part-2)
+    - [9. Maven - Creating a Web App Project](#9-maven---creating-a-web-app-project)
+    - [10. Maven - Repositories Overview](#10-maven---repositories-overview)
+    - [11. Maven - Local Repository](#11-maven---local-repository)
+    - [12. Maven - Central Repository (remote)](#12-maven---central-repository-remote)
+    - [13. Maven - Additional Repositories Overview](#13-maven---additional-repositories-overview)
+    - [14. Maven - Additional Repositories Demo](#14-maven---additional-repositories-demo)
+    - [15. Maven - Private Repositories](#15-maven---private-repositories)
+    - [16. FAQ How to use Maven with customer-tracker project.html](#16-faq-how-to-use-maven-with-customer-tracker-projecthtml)
+    - [16.1 maven-with-crm-app.pdf.pdf](#161-maven-with-crm-apppdfpdf)
+  - [47. Spring Security - Getting Started](#47-spring-security---getting-started)
+    - [1. Spring Security - Overview](#1-spring-security---overview)
+    - [2. Spring Security - Demo](#2-spring-security---demo)
+    - [3. Spring Security - All Java Configuration - Part 1](#3-spring-security---all-java-configuration---part-1)
+    - [4. Spring Security - All Java Configuration - Part 2](#4-spring-security---all-java-configuration---part-2)
+    - [5. Spring Security - Project Downloads and Setup](#5-spring-security---project-downloads-and-setup)
+    - [6. Spring Security - Maven Configuration](#6-spring-security---maven-configuration)
+    - [7. FAQ Maven can't find a class but I have it in pom.xml.html](#7-faq-maven-cant-find-a-class-but-i-have-it-in-pomxmlhtml)
+    - [8. Spring Security - Create Spring Java Config class](#8-spring-security---create-spring-java-config-class)
+    - [9. Spring Security - Create Spring Initializer class](#9-spring-security---create-spring-initializer-class)
+    - [10. Spring Security - Create Controller and View](#10-spring-security---create-controller-and-view)
+    - [11. Spring Security - Run the App](#11-spring-security---run-the-app)
+    - [12. Spring Security - Add Spring Security Maven Dependencies](#12-spring-security---add-spring-security-maven-dependencies)
+    - [13. Spring Security - Latest Version.html](#13-spring-security---latest-versionhtml)
+  - [<springsecurity.version>5.1.1.RELEASE</springsecurity.version>](#springsecurityversion511releasespringsecurityversion)
+  - [<springsecurity.version>5.1.0.RELEASE</springsecurity.version>](#springsecurityversion510releasespringsecurityversion)
+  - [<springsecurity.version>5.0.7.RELEASE</springsecurity.version>](#springsecurityversion507releasespringsecurityversion)
+  - [<springsecurity.version>5.0.6.RELEASE</springsecurity.version>](#springsecurityversion506releasespringsecurityversion)
+  - [<springsecurity.version>5.0.5.RELEASE</springsecurity.version>](#springsecurityversion505releasespringsecurityversion)
+  - [<springsecurity.version>5.0.4.RELEASE</springsecurity.version>](#springsecurityversion504releasespringsecurityversion)
+  - [<springsecurity.version>5.0.3.RELEASE</springsecurity.version>](#springsecurityversion503releasespringsecurityversion)
+  - [<springsecurity.version>5.0.2.RELEASE</springsecurity.version>](#springsecurityversion502releasespringsecurityversion)
+    - [14. Spring Security - Add Spring Security Maven Dependencies - Demo](#14-spring-security---add-spring-security-maven-dependencies---demo)
+    - [15. Spring Security - Basic Security (Users, Passwords and Roles)](#15-spring-security---basic-security-users-passwords-and-roles)
+    - [16. Spring Security - Create Security Initializer](#16-spring-security---create-security-initializer)
+    - [17. HEADS UP - New Spring Security 5.0.2 - Deprecated method.html](#17-heads-up---new-spring-security-502---deprecated-methodhtml)
+    - [18. Spring Security - Create Security Config](#18-spring-security---create-security-config)
+  - [48. Spring Security - Adding Custom Login Form](#48-spring-security---adding-custom-login-form)
+    - [1. Spring Security - Rename Context Roots](#1-spring-security---rename-context-roots)
+    - [2. Spring Security - Dev and Testing with New Private Window](#2-spring-security---dev-and-testing-with-new-private-window)
+    - [3. Spring Security - Custom Login Form Overview - Part 1](#3-spring-security---custom-login-form-overview---part-1)
+    - [4. Spring Security - Custom Login Form Overview - Part 2](#4-spring-security---custom-login-form-overview---part-2)
+    - [5. Spring Security - Spring Config for Custom Login Form](#5-spring-security---spring-config-for-custom-login-form)
+    - [6. Spring Security - Create Request Mapping for Login Form](#6-spring-security---create-request-mapping-for-login-form)
+    - [7. Spring Security - Building Custom Login Form](#7-spring-security---building-custom-login-form)
+    - [8. Spring Security - Testing Custom Login Form](#8-spring-security---testing-custom-login-form)
+    - [9. Spring Security - Adding Login Error Message - Overview](#9-spring-security---adding-login-error-message---overview)
+    - [10. Spring Security - Adding Login Error Message - Coding](#10-spring-security---adding-login-error-message---coding)
+  - [49. Spring Security - Boostrap CSS Login Form](#49-spring-security---boostrap-css-login-form)
+    - [1. Spring Security - Bootstrap CSS Login Form](#1-spring-security---bootstrap-css-login-form)
+    - [2. Spring Security - Bootstrap CSS Login Form - Adding Form](#2-spring-security---bootstrap-css-login-form---adding-form)
+    - [3. Spring Security - Bootstrap CSS Login Form - Customizing Form](#3-spring-security---bootstrap-css-login-form---customizing-form)
+  - [50. Spring Security - Adding Logout Support](#50-spring-security---adding-logout-support)
+    - [1. Spring Security - Logout Overview](#1-spring-security---logout-overview)
+    - [2. Spring Security - Logout Configuration](#2-spring-security---logout-configuration)
+    - [3. Spring Security - Customizing Logout Message](#3-spring-security---customizing-logout-message)
+  - [51. Spring Security - Cross Site Request Forgery (CSRF)](#51-spring-security---cross-site-request-forgery-csrf)
+    - [1. Spring Security - Cross Site Request Forgery (CSRF)](#1-spring-security---cross-site-request-forgery-csrf)
+    - [2. Spring Security - Viewing CSRF Tokens](#2-spring-security---viewing-csrf-tokens)
+    - [3. Spring Security - Manually Adding CSRF Tokens](#3-spring-security---manually-adding-csrf-tokens)
+  - [52. Spring Security - User Roles](#52-spring-security---user-roles)
+    - [1. Spring Security - Displaying User ID and Roles - Overview](#1-spring-security---displaying-user-id-and-roles---overview)
+    - [2. Spring Security - Displaying User ID and Roles - Write Some Code](#2-spring-security---displaying-user-id-and-roles---write-some-code)
+    - [3. Spring Security - Displaying User ID and Roles - Test the App](#3-spring-security---displaying-user-id-and-roles---test-the-app)
+    - [4. FAQ How to Add a Public Landing Page.html](#4-faq-how-to-add-a-public-landing-pagehtml)
+  - [53. Spring Security - Restrict Access Based on Role](#53-spring-security---restrict-access-based-on-role)
+    - [1. Spring Security - Restrict Access - Overview](#1-spring-security---restrict-access---overview)
+    - [2. Spring Security - Restrict Access - Update Home Page](#2-spring-security---restrict-access---update-home-page)
+    - [3. Spring Security - Restrict Access - Create Controller and Views](#3-spring-security---restrict-access---create-controller-and-views)
+    - [4. Spring Security - Restrict Access - Security Configuration](#4-spring-security---restrict-access---security-configuration)
+    - [5. Spring Security - Restrict Access - Test Admin Access](#5-spring-security---restrict-access---test-admin-access)
+    - [6. Spring Security - Create a Custom Access Denied Page - Overview](#6-spring-security---create-a-custom-access-denied-page---overview)
+    - [7. Spring Security - Create a Custom Access Denied Page - Configuration](#7-spring-security---create-a-custom-access-denied-page---configuration)
+    - [8. Spring Security - Create a Custom Access Denied Page - Coding](#8-spring-security---create-a-custom-access-denied-page---coding)
+    - [9. Spring Security - Display Content based on Roles - Overview](#9-spring-security---display-content-based-on-roles---overview)
+    - [10. Spring Security - Display Content based on Roles - Write Some Code](#10-spring-security---display-content-based-on-roles---write-some-code)
+    - [11. Spring Security - Display Content based on Roles - Testing](#11-spring-security---display-content-based-on-roles---testing)
+  - [54. Spring Security - Add JDBC Database Authentication](#54-spring-security---add-jdbc-database-authentication)
+    - [1. Spring Security JDBC - Overview - Defining Database Schema](#1-spring-security-jdbc---overview---defining-database-schema)
+    - [2. Spring Security JDBC - Overview - DataSource Configuration](#2-spring-security-jdbc---overview---datasource-configuration)
+    - [3. Spring Security JDBC - Overview - Add JDBC Authentication](#3-spring-security-jdbc---overview---add-jdbc-authentication)
+    - [4. Spring Security JDBC - Coding - Run SQL Script](#4-spring-security-jdbc---coding---run-sql-script)
+    - [5. Spring Security JDBC - Coding - Update Maven POM File](#5-spring-security-jdbc---coding---update-maven-pom-file)
+    - [6. Spring Security JDBC - Coding - Add JDBC Properties File](#6-spring-security-jdbc---coding---add-jdbc-properties-file)
+    - [7. Spring Security JDBC - Coding - Define DataSource](#7-spring-security-jdbc---coding---define-datasource)
+    - [8. Spring Security JDBC - Coding - Reading Props File](#8-spring-security-jdbc---coding---reading-props-file)
+    - [9. Spring Security JDBC - Coding - Configure Data Source](#9-spring-security-jdbc---coding---configure-data-source)
+    - [10. Spring Security JDBC - Coding - Add JDBC Authentication](#10-spring-security-jdbc---coding---add-jdbc-authentication)
+    - [11. Spring Security JDBC - Coding - Test the App](#11-spring-security-jdbc---coding---test-the-app)
+  - [55. Spring Security - Password Encryption](#55-spring-security---password-encryption)
+    - [1. Spring Security - Password Encryption - Bcrypt Overview](#1-spring-security---password-encryption---bcrypt-overview)
+    - [1.1 Detailed bcrypt algorithm analysis.html](#11-detailed-bcrypt-algorithm-analysishtml)
+    - [1.2 Why you should use bcrypt to hash password.html](#12-why-you-should-use-bcrypt-to-hash-passwordhtml)
+    - [1.3 Generate BCrypt Password.html](#13-generate-bcrypt-passwordhtml)
+    - [1.4 Password hashing - Best Practices.html](#14-password-hashing---best-practiceshtml)
+    - [2. bcrypt Additional Resources.html](#2-bcrypt-additional-resourceshtml)
+    - [3. Spring Security - Password Encryption - Spring Configuration](#3-spring-security---password-encryption---spring-configuration)
+    - [4. Spring Security - Password Encryption - Setting up Database Schema](#4-spring-security---password-encryption---setting-up-database-schema)
+    - [5. Spring Security - Password Encryption - Bcrypt Configuration](#5-spring-security---password-encryption---bcrypt-configuration)
+    - [6. Spring Security - Password Encryption - Testing Passwords](#6-spring-security---password-encryption---testing-passwords)
+    - [7. Bonus Lecture Spring Security - User Registration.html](#7-bonus-lecture-spring-security---user-registrationhtml)
+    - [8. Bonus Lecture Adding Spring Security to CRM App.html](#8-bonus-lecture-adding-spring-security-to-crm-apphtml)
+      - [Bonus Lecture: Adding Spring Security to CRM App](#bonus-lecture-adding-spring-security-to-crm-app)
+    - [1.1 Why you should use bcrypt to hash password.html](#11-why-you-should-use-bcrypt-to-hash-passwordhtml)
+    - [1.2 Detailed bcrypt algorithm analysis.html](#12-detailed-bcrypt-algorithm-analysishtml)
+    - [1.3 Password hashing - Best Practices.html](#13-password-hashing---best-practiceshtml)
+    - [1.4 Generate BCrypt Password.html](#14-generate-bcrypt-passwordhtml)
+  - [56. Spring REST - Overview](#56-spring-rest---overview)
+    - [1. Spring REST - What are REST Web Services - Part 1](#1-spring-rest---what-are-rest-web-services---part-1)
+    - [2. Spring REST - What are REST Web Services - Part 2](#2-spring-rest---what-are-rest-web-services---part-2)
+  - [57. Spring REST - JSON Data Binding](#57-spring-rest---json-data-binding)
+    - [1. Spring REST - JSON Overview](#1-spring-rest---json-overview)
+    - [2. Spring REST - JSON Data Binding with Jackson - Overview 1](#2-spring-rest---json-data-binding-with-jackson---overview-1)
+    - [3. Spring REST - JSON Data Binding with Jackson - Overview 2](#3-spring-rest---json-data-binding-with-jackson---overview-2)
+    - [4. Spring REST - JSON Jackson Demo - Set Up Maven Project](#4-spring-rest---json-jackson-demo---set-up-maven-project)
+    - [5. Spring REST - JSON Jackson Demo - Processing JSON](#5-spring-rest---json-jackson-demo---processing-json)
+    - [6. Spring REST - JSON Jackson Demo - Nested Objects and Arrays](#6-spring-rest---json-jackson-demo---nested-objects-and-arrays)
+    - [7. Spring REST - JSON Jackson Demo - Display Nested and Arrays](#7-spring-rest---json-jackson-demo---display-nested-and-arrays)
+    - [8. Spring REST - JSON Jackson Demo - Ignore Properties](#8-spring-rest---json-jackson-demo---ignore-properties)
+  - [58. Spring REST - Create a Spring REST Controller](#58-spring-rest---create-a-spring-rest-controller)
+    - [1. Spring REST - HTTP Overview](#1-spring-rest---http-overview)
+    - [2. Spring REST - Install a REST Client](#2-spring-rest---install-a-rest-client)
+    - [3. Spring REST - Creating a Spring REST Controller - Overview 1](#3-spring-rest---creating-a-spring-rest-controller---overview-1)
+    - [4. Spring REST - Creating a Spring REST Controller - Overview 2](#4-spring-rest---creating-a-spring-rest-controller---overview-2)
+  - [REST SPRING](#rest-spring)
+    - [5. Spring REST - REST Controller Demo - Set Up Maven Project](#5-spring-rest---rest-controller-demo---set-up-maven-project)
+    - [6. Spring REST - REST Controller Demo - Set Up All Java Configuration](#6-spring-rest---rest-controller-demo---set-up-all-java-configuration)
+    - [7. Spring REST - REST Controller Demo - Creating the REST Controller](#7-spring-rest---rest-controller-demo---creating-the-rest-controller)
+    - [8. Spring REST - App Enhancement with Default Page](#8-spring-rest---app-enhancement-with-default-page)
+  - [59. Spring REST - Retrieve POJOs as JSON](#59-spring-rest---retrieve-pojos-as-json)
+    - [1. Spring REST - Retrieve POJOs as JSON - Overview](#1-spring-rest---retrieve-pojos-as-json---overview)
+    - [2. Spring REST - Retrieve POJOs as JSON - Create POJO](#2-spring-rest---retrieve-pojos-as-json---create-pojo)
+    - [3. Spring REST - Retrieve POJOs as JSON - Create REST Controller](#3-spring-rest---retrieve-pojos-as-json---create-rest-controller)
+    - [4. Spring REST - Retrieve POJOs as JSON - Test REST Controller](#4-spring-rest---retrieve-pojos-as-json---test-rest-controller)
+  - [60. Spring REST - Using @PathVariable for REST Endpoints](#60-spring-rest---using-pathvariable-for-rest-endpoints)
+    - [1. Spring REST - Using @PathVariable for REST Endpoints - Overview](#1-spring-rest---using-pathvariable-for-rest-endpoints---overview)
+    - [2. Spring REST - Using @PathVariable for REST Endpoints - Refactoring Code](#2-spring-rest---using-pathvariable-for-rest-endpoints---refactoring-code)
+    - [3. Spring REST - Using @PathVariable for REST Endpoints - Coding @PathVariable](#3-spring-rest---using-pathvariable-for-rest-endpoints---coding-pathvariable)
+  - [61. Spring REST - Exception Handling](#61-spring-rest---exception-handling)
+    - [1. Spring REST - Exception Handling Overview - Part 1](#1-spring-rest---exception-handling-overview---part-1)
+    - [2. Spring REST - Exception Handling Overview - Part 2](#2-spring-rest---exception-handling-overview---part-2)
+    - [3. Spring REST - Exception Handling - Create Custom Error Response and Exception](#3-spring-rest---exception-handling---create-custom-error-response-and-exception)
+    - [4. Spring REST - Exception Handling - Update REST Service to throw Exception](#4-spring-rest---exception-handling---update-rest-service-to-throw-exception)
+    - [5. Spring REST - Exception Handling - Add Exception Handler with @ExceptionHandler](#5-spring-rest---exception-handling---add-exception-handler-with-exceptionhandler)
+    - [6. Spring REST - Exception Handling - Test the App](#6-spring-rest---exception-handling---test-the-app)
+    - [7. Spring REST - Exception Handling - Adding Generic Exception Handler](#7-spring-rest---exception-handling---adding-generic-exception-handler)
+    - [8. Spring REST - Global Exception Handling Overview](#8-spring-rest---global-exception-handling-overview)
+    - [9. Spring REST - Global Exception Handling with @ControllerAdvice](#9-spring-rest---global-exception-handling-with-controlleradvice)
+  - [62. Spring REST - API Design Best Practices](#62-spring-rest---api-design-best-practices)
+    - [1. Spring REST - API Design Best Practices](#1-spring-rest---api-design-best-practices)
+    - [2. Spring REST - API Design of Real-Time Projects (PayPal, Github and SalesForce)](#2-spring-rest---api-design-of-real-time-projects-paypal-github-and-salesforce)
+  - [63. Spring REST - CRUD Database Real-Time Project - Overview](#63-spring-rest---crud-database-real-time-project---overview)
+    - [1. Spring REST - CRUD Database Real-Time Project - Overview](#1-spring-rest---crud-database-real-time-project---overview)
+    - [2. Spring REST - Import Maven Project](#2-spring-rest---import-maven-project)
+    - [3. Spring REST - Maven POM file and All Java Config (no xml)](#3-spring-rest---maven-pom-file-and-all-java-config-no-xml)
+    - [4. Spring REST - Project Service and DAO](#4-spring-rest---project-service-and-dao)
+    - [5. Spring REST - Create Database Tables](#5-spring-rest---create-database-tables)
+  - [64. Spring REST - CRUD Database Real-Time Project - Get Customers](#64-spring-rest---crud-database-real-time-project---get-customers)
+    - [1. Spring REST - CRUD Database Real-Time Project - Get Customers Overview](#1-spring-rest---crud-database-real-time-project---get-customers-overview)
+    - [2. Spring REST - CRUD Database Real-Time Project - Create REST Controller](#2-spring-rest---crud-database-real-time-project---create-rest-controller)
+    - [3. Spring REST - CRUD Database Real-Time Project - Testing in Postman](#3-spring-rest---crud-database-real-time-project---testing-in-postman)
+    - [4. Spring REST - CRUD Database Real-Time Project - Get Single Customer Overview](#4-spring-rest---crud-database-real-time-project---get-single-customer-overview)
+    - [5. Spring REST - CRUD Database Real-Time Project - Get Single Customer - Testing](#5-spring-rest---crud-database-real-time-project---get-single-customer---testing)
+  - [65. Spring REST - CRUD Database Real-Time Project - Exception Handling](#65-spring-rest---crud-database-real-time-project---exception-handling)
+    - [1. Spring REST - CRUD Database Real-Time Project - Exception Handling - Responses](#1-spring-rest---crud-database-real-time-project---exception-handling---responses)
+    - [2. Spring REST - CRUD Database Real-Time Project - Exception Handling - Refactor](#2-spring-rest---crud-database-real-time-project---exception-handling---refactor)
+    - [3. Spring REST - CRUD Database Real-Time Project - Exception Handling - Annotation](#3-spring-rest---crud-database-real-time-project---exception-handling---annotation)
+    - [4. Spring REST - CRUD Database Real-Time Project - Exception Handling - Catch All](#4-spring-rest---crud-database-real-time-project---exception-handling---catch-all)
+  - [66. Spring REST - CRUD Database Real-Time Project - Add Customer](#66-spring-rest---crud-database-real-time-project---add-customer)
+    - [1. Spring REST - CRUD Database Real-Time Project - Add Customer - Overview](#1-spring-rest---crud-database-real-time-project---add-customer---overview)
+    - [2. Spring REST - CRUD Database Real-Time Project - Add Customer - Coding](#2-spring-rest---crud-database-real-time-project---add-customer---coding)
+    - [3. Spring REST - CRUD Database Real-Time Project - Add Customer - Testing](#3-spring-rest---crud-database-real-time-project---add-customer---testing)
+  - [67. Spring REST - CRUD Database Real-Time Project - Update Customer](#67-spring-rest---crud-database-real-time-project---update-customer)
+    - [1. Spring REST - CRUD Database Real-Time Project - Update Customer - Overview](#1-spring-rest---crud-database-real-time-project---update-customer---overview)
+    - [2. Spring REST - CRUD Database Real-Time Project - Update Customer - Coding](#2-spring-rest---crud-database-real-time-project---update-customer---coding)
+  - [68. Spring REST - CRUD Database Real-Time Project - Delete Customer](#68-spring-rest---crud-database-real-time-project---delete-customer)
+    - [1. Spring REST - CRUD Database Real-Time Project - Delete Customer - Overview](#1-spring-rest---crud-database-real-time-project---delete-customer---overview)
+    - [2. Spring REST - CRUD Database Real-Time Project - Delete Customer - Coding](#2-spring-rest---crud-database-real-time-project---delete-customer---coding)
+    - [3. Spring REST - CRUD Database Real-Time Project - Delete Customer - Testing](#3-spring-rest---crud-database-real-time-project---delete-customer---testing)
+  - [69. Spring REST - Bonus Lectures](#69-spring-rest---bonus-lectures)
+    - [1. Bonus Lecture Creating a REST Client with Spring.html](#1-bonus-lecture-creating-a-rest-client-with-springhtml)
+    - [1.1 crm-web-app-rest-client-demo.pdf.pdf](#11-crm-web-app-rest-client-demopdfpdf)
+    - [2. Bonus Lecture Securing REST API Endpoints.html](#2-bonus-lecture-securing-rest-api-endpointshtml)
+    - [2.1 adding-spring-security-to-crm-rest-api.pdf.pdf](#21-adding-spring-security-to-crm-rest-apipdfpdf)
+  - [70. Spring Boot - Overview](#70-spring-boot---overview)
+    - [1. Spring Boot - What is Spring Boot](#1-spring-boot---what-is-spring-boot)
+    - [2. Spring Boot - Creating a Project with Spring Boot Initializr](#2-spring-boot---creating-a-project-with-spring-boot-initializr)
+    - [3. Spring Boot - Developing a REST API Controller with Spring Boot](#3-spring-boot---developing-a-rest-api-controller-with-spring-boot)
+    - [4. Spring Boot - Exploring the Spring Boot Project Structure - Part 1](#4-spring-boot---exploring-the-spring-boot-project-structure---part-1)
+    - [5. Spring Boot - Exploring the Spring Boot Project Structure - Part 2](#5-spring-boot---exploring-the-spring-boot-project-structure---part-2)
+    - [6. Spring Boot - Spring Boot Starters - A Curated List of Dependencies](#6-spring-boot---spring-boot-starters---a-curated-list-of-dependencies)
+    - [7. Spring Boot - Parents for Spring Boot Starters](#7-spring-boot---parents-for-spring-boot-starters)
+  - [71. Spring Boot - Spring Boot Dev Tools and Spring Boot Actuator](#71-spring-boot---spring-boot-dev-tools-and-spring-boot-actuator)
+    - [1. Spring Boot - Dev Tools](#1-spring-boot---dev-tools)
+    - [2. Spring Boot - Spring Boot Actuator - Overview](#2-spring-boot---spring-boot-actuator---overview)
+    - [3. Spring Boot - Spring Boot Actuator - Accessing Actuator Endpoints](#3-spring-boot---spring-boot-actuator---accessing-actuator-endpoints)
+    - [4. Spring Boot - Spring Boot Actuator - Applying Security to Actuator Endpoints](#4-spring-boot---spring-boot-actuator---applying-security-to-actuator-endpoints)
+  - [72. Spring Boot - Running Spring Boot Apps from the Command Line](#72-spring-boot---running-spring-boot-apps-from-the-command-line)
+    - [1. Spring Boot - Running Spring Boot Apps from the Command Line - Overview](#1-spring-boot---running-spring-boot-apps-from-the-command-line---overview)
+    - [2. Spring Boot - Running Spring Boot Apps from the Command Line - Coding](#2-spring-boot---running-spring-boot-apps-from-the-command-line---coding)
+  - [73. Spring Boot - Application Properties](#73-spring-boot---application-properties)
+    - [1. Spring Boot - Injecting Custom Application Properties](#1-spring-boot---injecting-custom-application-properties)
+    - [2. Spring Boot - Configuring the Spring Boot Server](#2-spring-boot---configuring-the-spring-boot-server)
+  - [74. Spring Boot - Build a REST CRUD API with Hibernate - Real-Time Project](#74-spring-boot---build-a-rest-crud-api-with-hibernate---real-time-project)
+    - [1. Spring Boot - REST CRUD Real-Time Project Overview and Database Set Up](#1-spring-boot---rest-crud-real-time-project-overview-and-database-set-up)
+    - [2. Spring Boot - Create Project with Spring Initializr](#2-spring-boot---create-project-with-spring-initializr)
+    - [3. Spring Boot - Integrating Hibernate and JPA](#3-spring-boot---integrating-hibernate-and-jpa)
+    - [4. Spring Boot - Configuring the Spring Boot Data Source](#4-spring-boot---configuring-the-spring-boot-data-source)
+    - [5. Spring Boot - Developing the DAO Interface and Implementation](#5-spring-boot---developing-the-dao-interface-and-implementation)
+    - [6. Spring Boot - Creating REST Controller Methods](#6-spring-boot---creating-rest-controller-methods)
+    - [7. Spring Boot - Additional CRUD Methods for DAO](#7-spring-boot---additional-crud-methods-for-dao)
+    - [8. Spring Boot - Refactoring the Code to use a Service Layer](#8-spring-boot---refactoring-the-code-to-use-a-service-layer)
+    - [9. Spring Boot - REST Controller Methods to Find and Add Employee](#9-spring-boot---rest-controller-methods-to-find-and-add-employee)
+    - [10. Spring Boot - REST Controller Methods to Update and Delete an Employee](#10-spring-boot---rest-controller-methods-to-update-and-delete-an-employee)
+  - [75. Spring Boot - Build a REST CRUD API with JPA - Real-Time Project](#75-spring-boot---build-a-rest-crud-api-with-jpa---real-time-project)
+    - [1. Spring Boot - REST JPA Overview](#1-spring-boot---rest-jpa-overview)
+    - [2. Spring Boot - Creating JPA DAO Implementation for REST API](#2-spring-boot---creating-jpa-dao-implementation-for-rest-api)
+    - [3. Spring Boot - Testing the REST API with JPA DAO Implementation](#3-spring-boot---testing-the-rest-api-with-jpa-dao-implementation)
+  - [76. Spring Boot - Spring Data JPA - Real-Time Project](#76-spring-boot---spring-data-jpa---real-time-project)
+    - [1. Spring Boot - Spring Data JPA Overview](#1-spring-boot---spring-data-jpa-overview)
+    - [2. Spring Boot - Creating Spring Data JPA Repository](#2-spring-boot---creating-spring-data-jpa-repository)
+    - [3. Spring Boot - Testing the REST API with Spring Data JPA Repository](#3-spring-boot---testing-the-rest-api-with-spring-data-jpa-repository)
+  - [77. Spring Boot - Spring Data REST - Real-Time Project](#77-spring-boot---spring-data-rest---real-time-project)
+    - [1. Spring Boot - Spring Data REST Overview](#1-spring-boot---spring-data-rest-overview)
+    - [2. Spring Boot - Spring Data REST - Creating a REST API](#2-spring-boot---spring-data-rest---creating-a-rest-api)
+    - [3. Spring Boot - Spring Data REST - Configuration, Pagination and Sorting](#3-spring-boot---spring-data-rest---configuration-pagination-and-sorting)
+  - [78. Spring Boot - Thymeleaf](#78-spring-boot---thymeleaf)
+    - [1. Spring Boot - Thymeleaf Overview](#1-spring-boot---thymeleaf-overview)
+    - [2. Spring Boot - Thymeleaf Helloworld - Create a Thymeleaf App](#2-spring-boot---thymeleaf-helloworld---create-a-thymeleaf-app)
+    - [3. Spring Boot - Thymeleaf Helloworld - Apply CSS Stylesheets](#3-spring-boot---thymeleaf-helloworld---apply-css-stylesheets)
+  - [79. Spring Boot - Thymeleaf - Build HTML Tables](#79-spring-boot---thymeleaf---build-html-tables)
+    - [1. Spring Boot - Thymeleaf - Build HTML Tables - Overview](#1-spring-boot---thymeleaf---build-html-tables---overview)
+    - [2. Spring Boot - Thymeleaf - Build HTML Tables - Write Some Code](#2-spring-boot---thymeleaf---build-html-tables---write-some-code)
+    - [3. Spring Boot - Thymeleaf - Add Bootstrap CSS](#3-spring-boot---thymeleaf---add-bootstrap-css)
+  - [80. Spring Boot - Thymeleaf - CRUD Database Real-Time Project](#80-spring-boot---thymeleaf---crud-database-real-time-project)
+    - [1. Spring Boot - Thymeleaf - CRUD Database Project - Get Employees - Part 1](#1-spring-boot---thymeleaf---crud-database-project---get-employees---part-1)
+    - [2. Spring Boot - Thymeleaf - CRUD Database Project - Get Employees - Part 2](#2-spring-boot---thymeleaf---crud-database-project---get-employees---part-2)
+    - [3. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Add Employee - Part 1](#3-spring-boot---thymeleaf---crud-database-real-time-project-add-employee---part-1)
+    - [4. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Add Employee - Part 2](#4-spring-boot---thymeleaf---crud-database-real-time-project-add-employee---part-2)
+    - [5. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Add Employee - Part 3](#5-spring-boot---thymeleaf---crud-database-real-time-project-add-employee---part-3)
+    - [6. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Update Employee - 1](#6-spring-boot---thymeleaf---crud-database-real-time-project-update-employee---1)
+    - [7. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Update Employee - 2](#7-spring-boot---thymeleaf---crud-database-real-time-project-update-employee---2)
+    - [8. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Delete Employee](#8-spring-boot---thymeleaf---crud-database-real-time-project-delete-employee)
+    - [6. More Thymeleaf coming.html](#6-more-thymeleaf-cominghtml)
+  - [Bonus Lecture - Security - Login/Logout with Spring Boot and Thymeleaf](#bonus-lecture---security---loginlogout-with-spring-boot-and-thymeleaf)
+  - [81. Summary](#81-summary)
+    - [1. Thank You and Please Leave a Rating for the Course](#1-thank-you-and-please-leave-a-rating-for-the-course)
+    - [2. Direct Links to My Java Courses.html](#2-direct-links-to-my-java-courseshtml)
+  - [82. Appendix](#82-appendix)
+    - [1. FAQ Spring Student Questions.html](#1-faq-spring-student-questionshtml)
+  - [83. Bonus Spring Boot Deployments on Tomcat](#83-bonus-spring-boot-deployments-on-tomcat)
+    - [1. Deploying Spring Boot WAR file with JSP to Tomcat.html](#1-deploying-spring-boot-war-file-with-jsp-to-tomcathtml)
+    - [2. Deploy Spring Boot WAR file with Thymeleaf to Tomcat.html](#2-deploy-spring-boot-war-file-with-thymeleaf-to-tomcathtml)
 
 ---
 
@@ -639,11 +635,11 @@ Downloading the Source Code and PDF Files
 
 This only includes the source files, no JAR files. You will need to add JAR files separately on your own. You have two options for downloading the code.
 
-*Option 1: Download zip file*
+_Option 1: Download zip file_
 
 File: [**spring-and-hibernate-for-beginners-master.zip**](https://github.com/darbyluv2code/spring-and-hibernate-for-beginners/archive/master.zip)
 
-*Option 2: Download using git command-line*
+_Option 2: Download using git command-line_
 
 You also have the option to download source code using git command-line.
 
@@ -651,10 +647,7 @@ You also have the option to download source code using git command-line.
 git clone https://github.com/darbyluv2code/spring-and-hibernate-for-beginners.git
 ```
 
-
-
 Note: Option 1 and Option 2 both has links to the exact same code. You only need to choose one of the options.
-
 
 \---
 
@@ -663,8 +656,6 @@ Note: Option 1 and Option 2 both has links to the exact same code. You only need
 All slides which are shown during the course are available also as a reference and can be downloaded here:
 
 http://www.luv2code.com/download-spring-hibernate-pdfs
-
-
 
 \---
 
@@ -675,8 +666,6 @@ The course also includes a collection of FAQ Notes. These are available for down
 http://www.luv2code.com/download-spring-hibernate-faq-notes
 
 ---
-
-
 
 Download Source Code:
 
@@ -716,7 +705,7 @@ https://github.com/spring-projects/spring-framework/wiki/What%27s-New-in-Spring-
 
 - Added new reactive programming framework: Spring WebFlux
 
-### 4. Spring Core Framework - Part 1 
+### 4. Spring Core Framework - Part 1
 
 Core container:
 
@@ -741,20 +730,20 @@ You Must Have the Java Development Kit (JDK) Installed
    http://www.luv2code.com/install-java
 
 Nhấn New để tạo mới một biến môi trường có tên JAVA_HOME.
-![](../../root/img/2019-11-10-22-57-32.png)
+![](spring.assets/2019-11-10-22-57-32.png)
 
-![](../../root/img/2019-11-10-23-17-16.png)
+![](spring.assets/2019-11-10-23-17-16.png)
 
 Nhập vào đường dẫn tới thư mục JDK.
 • Variable name: JAVA_HOME
 • Variable value: C:\DevPrograms\Java\jdk1.8.0_45
 
-![](../../root/img/2019-11-10-23-47-53.png)
+![](spring.assets/2019-11-10-23-47-53.png)
 
-![](../../root/img/2019-11-10-23-48-29.png)
+![](spring.assets/2019-11-10-23-48-29.png)
 
 Tiếp theo sửa đổi biến môi trường path
-![](../../root/img/2019-11-10-23-49-01.png)
+![](spring.assets/2019-11-10-23-49-01.png)
 Thêm vào phía trước giá trị của biến môi trường path:
 • %JAVA_HOME%\bin;
 
@@ -763,29 +752,29 @@ Check: java -version
 
 ### 2. Installing Tomcat
 
-Install apache: https://tomcat.apache.org/  
+Install apache: https://tomcat.apache.org/
 
-![](../../root/img/2019-11-11-00-27-24.png)  
+![](spring.assets/2019-11-11-00-27-24.png)  
 Chọn version Tomcat9/ Chọn 32-bit/64-bit Windows Service Installer
-Sau đó cài đặt Apache : an next/ Chon type of Install la **FULL** /  
+Sau đó cài đặt Apache : an next/ Chon type of Install la **FULL** /
 
-![](../../root/img/2019-11-11-00-29-57.png)  
+![](spring.assets/2019-11-11-00-29-57.png)  
 Lưu ý : phải chọn full, và nhập tên và pass cho admin
-admin - admin  
+admin - admin
 
-![](../../root/img/2019-11-11-00-30-44.png)
-Bỏ chọn Show Readme và click Finish  
+![](spring.assets/2019-11-11-00-30-44.png)
+Bỏ chọn Show Readme và click Finish
 
-![](../../root/img/2019-11-11-00-07-20.png)  
+![](spring.assets/2019-11-11-00-07-20.png)
 
-Verify install bằng cách vào link: http://localhost:8080/  
+Verify install bằng cách vào link: http://localhost:8080/
 
-![](../../root/img/2019-11-11-00-26-04.png)
+![](spring.assets/2019-11-11-00-26-04.png)
 **Image**
-![](../../root/img/2019-11-11-00-12-17.png)  
+![](spring.assets/2019-11-11-00-12-17.png)
 
 Vào windows gõ service: tomcat => stop
-![](../../root/img/2019-11-11-00-25-07.png)
+![](spring.assets/2019-11-11-00-25-07.png)
 Install eclipse: chọn download packages => eclipse for Java EE
 Try the Eclipse Installer 2019 06 R
 The easiest way to install and update your Eclipse Development Environment.
@@ -794,8 +783,8 @@ The easiest way to install and update your Eclipse Development Environment.
 
 Connect apache to eclipse
 Vào tab server của eclipse/ chọn click link to add new server/ chọn Apache/ Tomcat 09/ rồi chọn đường link ở trong ổ C
-![](../../root/img/2019-11-11-00-34-36.png)  
-![](../../root/img/2019-11-11-00-35-51.png)  
+![](spring.assets/2019-11-11-00-34-36.png)  
+![](spring.assets/2019-11-11-00-35-51.png)  
 **Program File/ Apache Sofware Foundation/ Tomcat 9**
 
 ### 5 Add jar files
@@ -805,17 +794,13 @@ Thêm thủ công vào:
 http://www.luv2code.com/downloadspring =>
 http://repo.spring.io/release/org/springframework/spring/
 chọn version release ở dưới cùng rồi chọn **spring-framework-5.1.8.RELEASE-dist.zip** để tải
-Tạo project java bình thường, sau đó tạo thư mục lib trong java project rồi copy tất các các thư viện trong lib đã tải paste vào  
+Tạo project java bình thường, sau đó tạo thư mục lib trong java project rồi copy tất các các thư viện trong lib đã tải paste vào
 
-![image-20200518101454215](spring.assets/image-20200518101454215.png)  
-
-
+![image-20200518101454215](spring.assets/image-20200518101454215.png)
 
 **Rightclick/ properties/ Java build path/ libraries/ classpath/** ấn add jar rồi chon đến thư mục lib trong project mà ta vừa tạo chọn hết tất cả các file
 
-![image-20200518101621766](spring.assets/image-20200518101621766.png)  
-
-
+![image-20200518101621766](spring.assets/image-20200518101621766.png)
 
 **Nếu đúng sẽ xuất hiện Referenced libraries:**
 
@@ -869,8 +854,6 @@ Spring container is generically known as ApplicationContext
 2. Create a Spring Container
 3. Retrieve Beans from Spring Container
 
-
-
 1
 
 ```xml
@@ -887,7 +870,7 @@ Spring container is generically known as ApplicationContext
 	<!-- Define your beans here -->
 
 	<!-- define the dependency -->
-	<!-- <bean id="myFortuneService" class="com.luv2code.springdemo.HappyFortuneService"> 
+	<!-- <bean id="myFortuneService" class="com.luv2code.springdemo.HappyFortuneService">
 		</bean> -->
 
 	<bean id="myCoach" class="com.luv2code.springdemo.TrackCoach">
@@ -922,9 +905,7 @@ Spring container is generically known as ApplicationContext
 		context.close();
 ```
 
-![image-20200518103925979](spring.assets/image-20200518103925979.png)  
-
-
+![image-20200518103925979](spring.assets/image-20200518103925979.png)
 
 #### FAQ: What is a Spring Bean?
 
@@ -1187,13 +1168,13 @@ package com.luv2code.springdemo;
 
 public class CricketCoach implements Coach {
 
-	private FortuneService fortuneService;	
-	
+	private FortuneService fortuneService;
+
 	// create a no-arg constructor
 	public CricketCoach() {
 		System.out.println("CricketCoach: inside no-arg constructor");
 	}
-	
+
 	// our setter method
 	public void setFortuneService(FortuneService fortuneService) {
 		System.out.println("CricketCoach: inside setter method - setFortuneService");
@@ -1226,18 +1207,18 @@ public class SetterDemoApp {
 	public static void main(String[] args) {
 
 		// load the spring configuration file
-		ClassPathXmlApplicationContext context = 
+		ClassPathXmlApplicationContext context =
 				new ClassPathXmlApplicationContext("applicationContext.xml");
-		
+
 		// retrieve bean from spring container
 		CricketCoach theCoach = context.getBean("myCricketCoach", CricketCoach.class);
-		
+
 		// call methods on the bean
 		// ... let's come back to this ...
 		System.out.println(theCoach.getDailyWorkout());
-		
+
 		System.out.println(theCoach.getDailyFortune());
-						
+
 		// close the context
 		context.close();
 	}
@@ -1245,8 +1226,6 @@ public class SetterDemoApp {
 }
 
 ```
-
-
 
 applicationContext.xml
 
@@ -1272,7 +1251,7 @@ applicationContext.xml
     </bean>
 ```
 
-![image-20200521225302056](spring.assets/image-20200521225302056.png)  
+![image-20200521225302056](spring.assets/image-20200521225302056.png)
 
 #### FAQ: What is the purpose for the no arg constructor?
 
@@ -1427,7 +1406,7 @@ The bottom line is it depends on how you retrieve the object and assign it ... t
 	<context:property-placeholder location="classpath:sport.properties"/>
 
     <!-- Define your beans here -->
-    
+
     <!-- define the dependency -->
     <bean id="myFortuneService"
     		class="com.luv2code.springdemo.HappyFortuneService">
@@ -1442,19 +1421,16 @@ The bottom line is it depends on how you retrieve the object and assign it ... t
 
     <bean id="myCricketCoach"
     		class="com.luv2code.springdemo.CricketCoach">
-    
+
     	<!-- set up setter injection -->
     	<property name="fortuneService" ref="myFortuneService" />
-    
+
     	<!-- inject literal values -->
     	<property name="emailAddress" value="${foo.email}" />
     	<property name="team" value="${foo.team}" />
 
    	</bean>
 ```
-
-
-
 
 #### Practice Activity #2 - Dependency Injection with XML Configuration
 
@@ -1485,18 +1461,16 @@ singleton and prototype
     <bean id="myFortuneService"
     		class="com.luv2code.springdemo.HappyFortuneService">
     	</bean>
-    
+
  	<bean id="myCoach"
  		class="com.luv2code.springdemo.TrackCoach"
  		init-method="doMyStartupStuff"
- 		destroy-method="doMyCleanupStuffYoYo">	
- 		
+ 		destroy-method="doMyCleanupStuffYoYo">
+
  		<!-- set up constructor injection -->
  		<constructor-arg ref="myFortuneService" />
  	</bean>
 ```
-
-
 
 #### Special Note about init and destroy Method Signatures
 
@@ -1556,13 +1530,11 @@ applicationContext.xml
     http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- add entry to enable component scanning -->
-	
+
 	<context:component-scan base-package="com.luv2code.springdemo" />
 
 </beans>
 ```
-
-
 
 solution-code-spring-annotation-explicit-component-names
 
@@ -1583,7 +1555,6 @@ public class TennisCoach implements Coach {
 }
 ```
 
-
 Demo
 
 ```java
@@ -1594,20 +1565,20 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class AnnotationDemoApp {
 
 	public static void main(String[] args) {
-	
+
 		// read spring config file
 		ClassPathXmlApplicationContext context =
 				new ClassPathXmlApplicationContext("applicationContext.xml");
-	
+
 		// get the bean from spring container
 		Coach theCoach = context.getBean("thatSillyCoach", Coach.class);
-	
+
 		// call a method on the bean
 		System.out.println(theCoach.getDailyWorkout());
-	
+
 		// close the context
 		context.close();
-	
+
 	}
 
 }
@@ -1869,15 +1840,15 @@ Add the following lines:
 ```xml
     <context:property-placeholder location="classpath:sport.properties"/>
 
-This should appear just after the <context:component-scan .../> 
+This should appear just after the <context:component-scan .../>
 ```
 
 3. Inject the properties values into your Swim Coach: SwimCoach.java
 
-@Value("${foo.email}")
+@Value("\${foo.email}")
 private String email;
-    
-@Value("${foo.team}")
+
+@Value("\${foo.team}")
 private String team;
 
 ---
@@ -1991,7 +1962,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan("com.luv2code.springdemo")
 public class SportConfig {
-   
+
 }
 ```
 
@@ -2007,21 +1978,21 @@ public class JavaConfigDemoApp {
    public static void main(String[] args) {
 
       // read spring config java class
-      AnnotationConfigApplicationContext context = 
+      AnnotationConfigApplicationContext context =
             new AnnotationConfigApplicationContext(SportConfig.class);
-      
+
       // get the bean from spring container
       Coach theCoach = context.getBean("tennisCoach", Coach.class);
-      
+
       // call a method on the bean
       System.out.println(theCoach.getDailyWorkout());
-            
+
       // call method to get the daily fortune
       System.out.println(theCoach.getDailyFortune());
-               
+
       // close the context
       context.close();
-      
+
    }
 
 }
@@ -2047,15 +2018,13 @@ If you would like to configure your app to show similar logging messages as in t
 
 \1. Create a configuration class to configure the parent logger and console handler
 
-
-
 **Detailed Steps**
 
-*0. Create a logging properties file*
+_0. Create a logging properties file_
 
 This properties file will define the logging levels for the application. The props file sets the logger level to FINE. For more detailed logging info, you can set the logging level to level to FINEST. You can read more about the logging levels at http://www.vogella.com/tutorials/Logging/article.html
 
-***File: src/mylogger.properties\***
+**\*File: src/mylogger.properties\***
 
 ```
 root.logger.level=FINE
@@ -2064,11 +2033,11 @@ printed.logger.level=FINE
 
 \---
 
-*1. Create a configuration class to configure the parent logger and console handler*
+_1. Create a configuration class to configure the parent logger and console handler_
 
 This class will set the parent logger level for the application context. It will also set the logging level for console handler. The logging levels are loaded from the configuration file using the @PropertySource annotation. The fields are injected using the @Value annotation. This class also has a @PostConstruct method to handle the actual configuration.
 
-***File: MyLoggerConfig.java\***
+**\*File: MyLoggerConfig.java\***
 
 ```java
 package com.luv2code.springdemo;
@@ -2094,14 +2063,14 @@ public class MyLoggerConfig {
 
 	@Value("${printed.logger.level}")
 	private String printedLoggerLevel;
-	
+
 	@PostConstruct
 	public void initLogger() {
 
 		// parse levels
 		Level rootLevel = Level.parse(rootLoggerLevel);
 		Level printedLevel = Level.parse(printedLoggerLevel);
-		
+
 		// get logger for app context
 		Logger applicationContextLogger = Logger.getLogger(AnnotationConfigApplicationContext.class.getName());
 
@@ -2110,16 +2079,16 @@ public class MyLoggerConfig {
 
 		// set root logging level
 		loggerParent.setLevel(rootLevel);
-		
+
 		// set up console handler
 		ConsoleHandler consoleHandler = new ConsoleHandler();
 		consoleHandler.setLevel(printedLevel);
 		consoleHandler.setFormatter(new SimpleFormatter());
-		
+
 		// add handler to the logger
 		loggerParent.addHandler(consoleHandler);
 	}
-	
+
 }
 ```
 
@@ -2146,21 +2115,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 // @ComponentScan("com.luv2code.springdemo")
 public class SportConfig {
-   
+
    // define bean for our sad fortune service
    @Bean
    public FortuneService sadFortuneService() {
       return new SadFortuneService();
    }
-   
+
    // define bean for our swim coach AND inject dependency
    @Bean
    public Coach swimCoach() {
       SwimCoach mySwimCoach = new SwimCoach(sadFortuneService());
-      
+
       return mySwimCoach;
    }
-   
+
 }
 ```
 
@@ -2172,29 +2141,27 @@ public class SwimJavaConfigDemoApp {
    public static void main(String[] args) {
 
       // read spring config java class
-      AnnotationConfigApplicationContext context = 
+      AnnotationConfigApplicationContext context =
             new AnnotationConfigApplicationContext(SportConfig.class);
-      
+
       // get the bean from spring container
       Coach theCoach = context.getBean("swimCoach", Coach.class);
-      
+
       // call a method on the bean
       System.out.println(theCoach.getDailyWorkout());
-            
+
       // call method to get the daily fortune
       System.out.println(theCoach.getDailyFortune());
-         
+
       // close the context
       context.close();
-      
+
    }
 
 }
 ```
 
 ### Defining Spring Beans with Java Code (no xml) - Write Some Code - Part 2.mp4
-
-
 
 Question:
 
@@ -2204,8 +2171,6 @@ Question:
 
 During All Java Configuration, how does the @Bean annotation work in the background?
 
-
-
 **Answer**
 
 This is an advanced concept. But I'll walk through the code line-by-line.
@@ -2213,24 +2178,20 @@ This is an advanced concept. But I'll walk through the code line-by-line.
 For this code:
 
 ```
-  @Bean 
-  public Coach swimCoach() {   
-   SwimCoach mySwimCoach = new SwimCoach();   
-   return mySwimCoach; 
+  @Bean
+  public Coach swimCoach() {
+   SwimCoach mySwimCoach = new SwimCoach();
+   return mySwimCoach;
   }
 ```
 
 At a high-level, Spring creates a bean component manually. By default the scope is singleton. So any request for a "swimCoach" bean, will get the same instance of the bean since singleton is the default scope.
-
-
 
 However, let's break it down line-by-line
 
 ```
 @Bean
 ```
-
-
 
 The @Bean annotation tells Spring that we are creating a bean component manually. We didn't specify a scope so the default scope is singleton.
 
@@ -2242,15 +2203,11 @@ This specifies that the bean will bean id of "swimCoach". The method name determ
 
 The @Bean annotation will intercept any requests for "swimCoach" bean. Since we didn't specify a scope, the bean scope is singleton. As a result, it will give the same instance of the bean for any requests.
 
-
-
 ```
  SwimCoach mySwimCoach = new SwimCoach();
 ```
 
 This code will create a new instance of the SwimCoach.
-
-
 
 ```
  return mySwimCoach;
@@ -2260,19 +2217,15 @@ This code returns an instance of the swimCoach.
 
 \----
 
-
-
 Now let's step back and look at the method in it's entirety.
 
 ```
- @Bean 
- public Coach swimCoach() {   
-   SwimCoach mySwimCoach = new SwimCoach();   
-   return mySwimCoach; 
+ @Bean
+ public Coach swimCoach() {
+   SwimCoach mySwimCoach = new SwimCoach();
+   return mySwimCoach;
  }
 ```
-
-
 
 It is important to note that this method has the @Bean annotation. The annotation will intercept ALL calls to the method "swimCoach()". Since no scope is specified the @Bean annotation uses singleton scope. Behind the scenes, during the @Bean interception, it will check in memory of the Spring container (applicationContext) and see if this given bean has already been created.
 
@@ -2283,13 +2236,11 @@ The next time this method is called, the @Bean annotation will check in memory o
 The code for
 
 ```
- SwimCoach mySwimCoach = new SwimCoach(); 
+ SwimCoach mySwimCoach = new SwimCoach();
  return mySwimCoach;
 ```
 
 is not executed for subsequent requests to the method public Coach swimCoach() . This code is only executed once during the initial bean creation since it is singleton scope.
-
-
 
 That explains how @Bean annotation works for the swimCoach example.
 
@@ -2299,13 +2250,11 @@ Now let's take it one step further.
 
 Here's your other question
 
-***>> Please explain in detail whats happening behind the scene for this statement.\***
+**\*>> Please explain in detail whats happening behind the scene for this statement.\***
 
 ```
 return new SwimCoach(sadFortuneService())
 ```
-
-
 
 The code for this question is slightly different. It is injecting a dependency.
 
@@ -2317,17 +2266,15 @@ In this example, we are creating a SwimCoach and injecting the sadFortuneService
         public FortuneService sadFortuneService() {
             return new SadFortuneService();
         }
-        
+
         // define bean for our swim coach AND inject dependency
         @Bean
         public Coach swimCoach() {
             SwimCoach mySwimCoach = new SwimCoach(sadFortuneService());
-            
+
             return mySwimCoach;
         }
 ```
-
-
 
 Using the same information presented earlier
 
@@ -2341,13 +2288,9 @@ The code
         }
 ```
 
-
-
 In the code above, we define a bean for the sad fortune service. Since the bean scope is not specified, it defaults to singleton.
 
 Any calls for sadFortuneService, the @Bean annotation intercepts the call and checks to see if an instance has been created. First time through, no instance is created so the code executes as desired. For subsequent calls, the singleton has been created so @Bean will immediately return with the singleton instance.
-
-
 
 Now to the main code based on your question.
 
@@ -2356,8 +2299,6 @@ return new SwimCoach(sadFortuneService())
 ```
 
 This code creates an instance of SwimCoach. Note the call to the method sadFortuneService(). We are calling the annotated method above. The @Bean will intercept and return a singleton instance of sadFortuneService. The sadFortuneService is then injected into the swim coach instance.
-
-
 
 This is effectively dependency injection. It is accomplished using all Java configuration (no xml).
 
@@ -2381,7 +2322,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 // @ComponentScan("com.luv2code.springdemo")
 @PropertySource("classpath:sport.properties")
 public class SportConfig {
-   
+
    // add support to resolve ${...} properties
    //
    // NOTE: THIS IS ONLY REQUIRED FOR OLD VERSIONS OF SPRING: v4.2 and lower
@@ -2391,24 +2332,24 @@ public class SportConfig {
    @Bean
    public static PropertySourcesPlaceholderConfigurer
                propertySourcesPlaceHolderConfigurer() {
-      
+
       return new PropertySourcesPlaceholderConfigurer();
    }
-   
+
    // define bean for our sad fortune service
    @Bean
    public FortuneService sadFortuneService() {
       return new SadFortuneService();
    }
-   
+
    // define bean for our swim coach AND inject dependency
    @Bean
    public Coach swimCoach() {
       SwimCoach mySwimCoach = new SwimCoach(sadFortuneService());
-      
+
       return mySwimCoach;
    }
-   
+
 }
 ```
 
@@ -2423,14 +2364,14 @@ public class SwimCoach implements Coach {
 
    @Value("${foo.email}")
    private String email;
-   
+
    @Value("${foo.team}")
    private String team;
-   
+
    public SwimCoach(FortuneService theFortuneService) {
       fortuneService = theFortuneService;
    }
-   
+
    @Override
    public String getDailyWorkout() {
       return "Swim 1000 meters as a warm up.";
@@ -2447,7 +2388,7 @@ public class SwimCoach implements Coach {
 
    public String getTeam() {
       return team;
-   }  
+   }
 
 }
 ```
@@ -2651,11 +2592,7 @@ solution-code-spring-mvc-create-home-controller-and-view
 
 ![img](spring.assets/image-1590112801229.png)
 
-
-
 ![img](spring.assets/image-1590112818235.png)
-
-
 
 ![img](spring.assets/image-1590112818247.png)
 
@@ -2666,27 +2603,17 @@ Copy spring jar files vào thư mục WebContent/ WEB-INF/ lib Copy thêm 2 file
 - javax.servlet.jsp.jstl-1.2.1.jar
 - javax.servlet.jsp.jstl-api-1.2.1
 
-
-
 ![img](spring.assets/image-1590112818250.png)
-
-
 
 ![img](spring.assets/image-1590112818252.png)
 
-
-
 ![img](https://gblobscdn.gitbook.com/assets%2F-M50mbzm6VJA99Q0CdUd%2F-M7eNMLDaQLDjCp4xTGB%2F-M7ePVBC3ld082y15vkG%2Fimage.png?alt=media&token=9b90dcc4-2dba-414d-aa76-056d22a0a485)
-
-
 
 Then create folder view in WEB-INF folder
 
 Config build path => add jar
 
 ![img](spring.assets/image-1590112818253.png)
-
-
 
 ![img](spring.assets/image-1590112818253.png)
 
@@ -2858,7 +2785,7 @@ solution-code-spring-mvc-create-home-controller-and-view
 
 **Answer:**
 
-***Debug Tip #0: Make sure you are accessing the correct URL\***
+**\*Debug Tip #0: Make sure you are accessing the correct URL\***
 
 You need to access the correct URL, localhost:8080/spring-mvc-demo/
 
@@ -2866,19 +2793,17 @@ Note: Do not attempt to run the JSP files directly. This will not work due to MV
 
 \---
 
-***Debug Tip #1: Make Sure your Package Names is consistent\***
+**\*Debug Tip #1: Make Sure your Package Names is consistent\***
 
 The Spring configuration file used in the videos expects for your controller to be in the package:
 
-***package com.luv2code.springdemo.mvc;\***
+**\*package com.luv2code.springdemo.mvc;\***
 
-*Make sure your controller is this package.*
+_Make sure your controller is this package._
 
+**\*----\***
 
-
-***----\***
-
-***Debug Tip #2: Reimport Project into Eclipse\***
+**\*Debug Tip #2: Reimport Project into Eclipse\***
 
 Sometimes the Eclipse project settings can become corrupted. One possible solution is to remove the Eclipse project and reimport into Eclipse.
 
@@ -2892,8 +2817,6 @@ Here are the steps.
 
 ![img](https://udemy-images.s3.amazonaws.com:443/redactor/raw/2019-04-24_18-11-36-4d781785457b89850d9a1a8a504bdc70.png)
 
-
-
 \3. Open the project in Eclipse again using **File > Import ... > General > Existing Projects into Workspace**
 
 \4. Check the project properties(Right click on the project and click on Properties),
@@ -2902,19 +2825,18 @@ Here are the steps.
 
 ![img](https://udemy-images.s3.amazonaws.com:443/redactor/raw/2019-04-24_18-19-58-3097ea0d7e5c38a1c7e6a4629c23bf66.png)
 
-
-
 ![img](https://udemy-images.s3.amazonaws.com:443/redactor/raw/2019-04-24_18-20-30-7d3b0a50431ffe48c3c1137d540ed7d8.png)
 
 ![img](https://udemy-images.s3.amazonaws.com:443/redactor/raw/2019-04-24_18-20-45-f32ed8ad41f448ec0072738229879d72.png)
 
 \5. Build the project and try again.
 
-***----\***
+**\*----\***
 
-***
+---
+
 Debug Tip #3: Clear Tomcat Cache
-\***This is normally a caching issue with the cache.
+\*\*\*This is normally a caching issue with the cache.
 
 Here are some steps to clear the Eclipse cache and Tomcat cache.
 
@@ -2934,11 +2856,9 @@ Here are some steps to clear the Eclipse cache and Tomcat cache.
 
 Retest your application. If you continue to have problems try Debug Tip #2
 
-
-
 \---
 
-***Debug Tip #4: Import the Project in  a new workspace\***
+**\*Debug Tip #4: Import the Project in a new workspace\***
 
 \1. Copy your project to a new directory on your computer like, c:\foobar
 
@@ -2971,13 +2891,11 @@ You may have a problem starting Tomcat. You may see this ugly error message abou
 
 ![img](https://udemy-images.s3.amazonaws.com:443/redactor/2016-09-16_17-54-38-d8e914f7a8f5d9ac131cba4bb32d0f27/tomcat-ports-blocked.png)
 
-
-
 **Solution**
 
 You can use the troubleshooting tips below.
 
-***Troubleshooting Tip #1\***
+**\*Troubleshooting Tip #1\***
 
 \1. Exit Eclipse
 
@@ -2987,14 +2905,12 @@ You can use the troubleshooting tips below.
 
 \4. If you don't see a "Tomcat" web page, then stop the appropriate process displayed.
 
-
-
 \--
-***Troubleshooting Tip #2 - GUI Option\***
+**\*Troubleshooting Tip #2 - GUI Option\***
 
 Steps to free port which is already used to run Tomcat server in Eclipse
 
-\1. On MS Windows, select *Start > All Programs > Accessories > System Tools >Resource Monitor*
+\1. On MS Windows, select _Start > All Programs > Accessories > System Tools >Resource Monitor_
 
 \2. Expand the **Network Tab**
 
@@ -3006,39 +2922,29 @@ Steps to free port which is already used to run Tomcat server in Eclipse
 
 \6. Return back to Eclipse and start the Tomcat Server, it should start up now.
 
-
-
 \---
 
-***Troubleshooting Tip #3 - Command-Line Option\***
+**\*Troubleshooting Tip #3 - Command-Line Option\***
 
 Steps to free port which is already used to run Tomcat server in Eclipse
 
 For example , suppose 8080 port is used , we need to make free 8080 to run tomcat
 
-
-
 Step 1: (open the CMD command)
 
 C:\Users\username>`netstat -o -n -a | findstr 0.0:8080`
 
-TCP  0.0.0.0:3000   0.0.0.0:0       LISTENING    3116
+TCP 0.0.0.0:3000 0.0.0.0:0 LISTENING 3116
 
 Now , we can see that LISTENING port is 3116 for 8080 ,
 
 We need to kill 3116 now
 
-
-
 Step 2:
 
 C:\Users\username>`taskkill /F /PID 3116`
 
-
-
 Step 3: Return back to Eclipse and start the Tomcat Server, it should start up now.
-
-
 
 ====
 
@@ -3048,8 +2954,6 @@ Step 0: Exit Eclipse
 
 Step 1: Open a terminal window
 
-
-
 Step 2: Enter the following command to find the process id
 
 ```
@@ -3058,15 +2962,11 @@ lsof -i :8080
 
 This will give output of the application that is running on port 8080
 
-
-
 Step 3: Enter the following command to kill the process
 
 ```
-kill $(lsof -t -i :8080) 
+kill $(lsof -t -i :8080)
 ```
-
-
 
 Step 4: Return back to Eclipse and start the Tomcat Server, it should start up now.
 
@@ -3083,7 +2983,7 @@ You listed the component scan package as: com.luv2code.springdemo
 But the our MVC controllers are defined in com.luv2code.springdemo.mvc
 
 **Answer**
-For the Spring attribute:  base-package="com.luv2code.springdemo"
+For the Spring attribute: base-package="com.luv2code.springdemo"
 
 Spring will recursively scan for components starting at the base package: "com.luv2code.springdemo"
 
@@ -3107,37 +3007,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HelloWorldController {
 
    // need a controller method to show the initial HTML form
-   
+
    @RequestMapping("/showForm")
    public String showForm() {
       return "helloworld-form";
    }
-      
+
    // need a controller method to process the HTML form
-   
+
    @RequestMapping("/processForm")
    public String processForm() {
       return "helloworld";
    }
-      
+
 }
 ```
 
 main-menu
 
 ```html
-<!DOCTYPE>
+<!DOCTYPE >
 <html>
+  <body>
+    <h2>Spring MVC Demo - Home Page</h2>
 
-<body>
+    <hr />
 
-<h2>Spring MVC Demo - Home Page</h2>
-
-<hr>
-
-<a href="showForm">Hello World form</a>
-</body>
-
+    <a href="showForm">Hello World form</a>
+  </body>
 </html>
 ```
 
@@ -3145,12 +3042,9 @@ helloworld-form
 
 ```html
 <form action="processForm" method="GET">
+  <input type="text" name="studentName" placeholder="What's your name?" />
 
-   <input type="text" name="studentName"
-      placeholder="What's your name?" />
-      
-   <input type="submit" />
-      
+  <input type="submit" />
 </form>
 ```
 
@@ -3159,17 +3053,13 @@ helloworld
 ```html
 <!DOCTYPE html>
 <html>
+  <body>
+    Hello World of Spring!
 
-<body>
+    <br /><br />
 
-Hello World of Spring!
-
-<br><br>
-
-Student name: ${param.studentName}
-
-</body>
-
+    Student name: ${param.studentName}
+  </body>
 </html>
 ```
 
@@ -3261,12 +3151,9 @@ form
 
 ```html
 <form action="processFormVersionTwo" method="GET">
+  <input type="text" name="studentName" placeholder="What's your name?" />
 
-   <input type="text" name="studentName"
-      placeholder="What's your name?" />
-      
-   <input type="submit" />
-      
+  <input type="submit" />
 </form>
 ```
 
@@ -3290,8 +3177,6 @@ In my example, I'm going to have the following directory structure:
 
 ![img](https://udemy-images.s3.amazonaws.com:443/redactor/2016-08-22_17-27-09-53b27c88244eed62b3032cfd0127f230/directory-layout.png)
 
-
-
 I chose to put everything in the "resources" directory. But you can use any name for "resources", such as "assets", "foobar" etc. Also, you can give any name that you want for the subdirectories under "resources".
 
 \---
@@ -3300,21 +3185,21 @@ I chose to put everything in the "resources" directory. But you can use any name
 
 You can place this entry anywhere in your Spring MVC config file.
 
-`` 
+``
 
 **Step 2:** Now in your view pages, you can access the static files using this syntax:
 
 <img src="${pageContext.request.contextPath}/resources/images/spring-logo.png"> 
 
-You need to use the JSP expression **${pageContext.request.contextPath}** to access the correct root directory for your web application.
+You need to use the JSP expression **\${pageContext.request.contextPath}** to access the correct root directory for your web application.
 
 Apply the same technique for reading CSS and JavaScript.
 
 \---
 
 Here's a full example that reads CSS, JavaScript and images.
-```html
 
+```html
 <!DOCTYPE html>
 <html>
   <head>
@@ -3365,8 +3250,6 @@ IF YOUR CONTROLLER DOESN'T WORK THEN TRY THE STEPS BELOW
 
 ---
 
-
-
 ## 13. Spring MVC - Request Params and Request Mappings
 
 ### 1. Binding Request Params - Overview
@@ -3408,7 +3291,7 @@ public class HelloWorldController
 main-menu
 
 ```ts
-<a href="hello/showForm">Hello World form</a>
+<a href='hello/showForm'>Hello World form</a>
 ```
 
 ### 6. FAQ How does processForm work for hello.html
@@ -3451,7 +3334,7 @@ file pdf
 main menu
 
 ```ts
-<a href="student/showForm">Student form</a>
+<a href='student/showForm'>Student form</a>
 ```
 
 StudentController
@@ -3554,21 +3437,21 @@ student-form
 <form:form action="processForm" modelAttribute="student">
 
    First name: <form:input path="firstName" />
-   
+
    <br><br>
 
    Last name: <form:input path="lastName" />
-   
+
    <br><br>
 
    Country:
-   
+
    <form:select path="country">
-   
+
       <form:options items="${student.countryOptions}" />
-      
+
    </form:select>
-         
+
    <br><br>
 
    <input type="submit" value="Submit" />
@@ -3580,15 +3463,15 @@ class Student
 
 ```java
 public Student() {
-   
+
    // populate country options: used ISO country code
    countryOptions = new LinkedHashMap<>();
-    
+
    countryOptions.put("BR", "Brazil");
    countryOptions.put("FR", "France");
    countryOptions.put("DE", "Germany");
    countryOptions.put("IN", "India");
-   countryOptions.put("US", "United States of America");     
+   countryOptions.put("US", "United States of America");
 
 }
 ```
@@ -3709,7 +3592,7 @@ PHP <form:radiobutton path="favoriteLanguage" value="PHP" />
 Ruby <form:radiobutton path="favoriteLanguage" value="Ruby" />
 ```
 
-student-confirmation 
+student-confirmation
 
 ```html
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -3717,25 +3600,21 @@ student-confirmation
 <!DOCTYPE html>
 
 <html>
+  <head>
+    <title>Student Confirmation</title>
+  </head>
 
-<head>
-   <title>Student Confirmation</title>
-</head>
+  <body>
+    The student is confirmed: ${student.firstName} ${student.lastName}
 
-<body>
+    <br /><br />
 
-The student is confirmed: ${student.firstName} ${student.lastName}
+    Country: ${student.country}
 
-<br><br>
+    <br /><br />
 
-Country: ${student.country}
-
-<br><br>
-
-Favorite Language: ${student.favoriteLanguage}
-
-</body>
-
+    Favorite Language: ${student.favoriteLanguage}
+  </body>
 </html>
 ```
 
@@ -3777,7 +3656,7 @@ Add getter method
 2.  Reference the data in your form
 
         Favorite Language:
-        
+
         <form:radiobuttons path="favoriteLanguage" items="${student.favoriteLanguageOptions}"  />
 
 Source code is available here:
@@ -3789,26 +3668,23 @@ Source code is available here:
 TH Chon nhieu checkbox
 
 ```html
-Operating Systems:
+Operating Systems: Linux
+<form:checkbox path="operatingSystems" value="Linux" /> Mac OS
+<form:checkbox path="operatingSystems" value="Mac OS" /> MS Windows
+<form:checkbox path="operatingSystems" value="MS Window" />
 
-Linux <form:checkbox path="operatingSystems" value="Linux" />
-Mac OS <form:checkbox path="operatingSystems" value="Mac OS" />
-MS Windows <form:checkbox path="operatingSystems" value="MS Window" />
-
-<br><br>
+<br /><br />
 ```
 
-display 
+display
 
 ```html
 Operating Systems:
 
 <ul>
-   <c:forEach var="temp" items="${student.operatingSystems}">
-
-      <li> ${temp} </li>
-
-   </c:forEach>
+  <c:forEach var="temp" items="${student.operatingSystems}">
+    <li>${temp}</li>
+  </c:forEach>
 </ul>
 ```
 
@@ -3827,8 +3703,6 @@ http://hibernate.org/validator/
 Copy all file jar cua hibernate tu trong folder lib va lib/required/
 
 ![image-20200212225749382](./spring.assets/image-20200212225749382.png)
-
-
 
 ### 4. Checking for Required Fields Overview
 
@@ -3855,31 +3729,31 @@ public class CustomerController {
    // add an initbinder ... to convert trim input strings
    // remove leading and trailing whitespace
    // resolve issue for our validation
-   
+
    @InitBinder
    public void initBinder(WebDataBinder dataBinder) {
-      
+
       StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
-      
+
       dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
    }
-   
-   
+
+
    @RequestMapping("/showForm")
    public String showForm(Model theModel) {
-      
+
       theModel.addAttribute("customer", new Customer());
-      
+
       return "customer-form";
    }
-   
+
    @RequestMapping("/processForm")
    public String processForm(
          @Valid @ModelAttribute("customer") Customer theCustomer,
          BindingResult theBindingResult) {
-      
+
       System.out.println("Last name: |" + theCustomer.getLastName() + "|");
-      
+
       if (theBindingResult.hasErrors()) {
          return "customer-form";
       }
@@ -4052,13 +3926,11 @@ solution-code-spring-mvc-validation-required-fields
 
 ```html
 <body>
+  The customer is confirmed: ${customer.firstName} ${customer.lastName}
 
-The customer is confirmed: ${customer.firstName} ${customer.lastName}
+  <br /><br />
 
-<br><br>
-
-Free passes: ${customer.freePasses}
-
+  Free passes: ${customer.freePasses}
 </body>
 ```
 
@@ -4127,7 +3999,7 @@ errorType.Class.field
 
 ### 7. How to Handle String input for Integer Fields - Configure Resource Bundle
 
-![image-20200522095445244](spring.assets/image-20200522095445244.png)  
+![image-20200522095445244](spring.assets/image-20200522095445244.png)
 
 ### 8. How to Handle String input for Integer Fields - Deep Dive
 
@@ -4354,13 +4226,13 @@ public @interface CourseCode {
 
 	// define default course code
 	public String value() default "LUV";
-	
+
 	// define default error message
 	public String message() default "must start with LUV";
-	
+
 	// define default groups
 	public Class<?>[] groups() default {};
-	
+
 	// define default payloads
 	public Class<? extends Payload>[] payload() default {};
 }
@@ -4372,29 +4244,29 @@ package com.luv2code.springdemo.mvc.validation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class CourseCodeConstraintValidator 
+public class CourseCodeConstraintValidator
 	implements ConstraintValidator<CourseCode, String> {
 
 	private String coursePrefix;
-	
+
 	@Override
 	public void initialize(CourseCode theCourseCode) {
 		coursePrefix = theCourseCode.value();
 	}
 
 	@Override
-	public boolean isValid(String theCode, 
+	public boolean isValid(String theCode,
 						ConstraintValidatorContext theConstraintValidatorContext) {
 
 		boolean result;
-		
+
 		if (theCode != null) {
 			result = theCode.startsWith(coursePrefix);
 		}
 		else {
 			result = true;
 		}
-		
+
 		return result;
 	}
 }
@@ -4561,7 +4433,7 @@ https://hibernate.org/orm/
 Tải version 5.4
 Copy tất cả file trong \hibernate-release-5.4.6.Final\lib\required
 
-![image-20200519152408286](spring.assets/image-20200519152408286.png)  
+![image-20200519152408286](spring.assets/image-20200519152408286.png)
 
 Tải jdbc connector: https://dev.mysql.com/downloads/connector/j/5.1.html
 Rồi copy 1 file jar đó vào eclipse
@@ -4707,18 +4579,17 @@ HEADS UP - FOR JAVA 9 USERS
 
 \----
 
-***Error: Exception in thread "main" java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException\***
+**\*Error: Exception in thread "main" java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException\***
 
-
-
-This happens because of Java 9 and higher. 
+This happens because of Java 9 and higher.
 
 Java 9 and higher has removed java.xml.bind from its default classpath. That's why we get the class not found exception. We have to explicitly add JAR files to the build path.
 
 \---
 
-***Solution
-***
+\*\*\*Solution
+
+---
 
 For Java 9 and higher, you need to additional JAR files.
 
@@ -4774,18 +4645,10 @@ jaxb-impl-2.3.0.jar
 
 Eclipse will perform a rebuild of your project and it will resolve the related build/runtime errors.
 
-
-
 ====
 
 **Error: import of the javax.persistance.GenerationType saying its not accessible
 **
-
-
-
-
-
-
 
 You may still encounter problems for "import of the javax.persistance.GenerationType saying its not accessible"
 
@@ -4833,8 +4696,6 @@ Note, if you are using Maven then you can add this to your POM file
 </dependency>
 ```
 
-
-
 \---
 
 ### 5. HEADS UP - JAVA 9 USERS - Eclipse Generate toString() fails.html
@@ -4847,16 +4708,17 @@ Note, if you are using Maven then you can add this to your POM file
 
 \----
 
-***Error: Exception in thread "main" java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException\***
+**\*Error: Exception in thread "main" java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException\***
 
-This happens because of Java 9 and higher. 
+This happens because of Java 9 and higher.
 
 Java 9 and higher has removed java.xml.bind from its default classpath. That's why we get the class not found exception. We have to explicitly add JAR files to the build path.
 
 \---
 
-***Solution
-***
+\*\*\*Solution
+
+---
 
 For Java 9 and higher, you need to additional JAR files.
 
@@ -4912,18 +4774,10 @@ jaxb-impl-2.3.0.jar
 
 Eclipse will perform a rebuild of your project and it will resolve the related build/runtime errors.
 
-
-
 ====
 
 **Error: import of the javax.persistance.GenerationType saying its not accessible
 **
-
-
-
-
-
-
 
 You may still encounter problems for "import of the javax.persistance.GenerationType saying its not accessible"
 
@@ -4956,8 +4810,6 @@ Note, if you are using Maven then you can add this to your POM file
 \---
 
 ---
-
-
 
 ### HEADS UP - JAVA 9 USERS - Eclipse Generate toString() fails
 
@@ -5007,18 +4859,18 @@ public class Student {
    @GeneratedValue(strategy=GenerationType.IDENTITY)
    @Column(name="id")
    private int id;
-   
+
    @Column(name="first_name")
    private String firstName;
-   
+
    @Column(name="last_name")
    private String lastName;
-   
+
    @Column(name="email")
    private String email;
-   
+
    public Student() {
-      
+
    }
 
    public Student(String firstName, String lastName, String email) {
@@ -5063,7 +4915,7 @@ public class Student {
    public String toString() {
       return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
    }
-   
+
 }
 ```
 
@@ -5102,8 +4954,7 @@ Retrieved from SessionFactory
 
 Deault name: hibernate.cfg.xml
 Sửa file config thành để chạy được:
-`<property name="connection.driver_class">com.mysql.jdbc.Driver
-</property>`
+`<property name="connection.driver_class">com.mysql.jdbc.Driver </property>`
 https://o7planning.org/vi/10201/huong-dan-lap-trinh-java-hibernate-cho-nguoi-moi-bat-dau#a77418
 
 ### 2. Creating and Saving Java Objects - Part 2
@@ -5126,25 +4977,25 @@ public class CreateStudentDemo {
                         .configure("hibernate.cfg.xml")
                         .addAnnotatedClass(Student.class)
                         .buildSessionFactory();
-      
+
       // create session
       Session session = factory.getCurrentSession();
-      
-      try {        
+
+      try {
          // create a student object
          System.out.println("Creating new student object...");
          Student tempStudent = new Student("Paul", "Doe", "paul@luv2code.com");
-         
+
          // start a transaction
          session.beginTransaction();
-         
+
          // save the student object
          System.out.println("Saving the student...");
          session.save(tempStudent);
-         
+
          // commit transaction
          session.getTransaction().commit();
-         
+
          System.out.println("Done!");
       }
       finally {
@@ -5170,12 +5021,12 @@ database table to ensure uniqueness
 ### 5. Primary Keys - Changing the Starting Index
 
 Bat dau tu 200:
-`ALERT TABLE hb.student AUTO_INCREMENT=200`  
+`ALERT TABLE hb.student AUTO_INCREMENT=200`
 
 ![image-20200519161357080](spring.assets/image-20200519161357080.png)
 
 Cách reset
-`Truncate hn.student`	
+`Truncate hn.student`
 
 2. Reading Objects with Hibernate
    Sửa file config thành để chạy được:
@@ -5365,10 +5216,11 @@ FAQ: How To View Hibernate SQL Parameter Values
 
 **Question:**
 
-*I see hibernate printing out the query parameters as ? in the console.
+\*I see hibernate printing out the query parameters as ? in the console.
 Is it possible to printout the value that was actually queried on the
 database. Asking as this would help in the debugging purpose.
-*
+
+-
 
 Answer:
 
@@ -5380,15 +5232,11 @@ However, for debugging your application, you want to see the actual parameter va
 
 You can view the actual parameters by viewing the low-level trace of the Hibernate logs. This is not set up by default. However, we can add log4j to allow us to see these low-level logs.
 
-
-
 #### **Here is an overview of the process:**
 
-\1. Add log4j to your project classpath 
+\1. Add log4j to your project classpath
 
 \2. Add log4j.properties to your “src” directory
-
-
 
 #### **Here are the detailed steps:**
 
@@ -5400,8 +5248,6 @@ You can view the actual parameters by viewing the low-level trace of the Hiberna
 
 ![img](https://udemy-images.s3.amazonaws.com:443/redactor/2016-10-06_12-43-18-43665fab7523d5393142fa06db76c540/image1.png)
 
-
-
 1c. Right-click your Eclipse project and select **Properties**
 
 1d. Select **Build Path > Libraries > Add JARS…**
@@ -5409,8 +5255,6 @@ You can view the actual parameters by viewing the low-level trace of the Hiberna
 1e. Select the **log4j-1.2.17.jar** file from the **lib** directory
 
 ![img](https://udemy-images.s3.amazonaws.com:443/redactor/2016-10-06_12-43-33-16c189ccb8a5d926415b9fcaa99995c2/image2.png)
-
-
 
 **2. Add log4j.properties to your “src” directory**
 
@@ -5432,8 +5276,6 @@ log4j.logger.org.hibernate=TRACE
 2b. Save this file as "log4j.properties" in your “src” directory
 
 ![img](https://udemy-images.s3.amazonaws.com:443/redactor/2016-10-06_12-44-00-feca336a1d4990fe31e1612c44da03bd/image3.png)
-
-
 
 Note: This file has an important setting:
 
@@ -5622,20 +5464,20 @@ Student [id=52, firstName=Paul, lastName=Doe, email=paul@luv.com, dateOfBirth=31
 
 **Detailed steps**
 
-*1. Alter database table for student*
+_1. Alter database table for student_
 
 We need to alter the database table to add a new column for "date_of_birth".
 
 Run the following SQL in your MySQL Workbench tool.
 
 ```sql
-ALTER TABLE `hb_student_tracker`.`student` 
+ALTER TABLE `hb_student_tracker`.`student`
 ADD COLUMN `date_of_birth` DATETIME NULL AFTER `last_name`;
 ```
 
 \--
 
-*2. Add a date utils class for parsing and formatting dates*
+_2. Add a date utils class for parsing and formatting dates_
 
 We need to add a DateUtils class to handle parsing and formatting dates. The source code is here. The class should be placed in the package: com.luv2code.hibernate.demo.
 
@@ -5655,7 +5497,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateUtils {
-    
+
     // The date formatter
     // - dd:   day in month (number)
     // - MM:   month in year (number)
@@ -5665,23 +5507,23 @@ public class DateUtils {
     //
     //
     private static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-    
+
     // read a date string and parse/convert to a date
     public static Date parseDate(String dateStr) throws ParseException {
         Date theDate = formatter.parse(dateStr);
-        
-        return theDate;        
+
+        return theDate;
     }
-    
+
     // read a date and format/convert to a string
     public static String formatDate(Date theDate) {
-        
+
         String result = null;
-        
+
         if (theDate != null) {
             result = formatter.format(theDate);
         }
-        
+
         return result;
     }
 }
@@ -5689,13 +5531,13 @@ public class DateUtils {
 
 \---
 
-*3. Add date field to Student class*
+_3. Add date field to Student class_
 
 We need to add a date field to the Student class. We map this field to the database column, "date_of_birth". Also, we make use of the @Temporal annotation. This is a Java annotation for storing dates.
 
 ```java
     @Column(name="date_of_birth")
-    @Temporal(TemporalType.DATE)    
+    @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 ```
 
@@ -5720,35 +5562,35 @@ import com.luv2code.hibernate.demo.DateUtils;
 @Entity
 @Table(name="student")
 public class Student {
-   
+
    @Id
    @Column(name="id")
    private int id;
-   
+
    @Column(name="first_name")
    private String firstName;
-   
+
    @Column(name="last_name")
    private String lastName;
-   
+
    @Column(name="email")
    private String email;
-   
+
    @Column(name="date_of_birth")
-   @Temporal(TemporalType.DATE)   
+   @Temporal(TemporalType.DATE)
    private Date dateOfBirth;
-   
+
    public Student() {
-     
+
    }
 
    public Student( String firstName, String lastName, String email, Date theDateOfBirth) {
-     
+
      this.firstName = firstName;
      this.lastName = lastName;
      this.email = email;
      this.dateOfBirth = theDateOfBirth;
-     
+
    }
 
    public int getId() {
@@ -5796,15 +5638,13 @@ public class Student {
      return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
          \+ ", dateOfBirth=" + DateUtils.formatDate(dateOfBirth) + "]";
    }
-     
+
 }
 ```
 
-
-
 \---
 
-*4. Add toString method to Student class*
+_4. Add toString method to Student class_
 
 We will make an update to the toString method in our Student class. It will use the formatter from our DateUtils.class. This code is already included in Student.java from the previous step. I'm just highlighting it here for clarity.
 
@@ -5817,14 +5657,14 @@ Note the use of DateUtils above.
 
 \---
 
-*5. Update CreateStudentDemo*
+_5. Update CreateStudentDemo_
 
 Now for the grand finale. In the main program, read the date as a String and parse/convert it to a date. Here's the snippet of code.
 
 ```java
             String theDateOfBirthStr = "31/12/1998";
             Date theDateOfBirth = DateUtils.parseDate(theDateOfBirthStr);
-            
+
             Student temoStudent = new Student("Paully", "Doe", "paul@luv.com", theDateOfBirth);
 ```
 
@@ -5843,7 +5683,7 @@ import com.luv2code.hibernate.demo.entity.Student;
 public class CreateStudentDemo {
 
     public static void main(String[] args) {
-        
+
         // create session factory
         SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Student.class)
                 .buildSessionFactory();
@@ -5878,7 +5718,7 @@ public class CreateStudentDemo {
             factory.close();
         }
     }
-    
+
 }
 ```
 
@@ -5931,8 +5771,6 @@ CREATE TABLE `instructor` (
 SET FOREIGN_KEY_CHECKS = 1;
 
 ```
-
-
 
 ![image-20200213003302796](./spring.assets/image-20200213003302796.png)
 
@@ -6405,7 +6243,7 @@ public class GetInstructorDetailDemo {
 
 ### 13. @OneToOne - Bi-Directional - Develop Main App
 
-Khi delete để all sẽ xóa hết 
+Khi delete để all sẽ xóa hết
 
 ```java
 package com.luv2code.hibernate.demo;
@@ -6991,7 +6829,7 @@ public class DeleteCourseDemo {
 ### 2. Eager vs Lazy Loading - Overview - Part 2
 
 Xem pdf
-![](../../root/img/2020-02-02-10-22-34.png)
+![](spring.assets/2020-02-02-10-22-34.png)
 
 ### 3. Eager vs Lazy Loading - Coding - Eager
 
@@ -7081,9 +6919,9 @@ public class EagerLazyDemo {
 
 Debug moi thay duoc khi co get ra no moi query
 
-![image-20200519230157555](spring.assets/image-20200519230157555.png)  
+![image-20200519230157555](spring.assets/image-20200519230157555.png)
 
-![image-20200519230248607](spring.assets/image-20200519230248607.png)  
+![image-20200519230248607](spring.assets/image-20200519230248607.png)
 
 ### 5. Eager vs Lazy Loading - Coding - Closing the Session
 
@@ -8904,7 +8742,7 @@ c. Now add a search form right after the search button
             <!--  add a search box -->
             <form:form action="search" method="GET">
                 Search customer: <input type="text" name="theSearchName" />
-    
+
                 <input type="submit" value="Search" class="add-button" />
             </form:form>
 
@@ -9672,11 +9510,9 @@ AfterThrowingDemoApp
 
 ### 2. AOP @AfterThrowing - Write Some Code
 
-![image-20200520124152881](spring.assets/image-20200520124152881.png)  
+![image-20200520124152881](spring.assets/image-20200520124152881.png)
 
-![image-20200520124221046](spring.assets/image-20200520124221046.png)  
-
-
+![image-20200520124221046](spring.assets/image-20200520124221046.png)
 
 ```java
 public class MyDemoLoggingAspect {
@@ -9716,13 +9552,11 @@ public class MyDemoLoggingAspect {
 
 ```
 
-![image-20200520140103023](spring.assets/image-20200520140103023.png)  
+![image-20200520140103023](spring.assets/image-20200520140103023.png)
 
-![image-20200520140132897](spring.assets/image-20200520140132897.png)  
+![image-20200520140132897](spring.assets/image-20200520140132897.png)
 
-![image-20200520140219124](spring.assets/image-20200520140219124.png)  
-
-
+![image-20200520140219124](spring.assets/image-20200520140219124.png)
 
 ## 44. AOP @Around Advice Type
 
@@ -9791,9 +9625,7 @@ MyDemoLoggingAspect
 	}
 ```
 
-![image-20200520141910399](spring.assets/image-20200520141910399.png)  
-
-
+![image-20200520141910399](spring.assets/image-20200520141910399.png)
 
 ### 3. AOP @Around - Write Some Code - Part 2
 
@@ -9820,9 +9652,7 @@ MyDemoLoggingAspect
 		context.close();
 ```
 
-![image-20200520141944007](spring.assets/image-20200520141944007.png)  
-
-
+![image-20200520141944007](spring.assets/image-20200520141944007.png)
 
 ### 4. AOP @Around Advice - Resolve Order Issue
 
@@ -9915,9 +9745,7 @@ public class AroundWithLoggerDemoApp {
 	}
 ```
 
-![image-20200520142937052](spring.assets/image-20200520142937052.png)  
-
-
+![image-20200520142937052](spring.assets/image-20200520142937052.png)
 
 ### 7. AOP @Around Advice - Rethrowing Exceptions
 
@@ -9958,7 +9786,7 @@ public class AroundWithLoggerDemoApp {
 	}
 ```
 
-![image-20200520143128289](spring.assets/image-20200520143128289.png)  
+![image-20200520143128289](spring.assets/image-20200520143128289.png)
 
 ## 45. AOP Add AOP Logging to Spring MVC App - Real-Time Project
 
@@ -9967,21 +9795,19 @@ public class AroundWithLoggerDemoApp {
 Right click/ Properties/ Web project settings
 chang Url to: web-custom-tracker-aop
 
-![image-20200520143444935](spring.assets/image-20200520143444935.png)  
+![image-20200520143444935](spring.assets/image-20200520143444935.png)
 
+![image-20200520143324073](spring.assets/image-20200520143324073.png)
 
+![image-20200520143350083](spring.assets/image-20200520143350083.png)
 
-![image-20200520143324073](spring.assets/image-20200520143324073.png)  
-
-![image-20200520143350083](spring.assets/image-20200520143350083.png)  
-
-![image-20200520143412912](spring.assets/image-20200520143412912.png)  
+![image-20200520143412912](spring.assets/image-20200520143412912.png)
 
 xml
 
 ```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
     xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
@@ -9994,7 +9820,7 @@ xml
 		http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/mvc
 		http://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx
 		http://www.springframework.org/schema/tx/spring-tx.xsd
                         // add
 		http://www.springframework.org/schema/aop
@@ -10003,8 +9829,6 @@ xml
 	<!-- Add AspectJ autoproxy support for AOP -->
 	<aop:aspectj-autoproxy />
 ```
-
-
 
 ### 2. AOP AOP and Spring MVC App - Write Some Code - Create Aspect
 
@@ -10114,11 +9938,9 @@ Maven Cheat Sheet
 
 ### 2. Maven Overview - Part 2
 
-![image-20200522152026239](spring.assets/image-20200522152026239.png)  
+![image-20200522152026239](spring.assets/image-20200522152026239.png)
 
-![image-20200522152133679](spring.assets/image-20200522152133679.png)  
-
-
+![image-20200522152133679](spring.assets/image-20200522152133679.png)
 
 ### 3. Maven Key Concepts - POM file and Coordinates
 
@@ -10126,7 +9948,7 @@ Maven Cheat Sheet
 - Dependencies
 - Plug in
 
-![image-20200522152426078](spring.assets/image-20200522152426078.png)  
+![image-20200522152426078](spring.assets/image-20200522152426078.png)
 
 ![image-20200522152519802](spring.assets/image-20200522152519802.png)
 
@@ -10136,15 +9958,13 @@ maven repository
 
 ### 5. Maven Archetypes
 
-![image-20200522152843557](spring.assets/image-20200522152843557.png)  
+![image-20200522152843557](spring.assets/image-20200522152843557.png)
 
-![image-20200522152902903](spring.assets/image-20200522152902903.png)  
+![image-20200522152902903](spring.assets/image-20200522152902903.png)
 
-![image-20200522153010497](spring.assets/image-20200522153010497.png)  
+![image-20200522153010497](spring.assets/image-20200522153010497.png)
 
-![image-20200522153032013](spring.assets/image-20200522153032013.png)   
-
-
+![image-20200522153032013](spring.assets/image-20200522153032013.png)
 
 ### 6. Maven - Creating a Simple Project - Part 1
 
@@ -10152,19 +9972,9 @@ maven repository
 
 How to Install the m2eclipse Plugin
 
-**How To Install Maven m2eclipse Plugin***
-*
+**How To Install Maven m2eclipse Plugin\***
 
-*Note: Recent releases of Eclipse (Mar, Neon, Oxygen) already have the m2eclipse plugin installed. Only follow these steps if you don't have the plugin installed.*
-
-
-
-
-
-
-
-
-
+- _Note: Recent releases of Eclipse (Mar, Neon, Oxygen) already have the m2eclipse plugin installed. Only follow these steps if you don't have the plugin installed._
 
 \1. In Eclipse, select **Help > Install New Software**
 
@@ -10172,22 +9982,17 @@ This will display the Install dialog
 
 ![img](spring.assets/2017-10-11_07-49-06-02937b3f121d6a285d0b1862dc9bb812.png)
 
-
-\2. Click the **"Add..."** button. 
+\2. Click the **"Add..."** button.
 
 \3. In the dialog, enter the following from the screenshow below:
 
-
-
 ![img](spring.assets/2017-10-11_07-49-43-143c4bd82961735dca348678291a9215.png)
-
 
 \4. Wait for a couple of minutes while Eclipse fetches the files
 
 \5. In the dialog, check the box for **"Maven Integration for Eclipse"**
 
 ![img](spring.assets/2017-10-11_07-49-55-061bcf09ca933979bf28520afaf005c4.png)
-
 
 \6. Click Next
 
@@ -10201,20 +10006,11 @@ This will display the Install dialog
 
 **Verify Installation**
 
-
-
-
-
-
-
-
-
 \10. In Eclipse, select **Help > Install New Software**
 
 \11. In bottom right of dialog, you will see a blue link: **What is already installed?**
 
 ![img](spring.assets/2017-10-11_07-50-08-3050b33745429c345ba5028a12354cc0.png)
-
 
 \12. Click the link
 
@@ -10226,17 +10022,17 @@ This will display the Install dialog
 
 ### 8. Maven - Creating a Simple Project - Part 2
 
-![image-20200522153617536](spring.assets/image-20200522153617536.png)  
+![image-20200522153617536](spring.assets/image-20200522153617536.png)
 
-![image-20200522153708220](spring.assets/image-20200522153708220.png)  
+![image-20200522153708220](spring.assets/image-20200522153708220.png)
 
-![image-20200522153723248](spring.assets/image-20200522153723248.png)  
+![image-20200522153723248](spring.assets/image-20200522153723248.png)
 
 Update 1.5 => 1.8
 
 ### 9. Maven - Creating a Web App Project
 
-![image-20200522153851479](spring.assets/image-20200522153851479.png)  
+![image-20200522153851479](spring.assets/image-20200522153851479.png)
 
 Add if error
 
@@ -10374,7 +10170,7 @@ Import maven project error => fix add : File WORD
 
 ### 5. Spring Security - Project Downloads and Setup
 
-![image-20200521143359071](spring.assets/image-20200521143359071.png)  
+![image-20200521143359071](spring.assets/image-20200521143359071.png)
 
 ### 6. Spring Security - Maven Configuration
 
@@ -10453,8 +10249,8 @@ pom.xml
 				<plugin>
 				    <groupId>org.apache.maven.plugins</groupId>
 				    <artifactId>maven-war-plugin</artifactId>
-				    <version>3.2.0</version>					
-				</plugin>						
+				    <version>3.2.0</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -10463,11 +10259,9 @@ pom.xml
 
 ```
 
-
-
 Nên cần thêm maven plugin
 
-![image-20200521150155478](spring.assets/image-20200521150155478.png)  
+![image-20200521150155478](spring.assets/image-20200521150155478.png)
 
 Xong rồi update maven project
 
@@ -10646,19 +10440,19 @@ pom.xml
 
 		<!-- Spring Security -->
 		<!-- spring-security-web and spring-security-config -->
-		
+
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-web</artifactId>
 		    <version>${springsecurity.version}</version>
 		</dependency>
-		
+
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-config</artifactId>
 		    <version>${springsecurity.version}</version>
-		</dependency>	
-		
+		</dependency>
+
 		<!-- Servlet, JSP and JSTL support -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -10691,15 +10485,15 @@ pom.xml
 
 	<build>
 		<finalName>spring-security-demo</finalName>
-	
+
 		<pluginManagement>
 			<plugins>
 				<plugin>
 					<!-- Add Maven coordinates (GAV) for: maven-war-plugin -->
 				    <groupId>org.apache.maven.plugins</groupId>
 				    <artifactId>maven-war-plugin</artifactId>
-				    <version>3.2.0</version>					
-				</plugin>						
+				    <version>3.2.0</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -10708,8 +10502,6 @@ pom.xml
 </project>
 
 ```
-
-
 
 ### 13. Spring Security - Latest Version.html
 
@@ -10972,7 +10764,6 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
 ![image-20200522163243505](spring.assets/image-20200522163243505.png)
 
-
 ### 16. Spring Security - Create Security Initializer
 
 ### 17. HEADS UP - New Spring Security 5.0.2 - Deprecated method.html
@@ -11007,25 +10798,23 @@ jsp
 
 Xem lai
 Fix error:  
-![](../../root/img/2020-02-05-21-35-04.png)  
+![](spring.assets/2020-02-05-21-35-04.png)  
 Change Context root
-![](../../root/img/2020-02-05-21-35-54.png)
+![](spring.assets/2020-02-05-21-35-54.png)
 
-![](../../root/img/2020-02-05-21-36-47.png)
+![](spring.assets/2020-02-05-21-36-47.png)
 
 ### 2. Spring Security - Dev and Testing with New Private Window
 
 solution-code-spring-security-demo-03-custom-login-form
 
-![](../../root/img/2020-02-05-21-42-08.png)  
+![](spring.assets/2020-02-05-21-42-08.png)
 
 Khi chỉnh sửa nội dung file jsp ấn reload user vẫn log in
 
-![image-20200522164944831](spring.assets/image-20200522164944831.png)  
+![image-20200522164944831](spring.assets/image-20200522164944831.png)
 
-![image-20200522165055495](spring.assets/image-20200522165055495.png)  
-
-
+![image-20200522165055495](spring.assets/image-20200522165055495.png)
 
 Because user login is based on web browser session
 
@@ -11043,9 +10832,9 @@ pdf
 
 ### 5. Spring Security - Spring Config for Custom Login Form
 
-![](../../root/img/2020-02-05-22-21-57.png)
+![](spring.assets/2020-02-05-22-21-57.png)
 
-![](../../root/img/2020-02-05-22-26-20.png)
+![](spring.assets/2020-02-05-22-26-20.png)
 
 DemoSecurityConfig
 
@@ -11192,9 +10981,7 @@ Login fail cannot show error msg
 
 http://luv2code.com/bootstrap-login-template
 
-![image-20200522171039006](spring.assets/image-20200522171039006.png)  
-
-
+![image-20200522171039006](spring.assets/image-20200522171039006.png)
 
 ### 2. Spring Security - Bootstrap CSS Login Form - Adding Form
 
@@ -11381,19 +11168,17 @@ fancy-logout
 ### 2. Spring Security - Viewing CSRF Tokens
 
 F12
-![](../../root/img/2020-02-05-23-56-49.png)
+![](spring.assets/2020-02-05-23-56-49.png)
 
-![](../../root/img/2020-02-05-23-58-15.png)
+![](spring.assets/2020-02-05-23-58-15.png)
 
 ### 3. Spring Security - Manually Adding CSRF Tokens
 
-
-
 F12 to check
 
-![image-20200522171943489](spring.assets/image-20200522171943489.png)  
+![image-20200522171943489](spring.assets/image-20200522171943489.png)
 
-![image-20200522172106777](spring.assets/image-20200522172106777.png)  
+![image-20200522172106777](spring.assets/image-20200522172106777.png)
 
 => error 403
 
@@ -11448,9 +11233,9 @@ home.jsp
 
 ### 2. Spring Security - Displaying User ID and Roles - Write Some Code
 
-![](../../root/img/2020-02-06-00-26-26.png)
+![](spring.assets/2020-02-06-00-26-26.png)
 
-![](../../root/img/2020-02-06-00-27-12.png)
+![](spring.assets/2020-02-06-00-27-12.png)
 
 ### 3. Spring Security - Displaying User ID and Roles - Test the App
 
@@ -11522,7 +11307,7 @@ File: DemoController.java
     public String showLanding() {
         return "landing";
     }
-    
+
     @GetMapping("/employees")
     public String showHome() {
         return "home";
@@ -11921,9 +11706,7 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
 ### 11. Spring Security JDBC - Coding - Test the App
 
-![image-20200522190004325](spring.assets/image-20200522190004325.png)  
-
-
+![image-20200522190004325](spring.assets/image-20200522190004325.png)
 
 ## 55. Spring Security - Password Encryption
 
@@ -11935,29 +11718,26 @@ bcrypt Additional Resources
 
 **bcrypt Additional Resources**
 
+\*---
 
+- \*Why you should use bcrypt to hash passwords
 
-*---
-*
-
-*Why you should use bcrypt to hash passwords
-*
+-
 
 [www.luv2code.com/why-bcrypt](http://www.luv2code.com/why-bcrypt)
 
-*---
-*
+\*---
 
-*Detailed bcrypt algorithm analysis
-*
+- \*Detailed bcrypt algorithm analysis
+
+-
 
 [www.luv2code.com/bcrypt-wiki-page](http://www.luv2code.com/bcrypt-wiki-page)
 
-*---
-*
+\*---
 
-*Password hashing - Best Practices
-*[www.luv2code.com/password-hashing-best-practices](http://www.luv2code.com/password-hashing-best-practices)
+- _Password hashing - Best Practices
+  _[www.luv2code.com/password-hashing-best-practices](http://www.luv2code.com/password-hashing-best-practices)
 
 ### 1.2 Why you should use bcrypt to hash password.html
 
@@ -11969,23 +11749,19 @@ bcrypt Additional Resources
 
 ### 3. Spring Security - Password Encryption - Spring Configuration
 
-### 4. Spring Security - Password Encryption - Setting up   Database Schema
+### 4. Spring Security - Password Encryption - Setting up Database Schema
 
-![image-20200522191555552](spring.assets/image-20200522191555552.png)  
+![image-20200522191555552](spring.assets/image-20200522191555552.png)
 
-![image-20200522191711244](spring.assets/image-20200522191711244.png)  
-
-
+![image-20200522191711244](spring.assets/image-20200522191711244.png)
 
 ### 5. Spring Security - Password Encryption - Bcrypt Configuration
 
 ### 6. Spring Security - Password Encryption - Testing Passwords
 
-![image-20200522191817730](spring.assets/image-20200522191817730.png)   
+![image-20200522191817730](spring.assets/image-20200522191817730.png)
 
-![image-20200522191839382](spring.assets/image-20200522191839382.png)  
-
-
+![image-20200522191839382](spring.assets/image-20200522191839382.png)
 
 ### 7. Bonus Lecture Spring Security - User Registration.html
 
@@ -12001,11 +11777,11 @@ This FAQ includes two questions
 
 **Spring Security - User Registration Form with Custom Database Tables**
 
-*Question:*
+_Question:_
 
 I want to add registration module into spring security login demo application. How should I do this? I want to access registration page from Login page through hyperlink and after submit data into database.
 
-*Answer*
+_Answer_
 
 I have a document that covers this. It performs user registration with custom user details with Spring Security using Hibernate. Custom user details include: user name, password, first name, last name and email. You can feel free to extend it with additional custom fields. Demo includes Hibernate, database support, encrypted passwords. The code uses Maven, all Java config (no xml) Hibernate configuration
 
@@ -12021,19 +11797,17 @@ http://www.luv2code.com/spring-security-user-registration-custom-user-code
 
 **Spring Security and Thymeleaf**
 
-*Question:*
+_Question:_
 
 How would we convert spring-security-user-registration-custom-user-code to use Thymeleaf instead of JSP?
 
-*Answer*
+_Answer_
 
 Here is the source code for this:
 
 \- Non-Spring Boot version: [**bonus-code-spring-security-user-registration-custom-user-details-thymeleaf.zip**](https://drive.google.com/open?id=1ul2Wt9Z0fRyDgKTnII30CZIzvmk55bgJ)
 
 \- Spring Boot version: [**bonus-code-spring-security-user-registration-custom-user-details-thymeleaf-spring-boot.zip**](https://drive.google.com/open?id=1PL4litXj8-fuzKSYqO9btBlhP0-iG6p9)
-
-
 
 Here are some rough notes on the Thymeleaf version:
 
@@ -12043,7 +11817,7 @@ Here are some rough notes on the Thymeleaf version:
 
 A couple of high-level changes
 
-*1. Add the Thymeleaf pom entries*
+_1. Add the Thymeleaf pom entries_
 
 ```xml
 <!-- Thymeleaf core support -->
@@ -12052,7 +11826,7 @@ A couple of high-level changes
 	<artifactId>thymeleaf-spring5</artifactId>
 	<version>3.0.11.RELEASE</version>
 </dependency>
- 
+
 <!-- Thymeleaf security support -->
 <dependency>
 	<groupId>org.thymeleaf.extras</groupId>
@@ -12061,15 +11835,11 @@ A couple of high-level changes
 </dependency>
 ```
 
-
-
-*2. Configure Thymeleaf engine and resolvers.*
+_2. Configure Thymeleaf engine and resolvers._
 
 See code example in: DemoAppConfig.java
 
-
-
-*3. Create Thymeleaf views*
+_3. Create Thymeleaf views_
 
 See code examples in: webapp/WEB-INF/views
 
@@ -12077,11 +11847,11 @@ See code examples in: webapp/WEB-INF/views
 
 **Spring Security - Select User Roles using Drop-Down List**
 
-*Question*
+_Question_
 
 In the Spring Security Registration example, what if I don't want to set Role default as Employee? Instead I want to take roles from user through registration page using dropdown list. Then I want to store role data in role table and user data in user table. How can I achieve this?
 
-*Answer*
+_Answer_
 
 I have a solution that covers this scenario. This includes PDF description and source code.
 
@@ -12211,7 +11981,7 @@ public class Driver {
 
 Will ignore json properties unknown
 
-![](../../root/img/2020-02-07-21-15-12.png)
+![](spring.assets/2020-02-07-21-15-12.png)
 
 ## 58. Spring REST - Create a Spring REST Controller
 
@@ -12232,11 +12002,7 @@ config
 
 ![img](spring.assets/image-1589968592909.png)
 
-
-
 ![img](spring.assets/image-1589968593277.png)
-
-
 
 ![img](spring.assets/image-1589968593278.png)
 
@@ -12245,8 +12011,6 @@ Edit jdk
 Change url
 
 ![img](spring.assets/image.png)
-
-
 
 ### 5. Spring REST - REST Controller Demo - Set Up Maven Project
 
@@ -12575,9 +12339,9 @@ public class StudentErrorResponse {
 
 ### 4. Spring REST - Exception Handling - Update REST Service to throw Exception
 
-![](../../root/img/2020-02-10-00-47-24.png)
+![](spring.assets/2020-02-10-00-47-24.png)
 
-![](../../root/img/2020-02-10-00-47-59.png)
+![](spring.assets/2020-02-10-00-47-59.png)
 
 ### 5. Spring REST - Exception Handling - Add Exception Handler with @ExceptionHandler
 
@@ -12649,7 +12413,7 @@ public class StudentNotFoundException extends RuntimeException {
 
 ### 7. Spring REST - Exception Handling - Adding Generic Exception Handler
 
-Nhap id la String lỗi 
+Nhap id la String lỗi
 
 ![image-20200520175456680](spring.assets/image-20200520175456680.png)
 
@@ -13096,7 +12860,7 @@ public class CustomerErrorResponse {
 
 ### 2. Spring REST - CRUD Database Real-Time Project - Exception Handling - Refactor
 
-![](../../root/img/2020-02-10-20-36-24.png)
+![](spring.assets/2020-02-10-20-36-24.png)
 
 ```java
 package com.luv2code.springdemo.rest;
@@ -13305,13 +13069,9 @@ We cover this functionality in the following PDF document.
 
 PDF: http://www.luv2code.com/crm-web-app-rest-client-demo-pdf
 
-
-
 Also the full source code is available for download
 
 Source Code: http://www.luv2code.com/crm-web-app-rest-client-demo-code
-
-
 
 Enjoy!!!
 
@@ -13326,9 +13086,9 @@ Enjoy!!!
 ### 2. Spring Boot - Creating a Project with Spring Boot Initializr
 
 Avoid SNAPSHOT version
-![](../../root/img/2020-02-10-22-08-21.png)
+![](spring.assets/2020-02-10-22-08-21.png)
 
-![](../../root/img/2020-02-10-22-10-10.png)
+![](spring.assets/2020-02-10-22-10-10.png)
 
 ### 3. Spring Boot - Developing a REST API Controller with Spring Boot
 
@@ -13405,9 +13165,9 @@ Controller
 
 xem lai
 
-![image-20200520231338524](spring.assets/image-20200520231338524.png)  
+![image-20200520231338524](spring.assets/image-20200520231338524.png)
 
-![image-20200520231412155](spring.assets/image-20200520231412155.png)  
+![image-20200520231412155](spring.assets/image-20200520231412155.png)
 
 ![image-20200520231429946](spring.assets/image-20200520231429946.png)
 
@@ -13417,16 +13177,14 @@ xem lai
 
 ### 1. Spring Boot - Running Spring Boot Apps from the Command Line - Overview
 
-![](../../root/img/2020-02-11-00-22-39.png)  
+![](spring.assets/2020-02-11-00-22-39.png)  
 Jar is created in target sub-directory
 
 `java -jar abc.jar`
 
-![image-20200522230555482](spring.assets/image-20200522230555482.png)  
+![image-20200522230555482](spring.assets/image-20200522230555482.png)
 
-
-
-![](../../root/img/2020-02-11-00-25-51.png)
+![](spring.assets/2020-02-11-00-25-51.png)
 
 ### 2. Spring Boot - Running Spring Boot Apps from the Command Line - Coding
 
@@ -13439,9 +13197,7 @@ luv2code.com/spring-boot-employee-sql-script
 
 ### 2. Spring Boot - Configuring the Spring Boot Server
 
-![image-20200522230800896](spring.assets/image-20200522230800896.png)  
-
-
+![image-20200522230800896](spring.assets/image-20200522230800896.png)
 
 ![image-20200520235223391](spring.assets/image-20200520235223391.png)
 
@@ -13449,9 +13205,9 @@ luv2code.com/spring-boot-employee-sql-script
 
 ### 1. Spring Boot - REST CRUD Real-Time Project Overview and Database Set Up
 
-![](../../root/img/2020-02-11-00-40-14.png)  
+![](spring.assets/2020-02-11-00-40-14.png)
 
-![image-20200521010647659](spring.assets/image-20200521010647659.png)  
+![image-20200521010647659](spring.assets/image-20200521010647659.png)
 
 ```sql
 CREATE DATABASE  IF NOT EXISTS `employee_directory`;
@@ -13475,7 +13231,7 @@ CREATE TABLE `employee` (
 -- Data for table `employee`
 --
 
-INSERT INTO `employee` VALUES 
+INSERT INTO `employee` VALUES
 	(1,'Leslie','Andrews','leslie@luv2code.com'),
 	(2,'Emma','Baumgarten','emma@luv2code.com'),
 	(3,'Avani','Gupta','avani@luv2code.com'),
@@ -13485,9 +13241,7 @@ INSERT INTO `employee` VALUES
 
 ```
 
-![image-20200521010930455](spring.assets/image-20200521010930455.png)  
-
-
+![image-20200521010930455](spring.assets/image-20200521010930455.png)
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -13774,11 +13528,11 @@ update DAO
 
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
-		
+
 		// get the employee
 		Employee theEmployee =
 				currentSession.get(Employee.class, theId);
-		
+
 		// return the employee
 		return theEmployee;
 	}
@@ -13789,7 +13543,7 @@ update DAO
 
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
-		
+
 		// save employee
 		currentSession.saveOrUpdate(theEmployee);
 	}
@@ -13797,21 +13551,19 @@ update DAO
 
 	@Override
 	public void deleteById(int theId) {
-		
+
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
-				
+
 		// delete object with primary key
-		Query theQuery = 
+		Query theQuery =
 				currentSession.createQuery(
 						"delete from Employee where id=:employeeId");
 		theQuery.setParameter("employeeId", theId);
-		
+
 		theQuery.executeUpdate();
 	}
 ```
-
-
 
 ### 8. Spring Boot - Refactoring the Code to use a Service Layer
 
@@ -13832,12 +13584,12 @@ import com.luv2code.springboot.cruddemo.entity.Employee;
 public class EmployeeServiceImpl implements EmployeeService {
 
 	private EmployeeDAO employeeDAO;
-	
+
 	@Autowired
 	public EmployeeServiceImpl(EmployeeDAO theEmployeeDAO) {
 		employeeDAO = theEmployeeDAO;
 	}
-	
+
 	@Override
 	@Transactional
 	public List<Employee> findAll() {
@@ -14030,9 +13782,7 @@ Fix
 
 Tại service xóa @Transactional
 
-![image-20200521091725671](spring.assets/image-20200521091725671.png)  
-
-
+![image-20200521091725671](spring.assets/image-20200521091725671.png)
 
 ```java
 package com.luv2code.springboot.cruddemo.dao;
@@ -14055,9 +13805,9 @@ Service
 @Override
 	public Employee findById(int theId) {
 		Optional<Employee> result = employeeRepository.findById(theId);
-		
+
 		Employee theEmployee = null;
-		
+
 		if (result.isPresent()) {
 			theEmployee = result.get();
 		}
@@ -14065,13 +13815,12 @@ Service
 			// we didn't find the employee
 			throw new RuntimeException("Did not find employee id - " + theId);
 		}
-		
+
 		return theEmployee;
 	}
 ```
 
 ![image-20200521092501155](spring.assets/image-20200521092501155.png)
-
 
 ### 3. Spring Boot - Testing the REST API with Spring Data JPA Repository
 
@@ -14273,7 +14022,7 @@ spring.data.rest.default-page-size=20
 
 ### 2. Spring Boot - Thymeleaf Helloworld - Create a Thymeleaf App
 
-![](../../root/img/2020-02-11-21-32-05.png)
+![](spring.assets/2020-02-11-21-32-05.png)
 
 Controller
 
@@ -14390,7 +14139,7 @@ public class EmployeeController {
 
 ### 2. Spring Boot - Thymeleaf - Build HTML Tables - Write Some Code
 
-![](../../root/img/2020-02-11-21-40-44.png)
+![](spring.assets/2020-02-11-21-40-44.png)
 list-employees.html
 
 ```html
@@ -14450,7 +14199,7 @@ list-employees.html
 
 pom.xml
 
-![](../../root/img/2020-02-11-21-42-43.png)
+![](spring.assets/2020-02-11-21-42-43.png)
 
 Maven update project
 
@@ -14462,7 +14211,7 @@ add file index.html
 <meta http-equiv="refresh" content="0; URL='employees/list'" />
 ```
 
-![](../../root/img/2020-02-11-21-47-02.png)
+![](spring.assets/2020-02-11-21-47-02.png)
 
 ### 3. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Add Employee - Part 1
 
@@ -14573,11 +14322,11 @@ form
 
 ### 5. Spring Boot - Thymeleaf - CRUD Database Real-Time Project Add Employee - Part 3
 
-![](../../root/img/2020-02-11-22-05-04.png)
+![](spring.assets/2020-02-11-22-05-04.png)
 
-![](../../root/img/2020-02-11-22-05-49.png)
+![](spring.assets/2020-02-11-22-05-49.png)
 
-![](../../root/img/2020-02-11-22-06-40.png)
+![](spring.assets/2020-02-11-22-06-40.png)
 
 Get list sort by last name
 
@@ -14593,11 +14342,7 @@ Get list sort by last name
 
 **Spring Security - Login/Logout with Spring Boot and Thymeleaf**
 
-
-
 FAQ: Can you provide a code example of performing Spring Security login/logout with Spring Boot and Thymeleaf?
-
-
 
 Answer:
 
@@ -14607,8 +14352,6 @@ Yes, here are code examples of Spring Security login/logout. I've extended the E
 
 ![img](spring.assets/2019-09-30_01-19-04-6e189492f36363979de5add9f67feea9.png)
 
-
-
 **Source Code**
 
 Two versions of the source are available.
@@ -14617,31 +14360,19 @@ Version 1: In-Memory Authentication
 
 [bonus-thymeleafdemo-employees-security-with-in-memory-authentication.zip](https://drive.google.com/open?id=1ga5TC3DhGJA98dGRpuGrxuo6jTu_542A)
 
-
-
 Version 2: JDBC Authentication with Encrypted Passwords
 
 [bonus-thymeleafdemo-employees-security-with-jdbc-authentication.zip](https://drive.google.com/open?id=1d84g3Dj3Vks7aTe23M--l2k7LT6cgJO0)
 
-
-
 Each project has a README.txt file. View this file for a high-level discussion of the source code.
 
-
-
 Enjoy :-)
-
-
 
 Bonus Lecture - Security - User Registration with Spring Boot and Thymeleaf
 
 **Spring Security - Custom User Registration with Spring Boot and Thymeleaf**
 
-
-
 FAQ: Can you provide an example of user registration with Spring Boot and Thymeleaf? Also, how can we add support for additional fields such as email etc. Can we also store the information in the database using Hibernate?
-
-
 
 Answer:
 
@@ -14649,25 +14380,15 @@ Yes, I have a code example for this scenario. Here's a screenshot of the registr
 
 ![img](spring.assets/2019-09-30_01-37-01-37b6f7fa00ab0c1db7bf63a6ba2db623.png)
 
-
-
 **Source Code:**
 
 [**bonus-code-spring-security-user-registration-custom-user-details-thymeleaf-spring-boot.zip**](https://drive.google.com/open?id=1PL4litXj8-fuzKSYqO9btBlhP0-iG6p9)
-
-
 
 The project includes a README.txt file. See this file for a high-level discussion of the code.
 
 This code is also based on a previous bonus lecture from the Security section. Please see this lecture for full details: [Spring Security - User Registration](https://www.udemy.com/course/spring-hibernate-tutorial/learn/lecture/9552122).
 
-
-
 Enjoy!
-
-
-
-
 
 ## 81. Summary
 
@@ -14679,33 +14400,21 @@ Direct Links to My Java Courses
 
 **DIRECT LINKS TO MY JAVA COURSES**
 
-
-
 [**Full Stack: Angular and Spring Boot**](https://www.udemy.com/course/full-stack-angular-spring-boot-tutorial/?referralCode=2264F90C65A86316BB6B)
 
 ![img](spring.assets/2020-02-23_00-42-08-ad878b5b437699b8676f4e8822dd60bd.png)
-
-
 
 [**Hibernate: Advanced Development Techniques**](https://www.udemy.com/course/hibernate-tutorial-advanced/?referralCode=6FB9E2BA9AF54A4C9E69)
 
 ![img](spring.assets/2020-02-23_00-43-12-fbaa112455b8c2be0a836b2531cbdf32.png)
 
-
-
 [**Deploy Java Spring Apps Online to Amazon Cloud (AWS)**](https://www.udemy.com/course/deploy-java-spring-apps-online/?referralCode=8657A7587B731C9A2BFD)
 
 ![img](spring.assets/2019-06-03_15-14-35-c1e6d2e2f71748024ad39cbfbe4845df.png)
 
-
-
 [**JSP and Servlets for Beginners**](https://www.udemy.com/course/jsp-tutorial/?referralCode=6027B0CEC877AB05F5A2)
 
 ![img](spring.assets/jsp-servlet-tutorial-thumbnail-2017-small.png)
-
-
-
-
 
 [**Java Server Faces (JSF) for Beginners**](https://www.udemy.com/course/jsf-tutorial/?referralCode=CE9890BB044B1AA40810)
 
@@ -14716,8 +14425,6 @@ Direct Links to My Java Courses
 ### 1. FAQ Spring Student Questions.html
 
 FAQ: Spring Student Questions
-
-
 
 **Congrats for finishing the course.**
 
@@ -14764,13 +14471,13 @@ Here are some sample Spring projects you can look at.
 
 They are of moderate size complexity
 
-**Project Sagan** 
+**Project Sagan**
 
 This is a real-world app that powers the Spring.io website. It is in production and used by thousands of users each day.
 
 You can get information about the project and get source code here: - https://github.com/spring-io/sagan/wiki
 
-​     \---
+​ \---
 
 **Spring Petstore Example**
 
@@ -14805,7 +14512,7 @@ and perform your own research on those courses. I am not involved in any of thos
 
 Here's a free guide that walks you through the steps:
 
-***The Ultimate Guide to Hosting a Java Web App with Amazon Web Services (AWS)\*** http://coderscampus.com/ultimate-guide-hosting-java-web-app-amazon-web-services-aws/
+**\*The Ultimate Guide to Hosting a Java Web App with Amazon Web Services (AWS)\*** http://coderscampus.com/ultimate-guide-hosting-java-web-app-amazon-web-services-aws/
 
 =====
 
@@ -14862,11 +14569,11 @@ Note, simply using the POST method does not add secure encryption. The data is s
 
 See this link:
 
-***Is either GET or POST more secure than the other?\***
+**\*Is either GET or POST more secure than the other?\***
 
 https://stackoverflow.com/questions/198462/is-either-get-or-post-more-secure-than-the-other
 
-\--- 
+\---
 
 You can use SSL for enterprise-grade network security and encryption.
 
@@ -14928,15 +14635,15 @@ public class HelloWorldController {
 and a simple JSP page: hello.jsp
 
     <html><body>
-    
+
     <p>
     Hello World! Time is <%= new java.util.Date() %>
     </p>
-    
+
     <p>
     We are running on  <%= application.getServerInfo() %>!!!
     </p>
-    
+
     </body></html>
 
 ---
@@ -14967,7 +14674,7 @@ public class DemowebApplication extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
     	return application.sources(DemowebApplication.class);
     }
-    
+
     public static void main(String[] args) {
     	SpringApplication.run(DemowebApplication.class, args);
     }
